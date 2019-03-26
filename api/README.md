@@ -1,2 +1,2 @@
 # Project-PixBlocks-Addition
-Projekt inżynierski 
+ReadMe zawierające informacje na temat back-endowej części projektu.
