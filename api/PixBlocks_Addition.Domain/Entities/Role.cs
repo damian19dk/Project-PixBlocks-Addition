@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    class Role
+    public class Role
     {
         public Role()
         {
