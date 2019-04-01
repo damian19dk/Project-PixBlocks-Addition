@@ -22,9 +22,15 @@ namespace PixBlocks_Addition.Domain.Entities
         public int Role { get; protected set; }
         public bool Is_premium { get; protected set; }
         
-        public User()
+        public User() {}
+        
+        public User(Guid id, string login, string e_mail, string password, string salt)
         {
-
+            Id = id;
+            SetLogin(login);
+            SetEmail(e_mail);
+            SetPassword(password, salt);
+            Is_premium = false;
         }
 
         public void SetLogin(string login)
@@ -36,7 +42,7 @@ namespace PixBlocks_Addition.Domain.Entities
             Login = login;
         }
 
-        public void SetPassword(string password)
+        public void SetPassword(string password, string salt)
         {
             if (string.IsNullOrWhiteSpace(password)) throw new Exception();
             if (password.Length < 6) throw new Exception();
@@ -55,5 +61,12 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             Is_premium = premium;
         }
+
+        public void SetEmail(string mail)
+        {
+            if (!regex_mail.IsMatch(mail)) throw new Exception();
+            E_mail = mail;
+        }
+
     }
 }
