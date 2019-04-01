@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PixBlocks_Addition.Api.Framework;
 using PixBlocks_Addition.Infrastructure.Models;
 using PixBlocks_Addition.Infrastructure.Services;
 
@@ -37,6 +38,7 @@ namespace PixBlocks_Addition.Api
 
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddTransient<CancellationTokenMiddleware>();
             services.AddTransient<ICancellationTokenService, CancellationTokenService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
@@ -54,6 +56,7 @@ namespace PixBlocks_Addition.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<CancellationTokenMiddleware>();
             app.UseMvc();
         }
     }
