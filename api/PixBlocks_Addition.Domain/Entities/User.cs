@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    [Table("Users", Schema = "dbo")]
     public class User
     {
         private static readonly Regex regex_login = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
@@ -19,16 +18,19 @@ namespace PixBlocks_Addition.Domain.Entities
         public string E_mail { get; protected set; }
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
-        public int Role { get; protected set; }
+        public int RoleId { get; protected set; }
         public bool Is_premium { get; protected set; }
-        
-        public User() {}
-        
-        public User(Guid id, string login, string e_mail, string password, string salt)
+
+        public virtual Role Role { get; protected set; }
+
+        public User() { }
+
+        public User(Guid id, string login, string e_mail, string password, Role role, string salt)
         {
             Id = id;
             SetLogin(login);
             SetEmail(e_mail);
+            SetRole(role);
             SetPassword(password, salt);
             Is_premium = false;
         }
@@ -62,6 +64,10 @@ namespace PixBlocks_Addition.Domain.Entities
             Is_premium = premium;
         }
 
+        public void SetRole(Role role)
+        {
+            RoleId = role.Id;
+        }
         public void SetEmail(string mail)
         {
             if (!regex_mail.IsMatch(mail)) throw new Exception();
