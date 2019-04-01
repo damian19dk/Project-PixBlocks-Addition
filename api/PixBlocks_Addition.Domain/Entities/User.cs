@@ -13,7 +13,7 @@ namespace PixBlocks_Addition.Domain.Entities
         private static readonly Regex regex_mail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
 
-        public Guid Id { get; protected set; }
+        public int Id { get; protected set; }
         public string Login { get; protected set; }
         public string E_mail { get; protected set; }
         public string Password { get; protected set; }
