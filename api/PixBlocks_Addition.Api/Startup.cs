@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Infrastructure.Services;
 
 namespace PixBlocks_Addition.Api
 {
@@ -26,6 +28,14 @@ namespace PixBlocks_Addition.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var jwtSection = Configuration.GetSection("jwt");
+            services.Configure<JwtOptions>(jwtSection);
+            var jwtOptions = new JwtOptions();
+            jwtSection.Bind(jwtOptions);
+
+            services.AddOptions();
+            services.AddSingleton<IJwtHandler, JwtHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
