@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using PixBlocks_Addition.Api.Framework;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Infrastructure.Repositories;
 using PixBlocks_Addition.Infrastructure.Services;
 
 namespace PixBlocks_Addition.Api
@@ -36,8 +41,22 @@ namespace PixBlocks_Addition.Api
             var jwtOptions = new JwtOptions();
             jwtSection.Bind(jwtOptions);
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(c =>
+                {
+                    c.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidateLifetime = jwtOptions.ValidateLifetime
+                    };
+                });
+
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<IIdentityService, IdentityService>();
             services.AddTransient<CancellationTokenMiddleware>();
             services.AddTransient<ICancellationTokenService, CancellationTokenService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -56,6 +75,7 @@ namespace PixBlocks_Addition.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMiddleware<CancellationTokenMiddleware>();
             app.UseMvc();
         }
