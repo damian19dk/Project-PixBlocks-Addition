@@ -23,7 +23,7 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public virtual Role Role { get; protected set; }
 
-        public User() { }
+        protected User() { }
 
         public User(Guid id, string login, string e_mail, string password, Role role, string salt)
         {

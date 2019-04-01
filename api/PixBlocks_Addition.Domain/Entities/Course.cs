@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    class Course
+    public class Course
     {
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
