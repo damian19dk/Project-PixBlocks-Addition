@@ -10,7 +10,8 @@ namespace PixBlocks_Addition.Domain.Repositories
     {
         DbSet<User> Users { get; set; }
         DbSet<Role> Roles { get; set; }
-
+        DbSet<Course> Courses { get; set; }
+        DbSet<Video> Videos { get; set; }
 
         int SaveChanges();
     }
