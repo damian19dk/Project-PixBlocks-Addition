@@ -5,7 +5,7 @@ using PixBlocks_Addition.Domain.Entities;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
-    public interface IDBCourseRepository
+    public interface ICourseRepository
     {
         Course Get(int id);
         Course Get(string name);
