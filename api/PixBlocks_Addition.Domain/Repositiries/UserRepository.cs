@@ -24,7 +24,7 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<User> GetAsync(Guid id)
         {
-            await _entities.
+           // await _entities;
         }
 
         public Task<User> GetAsync(string login)

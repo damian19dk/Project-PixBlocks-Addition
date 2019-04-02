@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixBlocks_Addition.Domain", "PixBlocks_Addition.Domain\PixBlocks_Addition.Domain.csproj", "{280E2370-7A24-4891-B026-B228E8A8FBBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixBlocks_Addition.Domain", "PixBlocks_Addition.Domain\PixBlocks_Addition.Domain.csproj", "{280E2370-7A24-4891-B026-B228E8A8FBBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixBlocks_Addition.Infrastructure", "PixBlocks_Addition.Infrastructure\PixBlocks_Addition.Infrastructure.csproj", "{8FD3E6E4-1716-4C5C-B8AC-E49F64545176}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixBlocks_Addition.Infrastructure", "PixBlocks_Addition.Infrastructure\PixBlocks_Addition.Infrastructure.csproj", "{8FD3E6E4-1716-4C5C-B8AC-E49F64545176}"
 	ProjectSection(ProjectDependencies) = postProject
 		{280E2370-7A24-4891-B026-B228E8A8FBBA} = {280E2370-7A24-4891-B026-B228E8A8FBBA}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixBlocks_Addition.Api", "PixBlocks_Addition.Api\PixBlocks_Addition.Api.csproj", "{C56240AD-DED6-45AA-88E9-6C9D8395B9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixBlocks_Addition.Api", "PixBlocks_Addition.Api\PixBlocks_Addition.Api.csproj", "{C56240AD-DED6-45AA-88E9-6C9D8395B9B2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{280E2370-7A24-4891-B026-B228E8A8FBBA} = {280E2370-7A24-4891-B026-B228E8A8FBBA}
 		{8FD3E6E4-1716-4C5C-B8AC-E49F64545176} = {8FD3E6E4-1716-4C5C-B8AC-E49F64545176}
