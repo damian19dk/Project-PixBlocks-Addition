@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PixBlocks_Addition.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Entities;
 
@@ -24,12 +25,12 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<User> GetAsync(Guid id)
         {
-           // await _entities;
+            return await (from u in _entities.Users select u).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<User> GetAsync(string login)
+        public async Task<User> GetAsync(string login)
         {
-            throw new NotImplementedException();
+            return await(from u in _entities.Users select u).Where(x => x.Login == login).FirstOrDefaultAsync();
         }
 
         public Task<bool> IsEmailUnique(string email)
