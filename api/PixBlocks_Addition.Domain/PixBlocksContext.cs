@@ -7,7 +7,7 @@ using PixBlocks_Addition.Domain.Repositories;
 
 namespace PixBlocks_Addition.Domain
 {
-    public class PixBlocksContext:DbContext
+    public class PixBlocksContext:DbContext, IEntities
     {
         public PixBlocksContext(DbContextOptions<PixBlocksContext> options) : base(options)
         {
