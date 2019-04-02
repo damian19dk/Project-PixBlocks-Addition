@@ -6,9 +6,9 @@ namespace PixBlocks_Addition.Domain.Entities
 {
     public class History
     {
-        public int Id { get; protected set; }
-        public int UserId { get; protected set; }
-        public int CourseId { get; protected set; }
+        public Guid Id { get; protected set; }
+        public Guid UserId { get; protected set; }
+        public Guid CourseId { get; protected set; }
 
         public virtual Course Course { get; protected set; }
         public virtual User User { get; protected set; }
