@@ -9,10 +9,10 @@ namespace PixBlocks_Addition.Domain.Repositories
     public interface ICategoryRepository
     {
         Task AddAsync(Category category);
-        Task<Category> GetAsync(Guid id);
+        Task<Category> GetAsync(int id);
         Task<Category> GetAsync(string name);
         Task<IEnumerable<Category>> GetAllAsync();
-        Task RemoveAsync(Guid id);
+        Task RemoveAsync(int id);
         Task RemoveAsync(string name);
     }
 }

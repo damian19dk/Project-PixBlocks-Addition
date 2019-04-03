@@ -6,7 +6,7 @@ namespace PixBlocks_Addition.Domain.Entities
 {
     public class Category
     {
-        public Guid Id { get; protected set; }
+        public int Id { get; protected set; }
         public int CourseId { get; protected set; }
         public string Name { get; protected set; }
 

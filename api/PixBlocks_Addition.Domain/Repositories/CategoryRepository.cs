@@ -14,7 +14,7 @@ namespace PixBlocks_Addition.Domain.Repositories
         {
             _entities = entities;
         }
-        public async Task<Category> GetAsync(Guid id) => await _entities.Categories.SingleOrDefaultAsync(x => x.Id == id);
+        public async Task<Category> GetAsync(int id) => await _entities.Categories.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<Category> GetAsync(string name) => await _entities.Categories.SingleOrDefaultAsync(x => x.Name == name);
 
@@ -33,7 +33,7 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
-        public async Task RemoveAsync(Guid id)
+        public async Task RemoveAsync(int id)
         {
             var category = await GetAsync(id);
             _entities.Categories.Remove(category);

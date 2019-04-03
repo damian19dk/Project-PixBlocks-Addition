@@ -9,8 +9,8 @@ namespace PixBlocks_Addition.Domain.Entities
     /// </summary>
     public class Video
     {
-        public int Id { get; protected set; }
-        public int CourseId { get; protected set; }
+        public Guid Id { get; protected set; }
+        public Guid CourseId { get; protected set; }
         public string VideoSrc { get; protected set; }
 
         public virtual Course Course { get; protected set; }
