@@ -32,7 +32,7 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<JwtDto> Login(LoginModel login)
+        public async Task<JwtDto> Login([FromBody]LoginModel login)
         {
             return await _identityService.Login(login.Username, login.Password);
         }
