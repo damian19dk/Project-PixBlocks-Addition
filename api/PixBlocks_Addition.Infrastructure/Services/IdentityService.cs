@@ -1,4 +1,5 @@
-﻿using PixBlocks_Addition.Domain.Repositories;
+﻿using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.Models;
 using PixBlocks_Addition.Infrastructure.Repositories;
@@ -35,13 +36,20 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("Invalid credentials.");
             }
-            var jwt = _jwtHandler.Create(user.UserId, username, "User");
-            var refreshToken = Guid.NewGuid().ToString()
+            var jwt = _jwtHandler.Create(user.UserId, username, user.Role);
+            var refreshToken = await _refreshTokens.GetByUserIdAsync(user.UserId);
+            string token = "";
+            if (refreshToken == null)
+            {
+                token = Guid.NewGuid().ToString()
                 .Replace("+", string.Empty)
                 .Replace("=", string.Empty)
                 .Replace("/", string.Empty);
-            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = refreshToken };
-            await _refreshTokens.AddAsync(new RefreshToken { Username = username, Token = refreshToken });
+                await _refreshTokens.AddAsync(new RefreshToken(user, token));
+            }
+            else
+                token = refreshToken.Token;
+            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token};
 
             return jwtDto;
         }
@@ -57,7 +65,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("Refresh token was revoked");
             }
-            var user = await _userRepository.GetAsync(token.Username);
+            var user = await _userRepository.GetAsync(token.UserId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -79,7 +87,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("Refresh token was already revoked.");
             }
-            token.Revoked = true;
+            token.Revoke();
+            await _refreshTokens.UpdateAsync();
         }
     }
 }

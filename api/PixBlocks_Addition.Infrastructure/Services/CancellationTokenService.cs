@@ -2,11 +2,9 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Infrastructure.Settings;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services

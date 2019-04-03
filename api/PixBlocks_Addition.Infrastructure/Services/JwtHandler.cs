@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using PixBlocks_Addition.Infrastructure.Extentions;
 using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Infrastructure.Settings;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

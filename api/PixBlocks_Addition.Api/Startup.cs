@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PixBlocks_Addition.Api.Framework;
+using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Repositories;
-using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Domain.Settings;
 using PixBlocks_Addition.Infrastructure.Repositories;
 using PixBlocks_Addition.Infrastructure.Services;
+using PixBlocks_Addition.Infrastructure.Settings;
 
 namespace PixBlocks_Addition.Api
 {
@@ -36,11 +31,20 @@ namespace PixBlocks_Addition.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            var sqlSection = Configuration.GetSection("sql");
+            services.Configure<SqlSettings>(sqlSection);
+            var sqlSettings = new SqlSettings();
+            sqlSection.Bind(sqlSettings);
+
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<PixBlocksContext>()
+                .AddDbContext<RefreshTokenContext>();
+
             var jwtSection = Configuration.GetSection("jwt");
             services.Configure<JwtOptions>(jwtSection);
             var jwtOptions = new JwtOptions();
             jwtSection.Bind(jwtOptions);
-
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(c =>
                 {
@@ -48,10 +52,13 @@ namespace PixBlocks_Addition.Api
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
                         ValidIssuer = jwtOptions.Issuer,
+                        ValidateAudience = false,
                         ValidateLifetime = jwtOptions.ValidateLifetime
                     };
                 });
 
+            services.AddAuthorization(p => p.AddPolicy("admin", x => x.RequireRole("Admin")));
+            
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -73,7 +80,6 @@ namespace PixBlocks_Addition.Api
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMiddleware<CancellationTokenMiddleware>();
