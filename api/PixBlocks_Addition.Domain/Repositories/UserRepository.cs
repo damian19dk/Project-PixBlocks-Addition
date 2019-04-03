@@ -23,22 +23,14 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.Users.AddAsync(user);
         }
 
-        public async Task<User> GetAsync(Guid id)
-        {
-            return await (from u in _entities.Users select u).Where(x => x.Id == id).FirstOrDefaultAsync();
-        }
+        public async Task<User> GetAsync(Guid id) => await _entities.Users.SingleOrDefaultAsync(x => x.Id == id);
 
-        public async Task<User> GetAsync(string login)
-        {
-            return await(from u in _entities.Users select u).Where(x => x.Login == login).FirstOrDefaultAsync();
-        }
+        public async Task<User> GetAsync(string login) => await _entities.Users.SingleOrDefaultAsync(x => x.Login == login);
 
-        public Task<bool> IsEmailUnique(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(User user)
+        public async Task<bool> IsEmailUnique(string email) => await _entities.Users.AnyAsync(x => x.E_mail == email);
+            
+                                               
+        public async Task UpdateAsync(User user)
         {
             throw new NotImplementedException();
         }
