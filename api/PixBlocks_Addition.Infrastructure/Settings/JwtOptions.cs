@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PixBlocks_Addition.Infrastructure.Models
+namespace PixBlocks_Addition.Infrastructure.Settings
 {
     public class JwtOptions
     {
