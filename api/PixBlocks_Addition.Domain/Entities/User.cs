@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixBlocks_Addition.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,19 +21,20 @@ namespace PixBlocks_Addition.Domain.Entities
         public string Salt { get; protected set; }
         public int RoleId { get; protected set; }
         public bool Is_premium { get; protected set; }
+      
         public int Status { get; protected set; }
 
         public virtual Role Role { get; protected set; }
 
         protected User() { }
-
-        public User(Guid id, string login, string e_mail, int status, string password, Role role, string salt)
+      
+        public User(Guid id, string login, string e_mail, string password, Role role, IEncrypter encrypter)
         {
             Id = id;
             SetLogin(login);
             SetEmail(e_mail);
             SetRole(role);
-            SetPassword(password, salt);
+            SetPassword(password, encrypter);
             Is_premium = false;
         }
 
@@ -45,19 +47,16 @@ namespace PixBlocks_Addition.Domain.Entities
             Login = login;
         }
 
-        public void SetPassword(string password, string salt)
+        public void SetPassword(string password, IEncrypter encrypter)
         {
             if (string.IsNullOrWhiteSpace(password)) throw new Exception();
             if (password.Length < 6) throw new Exception();
             if (password.Length > 20) throw new Exception();
-            //string salt = encrypter.GetSalt(password);
-            //string hash = encrypter.GetHash(password, salt);
+            string salt = encrypter.GetSalt(password);
+            string hash = encrypter.GetHash(password, salt);
 
-            //Password = hash;
-            //Salt = salt
-
-            Password = password;
-            Salt = password;
+            Password = hash;
+            Salt = salt
         }
         
         public void SetPremium(bool premium)
@@ -79,6 +78,5 @@ namespace PixBlocks_Addition.Domain.Entities
             if (status == 1 || status == 0) Status = status;
             else throw new Exception();
         }
-
     }
 }
