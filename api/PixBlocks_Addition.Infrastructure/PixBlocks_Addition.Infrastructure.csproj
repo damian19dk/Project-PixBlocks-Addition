@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PixBlocks_Addition.Domain\PixBlocks_Addition.Domain.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <ProjectReference Include="..\PixBlocks_Addition.Domain\PixBlocks_Addition.Domain.csproj" />
   </ItemGroup>
 </Project>
