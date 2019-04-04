@@ -1,48 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PixBlocks_Addition.Domain.Entities;
-using System.Linq;
+using PixBlocks_Addition.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using PixBlocks_Addition.Domain.Contexts;
+using PixBlocks_Addition.Domain.Entities;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly PixBlocksContext _context;
-        public UserRepository(PixBlocksContext context)
+
+        private readonly PixBlocksContext _entities;
+        public UserRepository(PixBlocksContext entities)
         {
-            _context = context;
+            _entities = entities;
         }
 
         public async Task AddAsync(User user)
         {
-            if (user.UserId == Guid.Empty)
-                user.UserId = Guid.NewGuid();
-           await _context.Users.AddAsync(user);
-           await _context.SaveChangesAsync();
+            await _entities.Users.AddAsync(user);
+            await _entities.SaveChangesAsync();
         }
 
-        public async Task<User> GetAsync(Guid id)
+        public async Task<User> GetAsync(Guid id) => await _entities.Users.SingleOrDefaultAsync(x => x.Id == id);
+
+        public async Task<User> GetAsync(string login) => await _entities.Users.SingleOrDefaultAsync(x => x.Login == login);
+
+        public async Task<IEnumerable<User>> GetAllAsync() => await _entities.Users.ToListAsync();
+
+        public async Task RemoveAsync(Guid id)
         {
-           return await _context.Users.SingleOrDefaultAsync(u => u.UserId == id);
+            var user = await GetAsync(id);
+            _entities.Users.Remove(user);
+            await _entities.SaveChangesAsync();
         }
 
-        public async Task<User> GetAsync(string login)
+        public async Task RemoveAsync(string login)
         {
-           return await _context.Users.SingleOrDefaultAsync(u => u.Username == login);
+            var user = await GetAsync(login);
+            _entities.Users.Remove(user);
+            await _entities.SaveChangesAsync();
         }
 
-        public Task<bool> IsEmailUnique(string email)
+        public async Task<bool> IsEmailUnique(string email)
         {
-            throw new NotImplementedException();
+          var z = await _entities.Users.AnyAsync(x => x.E_mail == email);
+            return !z;
+        }                     
+        public async Task UpdateAsync(User user)
+        {
+            _entities.Users.Update(user);
+            await _entities.SaveChangesAsync();
         }
-
-        public Task UpdateAsync(User user)
+        public async Task UpdateStatusAsnc(Guid id, int status)
         {
-            throw new NotImplementedException();
+            var user = await GetAsync(id);
+            user.SetStatus(status);
+            await _entities.SaveChangesAsync();
         }
     }
 }

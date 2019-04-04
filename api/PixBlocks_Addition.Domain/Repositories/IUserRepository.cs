@@ -10,8 +10,12 @@ namespace PixBlocks_Addition.Domain.Repositories
     {
         Task<User> GetAsync(Guid id);
         Task<User> GetAsync(string login);
+        Task<IEnumerable<User>> GetAllAsync();
         Task<bool> IsEmailUnique(string email);
+        Task RemoveAsync(Guid id);
+        Task RemoveAsync(string login);
         Task AddAsync(User user);
         Task UpdateAsync(User user);
+        Task UpdateStatusAsnc(Guid id, int status);
     }
 }
