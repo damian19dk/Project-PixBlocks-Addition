@@ -7,7 +7,7 @@ namespace PixBlocks_Addition.Domain.Entities
     public class Category
     {
         public int Id { get; protected set; }
-        public int CourseId { get; protected set; }
+        public Guid CourseId { get; protected set; }
         public string Name { get; protected set; }
 
         public static Category Test1 => new Category { Id = 1, Name = "Test1" };

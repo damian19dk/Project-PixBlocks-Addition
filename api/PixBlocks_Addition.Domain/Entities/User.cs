@@ -21,11 +21,13 @@ namespace PixBlocks_Addition.Domain.Entities
         public string Salt { get; protected set; }
         public int RoleId { get; protected set; }
         public bool Is_premium { get; protected set; }
+      
+        public int Status { get; protected set; }
 
         public virtual Role Role { get; protected set; }
 
         protected User() { }
-
+      
         public User(Guid id, string login, string e_mail, string password, Role role, IEncrypter encrypter)
         {
             Id = id;
@@ -71,6 +73,10 @@ namespace PixBlocks_Addition.Domain.Entities
             if (!regex_mail.IsMatch(mail)) throw new Exception();
             E_mail = mail;
         }
-
+        public void SetStatus(int status)
+        {
+            if (status == 1 || status == 0) Status = status;
+            else throw new Exception();
+        }
     }
 }
