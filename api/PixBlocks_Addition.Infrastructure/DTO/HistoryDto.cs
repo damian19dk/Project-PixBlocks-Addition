@@ -4,10 +4,10 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.DTO
 {
-    public class CategoryDto
+    public class HistoryDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+        public UserDto user {get; set;}
         public CourseDto course { get; set; }
-        public string Name { get; set; }
     }
 }
