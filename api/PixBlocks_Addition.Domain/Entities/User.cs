@@ -38,6 +38,16 @@ namespace PixBlocks_Addition.Domain.Entities
             IsPremium = false;
         }
 
+        public User(Guid id, string login, string e_mail, int role, string password, IEncrypter encrypter)
+        {
+            Id = id;
+            SetLogin(login);
+            SetEmail(e_mail);
+            RoleId = role;
+            SetPassword(password, encrypter);
+            IsPremium = false;
+        }
+
         public void SetLogin(string login)
         {
             if (login.Length < 3) throw new Exception();

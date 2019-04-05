@@ -46,5 +46,12 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             await _cancellationService.DeactivateCurrentAsync();
         }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task Register([FromBody] RegisterModel register)
+        {
+            await _identityService.Register(register.Id, register.Login, register.Password, register.E_mail, register.RoleId);
+        }
     }
 }
