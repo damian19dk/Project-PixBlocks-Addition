@@ -20,7 +20,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public RefreshToken(User user, string token)
         {
             Id = Guid.NewGuid();
-            UserId = user.UserId;
+            UserId = user.Id;
             CreatedAt = DateTime.UtcNow;
             Token = token;
         }

@@ -29,15 +29,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<JwtDto> Login(string username, string password)
+        public async Task<JwtDto> Login(string login, string password)
         {
-            var user = await _userRepository.GetAsync(username);
+            var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
                 throw new Exception("Invalid credentials.");
             }
-            var jwt = _jwtHandler.Create(user.UserId, username, user.Role);
-            var refreshToken = await _refreshTokens.GetByUserIdAsync(user.UserId);
+            var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name);
+            var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
             string token = "";
             if (refreshToken == null)
             {
@@ -70,7 +70,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("User not found");
             }
-            var jwt = _jwtHandler.Create(user.UserId, user.Username, user.Role);
+            var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
 
             return jwtDto;

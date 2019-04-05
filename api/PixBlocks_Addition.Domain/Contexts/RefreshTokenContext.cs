@@ -32,6 +32,7 @@ namespace PixBlocks_Addition.Domain.Contexts
         {
             var itemBuilder = modelBuilder.Entity<RefreshToken>();
             itemBuilder.HasKey(x => x.Id);
+            modelBuilder.Entity<RefreshToken>().ToTable("RefreshTokens");
         }
     }
 }

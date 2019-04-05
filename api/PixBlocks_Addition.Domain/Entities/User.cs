@@ -16,11 +16,11 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public Guid Id { get; protected set; }
         public string Login { get; protected set; }
-        public string E_mail { get; protected set; }
+        public string Email { get; protected set; }
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
         public int RoleId { get; protected set; }
-        public bool Is_premium { get; protected set; }
+        public bool IsPremium { get; protected set; }
       
         public int Status { get; protected set; }
 
@@ -35,7 +35,7 @@ namespace PixBlocks_Addition.Domain.Entities
             SetEmail(e_mail);
             SetRole(role);
             SetPassword(password, encrypter);
-            Is_premium = false;
+            IsPremium = false;
         }
 
         public void SetLogin(string login)
@@ -56,12 +56,12 @@ namespace PixBlocks_Addition.Domain.Entities
             string hash = encrypter.GetHash(password, salt);
 
             Password = hash;
-            Salt = salt
+            Salt = salt;
         }
         
         public void SetPremium(bool premium)
         {
-            Is_premium = premium;
+            IsPremium = premium;
         }
 
         public void SetRole(Role role)
@@ -71,7 +71,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public void SetEmail(string mail)
         {
             if (!regex_mail.IsMatch(mail)) throw new Exception();
-            E_mail = mail;
+            Email = mail;
         }
         public void SetStatus(int status)
         {
