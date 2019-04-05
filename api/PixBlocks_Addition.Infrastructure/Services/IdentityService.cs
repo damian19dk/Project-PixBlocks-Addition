@@ -15,13 +15,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokens;
         private readonly IJwtHandler _jwtHandler;
+        private readonly IEncrypter _encrypter;
 
         public IdentityService(IJwtHandler jwtHandler,
-            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository)
+            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter)
         {
             _jwtHandler = jwtHandler;
             _userRepository = userRepository;
             _refreshTokens = refreshTokenRepository;
+            _encrypter = encrypter;
         }
 
         public Task Register(string username, string password)
@@ -33,6 +35,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var user = await _userRepository.GetAsync(login);
             if (user == null)
+            {
+                throw new Exception("Invalid credentials.");
+            }
+            var hash = _encrypter.GetHash(password, user.Salt);
+            if (user.Password != hash)
             {
                 throw new Exception("Invalid credentials.");
             }

@@ -65,6 +65,7 @@ namespace PixBlocks_Addition.Api
             
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddSingleton<IEncrypter, Encrypter>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IIdentityService, IdentityService>();
