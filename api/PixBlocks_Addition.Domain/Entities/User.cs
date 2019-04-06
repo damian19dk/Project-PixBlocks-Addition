@@ -38,9 +38,9 @@ namespace PixBlocks_Addition.Domain.Entities
             IsPremium = false;
         }
 
-        public User(Guid id, string login, string e_mail, int role, string password, IEncrypter encrypter)
+        public User(string login, string e_mail, int role, string password, IEncrypter encrypter)
         {
-            Id = id;
+            Id = new Guid();
             SetLogin(login);
             SetEmail(e_mail);
             RoleId = role;

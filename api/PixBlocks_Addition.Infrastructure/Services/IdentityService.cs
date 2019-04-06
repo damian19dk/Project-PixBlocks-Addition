@@ -26,7 +26,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             _encrypter = encrypter;
         }
 
-        public async Task Register(Guid id, string username, string password, string email, int role)
+        public async Task Register(string username, string password, string email, int role)
         {
             var unemail = await _userRepository.IsEmailUnique(email);
             if (!unemail) throw new Exception();
@@ -34,7 +34,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
 
-            User user = new User(id, username, email, role, password, _encrypter);
+            User user = new User(username, email, role, password, _encrypter);
 
             await _userRepository.AddAsync(user);
         }

@@ -51,7 +51,7 @@ namespace PixBlocks_Addition.Api.Controllers
         [HttpPost("register")]
         public async Task Register([FromBody] RegisterModel register)
         {
-            await _identityService.Register(register.Id, register.Login, register.Password, register.E_mail, register.RoleId);
+            await _identityService.Register(register.Login, register.Password, register.E_mail, register.RoleId);
         }
     }
 }
