@@ -7,7 +7,7 @@ namespace PixBlocks_Addition.Api.ResourceModels
 {
     public class LoginModel
     {
-        public string Username { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
     }
 }

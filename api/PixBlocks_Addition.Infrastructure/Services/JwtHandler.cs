@@ -31,14 +31,14 @@ namespace PixBlocks_Addition.Infrastructure.Services
             };
         }
 
-        public JsonWebToken Create(Guid userId, string username, string role,
+        public JsonWebToken Create(Guid userId, string login, string role,
             IDictionary<string, string> claims = null)
         {
             var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, username),
+                new Claim(JwtRegisteredClaimNames.UniqueName, login),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Role, role)
             };

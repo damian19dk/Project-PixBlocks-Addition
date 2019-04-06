@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using PixBlocks_Addition.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Contexts;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
-
         private readonly PixBlocksContext _entities;
         public UserRepository(PixBlocksContext entities)
         {
@@ -24,11 +21,11 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
-        public async Task<User> GetAsync(Guid id) => await _entities.Users.SingleOrDefaultAsync(x => x.Id == id);
+        public async Task<User> GetAsync(Guid id) => await _entities.Users.Include("Role").SingleOrDefaultAsync(x => x.Id == id);
 
-        public async Task<User> GetAsync(string login) => await _entities.Users.SingleOrDefaultAsync(x => x.Login == login);
+        public async Task<User> GetAsync(string login) => await _entities.Users.Include("Role").SingleOrDefaultAsync(x => x.Login == login);
 
-        public async Task<IEnumerable<User>> GetAllAsync() => await _entities.Users.ToListAsync();
+        public async Task<IEnumerable<User>> GetAllAsync() => await _entities.Users.Include("Role").ToListAsync();
 
         public async Task RemoveAsync(Guid id)
         {
@@ -46,15 +43,15 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<bool> IsEmailUnique(string email)
         {
-          var z = await _entities.Users.AnyAsync(x => x.E_mail == email);
-            return !z;
+          var z = await _entities.Users.AnyAsync(x => x.Email == email);
+          return !z;
         }                     
         public async Task UpdateAsync(User user)
         {
             _entities.Users.Update(user);
             await _entities.SaveChangesAsync();
         }
-        public async Task UpdateStatusAsnc(Guid id, int status)
+        public async Task UpdateStatusAsync(Guid id, int status)
         {
             var user = await GetAsync(id);
             user.SetStatus(status);

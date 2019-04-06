@@ -33,8 +33,6 @@ namespace PixBlocks_Addition.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PixBlocksContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var sqlSection = Configuration.GetSection("sql");
@@ -67,6 +65,7 @@ namespace PixBlocks_Addition.Api
             
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddSingleton<IEncrypter, Encrypter>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IIdentityService, IdentityService>();

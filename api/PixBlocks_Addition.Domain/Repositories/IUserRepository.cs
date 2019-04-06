@@ -16,6 +16,6 @@ namespace PixBlocks_Addition.Domain.Repositories
         Task RemoveAsync(string login);
         Task AddAsync(User user);
         Task UpdateAsync(User user);
-        Task UpdateStatusAsnc(Guid id, int status);
+        Task UpdateStatusAsync(Guid id, int status);
     }
 }

@@ -2,9 +2,6 @@
 using Microsoft.Extensions.Options;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Settings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PixBlocks_Addition.Domain.Contexts
 {
@@ -18,6 +15,21 @@ namespace PixBlocks_Addition.Domain.Contexts
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<History> Histories { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Course>().ToTable("Course");
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Category>().ToTable("Category");
+            modelBuilder.Entity<Video>().ToTable("Videos");
+            modelBuilder.Entity<History>().ToTable("History");
+            modelBuilder.Entity<Role>().ToTable("Role");
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,12 +38,6 @@ namespace PixBlocks_Addition.Domain.Contexts
                 {
                     options.MigrationsAssembly("PixBlocks_Addition.Api");
                 });
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            var itemBuilder = modelBuilder.Entity<User>();
-            itemBuilder.HasKey(x => x.UserId);
         }
     }
 }

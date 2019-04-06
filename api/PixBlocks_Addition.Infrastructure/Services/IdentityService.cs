@@ -15,13 +15,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokens;
         private readonly IJwtHandler _jwtHandler;
+        private readonly IEncrypter _encrypter;
 
         public IdentityService(IJwtHandler jwtHandler,
-            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository)
+            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter)
         {
             _jwtHandler = jwtHandler;
             _userRepository = userRepository;
             _refreshTokens = refreshTokenRepository;
+            _encrypter = encrypter;
         }
 
         public Task Register(string username, string password)
@@ -29,15 +31,20 @@ namespace PixBlocks_Addition.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<JwtDto> Login(string username, string password)
+        public async Task<JwtDto> Login(string login, string password)
         {
-            var user = await _userRepository.GetAsync(username);
+            var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
                 throw new Exception("Invalid credentials.");
             }
-            var jwt = _jwtHandler.Create(user.UserId, username, user.Role);
-            var refreshToken = await _refreshTokens.GetByUserIdAsync(user.UserId);
+            var hash = _encrypter.GetHash(password, user.Salt);
+            if (user.Password != hash)
+            {
+                throw new Exception("Invalid credentials.");
+            }
+            var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name);
+            var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
             string token = "";
             if (refreshToken == null)
             {
@@ -70,7 +77,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("User not found");
             }
-            var jwt = _jwtHandler.Create(user.UserId, user.Username, user.Role);
+            var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
 
             return jwtDto;
