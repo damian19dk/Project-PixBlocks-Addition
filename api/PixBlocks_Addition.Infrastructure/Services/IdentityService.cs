@@ -26,9 +26,17 @@ namespace PixBlocks_Addition.Infrastructure.Services
             _encrypter = encrypter;
         }
 
-        public Task Register(string username, string password)
+        public async Task Register(string username, string password, string email, int role)
         {
-            throw new NotImplementedException();
+            var unemail = await _userRepository.IsEmailUnique(email);
+            if (!unemail) throw new Exception();
+
+            var salt = _encrypter.GetSalt(password);
+            var hash = _encrypter.GetHash(password, salt);
+
+            User user = new User(username, email, role, password, _encrypter);
+
+            await _userRepository.AddAsync(user);
         }
 
         public async Task<JwtDto> Login(string login, string password)

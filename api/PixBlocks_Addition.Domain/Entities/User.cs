@@ -28,12 +28,22 @@ namespace PixBlocks_Addition.Domain.Entities
 
         protected User() { }
       
-        public User(Guid id, string login, string e_mail, string password, Role role, IEncrypter encrypter)
+        public User(string login, string e_mail, string password, Role role, IEncrypter encrypter)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             SetLogin(login);
             SetEmail(e_mail);
             SetRole(role);
+            SetPassword(password, encrypter);
+            IsPremium = false;
+        }
+
+        public User(string login, string e_mail, int role, string password, IEncrypter encrypter)
+        {
+            Id = Guid.NewGuid();
+            SetLogin(login);
+            SetEmail(e_mail);
+            IsRoleCorrectSet(role);
             SetPassword(password, encrypter);
             IsPremium = false;
         }
@@ -76,6 +86,11 @@ namespace PixBlocks_Addition.Domain.Entities
         public void SetStatus(int status)
         {
             if (status == 1 || status == 0) Status = status;
+            else throw new Exception();
+        }
+        public void IsRoleCorrectSet(int roleid)
+        {
+            if (roleid == 3 || roleid == 1) RoleId = roleid;
             else throw new Exception();
         }
     }
