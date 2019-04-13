@@ -1,0 +1,14 @@
+.navbar {
+    border-bottom: 0.5px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-style: solid;
+    border-color: #0f8eff;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
