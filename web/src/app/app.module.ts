@@ -13,12 +13,15 @@ import { UsersService } from './services/users.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent },
+  {path: 'register', component: RegistrationComponent},
   {path: 'home', component: BodyComponent},
-  {path: '**', component: BodyComponent}
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -28,7 +31,8 @@ const routes: Routes = [
     BodyComponent,
     FooterComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
