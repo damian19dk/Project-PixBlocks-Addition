@@ -14,7 +14,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent }
 ];
 
 @NgModule({
@@ -23,7 +24,8 @@ const routes: Routes = [
     HeaderComponent,
     BodyComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,7 @@ const routes: Routes = [
     NgbModule,
     RegistrationComponent,
     LoginComponent,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

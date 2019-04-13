@@ -1,0 +1,43 @@
+<div class="row mt-3">
+  <div class="col-lg-4 col-md-6 col-12">
+    <form #registrationForm="ngForm" (ngSubmit)="signUp()">
+      <div class="form-group">
+        <label>Nazwa użytkownika</label>
+        <input required type="text" class="form-control" placeholder="Wpisz nazwę użytkownika" [(ngModel)]="registrationData.name"
+          name="email">
+        <div *ngFor="let error of error?.errors?.name" class="alert alert-danger mt-3" role="alert">
+          {{error}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input required type="email" class="form-control" placeholder="Wpisz email" [(ngModel)]="registrationData.email" name="email">
+        <div *ngFor="let error of error?.errors?.email" class="alert alert-danger mt-3" role="alert">
+          {{error}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Hasło</label>
+        <input required minlength="5" type="password" class="form-control" placeholder="Wpisz hasło" [(ngModel)]="registrationData.password"
+          name="password">
+      </div>
+      <div *ngFor="let error of error?.errors?.password" class="alert alert-danger mt-3" role="alert">
+        {{error}}
+      </div>
+      <div class="form-group">
+        <label>Powtórz hasło</label>
+        <input required minlength="5" type="password" class="form-control" placeholder="Powtórz hasło" [(ngModel)]="registrationData.password_confirmation"
+          name="password_confirmation">
+      </div>
+      <div *ngFor="let error of error?.errors?.password_confirmation" class="alert alert-danger mt-3" role="alert">
+        {{error}}
+      </div>
+      <div class="form-group">
+        <div *ngIf="error?.message" class="alert alert-danger mt-3" role="alert">
+          {{error?.message}}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+    </form>
+  </div>
+</div>

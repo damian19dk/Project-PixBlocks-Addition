@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiHelperService } from './api-helper.service'
 import { Subject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
+import {RegistrationData} from './user.model';
 
 export class UserLoginData {
   client_secret: string = '2ahj6CXgRvietdgzJ4iNPaxlsseP2VIOiHh6bLxO';
@@ -37,6 +37,9 @@ export class UsersService {
       this.refreshCurrentUser();
       localStorage.setItem('token', data.access_token);
     }));
+  }
+  register(registrationData: RegistrationData): Observable<any> {
+    return this.apiHelper.post('user/register', registrationData);
   }
 
   refreshCurrentUser() {
