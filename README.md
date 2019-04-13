@@ -13,6 +13,12 @@ lub zamiast ostatniej linijki
 ```
 git merge develop
 ```
+Można także deczko krócej:
+```
+git checkout develop
+git pull origin develop
+git merge OUR_BRANCH develop
+```
 
 - Ustawienie Windows'owego znaku końca linii:
 ```
