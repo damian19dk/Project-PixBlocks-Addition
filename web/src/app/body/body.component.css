@@ -1,5 +1,10 @@
-#block1 {
+.block1 {
     border-style: solid;
     margin-bottom: 4px;
     margin-top: 4px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }
