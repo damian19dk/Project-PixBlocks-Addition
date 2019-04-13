@@ -12,10 +12,13 @@ import { ApiHelperService } from './services/api-helper.service';
 import { UsersService } from './services/users.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent }
+  {path: 'register', component: RegistrationComponent },
+  {path: 'home', component: BodyComponent},
+  {path: '**', component: BodyComponent}
 ];
 
 @NgModule({
@@ -29,13 +32,13 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     NgbModule,
-    RegistrationComponent,
-    LoginComponent,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [ApiHelperService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
