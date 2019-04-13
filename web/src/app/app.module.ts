@@ -13,19 +13,25 @@ import { UsersService } from './services/users.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+const routes: Routes = [
+  {path: 'login', component: LoginComponent}
+];
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     BodyComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
