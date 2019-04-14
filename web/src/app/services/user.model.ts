@@ -38,6 +38,8 @@ export class User {
     password: string;
     firstName: string;
     lastName: string;
+    name: string; // name and email are used only to avoid errors during compilation
+    email: string;
 }
 /*
 export class User {
