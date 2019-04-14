@@ -17,13 +17,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { fakeBackendProvider } from './_helpers';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { Testfe26Component } from './testfe26/testfe26.component';
+// import { Testfe26Component } from './testfe26/testfe26.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'home', component: BodyComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'Test-fe-26', component: Testfe26Component},
+ // {path: 'Test-fe-26', component: Testfe26Component},
   {path: '**', component: PageNotFoundComponent}
 
 ];
@@ -37,7 +37,7 @@ const routes: Routes = [
     LoginComponent,
     RegistrationComponent,
     PageNotFoundComponent,
-    Testfe26Component
+   // Testfe26Component
   ],
   imports: [
     BrowserModule,
