@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { ApiHelperService } from './api-helper.service'
 import { Subject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -45,4 +45,18 @@ export class UsersService {
   refreshCurrentUser() {
     this.apiHelper.get('user/data').subscribe(result => this.currentUser.next(result.data))
   }
+}
+*/
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { User } from './user.model';
+
+@Injectable({ providedIn: 'root' })
+export class UserService {
+    constructor(private http: HttpClient) { }
+
+    getAll() {
+        return this.http.get<User[]>(`/users`);
+    }
 }

@@ -7,6 +7,7 @@ export class RegistrationData {
     ) { }
 }
 
+
 export class UserUpdateData {
     constructor(
         public name?: string,
@@ -31,7 +32,14 @@ export class LoginData {
         public password?: string
     ) { }
 }
-
+export class User {
+    id: number;
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+}
+/*
 export class User {
     constructor(
         public id: string,
@@ -39,7 +47,7 @@ export class User {
         public email: string
     ) { }
 }
-
+*/
 export class ValidationError {
     public message: string;
     public errors: Map<string, string>;

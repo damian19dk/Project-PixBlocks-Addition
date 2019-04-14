@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { RegistrationData, ValidationError } from '../../services/user.model';
 
@@ -12,7 +12,7 @@ export class RegistrationComponent implements OnInit {
   registrationData: RegistrationData = new RegistrationData();
   error: ValidationError;
 
-  constructor(private usersService: UsersService, private router: Router) { }
+  constructor(private usersService: UserService, private router: Router) { }
 
   ngOnInit() {
   }

@@ -9,13 +9,14 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { ApiHelperService } from './services/api-helper.service';
-import { UsersService } from './services/users.service';
+import { UserService } from './services/user.service';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
-
+import { fakeBackendProvider } from './_helpers';
+import { AuthGuard } from './_guards';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
@@ -41,8 +42,15 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    ReactiveFormsModule,
   ],
-  providers: [ApiHelperService, UsersService],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    fakeBackendProvider,
+    ApiHelperService,
+    UserService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

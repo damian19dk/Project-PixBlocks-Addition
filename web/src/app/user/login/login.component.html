@@ -1,4 +1,4 @@
-<div class="row mt-3 container col-centered">
+<!-- <div class="row mt-3 container col-centered">
   <div class="col-lg-4 col-md-6 col-12 col-centered">
     <form #loginForm="ngForm" (ngSubmit)="signIn()">
       <div class="form-group">
@@ -15,6 +15,30 @@
         </div>
       </div>
       <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Zaloguj się</button>
-    </form>
-  </div>
+    </form> 
+   --> 
+   <div class="alert alert-info">
+    Username: test<br />
+    Password: test
 </div>
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Login</button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+</form>
