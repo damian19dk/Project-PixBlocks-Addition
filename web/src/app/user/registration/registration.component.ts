@@ -16,12 +16,12 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
   }
-
+/*
   signUp() {
     this.usersService.register(this.registrationData).subscribe(
       success => this.router.navigate(['login']),
       error => this.error = error.error
     );
   }
-
+*/
 }
