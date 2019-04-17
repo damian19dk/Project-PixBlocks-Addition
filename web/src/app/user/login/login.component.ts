@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
-import { LoginData } from '../../services/user.model';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +8,18 @@ import { LoginData } from '../../services/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginData: LoginData = new LoginData();
-  loginError = false;
+  username: string;
+  password: string;
+  loginError: boolean;
 
-  constructor(private usersService: UsersService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loginError = false;
+  }
 
   signIn() {
-    this.usersService.login(this.loginData).subscribe(
-      success => this.router.navigate(['/profile']),
-      error => this.loginError = true
-    );
+    this.authenticationService.login(this.username, this.password);
   }
 
 }
