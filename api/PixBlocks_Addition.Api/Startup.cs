@@ -34,6 +34,7 @@ namespace PixBlocks_Addition.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
 
             var sqlSection = Configuration.GetSection("sql");
             services.Configure<SqlSettings>(sqlSection);
@@ -80,6 +81,12 @@ namespace PixBlocks_Addition.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(builder =>
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .AllowCredentials()
+                );
             }
             else
             {
