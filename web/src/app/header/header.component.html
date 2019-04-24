@@ -6,25 +6,26 @@
 
   <form class="form-inline my-2 my-lg-0">
     <input class="form-control mr-sm-2" type="search" placeholder="Szukaj..." aria-label="Search">
-    <button class="btn btn-success mr-sm-2" type="submit">Szukaj!</button>
+    <button class="btn mr-sm-2" type="submit">Szukaj!</button>
   </form>
   
   <div class="btn-group"> 
     <button routerLink="/register" class="btn btn-outline-primary mr-sm-2" type="submit">Zarejestruj</button>
     <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zaloguj</button>
   </div>
-  <ul class="navbar-nav ml-auto">
-    <li ngbDropdown placement="bottom-right" class="nav-item dropdown" >
-      <a ngbDropdownToggle class="nav-link dropdown-toggle" role="button"></a>
-      <div ngbDropdownMenu class="dropdown-menu">
-        <a class="dropdown-item" routerLink="/profile">Mój profil</a>
-        <a class="dropdown-item" (click)="logout()">Wyloguj</a>
-      </div>
-    </li>
+  
     <ng-template>
       <li class="nav-item"><a class="nav-link" routerLink="/login">Zaloguj</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/register">Zarejestruj</a></li>
     </ng-template>
-  </ul>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Więcej</button>
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem>Ustawienia</button>
+        <button ngbDropdownItem routerLink="/add_video">Dodaj wideo</button>
+        <button ngbDropdownItem routerLink="/profile">Mój profil</button>
+        <button ngbDropdownItem>Wyloguj</button>
+      </div>
+    </div>
 </nav>
 </div>

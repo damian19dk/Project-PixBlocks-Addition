@@ -10,22 +10,32 @@
 }
 
 * {
-font-family: "Montserrat", Sans-serif;
-/*font-size: 34px;
-font-weight: 350; */
-letter-spacing: 1.2px; 
+font-family: 'Poppins';
+font-weight: bold;
+/*font-family: "Montserrat", Sans-serif;
+font-size: 34px;
+font-weight: 350; 
+letter-spacing: 1.2px; */
+color: #565656;
 }
 .btn-outline-primary {
-    background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 16px 32px;
+    background-color: #fff;
+    margin: 0;
+    padding: 10px;
+    border: 0;
+  line-height: 1.66em;
+  vertical-align: baseline;
+ /*   border: none;
+  
+  padding: 16px 25px; 
+ margin: 4px 2px; */
   text-align: center;
   font-size: 16px;
-  margin: 4px 2px;
+  
   transition: 0.3s;
+  border-style: solid;
 }
 .btn:hover {
-  background-color: #3e8e41;
+  background-color: #0d90fc;
   color: white;
 }
