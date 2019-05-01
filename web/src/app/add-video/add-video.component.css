@@ -15,9 +15,11 @@
     width: 40rem;
     margin-left: 5rem;
 }*/
+.container {
+    font-family: "Montserrat", Sans-serif; 
+}
 .sizer {
-    width: 600px;
-    margin-left: 5%;
+    width: 500px;
 }
 .btn-outline-primary {
     background-color: #fff;
@@ -30,7 +32,7 @@
   
   padding: 16px 25px; 
  margin: 4px 2px; */
-  text-align: center;
+  text-align: left;
   font-size: 16px;
   
   transition: 0.3s;
@@ -39,4 +41,16 @@
 .btn:hover {
   background-color: #0d90fc;
   color: white;
+}
+.widi {
+    display: flex;
+    justify-content: center;
+}
+#butti {
+    width: 10rem;
+    padding-left: 5%;
+    background-color: grey;
+    border: 2px solid #444444;
+    border-radius: 20px;
+    margin-top: 2%;
 }
