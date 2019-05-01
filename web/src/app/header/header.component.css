@@ -10,7 +10,8 @@
 }
 
 * {
-font-family: 'Poppins';
+  font-family: "Montserrat", Sans-serif;
+/*font-family: 'Poppins';*/
 font-weight: bold;
 /*font-family: "Montserrat", Sans-serif;
 font-size: 34px;
