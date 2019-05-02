@@ -8,18 +8,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
-  loginError: boolean;
+  Login: string;
+  Password: string;
+
+  isError: boolean;
+  error: string;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
-    this.loginError = false;
+    this.isError = false;
   }
 
   signIn() {
-    this.authenticationService.login(this.username, this.password);
+    if(this.validate()) {
+      this.authenticationService.login(this.Login, this.Password);
+    }
+  }
+
+  validate() {
+    if(this.Password.length < 8) {
+      this.isError = true;
+      this.error = "Hasło musi mieć przynajmniej 8 znaków";
+      return false;
+    }
+    
+    else {
+      this.isError = false;
+      this.error = "";
+      return true;
+    }
   }
 
 }

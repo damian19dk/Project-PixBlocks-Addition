@@ -4,19 +4,20 @@
 
       <div class="form-group">
         <label>Nazwa użytkownika:</label>
-        <input required type="text" class="form-control" placeholder="Username" [(ngModel)]="username" name="email">
+        <input required type="text" class="form-control" placeholder="Login" [(ngModel)]="Login" name="Login">
       </div>
 
       <div class="form-group">
         <label>Hasło:</label>
-        <input required type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+        <input required type="password" class="form-control" placeholder="Password" [(ngModel)]="Password" name="Password">
       </div>
 
-      <div *ngIf="loginError" class="form-group">
-        <div class="alert alert-danger mt-3" role="alert">
-          Nieprawidłowe dane logowania!
+        <div *ngIf="isError" class="form-group">
+          <div class="alert alert-danger mt-3" role="alert">
+            {{ error }}
+          </div>
         </div>
-      </div>
+
       
       <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Zaloguj się</button>
     </form>
