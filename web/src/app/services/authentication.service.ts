@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { User } from './../models/user.model';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private loginUrl = 'http://localhost:8080/api/Identity/login';
+  private loginUrl = 'https://localhost:5001/api/Identity/login';
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -19,7 +19,8 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(this.loginUrl, { username, password })
+    let headers = new HttpHeaders().set('Access-Control-Allow-Origin',"https://localhost:5001/")
+    return this.http.post<any>(this.loginUrl, { username, password },{ headers })
       .pipe(map(user => {
         if(user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
