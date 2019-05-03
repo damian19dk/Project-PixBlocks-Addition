@@ -9,7 +9,7 @@ import { User } from './../models/user.model';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private loginUrl = 'https://localhost:5001/api/Identity/login';
+  private origin = 'http://localhost:5000';
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -18,9 +18,14 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  register() {
+
+  }
+
   login(username: string, password: string) {
-    let headers = new HttpHeaders().set('Access-Control-Allow-Origin',"https://localhost:5001/")
-    return this.http.post<any>(this.loginUrl, { username, password },{ headers })
+    let headers = new HttpHeaders().set('Access-Control-Allow-Origin',"https://localhost:5001/");
+
+    return this.http.post<any>(this.origin + "/api/Identity/login", { username, password },{ headers })
       .pipe(map(user => {
         if(user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));

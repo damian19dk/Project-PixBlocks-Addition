@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
 
   signUp() {
     if(this.isValid()) {
-      console.log("ZAREJESTRUJ")
+      //this.authenticationService.register();
     }
   }
 

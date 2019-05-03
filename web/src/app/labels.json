@@ -1,0 +1,12 @@
+{
+    "errors": {
+        "login": "Login nie może zawierać znaków: `,',\",<,>",
+        "password": "Hasło musi mieć co najmniej 8 znaków",
+        "email": "Nieprawidłowa forma email",
+        "confirmPassword": "Źle powtórzone hasło"
+    },
+    "buttons": {
+        "login": "Zaloguj",
+        "logout": "Wyloguj"
+    }
+}
