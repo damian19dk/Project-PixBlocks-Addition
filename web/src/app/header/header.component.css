@@ -7,6 +7,11 @@
     border-color: #0f8eff;
     padding-left: 10%;
     padding-right: 10%;
+    height: 60px;
+}
+
+#navigation {
+    transition: 0.2s;
 }
 
 * {
