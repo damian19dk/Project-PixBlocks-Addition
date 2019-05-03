@@ -1,15 +1,29 @@
-<nav id="navigation" class="navbar navbar-expand-lg bg-white sticky-top">
-  <div class="collapse navbar-collapse">
-    <a class="navbar-brand text-lg-left" routerLink="/">PixBlocks</a>
-  </div>
-
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Szukaj..." aria-label="Search">
-    <button class="btn btn-success mr-sm-2" type="submit">Szukaj</button>
-  </form>
-
-  <div class="btn-group"> 
-    <button routerLink="/register" class="btn btn-outline-primary my-2 mr-sm-2">Zarejestruj</button>
-    <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-2">Zaloguj</button>
-  </div>
-</nav>
+  <nav id="navigation" class="navbar navbar-expand-lg bg-white sticky-top">
+    <div class="collapse navbar-collapse">
+      <a class="navbar-brand text-primary" routerLink="/">PixBlocks</a>
+    </div>
+  
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Szukaj..." aria-label="Search">
+      <button class="btn btn-outline-primary mr-sm-2" type="submit">Szukaj</button>
+    </form>
+    
+    <div class="btn-group"> 
+      <button routerLink="/register" class="btn btn-outline-primary my-2 mr-sm-2" type="submit">Zarejestruj</button>
+      <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-2" type="submit">Zaloguj</button>
+    </div>
+    
+      <ng-template>
+        <li class="nav-item"><a class="nav-link" routerLink="/login">Zaloguj</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/register">Zarejestruj</a></li>
+      </ng-template>
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Więcej</button>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem>Ustawienia</button>
+          <button ngbDropdownItem routerLink="/add_video">Dodaj wideo</button>
+          <button ngbDropdownItem routerLink="/profile">Mój profil</button>
+          <button ngbDropdownItem>Wyloguj</button>
+        </div>
+      </div>
+  </nav>
