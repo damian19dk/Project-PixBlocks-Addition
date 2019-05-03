@@ -4,23 +4,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { BodyComponent } from './body/body.component';
+import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
-import { ApiHelperService } from './services/api-helper.service';
-import { UsersService } from './services/users.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthenticationService } from './services/authentication.service';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'home', component: BodyComponent},
+  {path: 'home', component: HomeComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'secret', component: UnauthorizedComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -28,11 +29,12 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    BodyComponent,
+    HomeComponent,
     FooterComponent,
     LoginComponent,
     RegistrationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [ApiHelperService, UsersService],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

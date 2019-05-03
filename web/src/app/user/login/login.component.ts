@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
-import { LoginData } from '../../services/user.model';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +8,59 @@ import { LoginData } from '../../services/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginData: LoginData = new LoginData();
-  loginError = false;
+  Login: string;
+  Password: string;
 
-  constructor(private usersService: UsersService, private router: Router) { }
+  isLoginValid: boolean;
+  isPasswordValid: boolean;
 
-  ngOnInit() { }
+  loginError: string;
+  passwordError: string;
+
+
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+
+  ngOnInit() {
+    this.isLoginValid = true;
+    this.isPasswordValid = true;
+  }
 
   signIn() {
-    this.usersService.login(this.loginData).subscribe(
-      success => this.router.navigate(['/profile']),
-      error => this.loginError = true
-    );
+    if(this.isValid()) {
+      this.authenticationService.login(this.Login, this.Password);
+    }
+  }
+
+  isValid() {
+    let isError:boolean = false;
+
+    if(this.Login.includes("`")
+     || this.Login.includes("'")
+     || this.Login.includes("\"")
+     || this.Login.includes("<")
+     || this.Login.includes(">")) {
+      this.loginError = "Login nie może zawierać znaków: `,',\",<,>";
+      this.isLoginValid = false;
+      isError = true;
+    }
+    else {
+      this.isLoginValid = true;
+    }
+
+    if(this.Password.length < 8) {
+      this.passwordError = "Hasło musi mieć co najmniej 8 znaków";
+      this.isPasswordValid = false;
+      isError = true;
+    }
+    else {
+      this.isPasswordValid = true;
+    }
+    
+    if(!isError) {
+      this.isPasswordValid = true;
+      this.isLoginValid = true;
+      return true;
+    }
   }
 
 }
