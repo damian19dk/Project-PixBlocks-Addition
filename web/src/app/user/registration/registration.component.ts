@@ -25,14 +25,13 @@ export class RegistrationComponent implements OnInit {
   isConfirmPasswordValid: boolean;
 
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {  }
+
+  ngOnInit() {
     this.isLoginValid = true;
     this.isEmailValid = true;
     this.isPasswordValid = true;
     this.isConfirmPasswordValid = true;
-   }
-
-  ngOnInit() {
   }
 
   signUp() {
@@ -44,18 +43,45 @@ export class RegistrationComponent implements OnInit {
   isValid() {
     let isError:boolean = false;
 
-    // TODO Walidacja loginu
-    if(this.Login.includes("\"")) {
+    if(this.Login.includes("`")
+     || this.Login.includes("'")
+     || this.Login.includes("\"")
+     || this.Login.includes("<")
+     || this.Login.includes(">")) {
       this.loginError = "Login nie może zawierać znaków: `,',\",<,>";
       this.isLoginValid = false;
       isError = true;
     }
+    else {
+      this.isLoginValid = true;
+    }
+
+    // TODO Walidacja email
+    if(!this.Email.includes("@")) {
+      this.emailError = "Nieprawidłowa forma email";
+      this.isEmailValid = false;
+      isError = true;
+    }
+    else {
+      this.isEmailValid = true;
+    }
     
-    // TODO Walidacja hasła
     if(this.Password.length < 8) {
-      this.passwordError = "Hasło musi mieć co najmniej 8 znaków, w tym jedną liczbę i wielką literę";
+      this.passwordError = "Hasło musi mieć co najmniej 8 znaków";
       this.isPasswordValid = false;
       isError = true;
+    }
+    else {
+      this.isPasswordValid = true;
+    }
+
+    if(this.ConfirmPassword != this.Password) {
+      this.confirmPasswordError = "Źle powtórzone hasło";
+      this.isConfirmPasswordValid = false;
+      isError = true;
+    }
+    else {
+      this.isConfirmPasswordValid = true;
     }
 
     

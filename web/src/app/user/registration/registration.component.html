@@ -18,7 +18,7 @@
       <div class="form-group col-sm-16">
         <label>Email:</label>
         <div class="input-group">
-          <span class="input-group-text font-weight-bold">@</span>
+          <span class="input-group-text">@</span>
           <input [ngClass]="{'is-invalid' : !isEmailValid}" required type="email" class="form-control" placeholder="Wpisz email" [(ngModel)]="Email" name="Email">
           
           <div class="invalid-feedback">
@@ -31,7 +31,7 @@
         <label>Hasło:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : !isPasswordValid}" required minlength="5" type="password" class="form-control" placeholder="Wpisz hasło" [(ngModel)]="Password"
+          <input [ngClass]="{'is-invalid' : !isPasswordValid}" required type="password" class="form-control" placeholder="Wpisz hasło" [(ngModel)]="Password"
           name="Password">
 
           <div class="invalid-feedback">
@@ -44,7 +44,7 @@
         <label>Powtórz hasło:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : !isConfirmPasswordValid}" required minlength="5" type="password" class="form-control" placeholder="Powtórz hasło" [(ngModel)]="ConfirmPassword"
+          <input [ngClass]="{'is-invalid' : !isConfirmPasswordValid}" required type="password" class="form-control" placeholder="Powtórz hasło" [(ngModel)]="ConfirmPassword"
           name="ConfirmPassword">
 
           <div class="invalid-feedback">
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+      <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-primary">Zarejestruj się</button>
     </form>
   </div>
 </div>

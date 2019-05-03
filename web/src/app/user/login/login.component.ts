@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   isLoginValid: boolean;
   isPasswordValid: boolean;
+
   loginError: string;
   passwordError: string;
 
@@ -33,18 +34,26 @@ export class LoginComponent implements OnInit {
   isValid() {
     let isError:boolean = false;
 
-    // TODO Walidacja loginu
-    if(this.Login.includes("\"")) {
+    if(this.Login.includes("`")
+     || this.Login.includes("'")
+     || this.Login.includes("\"")
+     || this.Login.includes("<")
+     || this.Login.includes(">")) {
       this.loginError = "Login nie może zawierać znaków: `,',\",<,>";
       this.isLoginValid = false;
       isError = true;
     }
+    else {
+      this.isLoginValid = true;
+    }
 
-    // TODO Walidacja hasła
     if(this.Password.length < 8) {
-      this.passwordError = "Hasło musi mieć co najmniej 8 znaków, w tym jedną liczbę i wielką literę";
+      this.passwordError = "Hasło musi mieć co najmniej 8 znaków";
       this.isPasswordValid = false;
       isError = true;
+    }
+    else {
+      this.isPasswordValid = true;
     }
     
     if(!isError) {
