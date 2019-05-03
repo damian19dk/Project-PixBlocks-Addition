@@ -14,13 +14,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
     public class JwtHandler : IJwtHandler
     {
         private readonly IOptions<JwtOptions> _jwtOptions;
+        private readonly IOptions<JWPlayerOptions> _jwPlayerOptions;
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         private readonly SigningCredentials _signingCredentials;
         private readonly TokenValidationParameters _tokenValidationParameters;
 
-        public JwtHandler(IOptions<JwtOptions> jwtSettings)
+        public JwtHandler(IOptions<JwtOptions> jwtSettings, IOptions<JWPlayerOptions> jwPlayerOptions)
         {
             _jwtOptions = jwtSettings;
+            _jwPlayerOptions = jwPlayerOptions;
             var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey));
             _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
             _tokenValidationParameters = new TokenValidationParameters
@@ -31,7 +33,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             };
         }
 
-        public JsonWebToken Create(Guid userId, string login, string role,
+        public JsonWebToken Create(Guid userId, string login, string role, bool isPremium,
             IDictionary<string, string> claims = null)
         {
             var now = DateTime.UtcNow;
@@ -42,6 +44,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Role, role)
             };
+            if (isPremium)
+                jwtClaims.Add(new Claim("resource", "/v2/playlists/" + _jwPlayerOptions.Value.Playlist));
             if (claims != null)
             {
                 foreach (var claim in claims)
