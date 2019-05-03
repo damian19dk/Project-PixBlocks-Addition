@@ -28,8 +28,7 @@ namespace PixBlocks_Addition.Api.Controllers
             var token = getAuthorizationToken();
             return await _jwPlayer.GetPlaylistAsync(id, token);
         }
-
-        [AllowAnonymous]
+        
         [HttpGet("default")]
         public async Task<Playlist> Get()
         {
