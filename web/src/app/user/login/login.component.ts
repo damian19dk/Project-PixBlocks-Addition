@@ -32,18 +32,18 @@ export class LoginComponent implements OnInit {
 
   isValid() {
     let isError:boolean = false;
-    
-    // TODO Walidacja hasła
-    if(this.Password.length < 8) {
-      this.passwordError = "Hasło musi mieć co najmniej 8 znaków, w tym jedną liczbę i wielką literę";
-      this.isPasswordValid = false;
-      isError = true;
-    }
 
     // TODO Walidacja loginu
     if(this.Login.includes("\"")) {
       this.loginError = "Login nie może zawierać znaków: `,',\",<,>";
       this.isLoginValid = false;
+      isError = true;
+    }
+
+    // TODO Walidacja hasła
+    if(this.Password.length < 8) {
+      this.passwordError = "Hasło musi mieć co najmniej 8 znaków, w tym jedną liczbę i wielką literę";
+      this.isPasswordValid = false;
       isError = true;
     }
     

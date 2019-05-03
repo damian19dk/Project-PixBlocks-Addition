@@ -1,47 +1,55 @@
 <div class="row mt-3 container col-centered">
-  <div class="col-lg-4 col-md-6 col-12 col-centered">
+  <div class="col-lg-4 col-md-6 col-16 col-centered">
     <form #registrationForm="ngForm" (ngSubmit)="signUp()">
 
-      <div class="form-group">
+      <div class="form-group col-sm-16">
         <label>Nazwa użytkownika:</label>
-        <input required type="text" class="form-control" placeholder="Wpisz nazwę użytkownika" [(ngModel)]="registrationData.name"
-          name="email">
-        <div *ngFor="let error of error?.errors?.name" class="alert alert-danger mt-3" role="alert">
-          {{error}}
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-user"></i></span>
+          <input [ngClass]="{'is-invalid' : !isLoginValid}" required type="text" class="form-control" placeholder="Wpisz nazwę użytkownika" [(ngModel)]="Login"
+          name="Login">
+
+          <div class="invalid-feedback">
+              {{loginError}}
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group col-sm-16">
         <label>Email:</label>
-        <input required type="email" class="form-control" placeholder="Wpisz email" [(ngModel)]="registrationData.email" name="email">
-        <div *ngFor="let error of error?.errors?.email" class="alert alert-danger mt-3" role="alert">
-          {{error}}
+        <div class="input-group">
+          <span class="input-group-text font-weight-bold">@</span>
+          <input [ngClass]="{'is-invalid' : !isEmailValid}" required type="email" class="form-control" placeholder="Wpisz email" [(ngModel)]="Email" name="Email">
+          
+          <div class="invalid-feedback">
+              {{emailError}}
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group col-sm-16">
         <label>Hasło:</label>
-        <input required minlength="5" type="password" class="form-control" placeholder="Wpisz hasło" [(ngModel)]="registrationData.password"
-          name="password">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input [ngClass]="{'is-invalid' : !isPasswordValid}" required minlength="5" type="password" class="form-control" placeholder="Wpisz hasło" [(ngModel)]="Password"
+          name="Password">
+
+          <div class="invalid-feedback">
+              {{passwordError}}
+          </div>
+        </div>
       </div>
 
-      <div *ngFor="let error of error?.errors?.password" class="alert alert-danger mt-3" role="alert">
-        {{error}}
-      </div>
-
-      <div class="form-group">
+      <div class="form-group col-sm-16">
         <label>Powtórz hasło:</label>
-        <input required minlength="5" type="password" class="form-control" placeholder="Powtórz hasło" [(ngModel)]="registrationData.password_confirmation"
-          name="password_confirmation">
-      </div>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input [ngClass]="{'is-invalid' : !isConfirmPasswordValid}" required minlength="5" type="password" class="form-control" placeholder="Powtórz hasło" [(ngModel)]="ConfirmPassword"
+          name="ConfirmPassword">
 
-      <div *ngFor="let error of error?.errors?.password_confirmation" class="alert alert-danger mt-3" role="alert">
-        {{error}}
-      </div>
-
-      <div class="form-group">
-        <div *ngIf="error?.message" class="alert alert-danger mt-3" role="alert">
-          {{error?.message}}
+          <div class="invalid-feedback">
+              {{confirmPasswordError}}
+          </div>
         </div>
       </div>
 
