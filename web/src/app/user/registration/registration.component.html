@@ -1,59 +1,58 @@
 <div class="row mt-3 container col-centered">
-  <div class="col-lg-4 col-md-6 col-16 col-centered">
-    <form #registrationForm="ngForm" (ngSubmit)="signUp()">
+  <div class="col-lg-4 col-md-6 col-12 col-centered">
+    <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
 
-      <div class="form-group col-sm-16">
+      <div class="form-group col-sm-12">
         <label>Nazwa użytkownika:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-user"></i></span>
-          <input [ngClass]="{'is-invalid' : !isLoginValid}" required type="text" class="form-control" placeholder="Wpisz nazwę użytkownika" [(ngModel)]="Login"
-          name="Login">
+          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text" class="form-control" placeholder="Wpisz nazwę użytkownika">
 
-          <div class="invalid-feedback">
-              {{loginError}}
-          </div>
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">{{this.labels.errors.emptyField}}</div>
+        </div>
         </div>
       </div>
 
-      <div class="form-group col-sm-16">
+      <div class="form-group col-sm-12">
         <label>Email:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-at"></i></span>
-          <input [ngClass]="{'is-invalid' : !isEmailValid}" required type="email" class="form-control" placeholder="Wpisz email" [(ngModel)]="Email" name="Email">
+          <input [ngClass]="{'is-invalid' : submitted && f.email.errors}" formControlName="email" type="email" class="form-control" placeholder="Wpisz email">
           
-          <div class="invalid-feedback">
-              {{emailError}}
-          </div>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">{{this.labels.errors.emptyField}}</div>
+        </div>
         </div>
       </div>
 
-      <div class="form-group col-sm-16">
+      <div class="form-group col-sm-12">
         <label>Hasło:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : !isPasswordValid}" required type="password" class="form-control" placeholder="Wpisz hasło" [(ngModel)]="Password"
-          name="Password">
+          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password" class="form-control" placeholder="Wpisz hasło">
 
-          <div class="invalid-feedback">
-              {{passwordError}}
-          </div>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">{{this.labels.errors.emptyField}}</div>
+        </div>
         </div>
       </div>
 
-      <div class="form-group col-sm-16">
+      <div class="form-group col-sm-12">
         <label>Powtórz hasło:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : !isConfirmPasswordValid}" required type="password" class="form-control" placeholder="Powtórz hasło" [(ngModel)]="ConfirmPassword"
-          name="ConfirmPassword">
+          <input [ngClass]="{'is-invalid' : submitted && f.confirmPassword.errors}" formControlName="confirmPassword" type="password" class="form-control" placeholder="Powtórz hasło">
 
-          <div class="invalid-feedback">
-              {{confirmPasswordError}}
-          </div>
+          <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.confirmPassword.errors.required">{{this.labels.errors.emptyField}}</div>
+        </div>
         </div>
       </div>
 
-      <button [disabled]="!registrationForm.valid" type="submit" class="btn btn-primary">Zarejestruj się</button>
+      <div class="form-group col-sm-12">
+        <button [disabled]="loading" class="btn btn-primary">{{this.labels.buttons.register}}</button>
+    </div>
     </form>
   </div>
 </div>
