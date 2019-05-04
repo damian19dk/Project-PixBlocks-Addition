@@ -6,3 +6,6 @@ ReadMe zawierające informacje na temat back-endowej części projektu.
 - Następnie pojawi nam się konsola w którą wpisujuemy "Update-Database -Context PixBlocksContext" oraz klikamy enter.
 - Następnie wpisujemy "Update-Database -Context RefreshTokenContext" oraz klikamy enter.
 
+#Swagger
+-SwaggerUI znajduje się pod adresem: "http://localhost:50272/swagger".
+-SwaggerJson znajduje się pod adresem: "http://localhost:50272/swagger/v1/swagger.json"
