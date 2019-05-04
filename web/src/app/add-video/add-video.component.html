@@ -1,31 +1,27 @@
 <div class="container">
 <div class="row align-items-start block1">
-    <div class="col h-40 p-3 widi" >
+    <div class="col h-40 p-3" >
       <span id="butti">
           Zobacz wideo:
       </span>        
     </div>
-    <div class="col">
-    </div>
   </div>
 
   <div class="sizer">
-  <div class="row align-items-start block1">
-  <div class="col embed-responsive embed-responsive-4by3">
-      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Hslac_tmcNE?rel=0"></iframe>
+  <div class="row align-items-start block14">
+  <div class="col embed-responsive embed-responsive-4by3 ">
+      <iframe class="embed-responsive-item block14 " src="https://www.youtube.com/embed/Hslac_tmcNE?rel=0"></iframe>
     </div>
-  </div>
-  <div class="col">
   </div>
   </div>
 
-  <div class="row align-items-end block1">    
-    <div class="col h-40 p-3">
-        <input class="btn" type="file" (change)="onFileSelected($event)">
+  <div class="row align-items-end ">    
+    <div class="col h-40 p-3 block12">
+        <input class="btn " type="file" (change)="onFileSelected($event)">
     </div>    
   </div>
 
-  <div class="row align-items-start block1">
+  <div class="row align-items-start block11">
      <div class="form-group col-md-3">
           <label for="inputCourse">Wybierz kurs:</label>
           <select class="form-control" id="course">
@@ -54,8 +50,8 @@
     </div>  
 
   <div class="row align-items-start block1">
-    <div class="col h-40 p-3" >    
-      Dodaj opis: 
+    <div class="col h-40 p-3" >
+      <span id="opiss">Opis:</span>    
     </div>
   </div>
 
@@ -64,4 +60,5 @@
       <textarea class="form-control" rows="5"></textarea>
     </div>     
   </div>
+  <div class="btn btn-outline-primary opis-accept">Dodaj opis</div>
 </div>
