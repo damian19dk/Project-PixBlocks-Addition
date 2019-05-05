@@ -10,7 +10,7 @@
             class="form-control" i18n-placeholder placeholder="Username">
 
           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">"Empty field"</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Empty field</div>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
             class="form-control" i18n-placeholder placeholder="Password">
 
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">"Empty field"</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Empty field</div>
           </div>
         </div>
       </div>

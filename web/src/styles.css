@@ -10,18 +10,3 @@
     margin: 0 auto;
 }
 
-.btn-outline-primary {
-    margin: 0;
-    padding: 10px;
-    border: 0;
-    line-height: 1.66em;
-    vertical-align: baseline;
-    text-align: center;
-    font-size: 16px;
-    transition: 0.3s;
-    border-style: solid;
-}
-.btn:hover {
-    background-color: #0d90fc;
-    color: white;
-}

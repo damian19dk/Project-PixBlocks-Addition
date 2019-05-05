@@ -53,6 +53,20 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "pl": {
+              "aot": true,
+              "i18nFile": "src/translate/messages.pl.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "pl",
+              "i18nMissingTranslation": "error"
+            },
+            "en": {
+              "aot": true,
+              "i18nFile": "src/translate/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -64,6 +78,12 @@
           "configurations": {
             "production": {
               "browserTarget": "pix:build:production"
+            },
+            "pl": {
+              "browserTarget": "pix:build:pl"
+            },
+            "en": {
+              "browserTarget": "pix:build:en"
             }
           }
         },
