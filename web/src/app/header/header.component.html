@@ -12,7 +12,9 @@
     <button i18n="@@language" class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Language</button>
     <div ngbDropdownMenu>
       <ng-container *ngFor="let language of languageList">
-        <button class="btn" NgbDropdownItem routerLink="/{{language.code}}/">{{language.label}}</button>
+        <a href="/{{language.code}}/">
+          <button class="btn" NgbDropdownItem>{{language.label}}</button>
+        </a>
       </ng-container>
     </div>
   </div>
