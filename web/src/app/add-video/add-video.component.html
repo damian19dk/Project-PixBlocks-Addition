@@ -1,3 +1,64 @@
-<p>
-  add-video works!
-</p>
+<div class="container">
+  <div class="row align-items-start block1">
+    <div class="col h-40 p-3">
+      <span id="butti">
+        Zobacz wideo:
+      </span>
+    </div>
+  </div>
+
+  <div class="sizer">
+    <div class="row align-items-start block14">
+      <div class="col embed-responsive embed-responsive-4by3 ">
+        <iframe class="embed-responsive-item block14 " src="https://www.youtube.com/embed/Hslac_tmcNE?rel=0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-end ">
+    <div class="col h-40 p-3 block12">
+      <input class="btn " type="file" (change)="onFileSelected($event)">
+    </div>
+  </div>
+
+  <div class="row align-items-start block11">
+    <div class="form-group col-md-3">
+      <label for="inputCourse">Wybierz kurs:</label>
+      <select class="form-control" id="course">
+
+        <option>Kurs 1</option>
+        <option>Kurs 2</option>
+        <option>Kurs 3</option>
+      </select>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputState">Wybierz lekcję:</label>
+      <select id="inputState" class="form-control">
+        <option>Lekcja 1</option>
+        <option>Lekcja 2</option>
+        <option>Lekcja 3</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputTitle">Tytuł:</label>
+      <input type="text" class="form-control" id="inputTitle">
+    </div>
+    <div class="form-group col-md-1">
+      <br>
+      <button class="btn btn-outline-primary">Zatwierdź</button>
+    </div>
+  </div>
+
+  <div class="row align-items-start block1">
+    <div class="col h-40 p-3">
+      <span id="opiss">Opis:</span>
+    </div>
+  </div>
+
+  <div class="row align-items-start block1">
+    <div class="col h-40 p-3">
+      <textarea class="form-control" rows="5"></textarea>
+    </div>
+  </div>
+  <div class="btn btn-outline-primary opis-accept">Dodaj opis</div>
+</div>
