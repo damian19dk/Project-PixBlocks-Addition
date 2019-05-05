@@ -3,31 +3,33 @@
     <form [formGroup]="loginForm" (ngSubmit)="signIn()">
 
       <div class="form-group col-sm-12">
-        <label for="username" >Nazwa użytkownika:</label>
+        <label i18n="@@username" for="username">Username:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-user"></i></span>
-          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text" class="form-control" placeholder="Login">
-        
+          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text"
+            class="form-control" i18n-placeholder placeholder="Username">
+
           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">{{this.labels.errors.emptyField}}</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">"Empty field"</div>
           </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <label>Hasło:</label>
+        <label i18n="@@password">Password:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password" class="form-control" placeholder="Hasło">
-       
+          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password"
+            class="form-control" i18n-placeholder placeholder="Password">
+
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">{{this.labels.errors.emptyField}}</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">"Empty field"</div>
           </div>
-       </div>
+        </div>
       </div>
 
       <div class="form-group col-sm-12">
-          <button [disabled]="loading" class="btn btn-primary">{{this.labels.buttons.login}}</button>
+        <button i18n="@@buttons_login" [disabled]="loading" class="btn btn-primary">Log in</button>
       </div>
     </form>
   </div>

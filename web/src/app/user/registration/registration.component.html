@@ -3,14 +3,15 @@
     <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
 
       <div class="form-group col-sm-12">
-        <label>Nazwa użytkownika:</label>
+        <label i18n="@@username">Username:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-user"></i></span>
-          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text" class="form-control" placeholder="Wpisz nazwę użytkownika">
+          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text"
+            class="form-control" i18n-placeholder placeholder="Type username">
 
           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">{{this.labels.errors.emptyField}}</div>
-        </div>
+            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">"Empty field"</div>
+          </div>
         </div>
       </div>
 
@@ -18,41 +19,44 @@
         <label>Email:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-at"></i></span>
-          <input [ngClass]="{'is-invalid' : submitted && f.email.errors}" formControlName="email" type="email" class="form-control" placeholder="Wpisz email">
-          
+          <input [ngClass]="{'is-invalid' : submitted && f.email.errors}" formControlName="email" type="email"
+            class="form-control" i18n-placeholder placeholder="Type email">
+
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">{{this.labels.errors.emptyField}}</div>
-        </div>
+            <div i18n="@@errors_empty_field" *ngIf="f.email.errors.required">"Empty field"</div>
+          </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <label>Hasło:</label>
+        <label i18n="@@password">Password:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password" class="form-control" placeholder="Wpisz hasło">
+          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password"
+            class="form-control" i18n-placeholder placeholder="Type password">
 
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">{{this.labels.errors.emptyField}}</div>
-        </div>
+            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">"Empty field"</div>
+          </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <label>Powtórz hasło:</label>
+        <label i18n="@@confirmPassword">Confirm password:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : submitted && f.confirmPassword.errors}" formControlName="confirmPassword" type="password" class="form-control" placeholder="Powtórz hasło">
+          <input [ngClass]="{'is-invalid' : submitted && f.confirmPassword.errors}" formControlName="confirmPassword"
+            type="password" class="form-control" i18n-placeholder placeholder="Type password">
 
           <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-            <div *ngIf="f.confirmPassword.errors.required">{{this.labels.errors.emptyField}}</div>
-        </div>
+            <div i18n="@@errors_empty_field" *ngIf="f.confirmPassword.errors.required">"Empty field"</div>
+          </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <button [disabled]="loading" class="btn btn-primary">{{this.labels.buttons.register}}</button>
-    </div>
+        <button i18n="@@buttons_register" [disabled]="loading" class="btn btn-primary">Register</button>
+      </div>
     </form>
   </div>
 </div>

@@ -9,7 +9,7 @@ export class LoginComponent implements OnInit {
   loading: boolean;
   submitted: boolean;
   returnUrl: string;
-  labels: JSON;
+
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.labels = require('./../../labels.json');
     this.submitted = false;
     this.loading = false;
 

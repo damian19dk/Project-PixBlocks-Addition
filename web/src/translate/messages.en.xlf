@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source>
+        <target>Close</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.d.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source>
+        <target>Previous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source>
+        <target>Next</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source>
+        <target>Previous month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source>
+        <target>Next month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-month" datatype="html">
+        <source>Select month</source>
+        <target>Select month</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-year" datatype="html">
+        <source>Select year</source>
+        <target>Select year</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source>
+        <target>««</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source>
+        <target>«</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source>
+        <target>»</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source>
+        <target>»»</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source>
+        <target>First</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source>
+        <target>Previous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source>
+        <target>Next</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source>
+        <target>Last</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>
+          %
+        </source>
+        <target>
+          <x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>
+          %
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.d.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source>
+        <target>Increment hours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source>
+        <target>HH</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source>
+        <target>Hours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source>
+        <target>Decrement hours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source>
+        <target>Increment minutes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source>
+        <target>MM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source>
+        <target>Minutes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source>
+        <target>Decrement minutes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source>
+        <target>Increment seconds</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source>
+        <target>SS</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source>
+        <target>Seconds</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source>
+        <target>Decrement seconds</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source>PM</source>
+        <target>PM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.AM" datatype="html">
+        <source>AM</source>
+        <target>AM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+
+
+
+      <trans-unit id="title" datatype="html">
+        <source>
+          Programming for everyone
+        </source>
+                <target>
+          Programming for everyone
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="current_user" datatype="html">
+        <source>
+          Hello
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
+          AndrzejDuda
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+          ! Look, what new has been recently added:
+        </source>
+                <target>
+          Hello
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
+          AndrzejDuda
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+          ! Look, what new has been recently added:
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="example_description" datatype="html">
+        <source>
+          Example film description, which aim to show user some basic information about this video content
+        </source>
+                <target>
+          Example film description, which aim to show user some basic information about this video content
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="previous_vieved" datatype="html">
+        <source>
+          Previous viewed videos:
+        </source>
+                <target>
+          Previous viewed videos:
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="example_description2" datatype="html">
+        <source>
+          I really don&apos;t know what to write. God bless Linux.
+        </source>
+                <target>
+          I really don&apos;t know what to write. God bless Linux.
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer" datatype="html">
+        <source>
+          Copyright By DK&amp;JN
+        </source>
+                <target>
+          Copyright By DK&amp;JN
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/footer/footer.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="username" datatype="html">
+        <source>Username:</source>
+        <target>Username:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/login/login.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errors_empty_field" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{this.errors.emptyField}}"/>
+        </source>
+                <target>
+          <x id="INTERPOLATION" equiv-text="{{this.errors.emptyField}}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/login/login.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/login/login.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="password" datatype="html">
+        <source>Password:</source>
+        <target>Password:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/login/login.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="buttons_login" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{this.buttons.login}}"/>
+        </source>
+                <target>
+          <x id="INTERPOLATION" equiv-text="{{this.buttons.login}}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/login/login.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmPassword" datatype="html">
+        <source>Confirm password:</source>
+        <target>Confirm password:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="buttons_register" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{this.buttons.register}}"/>
+        </source>
+                <target>
+          <x id="INTERPOLATION" equiv-text="{{this.buttons.register}}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/registration/registration.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_not_found_content" datatype="html">
+        <source>Are you lost, bro?</source>
+        <target>Are you lost, bro?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="page_not_found_link" datatype="html">
+        <source>Click to return to home page</source>
+        <target>Click to return to home page</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6eeabd266f3972b1733d39574ff6c94145e73eca" datatype="html">
+        <source>401 STAY WHERE YOU ARE!</source>
+        <target>401 STAY WHERE YOU ARE!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/unauthorized/unauthorized.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">unauthorized_title</note>
+      </trans-unit>
+      <trans-unit id="unauthorized_content" datatype="html">
+        <source>Bro, your current rights are too poor to see this content.</source>
+        <target>Bro, your current rights are too poor to see this content.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/unauthorized/unauthorized.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="unauthorized_link" datatype="html">
+        <source>Click to return to home page</source>
+        <target>Click to return to home page</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/unauthorized/unauthorized.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +7,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() languageList;  
+  
   navigation: any;
 
   constructor() { }

@@ -9,18 +9,20 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule, NG_VALIDATORS } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthenticationService } from './services/authentication.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { AddVideoComponent } from './add-video/add-video.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'add_video', component: AddVideoComponent},
+  {path: '', component: HomeComponent},
+  {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
@@ -34,7 +36,8 @@ const routes: Routes = [
     LoginComponent,
     RegistrationComponent,
     PageNotFoundComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    AddVideoComponent
   ],
   imports: [
     BrowserModule,
