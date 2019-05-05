@@ -21,5 +21,21 @@ lub
 ```
 ng serve --open
 ```
+### Translacje i budowanie
+
+- Budowanie wersji produkcyjnej, z wszystkimi wersjami językowymi:
+```
+npm run build-locale
+```
+
+- Uruchamianie konkretnej wersji językowej frontendu:(polska)
+```
+ng serve --configuration=pl
+```
+
+- Utworzenie pliku translacji(messages.xlf):
+```
+npm run translate
+```
 
 
