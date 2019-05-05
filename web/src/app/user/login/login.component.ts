@@ -1,66 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
+@Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
-  Login: string;
-  Password: string;
-
-  isLoginValid: boolean;
-  isPasswordValid: boolean;
-
-  loginError: string;
-  passwordError: string;
+  loginForm: FormGroup;
+  loading: boolean;
+  submitted: boolean;
+  returnUrl: string;
 
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.isLoginValid = true;
-    this.isPasswordValid = true;
+    this.submitted = false;
+    this.loading = false;
+
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+
+  get f() { return this.loginForm.controls; }
 
   signIn() {
-    if(this.isValid()) {
-      this.authenticationService.login(this.Login, this.Password);
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
     }
+
+    this.loading = true;
+
+    this.authenticationService.login(this.f.username.value, this.f.password.value);
   }
-
-  isValid() {
-    let isError:boolean = false;
-
-    if(this.Login.includes("`")
-     || this.Login.includes("'")
-     || this.Login.includes("\"")
-     || this.Login.includes("<")
-     || this.Login.includes(">")) {
-      this.loginError = "Login nie może zawierać znaków: `,',\",<,>";
-      this.isLoginValid = false;
-      isError = true;
-    }
-    else {
-      this.isLoginValid = true;
-    }
-
-    if(this.Password.length < 8) {
-      this.passwordError = "Hasło musi mieć co najmniej 8 znaków";
-      this.isPasswordValid = false;
-      isError = true;
-    }
-    else {
-      this.isPasswordValid = true;
-    }
-    
-    if(!isError) {
-      this.isPasswordValid = true;
-      this.isLoginValid = true;
-      return true;
-    }
-  }
-
 }

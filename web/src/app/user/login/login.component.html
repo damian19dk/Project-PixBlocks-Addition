@@ -1,34 +1,36 @@
 <div class="row mt-3 container col-centered">
-  <div class="col-lg-4 col-md-6 col-16 col-centered">
-    <form #loginForm="ngForm" (ngSubmit)="signIn()">
+  <div class="col-lg-4 col-md-6 col-12 col-centered">
+    <form [formGroup]="loginForm" (ngSubmit)="signIn()">
 
-      <div class="form-group col-sm-16">
-        <label>Nazwa użytkownika:</label>
+      <div class="form-group col-sm-12">
+        <label i18n="@@username" for="username">Username:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-user"></i></span>
-          <input [ngClass]="{'is-invalid' : !isLoginValid}" required type="text" class="form-control" placeholder="Login" [(ngModel)]="Login" name="Login">
-        
-          <div class="invalid-feedback">
-           {{loginError}}
+          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text"
+            class="form-control" i18n-placeholder placeholder="Username">
+
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Empty field</div>
           </div>
         </div>
       </div>
 
-      <div class="form-group col-sm-16">
-        <label>Hasło:</label>
+      <div class="form-group col-sm-12">
+        <label i18n="@@password">Password:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
-          <input [ngClass]="{'is-invalid' : !isPasswordValid}" required type="password" class="form-control" placeholder="Password" [(ngModel)]="Password" name="Password">
-       
-          <div class="invalid-feedback">
-            {{passwordError}}
+          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password"
+            class="form-control" i18n-placeholder placeholder="Password">
+
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Empty field</div>
           </div>
-       </div>
+        </div>
       </div>
 
-        <div class="form-group col-sm-16">
-          <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Zaloguj się</button>
-        </div>
+      <div class="form-group col-sm-12">
+        <button i18n="@@buttons_login" [disabled]="loading" class="btn btn-primary">Log in</button>
+      </div>
     </form>
   </div>
 </div>

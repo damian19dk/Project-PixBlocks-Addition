@@ -1,98 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
-})
+@Component({ templateUrl: 'registration.component.html' })
 export class RegistrationComponent implements OnInit {
 
-  Login: string;
-  Email: string;
-  Password: string;
-  ConfirmPassword: string;
+  registrationForm: FormGroup;
+  loading: boolean;
+  submitted: boolean;
+  returnUrl: string;
 
-  loginError: string;
-  emailError: string;
-  passwordError: string;
-  confirmPasswordError: string;
-
-  isLoginValid: boolean;
-  isEmailValid: boolean;
-  isPasswordValid: boolean;
-  isConfirmPasswordValid: boolean;
-
-
-  constructor(private authenticationService: AuthenticationService, private router: Router) {  }
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.isLoginValid = true;
-    this.isEmailValid = true;
-    this.isPasswordValid = true;
-    this.isConfirmPasswordValid = true;
+    this.submitted = false;
+    this.loading = false;
+
+    this.registrationForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['',Validators.required]
+    });
+
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+
+  get f() { return this.registrationForm.controls; }
+
 
   signUp() {
-    if(this.isValid()) {
-      //this.authenticationService.register();
-    }
-  }
+    this.submitted = true;
 
-  isValid() {
-    let isError:boolean = false;
-
-    if(this.Login.includes("`")
-     || this.Login.includes("'")
-     || this.Login.includes("\"")
-     || this.Login.includes("<")
-     || this.Login.includes(">")) {
-      this.loginError = "Login nie może zawierać znaków: `,',\",<,>";
-      this.isLoginValid = false;
-      isError = true;
-    }
-    else {
-      this.isLoginValid = true;
+    if (this.registrationForm.invalid) {
+      return;
     }
 
-    // TODO Walidacja email
-    if(!this.Email.includes("@")) {
-      this.emailError = "Nieprawidłowa forma email";
-      this.isEmailValid = false;
-      isError = true;
-    }
-    else {
-      this.isEmailValid = true;
-    }
-    
-    if(this.Password.length < 8) {
-      this.passwordError = "Hasło musi mieć co najmniej 8 znaków";
-      this.isPasswordValid = false;
-      isError = true;
-    }
-    else {
-      this.isPasswordValid = true;
-    }
+    this.loading = true;
 
-    if(this.ConfirmPassword != this.Password) {
-      this.confirmPasswordError = "Źle powtórzone hasło";
-      this.isConfirmPasswordValid = false;
-      isError = true;
-    }
-    else {
-      this.isConfirmPasswordValid = true;
-    }
-
-    
-    if(!isError) {
-      this.isLoginValid = true;
-      this.isEmailValid = true;
-      this.isPasswordValid = true;
-      this.isConfirmPasswordValid = true;
-
-      return true;
-    }
+    this.authenticationService.register();
   }
 
 }

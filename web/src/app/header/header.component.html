@@ -1,15 +1,38 @@
 <nav id="navigation" class="navbar navbar-expand-lg bg-white sticky-top">
   <div class="collapse navbar-collapse">
-    <a class="navbar-brand text-lg-left" routerLink="/">PixBlocks</a>
+    <a class="navbar-brand text-primary" routerLink="/">PixBlocks</a>
   </div>
 
   <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Szukaj..." aria-label="Search">
-    <button class="btn btn-success mr-sm-2" type="submit">Szukaj</button>
+    <input class="form-control mr-sm-2" type="search" i18n-placeholder placeholder="Search..." aria-label="Search">
+    <button i18n="@@search" class="btn btn-outline-primary mr-sm-2" type="submit">Search</button>
   </form>
 
-  <div class="btn-group"> 
-    <button routerLink="/register" class="btn btn-outline-primary my-2 mr-sm-2">Zarejestruj</button>
-    <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-2">Zaloguj</button>
+  <div ngbDropdown class="d-inline-block" placement="bottom">
+    <button i18n="@@language" class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Language</button>
+    <div ngbDropdownMenu>
+      <ng-container *ngFor="let language of languageList">
+        <a href="/{{language.code}}/">
+          <button class="btn" NgbDropdownItem>{{language.label}}</button>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button i18n="@@login" routerLink="/register" class="btn btn-outline-primary my-2 mr-sm-2"
+      type="submit">Register</button>
+    <button i18n="@@register" routerLink="/login" class="btn btn-outline-primary my-2 my-sm-2" type="submit">Log
+      in</button>
+  </div>
+
+  <div ngbDropdown class="d-inline-block">
+    <button i18n="@@more" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>More</button>
+    <div ngbDropdownMenu>
+      <button i18n="@@settings" ngbDropdownItem routerLink="/settings">Settings</button>
+      <button i18n="@@addVideo" ngbDropdownItem routerLink="/add_video">Add video</button>
+      <button i18n="@@profile" ngbDropdownItem routerLink="/profile">My account</button>
+      <button i18n="@@logout" ngbDropdownItem routerLink="/logout">Logout</button>
+    </div>
   </div>
 </nav>

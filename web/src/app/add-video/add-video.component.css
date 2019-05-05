@@ -1,0 +1,19 @@
+.sizer {
+    width: 500px;
+    margin-left: 30%;
+}
+
+.btn-outline-primary {
+    background-color: #fff;
+    margin: 0;
+    padding: 10px;
+    line-height: 1.66em;
+    vertical-align: baseline;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #0d90fc;
+    color: white;
+}
