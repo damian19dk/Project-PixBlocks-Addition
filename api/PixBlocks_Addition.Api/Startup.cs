@@ -18,6 +18,7 @@ using PixBlocks_Addition.Infrastructure.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PixBlocks_Addition.Domain;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace PixBlocks_Addition.Api
 {
@@ -73,6 +74,11 @@ namespace PixBlocks_Addition.Api
             services.AddTransient<CancellationTokenMiddleware>();
             services.AddTransient<ICancellationTokenService, CancellationTokenService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "PixBlocks Addition", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +98,14 @@ namespace PixBlocks_Addition.Api
             {
                 app.UseHsts();
             }
+                app.UseSwagger();
+
+              
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PixBlocks Addition V1");
+                });
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMiddleware<CancellationTokenMiddleware>();
