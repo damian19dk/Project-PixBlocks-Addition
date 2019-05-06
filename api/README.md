@@ -9,5 +9,5 @@ ReadMe zawierające informacje na temat back-endowej części projektu.
 - Następnie wpisujemy "Update-Database -Context RefreshTokenContext" oraz klikamy enter.
 
 #Swagger
-- SwaggerUI znajduje się pod adresem: "http://localhost:<port>/swagger".
-- SwaggerJson znajduje się pod adresem: "http://localhost:<port>/swagger/v1/swagger.json".
+- SwaggerUI znajduje się pod adresem: "http://localhost:port/swagger".
+- SwaggerJson znajduje się pod adresem: "http://localhost:port/swagger/v1/swagger.json".
