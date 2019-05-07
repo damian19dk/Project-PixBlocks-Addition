@@ -45,7 +45,12 @@ namespace PixBlocks_Addition.Domain.Repositories
         {
           var z = await _entities.Users.AnyAsync(x => x.Email == email);
           return !z;
-        }                     
+        }
+        public async Task<bool> IsLoginUnique(string login)
+        {
+            var z = await _entities.Users.AnyAsync(x => x.Login == login);
+            return !z;
+        }
         public async Task UpdateAsync(User user)
         {
             _entities.Users.Update(user);
