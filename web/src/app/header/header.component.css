@@ -11,6 +11,7 @@
 
 * {
   font-family: "Montserrat", Sans-serif;
+  
 /*font-family: 'Poppins';*/
 font-weight: bold;
 /*font-family: "Montserrat", Sans-serif;
@@ -24,17 +25,16 @@ color: #565656;
     margin: 0;
     padding: 10px;
     border: 0;
-  line-height: 1.66em;
-  vertical-align: baseline;
- /*   border: none;
+    line-height: 1.66em;
+    vertical-align: baseline;
+    text-align: center;
+    font-size: 16px; 
+    transition: 0.3s;
+    border-style: solid;
+  /*   border: none;
   
   padding: 16px 25px; 
  margin: 4px 2px; */
-  text-align: center;
-  font-size: 16px;
-  
-  transition: 0.3s;
-  border-style: solid;
 }
 .btn:hover {
   background-color: #0d90fc;
