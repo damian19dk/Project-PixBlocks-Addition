@@ -24,24 +24,9 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("playlist")]
-        public async Task<Playlist> GetPlaylist(string id)
+        public async Task<Media> GetPlaylist(string id)
         {
-            var token = getAuthorizationToken();
-            return await _jwPlayer.GetPlaylistAsync(id, token);
-        }
-        
-        [HttpGet("default")]
-        public async Task<Playlist> Get()
-        {
-            var token = getAuthorizationToken();
-            return await _jwPlayer.GetDefaultAsync(token);
-        }
-
-        private string getAuthorizationToken()
-        {
-            var token = HttpContext.Request.Headers["Authorization"].ToString();
-            token = token.Split(' ').Last();
-            return token;
+            return await _jwPlayer.GetPlaylistAsync(id);
         }
     }
 }

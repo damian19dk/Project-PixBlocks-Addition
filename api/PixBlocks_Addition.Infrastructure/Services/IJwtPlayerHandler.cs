@@ -7,5 +7,6 @@ namespace PixBlocks_Addition.Infrastructure.Services
 {
     public interface IJwtPlayerHandler: IJwtHandler
     {
+        string Create(string resource);
     }
 }

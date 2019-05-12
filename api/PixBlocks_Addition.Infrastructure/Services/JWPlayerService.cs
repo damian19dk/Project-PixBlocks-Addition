@@ -13,38 +13,36 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly HttpClient _httpClient;
         private readonly string host = "https://cdn.jwplayer.com";
         private readonly IOptions<JWPlayerOptions> _jwPlayerOptions;
+        private readonly IJwtPlayerHandler _jwtPlayerHandler;
 
-        public JWPlayerService(HttpClient client, IOptions<JWPlayerOptions> jwPlayerOptions)
+        public JWPlayerService(HttpClient client, IOptions<JWPlayerOptions> jwPlayerOptions,
+                IJwtPlayerHandler jwtPlayerHandler)
         {
             _jwPlayerOptions = jwPlayerOptions;
+            _jwtPlayerHandler = jwtPlayerHandler;
             _httpClient = client;
             _httpClient.DefaultRequestHeaders.Remove("Accept");
             _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
-        public async Task<Playlist> GetDefaultAsync(string token)
-            => await GetPlaylistAsync(_jwPlayerOptions.Value.Playlist, token);
-
-        public async Task<Playlist> GetPlaylistAsync(string id, string token="")
+        public async Task<Media> GetPlaylistAsync(string id)
         {
-            if (!string.IsNullOrWhiteSpace(token))
-                token = "?token=" + token;
-            var response = await GetAsync(host + "/v2/playlists/" + id + token);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception(response.ReasonPhrase);
-            }
-            var content = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Playlist>(content);
+            var endpoint = "/v2/playlists/" + id;
+            var token = _jwtPlayerHandler.Create(endpoint);
+            var response = await GetAsync(host + endpoint + "?token=" + token);
+            var content = await response.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Media>(content);
             return result;
         }
 
-        private async Task<HttpResponseMessage> GetAsync(string url)
+        private async Task<HttpContent> GetAsync(string url)
         {
             try
             {
                 var response = await _httpClient.GetAsync(url);
-                return response;
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception(response.ReasonPhrase);
+                return response.Content;
             }
             catch (Exception)
             {
