@@ -18,6 +18,7 @@ import { fakeBackendProvider } from './_helpers';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AddVideoComponent} from './add-video/add-video.component';
+import { VideoBrowseComponent } from './video-browse/video-browse.component';
 // import { Testfe26Component } from './testfe26/testfe26.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'home', component: BodyComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'add_video', component: AddVideoComponent},
+  {path: 'browse_video', component: VideoBrowseComponent},
  // {path: 'Test-fe-26', component: Testfe26Component},
   {path: '**', component: PageNotFoundComponent}
 
@@ -39,7 +41,8 @@ const routes: Routes = [
     LoginComponent,
     RegistrationComponent,
     PageNotFoundComponent,
-    AddVideoComponent
+    AddVideoComponent,
+    VideoBrowseComponent
    // Testfe26Component
   ],
   imports: [
