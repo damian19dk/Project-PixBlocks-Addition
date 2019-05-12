@@ -51,6 +51,8 @@ namespace PixBlocks_Addition.Api
             var jwtOptions = new JwtOptions();
             jwtSection.Bind(jwtOptions);
             
+            services.Configure<JWPlayerOptions>(Configuration.GetSection("jwPlayer"));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(c =>
                 {
@@ -68,6 +70,7 @@ namespace PixBlocks_Addition.Api
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>();
             services.AddSingleton<IEncrypter, Encrypter>();
+            services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IIdentityService, IdentityService>();
