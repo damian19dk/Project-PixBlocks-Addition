@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PixBlocks_Addition.Infrastructure.Models
+namespace PixBlocks_Addition.Infrastructure.Models.JWPlayer
 {
-    public class Playlist
+    public class Media
     {
         [JsonProperty("playlist")]
         ICollection<Video> Videos { get; set; }
         public string Title { get; set; }
 
-        public Playlist()
+        public Media()
         {
             Videos = new HashSet<Video>();
         }

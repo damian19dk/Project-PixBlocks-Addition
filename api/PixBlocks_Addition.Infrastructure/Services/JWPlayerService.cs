@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Settings;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services

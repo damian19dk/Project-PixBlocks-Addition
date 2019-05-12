@@ -1,7 +1,4 @@
-﻿using PixBlocks_Addition.Infrastructure.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services
@@ -10,5 +7,6 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         Task<Playlist> GetPlaylistAsync(string id, string token="");
         Task<Playlist> GetDefaultAsync(string token);
+        
     }
 }

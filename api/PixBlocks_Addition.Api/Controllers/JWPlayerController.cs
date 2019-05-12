@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.Models;
+using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Services;
 
 namespace PixBlocks_Addition.Api.Controllers
