@@ -28,5 +28,11 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             return await _jwPlayer.GetPlaylistAsync(id);
         }
+        
+        [HttpGet("video")]
+        public async Task<Video> GetVideo(string id)
+        {
+            return await _jwPlayer.GetVideoAsync(id);
+        }
     }
 }

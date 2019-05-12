@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Settings;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -28,14 +29,26 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task<Media> GetPlaylistAsync(string id)
         {
             var endpoint = "/v2/playlists/" + id;
-            var token = _jwtPlayerHandler.Create(endpoint);
-            var response = await GetAsync(host + endpoint + "?token=" + token);
-            var content = await response.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Media>(content);
+            var result = await getMediaAsync(endpoint);
             return result;
         }
 
-        private async Task<HttpContent> GetAsync(string url)
+        public async Task<Video> GetVideoAsync(string id)
+        {
+            var endpoint = "/v2/media/" + id;
+            var result = await getMediaAsync(endpoint);
+            return result.Videos.Single();
+        }
+
+        private async Task<Media> getMediaAsync(string endpoint)
+        {
+            var token = _jwtPlayerHandler.Create(endpoint);
+            var response = await getAsync(host + endpoint + "?token=" + token);
+            var content = await response.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Media>(content);
+        }
+
+        private async Task<HttpContent> getAsync(string url)
         {
             try
             {
