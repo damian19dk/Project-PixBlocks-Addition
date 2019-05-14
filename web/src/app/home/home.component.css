@@ -1,77 +1,169 @@
-.title {
-    font-size: 68px;
-    font-weight: 700;
-    letter-spacing: -2.3px;
-    color: #0d90fc;
+.container {
+  font-family: "Montserrat", Sans-serif;
 }
 
 .sizer {
-    width: 300px;
+  width: 300px;
+  
 }
-
 .blc2 {
-    margin-bottom: 2%;
+  margin-bottom: 2%;
 }
-
 .blockvideo {
-   border: 2px solid #0d90fc;
-   border-radius: 20px;
-   background-color: #0d90fc; 
+ border: 2px solid #0d90fc;
+ border-radius: 20px;
+ background-color: #0d90fc; 
 }
-
 .blocktext {
-    border: 2px solid #444444;
-    border-radius: 20px;
-    margin-top: 2%;
+  border: 2px solid #444444;
+  border-radius: 20px;
+  margin-top: 2%;
 }
+.sth{
+  font-family: "Montserrat", Sans-serif;
+  font-size: 68px;
+  font-weight: 700;
+  letter-spacing: -2.3px;
+  color: #0d90fc
+  }
 
-#description {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15%;
-    margin-right: 15%;
-    text-align: center;
+#opis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
 }
 .icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 80px;
-    height: 60px;
-    cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 80px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  top: 25px;
+  width: 90%;
+  height: 10px;
+  background-color: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+  animation: arrow 700ms linear infinite;
+}
+
+.arrow::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 10px;
+  top: -12px;
+  right: -8px;
+  background-color: #fff;
+  transform: rotate(45deg);
+}
+
+.arrow::before {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 10px;
+  top: 12px;
+  right: -8px;
+  background-color: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+  transform: rotate(-45deg);
+}
+
+
+.py-5 {
+    border-radius: 20px;
+}
+
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
   }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    font-size: 100%;
+}
+
+.box-shadow {
+  border-style: solid;
+  border-color: #444444;
+  transition: 0.3s;
+}
+.card-title {
+  margin-bottom: 0%;
+  display: flex;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
   
-  .arrow {
-    position: absolute;
-    top: 25px;
-    width: 90%;
-    height: 10px;
-    background-color: #fff;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
-    animation: arrow 700ms linear infinite;
-  }
-  
-  .arrow::after {
-    content: '';
-    position: absolute;
-    width: 60%;
-    height: 10px;
-    top: -12px;
-    right: -8px;
-    background-color: #fff;
-    transform: rotate(45deg);
-  }
-  
-  .arrow::before {
-    content: '';
-    position: absolute;
-    width: 60%;
-    height: 10px;
-    top: 12px;
-    right: -8px;
-    background-color: #fff;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
-    transform: rotate(-45deg);
-  }
+}
+.card-text{
+  padding-left: 3%;
+  padding-bottom: 2%;
+  font-family: 'Oswald', sans-serif;
+  border-style: solid;
+  border: 2px solid #444444;
+  border-radius: 5px;
+}
+.d-flex {
+ padding-bottom: 0%
+}
+.btn-sm {
+  font-family: 'Oswald', sans-serif;
+}
+.card-title {
+    background-color: #444444;
+    color: #FCFCFC;
+}
+.btn-outline-secondary {
+    background-color: #444444;
+    color: #FCFCFC;
+}
+.text-muted {
+    padding-bottom: 0%;
+    font-family: 'Oswald', sans-serif;
+}
