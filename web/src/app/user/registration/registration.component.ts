@@ -1,27 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
-import { RegistrationData, ValidationError } from '../../services/user.model';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
-})
+@Component({ templateUrl: 'registration.component.html' })
 export class RegistrationComponent implements OnInit {
-  registrationData: RegistrationData = new RegistrationData();
-  error: ValidationError;
 
-  constructor(private usersService: UserService, private router: Router) { }
+  registrationForm: FormGroup;
+  loading: boolean;
+  submitted: boolean;
+  returnUrl: string;
+
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.submitted = false;
+    this.loading = false;
+
+    this.registrationForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['',Validators.required]
+    });
+
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
-/*
+
+  get f() { return this.registrationForm.controls; }
+
+
   signUp() {
-    this.usersService.register(this.registrationData).subscribe(
-      success => this.router.navigate(['login']),
-      error => this.error = error.error
-    );
+    this.submitted = true;
+
+    if (this.registrationForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.authenticationService.register();
   }
-*/
 }

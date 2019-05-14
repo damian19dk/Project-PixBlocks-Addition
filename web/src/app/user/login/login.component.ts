@@ -1,86 +1,54 @@
-/*import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/user.service';
-import { Router } from '@angular/router';
-import { LoginData } from '../../services/user.model';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
+@Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
-  loginData: LoginData = new LoginData();
-  loginError = false;
+  loginForm: FormGroup;
+  loading: boolean;
+  submitted: boolean;
+  returnUrl: string;
 
-  constructor(private usersService: UsersService, private router: Router) { }
 
-  ngOnInit() { }
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
-  signIn() {
-    this.usersService.login(this.loginData).subscribe(
-      success => this.router.navigate(['/profile']),
-      error => this.loginError = true
-    );
+  ngOnInit() {
+    this.submitted = false;
+    this.loading = false;
+
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-}
-*/
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+  get f() { return this.loginForm.controls; }
 
-import { AuthenticationService } from '../../services';
+  signIn() {
+    this.submitted = true;
 
-@Component({templateUrl: 'login.component.html'})
-export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
-    loading = false;
-    submitted = false;
-    returnUrl: string;
-    error = '';
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService) {}
+    this.loading = true;
 
-    ngOnInit() {
-        this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
+   // .pipe(first())
+    .subscribe(
+        data => {
+            this.router.navigate([this.returnUrl]);
+        },
+        error => {
+           // this.error = error;
+            this.loading = false;
         });
-
-        // reset login status
-        this.authenticationService.logout();
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
-
-    // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
-
-    onSubmit() {
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.error = error;
-                    this.loading = false;
-                });
-    }
+  }
 }
-

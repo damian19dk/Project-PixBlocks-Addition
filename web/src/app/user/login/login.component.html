@@ -1,44 +1,36 @@
-<!-- <div class="row mt-3 container col-centered">
+<div class="row mt-3 container col-centered">
   <div class="col-lg-4 col-md-6 col-12 col-centered">
-    <form #loginForm="ngForm" (ngSubmit)="signIn()">
-      <div class="form-group">
-        <label>Email</label>
-        <input required type="email" class="form-control" placeholder="Enter email" [(ngModel)]="loginData.username" name="email">
-      </div>
-      <div class="form-group">
-        <label>Hasło</label>
-        <input required type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password" name="password">
-      </div>
-      <div *ngIf="loginError" class="form-group">
-        <div class="alert alert-danger mt-3" role="alert">
-          Nieprawidłowe dane logowania.
+    <form [formGroup]="loginForm" (ngSubmit)="signIn()">
+
+      <div class="form-group col-sm-12">
+        <label i18n="@@username" for="username">Username:</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-user"></i></span>
+          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text"
+            class="form-control" i18n-placeholder placeholder="Username">
+
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Empty field</div>
+          </div>
         </div>
       </div>
-      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Zaloguj się</button>
-    </form> 
-   --> 
-   <div class="alert alert-info">
-    Username: test<br />
-    Password: test
+
+      <div class="form-group col-sm-12">
+        <label i18n="@@password">Password:</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password"
+            class="form-control" i18n-placeholder placeholder="Password">
+
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Empty field</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-12">
+        <button i18n="@@buttons_login" [disabled]="loading" class="btn btn-primary">Log in</button>
+      </div>
+    </form>
+  </div>
 </div>
-<h2>Login</h2>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">Login</button>
-    </div>
-    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-</form>

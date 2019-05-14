@@ -4,30 +4,27 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { BodyComponent } from './body/body.component';
+import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
-import { ApiHelperService } from './services/api-helper.service';
-import { UserService } from './services/user.service';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { fakeBackendProvider } from './_helpers';
-import { AuthGuard } from './_guards';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AddVideoComponent} from './add-video/add-video.component';
-import { VideoBrowseComponent } from './video-browse/video-browse.component';
-// import { Testfe26Component } from './testfe26/testfe26.component';
+import { AuthenticationService } from './services/authentication.service';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { AddVideoComponent } from './add-video/add-video.component';
+import { UploadVideoComponent } from './upload-video/upload-video.component';
+
+
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'home', component: BodyComponent},
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'add_video', component: AddVideoComponent},
-  {path: 'browse_video', component: VideoBrowseComponent},
- // {path: 'Test-fe-26', component: Testfe26Component},
+  {path: '', component: HomeComponent},
+  {path: 'home', redirectTo: '', pathMatch: 'full'},
+  {path: 'secret', component: UnauthorizedComponent},
   {path: '**', component: PageNotFoundComponent}
 
 ];
@@ -36,14 +33,14 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    BodyComponent,
+    HomeComponent,
     FooterComponent,
     LoginComponent,
     RegistrationComponent,
     PageNotFoundComponent,
+    UnauthorizedComponent,
     AddVideoComponent,
-    VideoBrowseComponent
-   // Testfe26Component
+    UploadVideoComponent
   ],
   imports: [
     BrowserModule,
@@ -51,15 +48,12 @@ const routes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    fakeBackendProvider,
-    ApiHelperService,
-    UserService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

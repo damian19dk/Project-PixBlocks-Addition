@@ -1,3 +1,8 @@
+* {
+    font-weight: bold;
+    color: #565656;
+}
+
 .navbar {
     border-bottom: 0.5px;
     border-top: 0px;
@@ -7,6 +12,8 @@
     border-color: #0d90fc;
     padding-left: 10%;
     padding-right: 10%;
+    height: 65px;
+    margin-bottom: 35px;
 }
 
 * {

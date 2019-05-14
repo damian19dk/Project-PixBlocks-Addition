@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() languageList;  
+  
+  navigation: any;
+
   constructor() { }
 
   ngOnInit() {
+    this.navigation = document.getElementById("navigation");
   }
 
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (number < 50) {
+      this.navigation.style.height = "65px";
+    } else if (number >= 50) {
+      this.navigation.style.height = "75px";
+    }
+  }
 }

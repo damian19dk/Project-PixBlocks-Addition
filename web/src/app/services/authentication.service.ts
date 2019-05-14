@@ -1,26 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+import { User } from './../models/user.model';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
+  private origin;
+  public currentUser: Observable<User>;
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
+  constructor(private http: HttpClient) {
+  }
 
-                return user;
-            }));
-    }
+  register() {
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-    }
+  }
+
+  login(Login: string, Password: string) {
+    let headers = new HttpHeaders().set('Access-Control-Allow-Origin', this.origin);
+
+    return this.http.post<any>(this.origin + "/api/Identity/login", { Login, Password }, { headers })
+      .pipe(map(user => {
+        if (user && user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      }));
+  }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+  }
+
 }
