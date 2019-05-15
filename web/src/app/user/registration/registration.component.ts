@@ -43,6 +43,15 @@ export class RegistrationComponent implements OnInit {
 
     this.loading = true;
 
-    this.authenticationService.register();
+    this.authenticationService.register(this.f.username.value, this.f.email.value, this.f.password.value, 3)
+    // .pipe(first())
+     .subscribe(
+         data => {
+             this.router.navigate([this.returnUrl]);
+         },
+         error => {
+            // this.error = error;
+             this.loading = false;
+         });
   }
 }
