@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from './../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private origin;
+  private origin = environment.baseUrl;
+  
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
@@ -20,7 +22,7 @@ export class AuthenticationService {
   }
 
   login(Login: string, Password: string) {
-    let headers = new HttpHeaders().set('Access-Control-Allow-Origin', this.origin);
+    let headers = environment.headers;
 
     return this.http.post<any>(this.origin + "/api/Identity/login", { Login, Password }, { headers })
       .pipe(map(user => {
