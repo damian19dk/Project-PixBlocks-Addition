@@ -3,14 +3,14 @@
     <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
 
       <div class="form-group col-sm-12">
-        <label i18n="@@username">Username:</label>
+        <label i18n="@@username">Nazwa użytkownika:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-user"></i></span>
           <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text"
-            class="form-control" i18n-placeholder placeholder="Type username">
+            class="form-control" i18n-placeholder placeholder="Wpisz nazwę użytkownika">
 
           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Empty field</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Pole jest puste</div>
           </div>
         </div>
       </div>
@@ -20,42 +20,42 @@
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-at"></i></span>
           <input [ngClass]="{'is-invalid' : submitted && f.email.errors}" formControlName="email" type="email"
-            class="form-control" i18n-placeholder placeholder="Type email">
+            class="form-control" i18n-placeholder placeholder="Wpisz adres email">
 
           <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div i18n="@@errors_empty_field" *ngIf="f.email.errors.required">Empty field</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.email.errors.required">Pole jest puste</div>
           </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <label i18n="@@password">Password:</label>
+        <label i18n="@@password">Hasło:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
           <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password"
-            class="form-control" i18n-placeholder placeholder="Type password">
+            class="form-control" i18n-placeholder placeholder="Wpisz hasło">
 
           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Empty field</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Pole jest puste</div>
           </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <label i18n="@@confirmPassword">Confirm password:</label>
+        <label i18n="@@confirmPassword">Powtórz hasło:</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fa fa-lock"></i></span>
           <input [ngClass]="{'is-invalid' : submitted && f.confirmPassword.errors}" formControlName="confirmPassword"
-            type="password" class="form-control" i18n-placeholder placeholder="Type password">
+            type="password" class="form-control" i18n-placeholder placeholder="Powtórz hasło">
 
           <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-            <div i18n="@@errors_empty_field" *ngIf="f.confirmPassword.errors.required">Empty field</div>
+            <div i18n="@@errors_empty_field" *ngIf="f.confirmPassword.errors.required">Pole jest puste</div>
           </div>
         </div>
       </div>
 
       <div class="form-group col-sm-12">
-        <button i18n="@@buttons_register" [disabled]="loading" class="btn btn-primary">Register</button>
+        <button i18n="@@buttons_register" [disabled]="loading" class="btn btn-primary">Zarejestruj się</button>
       </div>
     </form>
   </div>
