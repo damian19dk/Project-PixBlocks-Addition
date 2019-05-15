@@ -16,6 +16,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AddVideoComponent } from './add-video/add-video.component';
 import { UploadVideoComponent } from './upload-video/upload-video.component';
+import { VideoBrowseComponent } from './video-browse/video-browse.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     UnauthorizedComponent,
     AddVideoComponent,
-    UploadVideoComponent
+    UploadVideoComponent,
+    VideoBrowseComponent
   ],
   imports: [
     BrowserModule,
