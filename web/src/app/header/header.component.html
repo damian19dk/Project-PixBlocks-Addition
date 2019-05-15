@@ -1,4 +1,3 @@
-<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"> 
 <div class="container">
 <nav class="navbar navbar-expand-md bg-white sticky-top">
   <div class="collapse navbar-collapse">
@@ -14,15 +13,11 @@
     <button routerLink="/register" class="btn btn-outline-primary mr-sm-2" type="submit">Zarejestruj</button>
     <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zaloguj</button>
   </div>
-  
-    <ng-template>
-      <li class="nav-item"><a class="nav-link" routerLink="/login">Zaloguj</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/register">Zarejestruj</a></li>
-    </ng-template>
+
     <div ngbDropdown class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Więcej</button>
       <div ngbDropdownMenu>
-        <button ngbDropdownItem>Ustawienia</button>
+        <button ngbDropdownItem routerLink="/settings">Ustawienia</button>
         <button ngbDropdownItem routerLink="/add_video">Dodaj wideo</button>
         <button ngbDropdownItem routerLink="/profile">Mój profil</button>
         <button ngbDropdownItem>Wyloguj</button>
