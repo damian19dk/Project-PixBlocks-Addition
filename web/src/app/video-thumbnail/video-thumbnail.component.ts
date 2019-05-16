@@ -8,7 +8,7 @@ import { Video } from './../models/video.model';
 })
 export class VideoThumbnailComponent implements OnInit {
 
-  @Input() private video: Video;
+  @Input() video: Video;
 
   constructor() { }
 
