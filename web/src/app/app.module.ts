@@ -19,6 +19,7 @@ import { UploadVideoComponent } from './upload-video/upload-video.component';
 import { VideoBrowseComponent } from './video-browse/video-browse.component';
 import { ShowVideoComponent } from './show-video/show-video.component';
 import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.component';
+import { VideoService } from './services/video.service';
 
 
 const routes: Routes = [
@@ -59,7 +60,8 @@ const routes: Routes = [
     ReactiveFormsModule,
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    VideoService
   ],
   bootstrap: [AppComponent]
 })
