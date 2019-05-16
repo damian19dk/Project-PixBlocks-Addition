@@ -17,6 +17,8 @@
   }
 
   .card-img-top {
+      width: 350px;
+      height: 250px;
       display: block;
       transition: transform .4s, opacity .4s;
       opacity: 0.85
