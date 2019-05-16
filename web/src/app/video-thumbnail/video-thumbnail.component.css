@@ -1,33 +1,33 @@
   * {
       font-family: 'Oswald', sans-serif;
   }
-  
+
   .card-box {
       display: inline-block;
       overflow: hidden;
   }
-  
+
   .box-shadow {
       border-style: solid;
       transition: 0.3s;
   }
-  
+
   .box-shadow:hover {
       box-shadow: 1.0rem 1.0rem 1.0rem rgba(0, 0, 0, 0.356);
   }
-  
+
   .card-img-top {
       display: block;
       transition: transform .4s, opacity .4s;
       opacity: 0.85
   }
-  
+
   .card:hover .card-img-top {
       transform: scale(1.3);
       transform-origin: 50% 50%;
       opacity: 1;
   }
-  
+
   .card-text {
       padding-left: 3%;
       padding-right: 3%;
@@ -35,8 +35,7 @@
       padding-top: 2%;
       text-align: justify;
   }
-  
-  .d-flex,
-  .text-muted {
+
+  .d-flex, .text-muted {
       padding-bottom: 0%
   }

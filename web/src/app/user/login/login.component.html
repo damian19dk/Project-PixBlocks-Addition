@@ -6,7 +6,8 @@
                 <label i18n="@@username" for="username">Nazwa użytkownika:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-user"></i></span>
-                    <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username" type="text" class="form-control" i18n-placeholder placeholder="Wpisz nazwę użytkownika">
+                    <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username"
+                        type="text" class="form-control" i18n-placeholder placeholder="Wpisz nazwę użytkownika">
 
                     <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                         <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Pole jest puste</div>
@@ -18,7 +19,8 @@
                 <label i18n="@@password">Password:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                    <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password" type="password" class="form-control" i18n-placeholder placeholder="Wpisz hasło">
+                    <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password"
+                        type="password" class="form-control" i18n-placeholder placeholder="Wpisz hasło">
 
                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                         <div i18n *ngIf="f.password.errors.required">Pole jest puste</div>
@@ -32,10 +34,10 @@
             <div class="form-group col-sm-12">
 
                 <button i18n="@@buttons_login" [disabled]="loading" class="btn btn-primary">
-          <div i18n *ngIf="!loading">Zaloguj się</div>
-          <div i18n *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
-            Ładowanie..</div>
-        </button>
+                    <div i18n *ngIf="!loading">Zaloguj się</div>
+                    <div i18n *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
+                        Ładowanie..</div>
+                </button>
 
             </div>
         </form>
