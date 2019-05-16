@@ -18,12 +18,14 @@
   
   .card-img-top {
       display: block;
-      transition: transform .4s;
+      transition: transform .4s, opacity .4s;
+      opacity: 0.85
   }
   
-  .card-img-top:hover {
+  .card:hover .card-img-top {
       transform: scale(1.3);
       transform-origin: 50% 50%;
+      opacity: 1;
   }
   
   .card-text {
