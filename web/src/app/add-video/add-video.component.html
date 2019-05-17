@@ -1,27 +1,27 @@
 <div class="container">
-<div class="row align-items-start block1">
+<div class="row align-items-start">
     <div class="col h-40 p-3" >
-      <span id="butti">
+      <span id="watch-video-btn">
           Zobacz wideo:
       </span>        
     </div>
   </div>
 
   <div class="sizer">
-  <div class="row align-items-start block14">
+  <div class="row align-items-start video-clip">
   <div class="col embed-responsive embed-responsive-4by3 ">
-      <iframe class="embed-responsive-item block14 " src="https://www.youtube.com/embed/Hslac_tmcNE?rel=0"></iframe>
+      <iframe class="embed-responsive-item video-clip" src="https://www.youtube.com/embed/Hslac_tmcNE?rel=0"></iframe>
     </div>
   </div>
   </div>
 
   <div class="row align-items-end ">    
-    <div class="col h-40 p-3 block12">
+    <div class="col h-40 p-3 choose-file">
         <input class="btn " type="file" (change)="onFileSelected($event)">
     </div>    
   </div>
 
-  <div class="row align-items-start block11">
+  <div class="row align-items-start settings-config">
      <div class="form-group col-md-3">
           <label for="inputCourse">Wybierz kurs:</label>
           <select class="form-control" id="course">
@@ -49,16 +49,16 @@
         </div>
     </div>  
 
-  <div class="row align-items-start block1">
+  <div class="row align-items-start">
     <div class="col h-40 p-3" >
-      <span id="opiss">Opis:</span>    
+      <span id="description-field">Opis:</span>    
     </div>
   </div>
 
-  <div class="row align-items-start block1">
+  <div class="row align-items-start">
     <div class="col h-40 p-3" >
       <textarea class="form-control" rows="5"></textarea>
     </div>     
   </div>
-  <div class="btn btn-outline-primary opis-accept">Dodaj opis</div>
+  <div class="btn btn-outline-primary description-accept-btn">Dodaj opis</div>
 </div>
