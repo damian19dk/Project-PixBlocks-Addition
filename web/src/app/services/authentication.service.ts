@@ -14,10 +14,15 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient) {
+
+
+    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (this.currentUser == null) {
       this.currentUser = new User();
       this.currentUser.login = null;
       this.currentUser.token = null;
       this.currentUser.isLogged = false;
+    }
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
@@ -27,7 +32,7 @@ export class AuthenticationService {
       .pipe(map(user => {
         if (user && user.token) {
 
-          localStorage.setItem('X-Auth-Token', JSON.stringify(user));
+          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
         }
         return user;
       }));
@@ -38,21 +43,25 @@ export class AuthenticationService {
 
     return this.http.post<any>(this.origin + "/api/Identity/login", { login, password }, { headers })
       .pipe(map(user => {
-          this.setUser(login, user.token, true);
+        this.setUser(login, user.token, true);
 
-          localStorage.setItem("X-Auth-Token", this.currentUser.token);
-          console.log('Token logowania: ' + localStorage.getItem("X-Auth-Token"));
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+        console.log("User: " + localStorage.getItem("currentUser"));
         return user;
       }));
   }
 
   logout() {
-    localStorage.removeItem('X-Auth-Token');
+    localStorage.removeItem("currentUser");
     this.setUser(null, null, false);
   }
 
   IsUserLogged() {
     return this.currentUser.isLogged;
+  }
+
+  getUserLogin() {
+    return this.currentUser.login;
   }
 
   setUser(login: string, token: string, isLogged: boolean) {
