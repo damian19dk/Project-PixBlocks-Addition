@@ -15,6 +15,8 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string WrongUserStatus => "Niewłasciwy status użytkownika!";
         public static string WrongCharactersInPassword => "Niedozwolone znaki w haśle!";
         public static string WrongCharactersInLogin => "Niedozwolone znaki w loginie!";
+        public static string TooShortCourseName => "Za krótka nazwa kursu!";
+        public static string TooLongDescription => "Za długi opis!";
 
     }
 }
