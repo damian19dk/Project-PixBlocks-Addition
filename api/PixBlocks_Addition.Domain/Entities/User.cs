@@ -62,6 +62,7 @@ namespace PixBlocks_Addition.Domain.Entities
             if (string.IsNullOrWhiteSpace(password)) throw new Exception();
             if (password.Length < 6) throw new Exception();
             if (password.Length > 20) throw new Exception();
+            if (password == Password) throw new Exception();
             string salt = encrypter.GetSalt(password);
             string hash = encrypter.GetHash(password, salt);
 
@@ -81,6 +82,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public void SetEmail(string mail)
         {
             if (!regex_mail.IsMatch(mail)) throw new Exception();
+            if (mail == Email) throw new Exception();
             Email = mail;
         }
         public void SetStatus(int status)
