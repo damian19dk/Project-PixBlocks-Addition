@@ -6,25 +6,34 @@ namespace PixBlocks_Addition.Domain.Exceptions
 {
     public class MyException : Exception
     {
-        private string code;
-        private string message1;
+        public string Code { get; }
 
-        public MyException() { }
-
-        public MyException(string message) :base(message)
+        public MyException()
         {
-
         }
 
-        public MyException(string code, string message) :this(null, code, message)
+        public MyException(string code)
         {
-
+            Code = code;
         }
 
-        public MyException(string message, string code, string message1) : this(message)
+        public MyException(string message, params object[] args) : this(string.Empty, message, args)
         {
-            this.code = code;
-            this.message1 = message1;
+        }
+
+        public MyException(string code, string message, params object[] args) : this(null, code, message, args)
+        {
+        }
+
+        public MyException(Exception innerException, string message, params object[] args)
+            : this(innerException, string.Empty, message, args)
+        {
+        }
+
+        public MyException(Exception innerException, string code, string message, params object[] args)
+            : base(string.Format(message, args), innerException)
+        {
+            Code = code;
         }
     }
 }
