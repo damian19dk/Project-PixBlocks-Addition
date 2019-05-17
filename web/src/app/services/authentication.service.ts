@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { User } from './../models/user.model';
 import { environment } from '../../environments/environment';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,14 @@ export class AuthenticationService {
   private currentUser: User;
 
   constructor(
-    private http: HttpClient) {
+    private http: HttpClient,
+    private loadingService: LoadingService) {
 
 
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (this.currentUser == null) {
       this.currentUser = new User();
-      this.currentUser.login = null;
-      this.currentUser.token = null;
-      this.currentUser.isLogged = false;
+      this.setUser(null, null, false);
     }
   }
 
@@ -39,24 +39,28 @@ export class AuthenticationService {
   }
 
   login(login: string, password: string) {
+
     let headers = environment.headers;
 
     return this.http.post<any>(this.origin + "/api/Identity/login", { login, password }, { headers })
       .pipe(map(user => {
+
         this.setUser(login, user.token, true);
 
         localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-        console.log("User: " + localStorage.getItem("currentUser"));
+        
         return user;
       }));
   }
 
   logout() {
+    this.loadingService.load();
     localStorage.removeItem("currentUser");
     this.setUser(null, null, false);
+    this.loadingService.unload();
   }
 
-  IsUserLogged() {
+  isUserLogged() {
     return this.currentUser.isLogged;
   }
 

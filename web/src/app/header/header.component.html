@@ -9,14 +9,14 @@
       <button class="btn mr-sm-2" type="submit">Szukaj!</button>
     </form>
 
-    <div *ngIf="!authenticationService.IsUserLogged()">
+    <div *ngIf="!isUserLogged()">
       <div class="btn-group">
         <button routerLink="/register" class="btn btn-outline-primary mr-sm-2" type="submit">Zarejestruj</button>
         <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zaloguj</button>
       </div>
     </div>
 
-    <div *ngIf="authenticationService.IsUserLogged()">
+    <div *ngIf="isUserLogged()">
       <div class="btn-group">
         <button class="btn btn-outline-primary mr-sm-2" routerLink="/settings">Ustawienia</button>
         <button class="btn btn-outline-primary mr-sm-2" routerLink="/add_video">Dodaj wideo</button>

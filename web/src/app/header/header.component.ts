@@ -26,4 +26,12 @@ export class HeaderComponent implements OnInit {
     //window.location.reload(); Reload strony, chwilowo niepotrzebny
     this.router.navigate([this.returnUrl]);
   }
+
+  isUserLogged() {
+    return this.authenticationService.isUserLogged();
+  }
+
+  getUserLogin() {
+    return this.authenticationService.getUserLogin();
+  }
 }

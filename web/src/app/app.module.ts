@@ -47,7 +47,7 @@ const routes: Routes = [
     UploadVideoComponent,
     VideoBrowseComponent,
     ShowVideoComponent,
-    VideoThumbnailComponent
+    VideoThumbnailComponent,
   ],
   imports: [
     BrowserModule,
