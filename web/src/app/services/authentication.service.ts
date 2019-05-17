@@ -56,7 +56,7 @@ export class AuthenticationService {
     this.setUser(null, null, false);
   }
 
-  IsUserLogged() {
+  isUserLogged() {
     return this.currentUser.isLogged;
   }
 

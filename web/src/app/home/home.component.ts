@@ -101,8 +101,14 @@ export class HomeComponent implements OnInit {
       }
 
     ];
+  }
 
+  isUserLogged() {
+    return this.authenticationService.isUserLogged();
+  }
 
+  getUserLogin() {
+    return this.authenticationService.getUserLogin();
   }
 
 }
