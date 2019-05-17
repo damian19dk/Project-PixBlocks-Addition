@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from './../models/user.model';
@@ -11,19 +10,29 @@ import { environment } from '../../environments/environment';
 })
 export class AuthenticationService {
   private origin = environment.baseUrl;
+  private currentUser: User;
 
-  public currentUser: Observable<User>;
+  constructor(
+    private http: HttpClient) {
 
-  constructor(private http: HttpClient) {
+
+    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (this.currentUser == null) {
+      this.currentUser = new User();
+      this.currentUser.login = null;
+      this.currentUser.token = null;
+      this.currentUser.isLogged = false;
+    }
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
     let headers = environment.headers;
 
-    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId}, { headers })
+    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId }, { headers })
       .pipe(map(user => {
         if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+
+          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
         }
         return user;
       }));
@@ -34,24 +43,31 @@ export class AuthenticationService {
 
     return this.http.post<any>(this.origin + "/api/Identity/login", { login, password }, { headers })
       .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
+        this.setUser(login, user.token, true);
+
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+        console.log("User: " + localStorage.getItem("currentUser"));
         return user;
       }));
   }
 
   logout() {
-    let headers = environment.headers;
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem("currentUser");
+    this.setUser(null, null, false);
+  }
 
-    return this.http.post<any>(this.origin + "/api/Identity/logout", { headers })
-      .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return user;
-      }));
+  IsUserLogged() {
+    return this.currentUser.isLogged;
+  }
+
+  getUserLogin() {
+    return this.currentUser.login;
+  }
+
+  setUser(login: string, token: string, isLogged: boolean) {
+    this.currentUser.login = login;
+    this.currentUser.token = token;
+    this.currentUser.isLogged = isLogged;
   }
 
 }

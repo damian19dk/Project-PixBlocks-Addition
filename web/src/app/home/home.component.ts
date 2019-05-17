@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../services/video.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private videoService: VideoService) { }
+    private videoService: VideoService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     //this.videos = this.videoService.getVideos().subscribe();
