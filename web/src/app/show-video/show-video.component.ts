@@ -10,6 +10,7 @@ import { VideoService } from '../services/video.service';
 export class ShowVideoComponent implements OnInit {
 
   private video: Video;
+  error: string;
 
   constructor(private videoService: VideoService) { }
 
@@ -20,23 +21,12 @@ export class ShowVideoComponent implements OnInit {
 
   getVideo() {
     this.videoService.getVideo("oWwRzyGf").subscribe(
-      (data: Video) => this.video = {
-        mediaId: data.mediaId,
-        description: data.description,
-        pubDate: data.pubDate,
-        tags: data.tags,
-        image: data.image,
-        title: data.title,
-        feedId: data.feedId,
-        sources: data.sources,
-        tracks: data.tracks,
-        link: data.link,
-        duration: data.duration
+      (data: Video) => {
+        this.video = data
       },
       error => {
-        console.log("Błąd ładowania danych!");
-       });
-
+        this.error = error;
+      });
 
   }
 
