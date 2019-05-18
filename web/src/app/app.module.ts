@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
-  {path: 'show_video', component: ShowVideoComponent},
+  {path: 'show_video/:id', component: ShowVideoComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 

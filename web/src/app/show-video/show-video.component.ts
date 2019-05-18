@@ -1,6 +1,7 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Video } from '../models/video.model';
 import { VideoService } from '../services/video.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-show-video',
@@ -12,15 +13,19 @@ export class ShowVideoComponent implements OnInit {
   private video: Video;
   error: string;
 
-  constructor(private videoService: VideoService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private videoService: VideoService,
+  ) { }
 
   ngOnInit() {
-    this.video = new Video();
     this.getVideo();
   }
 
   getVideo() {
-    this.videoService.getVideo("oWwRzyGf").subscribe(
+    const id = this.route.snapshot.paramMap.get('id');
+    
+    this.videoService.getVideo(id).subscribe(
       (data: Video) => {
         this.video = data
       },
