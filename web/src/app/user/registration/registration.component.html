@@ -11,6 +11,8 @@
 
                     <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                         <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.username.errors.minlength">Login musi mieć minimum 3 znaki</div>
+                        <div *ngIf="f.username.errors.maxlength">Login może mieć maksymalnie 20 znaków</div>
                     </div>
                 </div>
             </div>
@@ -24,6 +26,7 @@
 
                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                         <div i18n="@@errors_empty_field" *ngIf="f.email.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.email.errors.email">Niepoprawny adres e-mail</div>
                     </div>
                 </div>
             </div>
@@ -37,6 +40,8 @@
 
                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                         <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.password.errors.minlength">Hasło musi mieć minimum 6 znaków</div>
+                        <div *ngIf="f.password.errors.maxlength">Hasło może mieć maksymalnie 20 znaków</div>
                     </div>
                 </div>
             </div>

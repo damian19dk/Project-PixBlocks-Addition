@@ -21,10 +21,10 @@ export class RegistrationComponent implements OnInit {
     this.loading = false;
 
     this.registrationForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['',Validators.required]
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      confirmPassword: ['', Validators.required]
     });
 
     this.authenticationService.logout();
