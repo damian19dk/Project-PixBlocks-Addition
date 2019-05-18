@@ -1,21 +1,20 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <div class="container">
   <nav class="navbar navbar-expand-md bg-white sticky-top">
     <div class="collapse navbar-collapse">
       <a class="navbar-brand text-primary" routerLink="/">PixBlocks</a>
     </div>
 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Szukaj..." aria-label="Search">
-      <button class="btn mr-sm-2" type="submit">Szukaj!</button>
+    <form class="form-inline my my-lg-0">
+      <input class="form-control mr-sm" type="search" placeholder="Szukaj..." aria-label="Search">
+      <button class="btn"><i routerLink="/login" class="fas fa-search"></i></button>
     </form>
-
     <div *ngIf="!isUserLogged()">
       <div class="btn-group">
         <button routerLink="/register" class="btn btn-outline-primary mr-sm-2" type="submit">Zarejestruj</button>
         <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zaloguj</button>
       </div>
     </div>
-
     <div *ngIf="isUserLogged()">
       <div class="btn-group">
         <button class="btn btn-outline-primary mr-sm-2" routerLink="/settings">Ustawienia</button>
