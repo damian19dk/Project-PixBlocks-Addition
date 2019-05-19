@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../services/video.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { LoadingService } from '../services/loading.service';
+import { Video } from '../models/video.model';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,11 @@ export class HomeComponent implements OnInit {
   videos: any;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private videoService: VideoService,
+    private loadingService: LoadingService,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    //this.videos = this.videoService.getVideos().subscribe();
     this.videos = [
       {
         mediaId: "oWwRzyGf",
@@ -176,8 +175,9 @@ export class HomeComponent implements OnInit {
         link: "https://cdn.jwplayer.com/previews/qD53ZJxa?exp=1558207920&sig=4c6f48915aea9789879a34afe324fe04",
         duration: 18
       }
-
     ];
+    
+    this.getVideos();
   }
 
   isUserLogged() {
@@ -186,6 +186,12 @@ export class HomeComponent implements OnInit {
 
   getUserLogin() {
     return this.authenticationService.getUserLogin();
+  }
+
+  getVideos() {
+    this.loadingService.load();
+
+    this.loadingService.unload();
   }
 
 }
