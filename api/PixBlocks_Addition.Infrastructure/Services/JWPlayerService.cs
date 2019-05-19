@@ -13,13 +13,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
     public class JWPlayerService : IJWPlayerService
     {
         private readonly HttpClient _httpClient;
+        private readonly IJWPlayerAuthHandler _auth;
         private readonly string hostcdn = "https://cdn.jwplayer.com";
+        private readonly string hostapi = "http://api.jwplatform.com";
         private readonly IOptions<JWPlayerOptions> _jwPlayerOptions;
         private readonly IJwtPlayerHandler _jwtPlayerHandler;
 
         public JWPlayerService(HttpClient client, IOptions<JWPlayerOptions> jwPlayerOptions,
-                IJwtPlayerHandler jwtPlayerHandler)
+                IJwtPlayerHandler jwtPlayerHandler, IJWPlayerAuthHandler auth)
         {
+            _auth = auth;
             _jwPlayerOptions = jwPlayerOptions;
             _jwtPlayerHandler = jwtPlayerHandler;
             _httpClient = client;
@@ -39,6 +42,17 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var endpoint = "/v2/media/" + id;
             var result = await getMediaAsync(endpoint);
             return result.Videos.Single();
+        }
+
+        public async Task<string> CreateVideoAsync()
+        {
+            var endpoint = "/v1/videos/create/?";
+            var sig = _auth.CreateSignature(_jwPlayerOptions.Value.ApiKey, _jwPlayerOptions.Value.SecretKey);
+            var response = await getAsync(hostapi + endpoint + sig);
+            var result = await response.ReadAsStringAsync();
+            dynamic data = JObject.Parse(result);
+            return "http://" + data.link.address + data.link.path + "?api_format=json&key=" + data.link.query.key
+                + "&token=" + data.link.query.token;
         }
 
         private async Task<JWPlayerMedia> getMediaAsync(string endpoint)

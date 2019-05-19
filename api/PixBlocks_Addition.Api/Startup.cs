@@ -82,6 +82,8 @@ namespace PixBlocks_Addition.Api
                     return new JwtHandler(handlerOptions);
                 });
             services.AddSingleton<IEncrypter, Encrypter>();
+            services.AddSingleton<IJWPlayerAuthHandler, JWPlayerAuthHandler>();
+
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
