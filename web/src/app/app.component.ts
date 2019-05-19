@@ -1,4 +1,5 @@
 import { Component, LOCALE_ID, Inject } from '@angular/core';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,11 @@ export class AppComponent {
     { code: 'pl', label: 'Polski' }
   ];
 
-  constructor(@Inject(LOCALE_ID) protected localeId: string) { }
+  constructor(@Inject(LOCALE_ID) protected localeId: string,
+              private loadingService: LoadingService) {
+   }
+
+   isLoading() {
+     return this.loadingService.isLoading();
+   }
 }

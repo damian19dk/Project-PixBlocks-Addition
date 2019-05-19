@@ -50,7 +50,12 @@ namespace PixBlocks_Addition.Api
             services.Configure<JwtOptions>(jwtSection);
             var jwtOptions = new JwtOptions();
             jwtSection.Bind(jwtOptions);
-            
+
+            var jwPlayerSection = Configuration.GetSection("jwPlayer");
+            services.Configure<JWPlayerOptions>(jwPlayerSection);
+            var jwPlayerOptions = new JWPlayerOptions();
+            jwPlayerSection.Bind(jwPlayerOptions);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(c =>
                 {
@@ -66,8 +71,18 @@ namespace PixBlocks_Addition.Api
             services.AddAuthorization(p => p.AddPolicy("admin", x => x.RequireRole("Admin")));
             
             services.AddOptions();
-            services.AddSingleton<IJwtHandler, JwtHandler>();
+            services.AddSingleton<IJwtHandler, JwtHandler>(sp=> 
+                {
+                    var handlerOptions = sp.GetService<IOptions<JwtOptions>>();
+                    return new JwtHandler(handlerOptions);
+                });
+            services.AddSingleton<IJwtPlayerHandler, JwtHandler>(sp => 
+                {
+                    var handlerOptions = sp.GetService<IOptions<JWPlayerOptions>>();
+                    return new JwtHandler(handlerOptions);
+                });
             services.AddSingleton<IEncrypter, Encrypter>();
+            services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IIdentityService, IdentityService>();

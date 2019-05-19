@@ -11,35 +11,55 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
-    public class JwtHandler : IJwtHandler
+    public class JwtHandler : IJwtPlayerHandler, IJwtHandler
     {
-        private readonly IOptions<JwtOptions> _jwtOptions;
+        private readonly JwtOptions _jwtOptions;
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         private readonly SigningCredentials _signingCredentials;
         private readonly TokenValidationParameters _tokenValidationParameters;
 
         public JwtHandler(IOptions<JwtOptions> jwtSettings)
         {
-            _jwtOptions = jwtSettings;
-            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Value.SecretKey));
+            _jwtOptions = jwtSettings.Value;
+            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
             _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
             _tokenValidationParameters = new TokenValidationParameters
             {
                 IssuerSigningKey = issuerSigningKey,
-                ValidIssuer = _jwtOptions.Value.Issuer,
-                ValidateLifetime = _jwtOptions.Value.ValidateLifetime
+                ValidIssuer = _jwtOptions.Issuer,
+                ValidateLifetime = _jwtOptions.ValidateLifetime
             };
         }
 
-        public JsonWebToken Create(Guid userId, string login, string role,
+        public JwtHandler(IOptions<JWPlayerOptions> jwPlayerSettings)
+        {
+            _jwtOptions =
+                new JwtOptions()
+                {
+                    ExpiryMinutes = jwPlayerSettings.Value.ExpiryMinutes,
+                    Issuer = jwPlayerSettings.Value.Issuer,
+                    SecretKey = jwPlayerSettings.Value.SecretKey,
+                    ValidateLifetime = false
+                };
+            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
+            _signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
+            _tokenValidationParameters = new TokenValidationParameters
+            {
+                IssuerSigningKey = issuerSigningKey,
+                ValidIssuer = _jwtOptions.Issuer,
+                ValidateLifetime = _jwtOptions.ValidateLifetime
+            };
+        }
+
+        public JsonWebToken Create(Guid userId, string login, string role, bool isPremium,
             IDictionary<string, string> claims = null)
         {
-            var now = DateTime.UtcNow;
             var jwtClaims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, login),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("premium", isPremium.ToString()),
                 new Claim(ClaimTypes.Role, role)
             };
             if (claims != null)
@@ -50,9 +70,27 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 }
             }
 
-            var expires = now.AddMinutes(_jwtOptions.Value.ExpiryMinutes);
+            return createJwt(jwtClaims);
+        }
+
+        public string Create(string resource)
+        {
+            var now = DateTime.UtcNow;
+            var jwtClaims = new List<Claim>
+            {
+                new Claim("resource", resource)
+            };
+
+            var token = createJwt(jwtClaims);
+            return token.AccessToken;
+        }
+
+        private JsonWebToken createJwt(IEnumerable<Claim> jwtClaims)
+        {
+            var now = DateTime.UtcNow;
+            var expires = now.AddMinutes(_jwtOptions.ExpiryMinutes);
             var jwt = new JwtSecurityToken(
-                issuer: _jwtOptions.Value.Issuer,
+                issuer: _jwtOptions.Issuer,
                 claims: jwtClaims,
                 notBefore: now,
                 expires: expires,

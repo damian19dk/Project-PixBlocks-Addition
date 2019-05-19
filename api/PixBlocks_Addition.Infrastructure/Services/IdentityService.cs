@@ -54,7 +54,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("Invalid credentials.");
             }
-            var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name);
+            var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name, true);
             var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
             string token = "";
             if (refreshToken == null)
@@ -88,7 +88,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new Exception("User not found");
             }
-            var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name);
+            var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name, user.IsPremium);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
 
             return jwtDto;

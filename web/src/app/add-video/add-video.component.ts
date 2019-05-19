@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-video.component.css']
 })
 export class AddVideoComponent implements OnInit {
+  onFileSelected(event) {
 
+  }
   constructor() { }
 
   ngOnInit() {

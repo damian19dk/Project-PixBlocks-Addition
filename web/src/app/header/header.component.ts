@@ -1,4 +1,6 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,23 +9,29 @@ import { Component, OnInit, HostListener, Input } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() languageList;  
-  
-  navigation: any;
+  @Input() languageList;
+  private returnUrl: string;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.navigation = document.getElementById("navigation");
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  @HostListener("window:scroll", [])
-  onWindowScroll() {
-    const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    if (number < 50) {
-      this.navigation.style.height = "65px";
-    } else if (number >= 50) {
-      this.navigation.style.height = "75px";
-    }
+  logout() {
+    this.authenticationService.logout();
+    //window.location.reload(); Reload strony, chwilowo niepotrzebny
+    this.router.navigate([this.returnUrl]);
+  }
+
+  isUserLogged() {
+    return this.authenticationService.isUserLogged();
+  }
+
+  getUserLogin() {
+    return this.authenticationService.getUserLogin();
   }
 }

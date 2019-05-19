@@ -1,5 +1,5 @@
 export class User {
-    username: string;
-    password: string;
+    login: string;
     token?: string;
+    isLogged: boolean;
 }
