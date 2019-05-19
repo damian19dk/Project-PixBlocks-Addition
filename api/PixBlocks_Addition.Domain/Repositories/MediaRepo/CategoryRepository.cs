@@ -4,7 +4,7 @@ using PixBlocks_Addition.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PixBlocks_Addition.Domain.Repositories
+namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -39,6 +39,11 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(Category category)
+        {
+            _entities.Categories.Update(category);
+            await _entities.SaveChangesAsync();
+        }
 
     }
 }
