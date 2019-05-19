@@ -9,10 +9,13 @@
         </div>
     </div>
 
-    <div class="browse">
-        <div class="container">
-            <div class="row">
-                <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4"></app-video-thumbnail>
+    <div *ngIf="videos">
+        <div class="browse">
+            <div class="container">
+                <div class="row">
+                    <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
+                    </app-video-thumbnail>
+                </div>
             </div>
         </div>
     </div>
@@ -24,14 +27,17 @@
             </div>
         </div>
 
-        <div class="browse">
-            <div class="container">
-                <div class="row">
-                    <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
-                    </app-video-thumbnail>
+        <div *ngIf="videos">
+            <div class="browse">
+                <div class="container">
+                    <div class="row">
+                        <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
+                        </app-video-thumbnail>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="row align-items-start">
