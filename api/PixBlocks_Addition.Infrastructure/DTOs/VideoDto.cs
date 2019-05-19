@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PixBlocks_Addition.Infrastructure.DTO
+namespace PixBlocks_Addition.Infrastructure.DTOs
 {
     public class VideoDto
     {
