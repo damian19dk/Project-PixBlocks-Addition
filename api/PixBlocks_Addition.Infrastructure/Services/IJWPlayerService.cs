@@ -5,7 +5,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
 {
     public interface IJWPlayerService
     {
-        Task<Media> GetPlaylistAsync(string id);
-        Task<Video> GetVideoAsync(string id);
+        Task<JWPlayerMedia> GetPlaylistAsync(string id);
+        Task<JWPlayerVideo> GetVideoAsync(string id);
     }
 }
