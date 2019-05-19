@@ -20,13 +20,14 @@ import { VideoBrowseComponent } from './video-browse/video-browse.component';
 import { ShowVideoComponent } from './show-video/show-video.component';
 import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.component';
 import { VideoService } from './services/video.service';
+import { CourseEditorComponent } from './course-editor/course-editor.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'add_video', component: AddVideoComponent},
-  {path: 'browse_video', component: VideoBrowseComponent},
+  {path: 'course_editor', component: CourseEditorComponent},
   {path: '', component: HomeComponent},
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
@@ -50,7 +51,8 @@ const routes: Routes = [
     ShowVideoComponent,
     VideoThumbnailComponent,
     SafePipe,
-    MinuteSecondsPipe
+    MinuteSecondsPipe,
+    CourseEditorComponent
   ],
   imports: [
     BrowserModule,
