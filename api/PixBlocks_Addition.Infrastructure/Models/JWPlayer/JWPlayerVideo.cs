@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.Models.JWPlayer
 {
-    public class Video
+    public class JWPlayerVideo
     {
         public string MediaId { get; set; }
         public string Description { get; set; }
@@ -13,8 +13,8 @@ namespace PixBlocks_Addition.Infrastructure.Models.JWPlayer
         public string Image { get; set; }
         public string Title { get; set; }
         public string FeedId { get; set; }
-        public ICollection<Source> Sources { get; set; }
-        public ICollection<Track> Tracks { get; set; }
+        public ICollection<JWPlayerSource> Sources { get; set; }
+        public ICollection<JWPlayerTrack> Tracks { get; set; }
         public string Link { get; set; }
         public int Duration { get; set; }
     }

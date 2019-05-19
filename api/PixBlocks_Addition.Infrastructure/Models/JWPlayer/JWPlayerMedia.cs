@@ -5,15 +5,15 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.Models.JWPlayer
 {
-    public class Media
+    public class JWPlayerMedia
     {
         [JsonProperty("playlist")]
-        public ICollection<Video> Videos { get; set; }
+        public ICollection<JWPlayerVideo> Videos { get; set; }
         public string Title { get; set; }
 
-        public Media()
+        public JWPlayerMedia()
         {
-            Videos = new HashSet<Video>();
+            Videos = new HashSet<JWPlayerVideo>();
         }
     }
 }

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent, SafePipe, MinuteSecondsPipe } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
@@ -30,6 +30,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
+  {path: 'show_video/:id', component: ShowVideoComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -47,7 +48,9 @@ const routes: Routes = [
     UploadVideoComponent,
     VideoBrowseComponent,
     ShowVideoComponent,
-    VideoThumbnailComponent
+    VideoThumbnailComponent,
+    SafePipe,
+    MinuteSecondsPipe
   ],
   imports: [
     BrowserModule,
