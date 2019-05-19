@@ -92,6 +92,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<IExerciseRepository, ExercisieRepository>();
 
             services.AddScoped<IVideoService, VideoService>();
+            services.AddScoped<ICourseService, CourseService>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();
