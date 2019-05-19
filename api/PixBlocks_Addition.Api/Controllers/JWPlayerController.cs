@@ -24,13 +24,13 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("playlist")]
-        public async Task<Media> GetPlaylist(string id)
+        public async Task<JWPlayerMedia> GetPlaylist(string id)
         {
             return await _jwPlayer.GetPlaylistAsync(id);
         }
         
         [HttpGet("video")]
-        public async Task<Video> GetVideo(string id)
+        public async Task<JWPlayerVideo> GetVideo(string id)
         {
             return await _jwPlayer.GetVideoAsync(id);
         }

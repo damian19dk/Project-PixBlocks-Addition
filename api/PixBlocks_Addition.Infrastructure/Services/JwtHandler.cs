@@ -92,7 +92,6 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var jwt = new JwtSecurityToken(
                 issuer: _jwtOptions.Issuer,
                 claims: jwtClaims,
-                notBefore: now,
                 expires: expires,
                 signingCredentials: _signingCredentials
             );

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.Models.JWPlayer
 {
-    public class Source
+    public class JWPlayerSource
     {
         public int Width { get; set; }
         public int Height { get; set; }

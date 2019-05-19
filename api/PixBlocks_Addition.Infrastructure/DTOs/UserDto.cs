@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PixBlocks_Addition.Infrastructure.DTO
+namespace PixBlocks_Addition.Infrastructure.DTOs
 {
     public class UserDto
     {

@@ -4,28 +4,16 @@ using System.Text;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    /// <summary>
-    /// Nie wiadomo czy bedzie potrzebna wszystko zalezy od hostingu filmow implemetuje na zapas
-    /// </summary>
-    public class Video
+    public class Video: Media
     {
-        public Guid Id { get; protected set; }
-        public Guid CourseId { get; protected set; }
-        public string VideoSrc { get; protected set; }
-
-        public virtual Course Course { get; protected set; }
-
-        protected Video() { }
-
-        public Video(Course course, string videosrc)
+        public Video(string mediaId, bool premium, string title, string description, string picture, long duration,
+            string lang, IEnumerable<Tag> tags = null)
+            : base(mediaId, premium, title, description, picture, duration, lang, tags)
         {
-            SetVideoSrc(videosrc);
-            CourseId = course.Id;
         }
 
-        public void SetVideoSrc(string videosrc)
+        protected Video()
         {
-            VideoSrc = videosrc;
         }
     }
 }
