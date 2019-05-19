@@ -1,1 +1,38 @@
-<div>This text will be removed.</div>
+<div *ngIf="video">
+    <div class="col-8 col-centered">
+
+        <div *ngIf="error" class="alert alert-danger">
+            {{error}}
+        </div>
+        <div *ngIf="!error">
+
+            <div class="row col-centered">
+                <h2 class="display-4 col-centered">{{video.title}}</h2>
+            </div>
+
+            <div class="col-centered text-center">
+
+                <iframe id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
+                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
+                    webkitallowfullscreen="webkitallowfullscreen" [src]="video.link | safe">
+                </iframe>
+
+            </div>
+
+            <div class="row text-justify">
+                <p>Czas trwania: {{video.duration | minuteSeconds}}</p>
+            </div>
+
+            <div class="row text-justify">
+                <p>Tagi: {{video.tags}}</p>
+
+            </div>
+
+            <div class="row text-justify">
+                <p>Opis: {{video.description}}</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -12,11 +12,11 @@ export class LoadingService {
   }
 
   load() {
-    this.loading = true;
+    setTimeout(() => {this.loading = true;}, 0);
   }
 
   unload() {
-    setTimeout(() => {this.loading = false;}, 1000);
+    setTimeout(() => {this.loading = false;}, 400);
   }
 
   isLoading() {

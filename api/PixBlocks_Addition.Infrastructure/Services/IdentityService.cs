@@ -31,6 +31,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var unemail = await _userRepository.IsEmailUnique(email);
             if (!unemail) throw new Exception();
 
+            var unname = await _userRepository.IsLoginUnique(username);
+            if (!unname) throw new Exception();
+
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
 

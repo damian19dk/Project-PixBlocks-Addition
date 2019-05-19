@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PixBlocks_Addition.Api.ResourceModels
+namespace PixBlocks_Addition.Infrastructure.ResourceModels
 {
     public class RegisterModel
     {
