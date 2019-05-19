@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.ResourceModels
 {
-    public class LoginModel
+    public class UploadResource
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public string ParentName { get; set; }
+        public string MediaId { get; set; }
     }
 }
