@@ -4,11 +4,9 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.DTOs
 {
-    public class CourseDto
+    public class CourseDto: MediaDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Descryption { get; set; }
-        public string Picture { get; set; }
+        public ICollection<VideoDto> CourseVideos { get; protected set; }
+        public ICollection<LessonDto> Lessons { get; protected set; }
     }
 }
