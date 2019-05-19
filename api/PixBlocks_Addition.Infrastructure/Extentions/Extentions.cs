@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.Extentions
 {
@@ -9,9 +7,9 @@ namespace PixBlocks_Addition.Infrastructure.Extentions
         public static long ToTimestamp(this DateTime dateTime)
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            var time = dateTime.Subtract(new TimeSpan(epoch.Ticks));
+            var time = dateTime.Ticks - epoch.Ticks;
 
-            return time.Ticks / 10000;
+            return time / TimeSpan.TicksPerSecond;
         }
     }
 }
