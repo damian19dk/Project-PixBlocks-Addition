@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PixBlocks_Addition.Infrastructure.Models;
 using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Services;
 
@@ -22,17 +19,23 @@ namespace PixBlocks_Addition.Api.Controllers
             _jwPlayer = jwPlayer;
         }
 
-        [AllowAnonymous]
         [HttpGet("playlist")]
         public async Task<JWPlayerMedia> GetPlaylist(string id)
         {
             return await _jwPlayer.GetPlaylistAsync(id);
         }
-        
+
         [HttpGet("video")]
         public async Task<JWPlayerVideo> GetVideo(string id)
         {
             return await _jwPlayer.GetVideoAsync(id);
         }
+
+        [HttpGet("create")]
+        public async Task<string> CreateVideo()
+        {
+            return await _jwPlayer.CreateVideoAsync();
+        }
+
     }
 }
