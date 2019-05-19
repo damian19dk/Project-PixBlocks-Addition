@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MustMatch } from './must-match.validator';
 
 @Component({ templateUrl: 'registration.component.html' })
 export class RegistrationComponent implements OnInit {
@@ -21,10 +22,12 @@ export class RegistrationComponent implements OnInit {
     this.loading = false;
 
     this.registrationForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['',Validators.required]
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
     });
 
     this.authenticationService.logout();
