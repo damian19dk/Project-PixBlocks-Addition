@@ -20,7 +20,7 @@ export class CourseEditorComponent implements OnInit {
   }
 
   getCourse() {
-    this.courseService.getCourse("Super Kurs Javy")
+    this.courseService.getCourse("Sto twarzy grzybiarzy")
     .subscribe(
       (data: Course) => {
         this.course = data;

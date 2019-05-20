@@ -3,9 +3,23 @@
     <h2>Edytor kursów</h2>
   </div>
 
-  <div *ngIf="course">
-    <p>{{course.title}}</p>
 
-    <p>{{course.description}}</p>
+
+
+  <div *ngIf="course">
+    <h3>{{course.title}}</h3>
+
+    <img src={{course.picture}} />
+
+    <p>Opis: {{course.description}}</p>
+
+    
+
+    <div>Tagi:
+      <div *ngFor="let tag of course.tags">
+        <span class="badge badge-primary">{{tag}}</span>
+      </div>
+    </div>
+
   </div>
 </div>
