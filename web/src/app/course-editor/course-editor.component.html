@@ -3,10 +3,9 @@
     <h2>Edytor kursów</h2>
   </div>
 
-  <div>
-    <ul>
-      <li>Id:</li>
-      <li></li>
-    </ul>
+  <div *ngIf="course">
+    <p>{{course.title}}</p>
+
+    <p>{{course.description}}</p>
   </div>
 </div>

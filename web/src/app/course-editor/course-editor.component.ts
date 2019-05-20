@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseService } from '../services/course.service';
+import { Course } from '../models/course.model';
 
 @Component({
   selector: 'app-course-editor',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseEditorComponent implements OnInit {
 
-  constructor() { }
+  course: Course;
+  error: string;
+
+  constructor(
+    private courseService: CourseService) { }
 
   ngOnInit() {
+    this.getCourse();
+  }
+
+  getCourse() {
+    this.courseService.getCourse("Super Kurs Javy")
+    .subscribe(
+      (data: Course) => {
+        this.course = data;
+      },
+      error => {
+        this.error = error;
+      }
+    );
   }
 
 }
