@@ -1,21 +1,20 @@
 <div class="container">
   <div class="row">
-    <h2>Edytor kursów</h2>
+    <h2 class="display-4">Edytor kursów</h2>
   </div>
 
 
+  <div class="container jumbotron" *ngIf="course">
+    <div class="row">
+      <h3>{{course.title}}</h3>
+    </div>
 
-
-  <div *ngIf="course">
-    <h3>{{course.title}}</h3>
-
-    <img src={{course.picture}} />
+    <img class="img-thumbnail rounded mx-auto d-block" src={{course.picture}} alt="Tu powinno być zdjęcie"/>
 
     <p>Opis: {{course.description}}</p>
 
-    
 
-    <div>Tagi:
+    <div>Kategorie:
       <div *ngFor="let tag of course.tags">
         <span class="badge badge-primary">{{tag}}</span>
       </div>
