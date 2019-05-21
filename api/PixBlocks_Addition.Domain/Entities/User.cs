@@ -1,4 +1,5 @@
-﻿using PixBlocks_Addition.Domain.Repositories;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -50,18 +51,18 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public void SetLogin(string login)
         {
-            if (login.Length < 3) throw new Exception();
-            if (login.Length > 20) throw new Exception();
-            if (String.IsNullOrEmpty(login)) throw new Exception();
-            if (!regex_login.IsMatch(login)) throw new Exception();
+            if (login.Length < 3) throw new MyException(MyCodes.TooShortLogin);
+            if (login.Length >= 20) throw new MyException(MyCodes.TooLongLogin);
+            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodes.WrongCharactersInLogin);
+            if (!regex_login.IsMatch(login)) throw new MyException(MyCodes.WrongCharactersInLogin);
             Login = login;
         }
 
         public void SetPassword(string password, IEncrypter encrypter)
         {
-            if (string.IsNullOrWhiteSpace(password)) throw new Exception();
-            if (password.Length < 6) throw new Exception();
-            if (password.Length > 20) throw new Exception();
+            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodes.WrongCharactersInPassword);
+            if (password.Length < 6) throw new MyException(MyCodes.TooShortPassword);
+            if (password.Length >= 20) throw new MyException(MyCodes.TooLongPassword);
             string salt = encrypter.GetSalt(password);
             string hash = encrypter.GetHash(password, salt);
 
@@ -80,18 +81,18 @@ namespace PixBlocks_Addition.Domain.Entities
         }
         public void SetEmail(string mail)
         {
-            if (!regex_mail.IsMatch(mail)) throw new Exception();
+            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodes.WrongFormatOfMail);
             Email = mail;
         }
         public void SetStatus(int status)
         {
             if (status == 1 || status == 0) Status = status;
-            else throw new Exception();
+            else throw new MyException(MyCodes.WrongUserStatus);
         }
         public void IsRoleCorrectSet(int roleid)
         {
             if (roleid == 3 || roleid == 1) RoleId = roleid;
-            else throw new Exception();
+            else throw new MyException(MyCodes.WrongRoleId);
         }
     }
 }

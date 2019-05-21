@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,9 +14,17 @@ namespace PixBlocks_Addition.Domain.Entities
             string lang, long duration=0, IEnumerable<Tag> tags = null) 
             :base(string.Empty, premium, title, description, picture, duration, lang, tags)
         {
+            if (name.Length < 3) throw new MyException(MyCodes.TooShortCourseName);
+            Name = name;
+        }
+        
+        public void SetDescription(string description)
+        {
+            if (description.Length > 10000) throw new MyException(MyCodes.TooLongDescription);
+            Description = description;
         }
 
-        protected Course()
+        public void SetPicture(string picture)
         {
         }
     }
