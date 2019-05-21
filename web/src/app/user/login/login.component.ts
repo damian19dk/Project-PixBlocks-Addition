@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
     this.loading = false;
 
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('[^ ]*')]],
+      password: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('[^ ]*')]]
     });
 
     this.authenticationService.logout();

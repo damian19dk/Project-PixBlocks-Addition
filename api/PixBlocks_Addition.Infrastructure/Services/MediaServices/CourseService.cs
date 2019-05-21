@@ -62,8 +62,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 tags = null;
             }
-            var course = new Course(resource.Premium, resource.Title, resource.Picture, 
-                                    resource.Language, resource.Language, 0, tags);
+            var course = new Course(resource.Premium, resource.Title, resource.Description, 
+                                    resource.Picture, resource.Language, 0, tags);
             await _courseRepository.AddAsync(course);
         }
 
