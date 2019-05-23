@@ -135,9 +135,11 @@ namespace PixBlocks_Addition.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "PixBlocks Addition V1");
             });
 
+            
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMiddleware<CancellationTokenMiddleware>();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseMvc();
         }
     }
