@@ -20,7 +20,6 @@ export class CourseManagerComponent implements OnInit {
 
   ngOnInit() {
     this.isNewCourseSelected = true;
-    this.getCourse();
   }
 
   getCourse() {

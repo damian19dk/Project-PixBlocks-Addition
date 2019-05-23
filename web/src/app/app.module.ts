@@ -24,6 +24,7 @@ import { CourseManagerComponent } from './courses/course-manager/course-manager.
 import { NewCourseComponent } from './courses/new-course/new-course.component';
 import { LoadingService } from './services/loading.service';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { FunctionalityNotPreparedComponent } from './functionality-not-prepared/functionality-not-prepared.component';
 
 
 const routes: Routes = [
@@ -57,7 +58,8 @@ const routes: Routes = [
     MinuteSecondsPipe,
     CourseManagerComponent,
     NewCourseComponent,
-    EditCourseComponent
+    EditCourseComponent,
+    FunctionalityNotPreparedComponent
   ],
   imports: [
     BrowserModule,
