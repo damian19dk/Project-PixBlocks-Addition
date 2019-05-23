@@ -1,17 +1,25 @@
 <div class="container">
 
-  <form>
+  <form [formGroup]="newCourseForm" (ngSubmit)="createNewCourse()">
     <div class="form-group row">
       <label for="title" class="col-sm-2 col-form-label">Tytuł</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="title" placeholder="Wpisz tytuł">
+        <input type="text" class="form-control" id="title" formControlName="title" placeholder="Wpisz tytuł">
+      </div>
+
+      <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+        <div *ngIf="f.title.errors.required">Pole jest puste</div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="opis" class="col-sm-2 col-form-label">Opis</label>
+      <label for="description" class="col-sm-2 col-form-label">Opis</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="opis" placeholder="Wpisz opis">
+        <input type="text" class="form-control" id="description" formControlName="description" placeholder="Wpisz opis">
+      </div>
+
+      <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+        <div *ngIf="f.description.errors.required">Pole jest puste</div>
       </div>
     </div>
 
@@ -21,13 +29,13 @@
         <div class="col-sm-10">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="gridRadios" id="pl" value="option1" checked>
-            <label class="form-check-label" for="gridRadios1">
+            <label class="form-check-label" for="pl">
               Polski
             </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="gridRadios" id="en" value="option2">
-            <label class="form-check-label" for="gridRadios2">
+            <label class="form-check-label" for="en">
               Angielski
             </label>
           </div>
@@ -39,21 +47,25 @@
       <div class="col-sm-2">Premium</div>
       <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck1">
+          <input class="form-check-input" type="checkbox" id="premium">
         </div>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="title" class="col-sm-2 col-form-label">Kategorie</label>
+      <label for="tags" class="col-sm-2 col-form-label">Kategorie</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="title" placeholder="Wpisz tytuł">
+        <input type="text" class="form-control" id="tags" placeholder="Podaj kategorie">
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-sm-10">
-        <button type="submit" class="btn btn-success">Dodaj kurs</button>
+        <button [disabled]="loading" class="btn btn-success">
+          <div *ngIf="!loading">Dodaj kurs</div>
+          <div *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
+              Ładowanie..</div>
+      </button>
       </div>
     </div>
   </form>
