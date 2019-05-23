@@ -49,6 +49,7 @@ export class NewCourseComponent implements OnInit {
 
     this.courseDto = this.newCourseForm.value;
     console.log(this.courseDto);
+
     this.loading = false;
 
     // this.courseService.addCourse(this.courseDto)

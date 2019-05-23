@@ -36,6 +36,8 @@ const routes: Routes = [
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
   {path: 'show_video/:id', component: ShowVideoComponent},
+  {path: 'settings', component: FunctionalityNotPreparedComponent},
+  {path: 'profile', component: FunctionalityNotPreparedComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
