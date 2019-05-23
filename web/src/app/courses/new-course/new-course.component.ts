@@ -30,7 +30,12 @@ export class NewCourseComponent implements OnInit {
 
     this.newCourseForm = this.formBuilder.group({
       title: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      premium: [''],
+      tags: [''],
+      language: [''],
+      parentName: [''],
+      picture: ['']
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
