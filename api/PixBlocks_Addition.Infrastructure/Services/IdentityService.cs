@@ -50,6 +50,19 @@ namespace PixBlocks_Addition.Infrastructure.Services
             await _userRepository.UpdateAsync(user);
         }
 
+        public async Task ChangeEmail(string login, string email)
+        {
+            var user = await _userRepository.GetAsync(login);
+            var unemail = await _userRepository.IsEmailUnique(email);
+
+            if (user.Email == email) throw new Exception();
+            if (!unemail) throw new Exception();
+
+            user.SetEmail(email);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
         public async Task<JwtDto> Login(string login, string password)
         {
             var user = await _userRepository.GetAsync(login);
