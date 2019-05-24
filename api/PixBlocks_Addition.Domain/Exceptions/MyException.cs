@@ -6,13 +6,13 @@ namespace PixBlocks_Addition.Domain.Exceptions
 {
     public class MyException : Exception
     {
-        public string Code { get; }
+        public int Code { get; }
 
         public MyException()
         {
         }
 
-        public MyException(string code)
+        public MyException(int code)
         {
             Code = code;
         }
@@ -33,7 +33,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public MyException(Exception innerException, string code, string message, params object[] args)
             : base(string.Format(message, args), innerException)
         {
-            Code = code;
+            Code = int.Parse(code);
         }
     }
 }
