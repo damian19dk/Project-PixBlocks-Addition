@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-declare var jwplayer: any;
+import { Video } from '../models/video.model';
+import { VideoService } from '../services/video.service';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-show-video',
@@ -8,9 +11,33 @@ declare var jwplayer: any;
 })
 export class ShowVideoComponent implements OnInit {
 
-  constructor() { }
+  video: Video;
+  error: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private videoService: VideoService,
+    private loadingService: LoadingService
+  ) { }
 
   ngOnInit() {
+    this.getVideo();
+  }
+
+  getVideo() {
+    this.loadingService.load();
+
+    const id = this.route.snapshot.paramMap.get('id');
+    
+    this.videoService.getVideo(id).subscribe(
+      (data: Video) => {
+        this.video = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      });
 
   }
 

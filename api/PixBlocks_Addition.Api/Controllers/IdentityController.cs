@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PixBlocks_Addition.Api.ResourceModels;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Infrastructure.Services;
 
 namespace PixBlocks_Addition.Api.Controllers
