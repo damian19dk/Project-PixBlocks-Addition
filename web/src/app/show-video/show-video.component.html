@@ -8,7 +8,7 @@
 
             <div class="row">
 
-                <iframe id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
+                <iframe class="img-thumbnail" id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
                     msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                     webkitallowfullscreen="webkitallowfullscreen" [src]="video.link | safe">
                 </iframe>
@@ -19,12 +19,15 @@
                 
             </div>
             <div class="row text-justify border-top">
-                <div class="col-3 text-justify">
-                    Tagi: {{video.tags}}
+                <div class="col-3 text-justify italic">
+                    Tagi:
                 </div>
+                <div class="col-6 text-justify">
+                    {{video.tags}}, Python, Natural Dread Killaz, uwierz w siebie
+                    </div>
                 </div>
             <div class="row text-justify border-top">
-            <div class="col-3 text-justify">            
+            <div class="col-3 text-justify italic">            
                Szczegóły    
             </div>
             <div class="col-3 text-justify">
@@ -40,12 +43,23 @@
             </div> 
 
             <div class="row text-justify border-top">
-                <div class="col-3 text-justify">
+                <div class="col-3 text-justify italic">
                 Opis
                 </div>
 
                 <div class="col-6 text-justify">
-                {{video.description}} Jakiś losowy tekst
+                {{video.description}} Po przejściu Hannibala przez Alpy i zreorganizowaniu wojsk, 
+                zagrożona została cała Italia. 
+                Senat rzymski w obliczu niebezpieczeństwa wysłał dwie armie konsularne, 
+                Publiusza Korneliusza Scypiona oraz Semproniusza Longusa, 
+                które jednak zostały pokonane nad rzeką Trebią w 218 roku p.n.e.
+                Tym zwycięstwem Hannibal otworzył sobie drogę do środkowej Italii. 
+                Senat zaniepokojony przebiegiem wojny powołał dwóch nowych konsulów, 
+                Serwiusza Geminiusza i Flaminiusza. Starali się oni zagrodzić drogę armii punickiej przez Apeniny, 
+                lecz Hannibal zupełnie zaskoczył Rzymian przeprawiając się przez bagnistą dolinę rzeki Arno. 
+                Dzięki temu manewrowi zastawił pułapkę na armię konsula Flaminiusza nad Jeziorem Trazymeńskim, 
+                gdzie w 217 roku p.n.e. doszło do wielkiej bitwy. 
+                W jej wyniku zginęło 15.000 żołnierzy rzymskich i sam konsul.
                 </div>
             </div>
         

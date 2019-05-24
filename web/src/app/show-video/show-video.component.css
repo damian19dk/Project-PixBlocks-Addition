@@ -1,11 +1,14 @@
 .col-3, .col-6 {
     font-size: 19px;
 }
+.italic {
+    font-style: italic;
+}
 .header2, .header4 {
     margin-top: 10px;
 }
 #video {
-    width: 600px;
+    width: 800px;
     height: 450px;
 }
 .text-justify {
