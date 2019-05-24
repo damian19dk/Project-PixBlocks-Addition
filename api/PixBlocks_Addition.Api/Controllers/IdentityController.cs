@@ -53,7 +53,7 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             await _identityService.Register(register.Login, register.Password, register.E_mail, register.RoleId);
         }
-        [AllowAnonymous]
+        
         [HttpPost("password change")]
         public async Task ChangePassword(string login, string newPassword, string oldPassword)
         {
