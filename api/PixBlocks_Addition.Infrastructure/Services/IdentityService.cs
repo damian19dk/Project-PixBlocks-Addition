@@ -29,14 +29,25 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task Register(string username, string password, string email, int role)
         {
             var unemail = await _userRepository.IsEmailUnique(email);
+            var unelogin = await _userRepository.IsLoginUnique(username);
             if (!unemail) throw new Exception();
-
+            if (!unelogin) throw new Exception();
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
 
             User user = new User(username, email, role, password, _encrypter);
 
             await _userRepository.AddAsync(user);
+        }
+
+        public async Task ChangePassword(string login, string newPassword, string oldPassword)
+        {
+            var user = await _userRepository.GetAsync(login);
+            if (newPassword == oldPassword) throw new Exception();
+            
+            user.SetPassword(newPassword, _encrypter);
+
+            await _userRepository.UpdateAsync(user);
         }
 
         public async Task<JwtDto> Login(string login, string password)
