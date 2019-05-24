@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Settings;
 using System;
@@ -69,12 +70,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 var response = await _httpClient.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
-                    throw new Exception(response.ReasonPhrase);
+                    throw new MyException(response.ReasonPhrase);
                 return response.Content;
             }
             catch (Exception)
             {
-                throw new Exception("Couldn't load the specific resource " + url);
+                throw new MyException("Couldn't load the specific resource " + url);
             }
         }
     }

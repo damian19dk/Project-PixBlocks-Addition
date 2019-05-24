@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -29,7 +30,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (Revoked)
             {
-                throw new Exception($"Refresh token: '{Id}' was already revoked at '{RevokedAt}'.");
+                throw new MyException($"Refresh token: '{Id}' was already revoked at '{RevokedAt}'.");
             }
             Revoked = true;
             RevokedAt = DateTime.UtcNow;

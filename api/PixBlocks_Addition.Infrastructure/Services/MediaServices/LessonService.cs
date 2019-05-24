@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -30,7 +31,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var lessonInCourse = lessons.FirstOrDefault(c => c.Title == resource.Title);
             if(lessonInCourse!=null)
             {
-                throw new Exception($"Lesson with title {resource.Title} already exists in the course.");
+                throw new MyException($"Lesson with title {resource.Title} already exists in the course.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -47,18 +48,18 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if(video == null)
             {
-                throw new Exception($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
             }
             var lesson = await _lessonRepository.GetAsync(upload.ParentName);
             if(lesson == null)
             {
-                throw new Exception($"Lesson with title {upload.ParentName} not found. Create the lesson first.");
+                throw new MyException($"Lesson with title {upload.ParentName} not found. Create the lesson first.");
             }
 
             var sameVideo = lesson.LessonVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if(sameVideo!=null)
             {
-                throw new Exception($"The lesson already has the same video.");
+                throw new MyException(MyCodes.SameVideo);
             }
 
             lesson.LessonVideos.Add(new LessonVideo(lesson.Id, video));
@@ -98,12 +99,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var lesson = await _lessonRepository.GetAsync(lessonId);
             if (lesson == null)
             {
-                throw new Exception("Lesson not found.");
+                throw new MyException(MyCodes.LessonNotFound);
             }
             var lessonVideo = lesson.LessonVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (lessonVideo == null)
             {
-                throw new Exception("Video not found.");
+                throw new MyException(MyCodes.VideoNotFound);
             }
             lesson.LessonVideos.Remove(lessonVideo);
             await _lessonRepository.UpdateAsync(lesson);
