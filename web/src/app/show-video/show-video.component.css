@@ -1,4 +1,13 @@
+.col-3, .col-6 {
+    font-size: 19px;
+}
+.header2, .header4 {
+    margin-top: 10px;
+}
 #video {
-    width: 400px;
-    height: 300px;
+    width: 600px;
+    height: 450px;
+}
+.text-justify {
+    margin-top: 20px;
 }

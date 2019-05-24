@@ -1,16 +1,12 @@
 <div *ngIf="video">
-    <div class="col-8 col-centered">
+    <div class="container">
 
         <div *ngIf="error" class="alert alert-danger">
             {{error}}
         </div>
         <div *ngIf="!error">
 
-            <div class="row col-centered">
-                <h2 class="display-4 col-centered">{{video.title}}</h2>
-            </div>
-
-            <div class="col-centered text-center">
+            <div class="row">
 
                 <iframe id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
                     msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
@@ -18,20 +14,41 @@
                 </iframe>
 
             </div>
-
-            <div class="row text-justify">
-                <p>Czas trwania: {{video.duration | minuteSeconds}}</p>
+            <div class="row text-justify border-top">
+                <h2 class="header2">Informacje o tym wideo <br><h4 class="header4">{{video.title}}</h4></h2> 
+                
             </div>
-
-            <div class="row text-justify">
-                <p>Tagi: {{video.tags}}</p>
-
+            <div class="row text-justify border-top">
+                <div class="col-3 text-justify">
+                    Tagi: {{video.tags}}
+                </div>
+                </div>
+            <div class="row text-justify border-top">
+            <div class="col-3 text-justify">            
+               Szczegóły    
             </div>
-
-            <div class="row text-justify">
-                <p>Opis: {{video.description}}</p>
+            <div class="col-3 text-justify">
+                Czas trwania: {{video.duration | minuteSeconds}}
+                <br>
+                Język: polski
+                <br>
+                Napisy: nie
             </div>
+            <div class="col-3 text-justify">
+                
+            </div>
+            </div> 
 
+            <div class="row text-justify border-top">
+                <div class="col-3 text-justify">
+                Opis
+                </div>
+
+                <div class="col-6 text-justify">
+                {{video.description}} Jakiś losowy tekst
+                </div>
+            </div>
+        
         </div>
 
     </div>
