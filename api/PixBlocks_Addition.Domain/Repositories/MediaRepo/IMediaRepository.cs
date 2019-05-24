@@ -10,6 +10,7 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         Task<T> GetAsync(Guid id);
         Task<T> GetAsync(string title);
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(int page, int count = 10);
         Task AddAsync(T entity);
         Task RemoveAsync(Guid id);
         Task RemoveAsync(string name);

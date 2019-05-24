@@ -3,6 +3,7 @@ using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
 {
@@ -18,6 +19,8 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<Category> GetAsync(string name) => await _entities.Categories.SingleOrDefaultAsync(x => x.Name == name);
 
         public async Task<IEnumerable<Category>> GetAllAsync() => await _entities.Categories.ToListAsync();
+
+        public async Task<IEnumerable<Category>> GetAllAsync(int page, int count = 10) => await _entities.Categories.Skip((page - 1) * count).ToListAsync();
 
         public async Task AddAsync(Category category)
         {
