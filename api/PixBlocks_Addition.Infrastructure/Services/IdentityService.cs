@@ -1,4 +1,5 @@
 ﻿using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.Models;
@@ -30,10 +31,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var unemail = await _userRepository.IsEmailUnique(email);
             var unelogin = await _userRepository.IsLoginUnique(username);
-            if (!unemail) throw new Exception();
+            if (!unemail) throw new MyException(MyCodes.SamePassword);
 
-            var unname = await _userRepository.IsLoginUnique(username);
-            if (!unname) throw new Exception();
+            if (!unelogin) throw new MyException();
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
@@ -46,7 +46,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task ChangePassword(string login, string newPassword, string oldPassword)
         {
             var user = await _userRepository.GetAsync(login);
-            if (newPassword == oldPassword) throw new Exception();
+            if (newPassword == oldPassword) throw new MyException("Nowe hasło musi być różne od starego!");
             
             user.SetPassword(newPassword, _encrypter);
 
@@ -71,12 +71,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
-                throw new Exception("Invalid credentials.");
+                throw new MyException("Invalid credentials.");
             }
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password != hash)
             {
-                throw new Exception("Invalid credentials.");
+                throw new MyException("Invalid credentials.");
             }
             var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name, true);
             var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);

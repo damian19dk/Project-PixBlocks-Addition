@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PixBlocks_Addition.Domain.Exceptions
+namespace PixBlocks_Addition.Domain.
+    s
 {
     class MyCodes
     {
@@ -17,6 +18,8 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string WrongCharactersInLogin => "Niedozwolone znaki w loginie!";
         public static string TooShortCourseName => "Za krótka nazwa kursu!";
         public static string TooLongDescription => "Za długi opis!";
+        public static string SamePassword => "Nowe hasło musi być różne od starego!";
+        public static string SameEmail => "Nowy e-mail musi być różny od starego!";
 
     }
 }
