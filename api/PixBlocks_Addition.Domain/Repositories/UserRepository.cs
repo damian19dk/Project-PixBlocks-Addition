@@ -30,7 +30,7 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<IEnumerable<User>> GetAllAsync(int page, int count = 10)
         {
-           return await _entities.Users.OrderBy(s => s.Status).Where(x => x.Status == 1).Skip((page - 1) * count).Include("Role").ToListAsync();
+           return await _entities.Users.Where(x => x.Status == 1).Skip((page - 1) * count).Include("Role").ToListAsync();
         }
 
         public async Task RemoveAsync(Guid id)
