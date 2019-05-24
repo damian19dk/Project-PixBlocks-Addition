@@ -18,6 +18,5 @@ namespace PixBlocks_Addition.Domain.Repositories
         Task AddAsync(User user);
         Task UpdateAsync(User user);
         Task UpdateStatusAsync(Guid id, int status);
-        Task<bool> IsLoginUnique(string login);
     }
 }
