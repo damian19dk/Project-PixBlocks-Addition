@@ -12,5 +12,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         Task Register(string username, string password, string email, int role);
         Task<JwtDto> RefreshAccessToken(string refreshToken);
         Task RevokeRefreshToken(string refreshToken);
+        Task ChangePassword(string login, string newPassword, string oldPassword);
+        Task ChangeEmail(string login, string email);
     }
 }

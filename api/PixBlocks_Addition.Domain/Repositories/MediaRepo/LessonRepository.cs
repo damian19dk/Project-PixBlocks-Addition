@@ -3,6 +3,7 @@ using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,12 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
             => await _entities.Lessons.Include(c => c.LessonVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                      .Include(c => c.Tags)
                      .Include(c => c.Exercises).ThenInclude(x => x.Tags)
+                     .ToListAsync();
+
+        public async Task<IEnumerable<Lesson>> GetAllAsync(int page, int count = 10)
+            => await _entities.Lessons.Include(c => c.LessonVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
+                     .Include(c => c.Tags)
+                     .Include(c => c.Exercises).ThenInclude(x => x.Tags).Skip((page -1)*count)
                      .ToListAsync();
     }
 }

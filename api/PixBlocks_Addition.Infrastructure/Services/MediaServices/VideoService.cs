@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -26,7 +27,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
             if (videoFromDatabase != null)
             {
-                throw new Exception($"The video with mediaId: {video.MediaId} already exists.");
+                throw new MyException($"The video with mediaId: {video.MediaId} already exists.");
             }
             var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
 
