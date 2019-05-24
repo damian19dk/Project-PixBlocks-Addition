@@ -31,9 +31,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var unemail = await _userRepository.IsEmailUnique(email);
             var unelogin = await _userRepository.IsLoginUnique(username);
-            if (!unemail) throw new MyException(MyCodes.UniqueEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
 
-            if (!unelogin) throw new MyException(MyCodes.UniqueLogin);
+            if (!unelogin) throw new MyException(MyCodesNumbers.UniqueLogin, MyCodes.UniqueLogin);
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
@@ -46,7 +46,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task ChangePassword(string login, string newPassword, string oldPassword)
         {
             var user = await _userRepository.GetAsync(login);
-            if (newPassword == oldPassword) throw new MyException(MyCodes.SamePassword);
+            if (newPassword == oldPassword) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
             
             user.SetPassword(newPassword, _encrypter);
 
@@ -58,8 +58,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             var unemail = await _userRepository.IsEmailUnique(email);
 
-            if (user.Email == email) throw new MyException(MyCodes.SameEmail);
-            if (!unemail) throw new MyException(MyCodes.UniqueEmail);
+            if (user.Email == email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
 
             user.SetEmail(email);
 
@@ -71,12 +71,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
-                throw new MyException(MyCodes.InvalidCredentials);
+                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
             }
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password != hash)
             {
-                throw new MyException(MyCodes.InvalidCredentials);
+                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
             }
             var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name, true);
             var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
@@ -101,16 +101,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new MyException(MyCodes.TokenNotFound);
+                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
             }
             if (token.Revoked)
             {
-                throw new MyException("Refresh token was revoked");
+                throw new MyException(MyCodesNumbers.RefreshToken, MyCodes.RefreshToken);
             }
             var user = await _userRepository.GetAsync(token.UserId);
             if (user == null)
             {
-                throw new MyException(MyCodes.UserNotFounJWT);
+                throw new MyException(MyCodesNumbers.UserNotFoundJWT, MyCodes.UserNotFoundJWT);
             }
             var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name, user.IsPremium);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
@@ -123,11 +123,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new MyException(MyCodes.TokenNotFound);
+                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
             }
             if (token.Revoked)
             {
-                throw new MyException(MyCodes.RefreshAToken);
+                throw new MyException(MyCodesNumbers.RefreshAToken, MyCodes.RefreshAToken);
             }
             token.Revoke();
             await _refreshTokens.UpdateAsync();

@@ -23,7 +23,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string UniqueLogin => "Konto o takim loginie istnieje już w bazie!"; //1013
         public static string InvalidCredentials => "Niepoprawne dane logowania!"; //1000
         public static string TokenNotFound => "Refresh token was not found!"; //3000
-        public static string UserNotFounJWT => "User not found!"; //3001
+        public static string UserNotFoundJWT => "User not found!"; //3001
         public static string RefreshAToken => "Refresh token was already revoked!"; //3002
         public static string RefreshToken => "Refresh token was revoked!"; //3003
         public static string SameVideo => "The lesson already has the same video!"; //2002

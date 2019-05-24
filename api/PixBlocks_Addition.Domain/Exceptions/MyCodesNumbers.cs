@@ -30,7 +30,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string ExerciseNotFound => "2005";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
-        public static string UserNotFounJWT => "3001";
+        public static string UserNotFoundJWT => "3001";
         public static string RefreshAToken => "3002";
         public static string RefreshToken => "3003";
 

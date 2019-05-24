@@ -106,7 +106,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exerciseVideo = exercise.ExerciseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (exerciseVideo == null)
             {
-                throw new MyException(MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
             }
             exercise.ExerciseVideos.Remove(exerciseVideo);
             await _exerciseRepository.UpdateAsync(exercise);

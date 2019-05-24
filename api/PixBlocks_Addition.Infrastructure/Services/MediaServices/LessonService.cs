@@ -59,7 +59,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var sameVideo = lesson.LessonVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if(sameVideo!=null)
             {
-                throw new MyException(MyCodes.SameVideo);
+                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideo);
             }
 
             lesson.LessonVideos.Add(new LessonVideo(lesson.Id, video));
@@ -99,12 +99,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var lesson = await _lessonRepository.GetAsync(lessonId);
             if (lesson == null)
             {
-                throw new MyException(MyCodes.LessonNotFound);
+                throw new MyException(MyCodesNumbers.LessonNotFound, MyCodes.LessonNotFound);
             }
             var lessonVideo = lesson.LessonVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (lessonVideo == null)
             {
-                throw new MyException(MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
             }
             lesson.LessonVideos.Remove(lessonVideo);
             await _lessonRepository.UpdateAsync(lesson);
