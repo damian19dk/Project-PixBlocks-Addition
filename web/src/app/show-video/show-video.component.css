@@ -8,8 +8,9 @@
     margin-top: 10px;
 }
 #video {
-    width: 800px;
-    height: 450px;
+    /* 16:9 */
+    width: 1120px;
+    height: 600px;
 }
 .text-justify {
     margin-top: 20px;
