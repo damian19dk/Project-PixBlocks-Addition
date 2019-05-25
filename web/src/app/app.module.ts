@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, SafePipe, MinuteSecondsPipe } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -20,17 +21,25 @@ import { VideoBrowseComponent } from './video-browse/video-browse.component';
 import { ShowVideoComponent } from './show-video/show-video.component';
 import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.component';
 import { VideoService } from './services/video.service';
+import { CourseManagerComponent } from './courses/course-manager/course-manager.component';
+import { NewCourseComponent } from './courses/new-course/new-course.component';
+import { LoadingService } from './services/loading.service';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { FunctionalityNotPreparedComponent } from './functionality-not-prepared/functionality-not-prepared.component';
+import { CourseService } from './services/course.service';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'add_video', component: AddVideoComponent},
-  {path: 'browse_video', component: VideoBrowseComponent},
+  {path: 'course_editor', component: CourseManagerComponent},
   {path: '', component: HomeComponent},
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
   {path: 'show_video/:id', component: ShowVideoComponent},
+  {path: 'settings', component: FunctionalityNotPreparedComponent},
+  {path: 'profile', component: FunctionalityNotPreparedComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -50,11 +59,16 @@ const routes: Routes = [
     ShowVideoComponent,
     VideoThumbnailComponent,
     SafePipe,
-    MinuteSecondsPipe
+    MinuteSecondsPipe,
+    CourseManagerComponent,
+    NewCourseComponent,
+    EditCourseComponent,
+    FunctionalityNotPreparedComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule,
+    NgbModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -64,7 +78,9 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService,
-    VideoService
+    VideoService,
+    CourseService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })
