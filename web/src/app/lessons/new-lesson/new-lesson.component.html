@@ -1,3 +1,83 @@
-<p>
-  new-lesson works!
-</p>
+<div class="container">
+
+  <form [formGroup]="newLessonForm" (ngSubmit)="createNewLesson()">
+    <div class="form-group row">
+      <label for="title" class="col-sm-2 col-form-label">Tytuł</label>
+      <div class="col-sm-10 input-group">
+        <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control" id="title"
+          formControlName="title" placeholder="Wpisz tytuł">
+
+        <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+          <div *ngIf="f.title.errors.required">Pole jest puste</div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="form-group row">
+      <label for="description" class="col-sm-2 col-form-label">Opis</label>
+      <div class="col-sm-10 input-group">
+        <input [ngClass]="{'is-invalid' : submitted && f.description.errors}" type="text" class="form-control"
+          id="description" formControlName="description" placeholder="Wpisz opis">
+
+        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+          <div *ngIf="f.description.errors.required">Pole jest puste</div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="form-group row" ngbRadioGroup name="language" formControlName="language">
+      <label for="language" class="col-sm-2 col-form-label">Język</label>
+      <div class="col-sm-10 input-group">
+        <label ngbButtonLabel>
+          <input ngbButton type="radio" value="Polski"> Polski
+        </label>
+        <label ngbButtonLabel>
+          <input ngbButton type="radio" value="Angielski"> Angielski
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-2">Premium</div>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input formControlName="premium" class="form-check-input" type="checkbox" id="premium">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="tags" class="col-sm-2 col-form-label">Kategorie</label>
+      <div class="col-sm-10">
+        <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz kategorie'" [data]="tagsList"
+          [settings]="tagsSettings">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="picture" class="col-sm-2 col-form-label">Zdjęcie</label>
+      <div class="col-sm-10">
+        <input formControlName="picture" type="text" class="form-control" id="picture"
+          placeholder="Podaj adres obrazka">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" [disabled]="loading" class="btn btn-success">
+          <div *ngIf="!loading">Dodaj lekcję</div>
+          <div *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
+            Ładowanie..</div>
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+</div>

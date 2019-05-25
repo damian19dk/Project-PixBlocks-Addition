@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { LessonDto } from 'src/app/models/lessonDto.model';
+import { LessonService } from 'src/app/services/lesson.service';
 
 @Component({
   selector: 'app-new-lesson',
@@ -7,9 +11,78 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewLessonComponent implements OnInit {
 
-  constructor() { }
+  newLessonForm: FormGroup;
+  loading: boolean;
+  submitted: boolean;
+  returnUrl: string;
+  lessonDto: LessonDto;
+  error: string;
+  
+  tagsList = [];
+  tagsSettings = {};
 
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private lessonService: LessonService) { }
+
+  ngOnInit() {    
+    this.tagsList = [
+      "Ruby", "Haskell", "Java"
+    ];
+    this.tagsSettings = {
+      singleSelection: false,
+      selectAllText: 'Zaznacz wszystkie',
+      unSelectAllText: 'Odznacz wszystkie',
+      itemsShowLimit: 5,
+      allowSearchFilter: true,
+      searchPlaceholderText: 'Szukaj...'
+    };
+
+
+    this.lessonDto = new LessonDto();
+
+    this.submitted = false;
+    this.loading = false;
+
+    this.newLessonForm = this.formBuilder.group({
+      title: [null, Validators.required],
+      description: [null, Validators.required],
+      premium: [false],
+      tags: [null],
+      language: ['Polski'],
+      parentName: [null],
+      picture: [null]
+    });
   }
+
+
+  get f() { return this.newLessonForm.controls; }
+
+  createNewLesson() {
+    this.submitted = true;
+
+    if (this.newLessonForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.lessonDto = this.newLessonForm.value;
+    console.log(this.lessonDto);
+
+    this.loading = false;
+
+    // this.lessonService.addLesson(this.lessonDto)
+    //   .subscribe(
+    //     data => {
+    //       this.loading = false;
+    //     },
+    //     error => {
+    //       this.error = error;
+    //       this.loading = false;
+    //     });
+  }
+
+  
 
 }

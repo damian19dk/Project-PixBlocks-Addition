@@ -47,13 +47,13 @@ export class NewCourseComponent implements OnInit {
     this.loading = false;
 
     this.newCourseForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      premium: [''],
-      tags: [''],
+      title: [null, Validators.required],
+      description: [null, Validators.required],
+      premium: [false],
+      tags: [null],
       language: ['Polski'],
-      parentName: [''],
-      picture: ['']
+      parentName: [null],
+      picture: [null]
     });
   }
 
@@ -74,15 +74,15 @@ export class NewCourseComponent implements OnInit {
 
     this.loading = false;
 
-    this.courseService.addCourse(this.courseDto)
-      .subscribe(
-        data => {
-          this.loading = false;
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+    // this.courseService.addCourse(this.courseDto)
+    //   .subscribe(
+    //     data => {
+    //       this.loading = false;
+    //     },
+    //     error => {
+    //       this.error = error;
+    //       this.loading = false;
+    //     });
   }
 
   
