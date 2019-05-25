@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LessonDto } from 'src/app/models/lessonDto.model';
 import { LessonService } from 'src/app/services/lesson.service';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-new-lesson',
@@ -23,12 +24,12 @@ export class NewLessonComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private lessonService: LessonService) { }
+    private lessonService: LessonService,
+    private tagService: TagService) { }
 
   ngOnInit() {    
-    this.tagsList = [
-      "Ruby", "Haskell", "Java"
-    ];
+    this.tagsList = this.tagService.getTags();
+    
     this.tagsSettings = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',
