@@ -30,12 +30,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
             }
 
-            var course = await _courseRepository.GetAsync(upload.ParentName);
+            var course = await _courseRepository.GetAsync(upload.ParentId);
             if (course == null)
             {
-                throw new MyException($"Course with title {upload.ParentName} not found. Create the course first.");
+                throw new MyException($"Course with title {upload.ParentId} not found. Create the course first.");
             }
-
+            
             var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
@@ -80,10 +80,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return Mappers.AutoMapperConfig.Mapper.Map<Course, CourseDto>(result);
         }
 
-        public async Task<CourseDto> GetAsync(string title)
+        public async Task<IEnumerable<CourseDto>> GetAsync(string title)
         {
             var result = await _courseRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<Course, CourseDto>(result);
+            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<CourseDto>>(result);
         }
 
         public async Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId)

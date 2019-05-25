@@ -8,7 +8,7 @@ namespace PixBlocks_Addition.Infrastructure.ResourceModels
 {
     public class MediaResource
     {
-        public string ParentName { get; set; }
+        public Guid ParentId { get; set; }
         public string MediaId { get; set; }
         public bool Premium { get; set; }
         public string Title { get; set; }

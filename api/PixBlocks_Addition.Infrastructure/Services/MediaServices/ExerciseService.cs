@@ -33,10 +33,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
             }
 
-            var exercise = await _exerciseRepository.GetAsync(upload.ParentName);
+            var exercise = await _exerciseRepository.GetAsync(upload.ParentId);
             if (exercise == null)
             {
-                throw new MyException($"Exercise with title {upload.ParentName} not found. Create the exercise first.");
+                throw new MyException($"Exercise with id {upload.ParentId} not found. Create the exercise first.");
             }
 
             var sameVideo = exercise.ExerciseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
@@ -51,7 +51,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task CreateAsync(MediaResource resource)
         {
-            var lesson = await _lessonRepository.GetAsync(resource.ParentName);
+            var lesson = await _lessonRepository.GetAsync(resource.ParentId);
             var exercises = lesson.Exercises;
             var exerciseInCourse = exercises.FirstOrDefault(c => c.Title == resource.Title);
             if (exerciseInCourse != null)
@@ -80,10 +80,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return Mappers.AutoMapperConfig.Mapper.Map<ExerciseDto>(result);
         }
 
-        public async Task<ExerciseDto> GetAsync(string title)
+        public async Task<IEnumerable<ExerciseDto>> GetAsync(string title)
         {
             var result = await _exerciseRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<ExerciseDto>(result);
+            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<ExerciseDto>>(result);
         }
 
         public async Task RemoveAsync(Guid id)

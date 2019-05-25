@@ -7,7 +7,7 @@ namespace PixBlocks_Addition.Infrastructure.ResourceModels
 {
     public class UploadResource
     {
-        public string ParentName { get; set; }
+        public Guid ParentId { get; set; }
         public string MediaId { get; set; }
     }
 }
