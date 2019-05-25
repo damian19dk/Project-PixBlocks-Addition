@@ -27,6 +27,9 @@ import { LoadingService } from './services/loading.service';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 import { FunctionalityNotPreparedComponent } from './functionality-not-prepared/functionality-not-prepared.component';
 import { CourseService } from './services/course.service';
+import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.component';
+import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
+import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component';
 
 
 const routes: Routes = [
@@ -34,6 +37,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'add_video', component: AddVideoComponent},
   {path: 'course_editor', component: CourseManagerComponent},
+  {path: 'lesson_editor', component: LessonManagerComponent},
   {path: '', component: HomeComponent},
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
@@ -63,7 +67,10 @@ const routes: Routes = [
     CourseManagerComponent,
     NewCourseComponent,
     EditCourseComponent,
-    FunctionalityNotPreparedComponent
+    FunctionalityNotPreparedComponent,
+    LessonManagerComponent,
+    NewLessonComponent,
+    EditLessonComponent
   ],
   imports: [
     BrowserModule,
