@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { LessonDto } from 'src/app/models/lessonDto.model';
 import { LessonService } from 'src/app/services/lesson.service';
 import { TagService } from 'src/app/services/tag.service';
+import { CourseService } from 'src/app/services/course.service';
+import { Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+import { Course } from 'src/app/models/course.model';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-new-lesson',
@@ -22,10 +27,14 @@ export class NewLessonComponent implements OnInit {
   tagsList = [];
   tagsSettings = {};
 
+  courses: Course[];
+
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private lessonService: LessonService,
-    private tagService: TagService) { }
+    private tagService: TagService,
+    private courseService: CourseService,
+    private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
@@ -46,10 +55,28 @@ export class NewLessonComponent implements OnInit {
       parentId: [null, Validators.required],
       picture: [null]
     });
+
+    this.getCourses();
+    
   }
 
 
   get f() { return this.newLessonForm.controls; }
+
+  getCourses() {
+    this.loadingService.load();
+
+    this.courseService.getCourses().subscribe(
+      (data: Course[]) => {
+        this.courses = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
+  }
 
   createNewLesson() {
     this.submitted = true;
@@ -61,6 +88,7 @@ export class NewLessonComponent implements OnInit {
     this.loading = true;
 
     this.lessonDto = this.newLessonForm.value;
+    this.lessonDto.parentId = this.newLessonForm.value.parentId.id;
     console.log(this.lessonDto);
 
     this.loading = false;
@@ -76,6 +104,15 @@ export class NewLessonComponent implements OnInit {
     //     });
   }
 
+  searchCourse = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      map(term => term === '' ? []
+        : this.courses.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
+  
 
+  formatter = (x: Course) =>
+    x.title;
 
 }
