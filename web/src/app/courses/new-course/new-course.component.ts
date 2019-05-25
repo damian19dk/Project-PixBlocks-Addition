@@ -29,15 +29,8 @@ export class NewCourseComponent implements OnInit {
 
   ngOnInit() {    
     this.tagsList = this.tagService.getTags();
-    
-    this.tagsSettings = {
-      singleSelection: false,
-      selectAllText: 'Zaznacz wszystkie',
-      unSelectAllText: 'Odznacz wszystkie',
-      itemsShowLimit: 5,
-      allowSearchFilter: true,
-      searchPlaceholderText: 'Szukaj...'
-    };
+
+    this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
 
     this.courseDto = new CourseDto();
 

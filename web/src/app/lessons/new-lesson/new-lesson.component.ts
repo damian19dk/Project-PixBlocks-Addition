@@ -18,7 +18,7 @@ export class NewLessonComponent implements OnInit {
   returnUrl: string;
   lessonDto: LessonDto;
   error: string;
-  
+
   tagsList = [];
   tagsSettings = {};
 
@@ -27,18 +27,10 @@ export class NewLessonComponent implements OnInit {
     private lessonService: LessonService,
     private tagService: TagService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.tagsList = this.tagService.getTags();
-    
-    this.tagsSettings = {
-      singleSelection: false,
-      selectAllText: 'Zaznacz wszystkie',
-      unSelectAllText: 'Odznacz wszystkie',
-      itemsShowLimit: 5,
-      allowSearchFilter: true,
-      searchPlaceholderText: 'Szukaj...'
-    };
 
+    this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
 
     this.lessonDto = new LessonDto();
 
@@ -84,6 +76,6 @@ export class NewLessonComponent implements OnInit {
     //     });
   }
 
-  
+
 
 }
