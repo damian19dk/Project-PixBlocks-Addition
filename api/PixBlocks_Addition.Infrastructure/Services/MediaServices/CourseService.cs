@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -26,19 +27,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if (video == null)
             {
-                throw new Exception($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
             }
 
             var course = await _courseRepository.GetAsync(upload.ParentName);
             if (course == null)
             {
-                throw new Exception($"Course with title {upload.ParentName} not found. Create the course first.");
+                throw new MyException($"Course with title {upload.ParentName} not found. Create the course first.");
             }
 
             var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new Exception($"The course already has the same video.");
+                throw new MyException($"The course already has the same video.");
             }
 
             course.CourseVideos.Add(new CourseVideo(course.Id, video));
@@ -50,7 +51,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var c = await _courseRepository.GetAsync(resource.Title);
             if(c!=null)
             {
-                throw new Exception($"The course with title {resource.Title} already exists.");
+                throw new MyException($"The course with title {resource.Title} already exists.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -62,8 +63,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 tags = null;
             }
-            var course = new Course(resource.Premium, resource.Title, resource.Picture, 
-                                    resource.Language, resource.Language, 0, tags);
+            var course = new Course(resource.Premium, resource.Title, resource.Description, 
+                                    resource.Picture, resource.Language, 0, tags);
             await _courseRepository.AddAsync(course);
         }
 
@@ -90,12 +91,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var course = await _courseRepository.GetAsync(courseId);
             if(course == null)
             {
-                throw new Exception("Course not found.");
+                throw new MyException("Course not found.");
             }
             var courseVideo = course.CourseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if(courseVideo == null)
             {
-                throw new Exception("Video not found.");
+                throw new MyException("Video not found.");
             }
             course.CourseVideos.Remove(courseVideo);
             await _courseRepository.UpdateAsync(course);

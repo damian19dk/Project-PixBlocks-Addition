@@ -1,4 +1,5 @@
 ﻿using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.Models;
@@ -29,10 +30,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task Register(string username, string password, string email, int role)
         {
             var unemail = await _userRepository.IsEmailUnique(email);
-            if (!unemail) throw new Exception();
+            var unelogin = await _userRepository.IsLoginUnique(username);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
 
-            var unname = await _userRepository.IsLoginUnique(username);
-            if (!unname) throw new Exception();
+            if (!unelogin) throw new MyException(MyCodesNumbers.UniqueLogin, MyCodes.UniqueLogin);
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
@@ -42,17 +43,40 @@ namespace PixBlocks_Addition.Infrastructure.Services
             await _userRepository.AddAsync(user);
         }
 
+        public async Task ChangePassword(string login, string newPassword, string oldPassword)
+        {
+            var user = await _userRepository.GetAsync(login);
+            if (newPassword == oldPassword) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
+            
+            user.SetPassword(newPassword, _encrypter);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
+        public async Task ChangeEmail(string login, string email)
+        {
+            var user = await _userRepository.GetAsync(login);
+            var unemail = await _userRepository.IsEmailUnique(email);
+
+            if (user.Email == email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
+
+            user.SetEmail(email);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
         public async Task<JwtDto> Login(string login, string password)
         {
             var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
-                throw new Exception("Invalid credentials.");
+                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
             }
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password != hash)
             {
-                throw new Exception("Invalid credentials.");
+                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
             }
             var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name, true);
             var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
@@ -77,16 +101,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new Exception("Refresh token was not found.");
+                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
             }
             if (token.Revoked)
             {
-                throw new Exception("Refresh token was revoked");
+                throw new MyException(MyCodesNumbers.RefreshToken, MyCodes.RefreshToken);
             }
             var user = await _userRepository.GetAsync(token.UserId);
             if (user == null)
             {
-                throw new Exception("User not found");
+                throw new MyException(MyCodesNumbers.UserNotFoundJWT, MyCodes.UserNotFoundJWT);
             }
             var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name, user.IsPremium);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
@@ -99,11 +123,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new Exception("Refresh token was not found.");
+                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
             }
             if (token.Revoked)
             {
-                throw new Exception("Refresh token was already revoked.");
+                throw new MyException(MyCodesNumbers.RefreshAToken, MyCodes.RefreshAToken);
             }
             token.Revoke();
             await _refreshTokens.UpdateAsync();

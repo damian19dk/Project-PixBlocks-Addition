@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,9 +15,9 @@ namespace PixBlocks_Addition.Domain.Entities
             :base(string.Empty, premium, title, description, picture, duration, lang, tags)
         {
         }
-
         protected Course()
         {
+
         }
     }
 }

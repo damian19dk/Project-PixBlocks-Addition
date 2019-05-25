@@ -1,4 +1,5 @@
-﻿using PixBlocks_Addition.Domain.Repositories;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -50,18 +51,20 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public void SetLogin(string login)
         {
-            if (login.Length < 3) throw new Exception();
-            if (login.Length > 20) throw new Exception();
-            if (String.IsNullOrEmpty(login)) throw new Exception();
-            if (!regex_login.IsMatch(login)) throw new Exception();
+            if (login.Length < 3) throw new MyException(MyCodesNumbers.TooShortLogin, MyCodes.TooShortLogin);
+            if (login.Length >= 20) throw new MyException(MyCodesNumbers.TooLongLogin, MyCodes.TooLongLogin);
+            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
+            if (!regex_login.IsMatch(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
             Login = login;
         }
 
         public void SetPassword(string password, IEncrypter encrypter)
         {
-            if (string.IsNullOrWhiteSpace(password)) throw new Exception();
-            if (password.Length < 6) throw new Exception();
-            if (password.Length > 20) throw new Exception();
+            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodesNumbers.WrongCharactersInPassword, MyCodes.WrongCharactersInPassword);
+            if (password.Length < 6) throw new MyException(MyCodesNumbers.TooShortPassword, MyCodes.TooShortPassword);
+            if (password.Length >= 20) throw new MyException(MyCodesNumbers.TooLongPassword, MyCodes.TooLongPassword);
+            if (password == Password) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
+
             string salt = encrypter.GetSalt(password);
             string hash = encrypter.GetHash(password, salt);
 
@@ -80,18 +83,19 @@ namespace PixBlocks_Addition.Domain.Entities
         }
         public void SetEmail(string mail)
         {
-            if (!regex_mail.IsMatch(mail)) throw new Exception();
+            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodesNumbers.WrongFormatOfMail, MyCodes.WrongFormatOfMail);
+            if (mail == Email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
             Email = mail;
         }
         public void SetStatus(int status)
         {
             if (status == 1 || status == 0) Status = status;
-            else throw new Exception();
+            else throw new MyException(MyCodesNumbers.WrongUserStatus, MyCodes.WrongUserStatus);
         }
         public void IsRoleCorrectSet(int roleid)
         {
             if (roleid == 3 || roleid == 1) RoleId = roleid;
-            else throw new Exception();
+            else throw new MyException(MyCodesNumbers.WrongRoleId, MyCodes.WrongRoleId);
         }
     }
 }

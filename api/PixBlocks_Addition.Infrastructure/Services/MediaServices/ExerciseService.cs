@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -29,19 +30,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if (video == null)
             {
-                throw new Exception($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
             }
 
             var exercise = await _exerciseRepository.GetAsync(upload.ParentName);
             if (exercise == null)
             {
-                throw new Exception($"Exercise with title {upload.ParentName} not found. Create the exercise first.");
+                throw new MyException($"Exercise with title {upload.ParentName} not found. Create the exercise first.");
             }
 
             var sameVideo = exercise.ExerciseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new Exception($"The exercise already has the same video.");
+                throw new MyException($"The exercise already has the same video.");
             }
 
             exercise.ExerciseVideos.Add(new ExerciseVideo(exercise.Id, video));
@@ -55,7 +56,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exerciseInCourse = exercises.FirstOrDefault(c => c.Title == resource.Title);
             if (exerciseInCourse != null)
             {
-                throw new Exception($"Exercise with title {resource.Title} already exists in the lesson.");
+                throw new MyException($"Exercise with title {resource.Title} already exists in the lesson.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -100,12 +101,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exercise = await _exerciseRepository.GetAsync(exerciseId);
             if (exercise == null)
             {
-                throw new Exception("Exercise not found.");
+                throw new MyException(MyCodes.ExerciseNotFound);
             }
             var exerciseVideo = exercise.ExerciseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (exerciseVideo == null)
             {
-                throw new Exception("Video not found.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
             }
             exercise.ExerciseVideos.Remove(exerciseVideo);
             await _exerciseRepository.UpdateAsync(exercise);

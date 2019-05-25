@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Contexts;
+using System.Linq;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
@@ -27,6 +28,9 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<IEnumerable<User>> GetAllAsync() => await _entities.Users.Include("Role").ToListAsync();
 
+        public async Task<IEnumerable<User>> GetAllAsync(int page, int count = 10) => await _entities.Users.Where(x => x.Status == 1).Skip((page - 1) * count).Include("Role").ToListAsync();
+        
+
         public async Task RemoveAsync(Guid id)
         {
             var user = await GetAsync(id);
@@ -46,6 +50,7 @@ namespace PixBlocks_Addition.Domain.Repositories
           var z = await _entities.Users.AnyAsync(x => x.Email == email);
           return !z;
         }
+
         public async Task<bool> IsLoginUnique(string login)
         {
             var z = await _entities.Users.AnyAsync(x => x.Login == login);
