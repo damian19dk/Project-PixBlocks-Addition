@@ -70,7 +70,7 @@ namespace PixBlocks_Addition.Api
                     };
                 });
 
-            services.AddAuthorization(p => p.AddPolicy("admin", x => x.RequireRole("Admin")));
+            services.AddAuthorization(p => p.AddPolicy("Premium", x => x.RequireClaim("Premium","True")));
 
             services.AddOptions();
             services.AddSingleton<IJwtHandler, JwtHandler>(sp =>

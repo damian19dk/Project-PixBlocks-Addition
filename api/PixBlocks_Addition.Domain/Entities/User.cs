@@ -34,9 +34,8 @@ namespace PixBlocks_Addition.Domain.Entities
             Id = Guid.NewGuid();
             SetLogin(login);
             SetEmail(e_mail);
-            SetRole(role);
+            SetRole(role.Id);
             SetPassword(password, encrypter);
-            IsPremium = false;
         }
 
         public User(string login, string e_mail, int role, string password, IEncrypter encrypter)
@@ -44,9 +43,8 @@ namespace PixBlocks_Addition.Domain.Entities
             Id = Guid.NewGuid();
             SetLogin(login);
             SetEmail(e_mail);
-            IsRoleCorrectSet(role);
+            SetRole(role);
             SetPassword(password, encrypter);
-            IsPremium = false;
         }
 
         public void SetLogin(string login)
@@ -77,9 +75,11 @@ namespace PixBlocks_Addition.Domain.Entities
             IsPremium = premium;
         }
 
-        public void SetRole(Role role)
+        public void SetRole(int role)
         {
-            RoleId = role.Id;
+            IsRoleCorrectSet(role);
+            if (role > 1) SetPremium(true);
+            RoleId = role;
         }
         public void SetEmail(string mail)
         {
@@ -94,7 +94,7 @@ namespace PixBlocks_Addition.Domain.Entities
         }
         public void IsRoleCorrectSet(int roleid)
         {
-            if (roleid == 3 || roleid == 1) RoleId = roleid;
+            if (roleid == 3 || roleid == 2 || roleid == 1) RoleId = roleid;
             else throw new MyException(MyCodesNumbers.WrongRoleId, MyCodes.WrongRoleId);
         }
     }

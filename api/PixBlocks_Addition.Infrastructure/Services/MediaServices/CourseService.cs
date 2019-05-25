@@ -49,7 +49,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task CreateAsync(MediaResource resource)
         {
             var c = await _courseRepository.GetAsync(resource.Title);
-            if(c!=null)
+            if(c.Count() > 0)
             {
                 throw new MyException($"The course with title {resource.Title} already exists.");
             }

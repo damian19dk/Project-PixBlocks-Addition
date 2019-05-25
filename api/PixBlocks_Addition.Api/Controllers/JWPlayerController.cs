@@ -28,6 +28,7 @@ namespace PixBlocks_Addition.Api.Controllers
         }
         
         [HttpGet("video")]
+        [Authorize(Policy = "Premium")]
         public async Task<JWPlayerVideo> GetVideo(string id)
         {
             return await _jwPlayer.GetVideoAsync(id);
