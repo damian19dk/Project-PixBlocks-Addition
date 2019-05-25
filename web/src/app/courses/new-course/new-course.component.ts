@@ -38,9 +38,6 @@ export class NewCourseComponent implements OnInit {
       searchPlaceholderText: 'Szukaj...'
     };
 
-
-
-
     this.courseDto = new CourseDto();
 
     this.submitted = false;
@@ -52,7 +49,6 @@ export class NewCourseComponent implements OnInit {
       premium: [false],
       tags: [null],
       language: ['Polski'],
-      parentName: [null],
       picture: [null]
     });
   }

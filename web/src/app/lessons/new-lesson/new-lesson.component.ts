@@ -50,7 +50,7 @@ export class NewLessonComponent implements OnInit {
       premium: [false],
       tags: [null],
       language: ['Polski'],
-      parentName: [null],
+      parentId: [null, Validators.required],
       picture: [null]
     });
   }

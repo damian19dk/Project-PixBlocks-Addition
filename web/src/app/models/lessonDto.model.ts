@@ -1,5 +1,5 @@
 export class LessonDto {
-    parentName: string;
+    parentId: string;
     mediaId: string;
     premium: boolean;
     title: string;
