@@ -22,7 +22,7 @@ export class NewCourseComponent implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService) { }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.courseDto = new CourseDto();
 
     this.submitted = false;
