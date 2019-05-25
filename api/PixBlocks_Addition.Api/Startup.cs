@@ -115,20 +115,18 @@ namespace PixBlocks_Addition.Api
         {
             if (env.IsDevelopment())
             {
-              
-                
-            }
-            else
-            {
-                app.UseHsts();
-            }
-            app.UseDeveloperExceptionPage();
+               app.UseDeveloperExceptionPage();
             app.UseCors(builder =>
                 builder.AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
                 .AllowCredentials()
                 );
+            }
+            else
+            {
+                app.UseHsts();
+            }
             app.UseSwagger();
 
 
