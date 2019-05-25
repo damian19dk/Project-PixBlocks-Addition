@@ -26,7 +26,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task CreateAsync(MediaResource resource)
         {
-            var course = await _courseRepository.GetAsync(resource.ParentName);
+            var course = await _courseRepository.GetAsync(resource.ParentId);
             var lessons = course.Lessons;
             var lessonInCourse = lessons.FirstOrDefault(c => c.Title == resource.Title);
             if(lessonInCourse!=null)
@@ -50,14 +50,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
             }
-            var lesson = await _lessonRepository.GetAsync(upload.ParentName);
+
+            var lesson = await _lessonRepository.GetAsync(upload.ParentId);
             if(lesson == null)
             {
-                throw new MyException($"Lesson with title {upload.ParentName} not found. Create the lesson first.");
+                throw new MyException($"Lesson with id {upload.ParentId} not found. Create the lesson first.");
             }
 
             var sameVideo = lesson.LessonVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
-            if(sameVideo!=null)
+            if(sameVideo != null)
             {
                 throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideo);
             }
@@ -84,10 +85,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return Mappers.AutoMapperConfig.Mapper.Map<LessonDto>(result);
         }
 
-        public async Task<LessonDto> GetAsync(string title)
+        public async Task<IEnumerable<LessonDto>> GetAsync(string title)
         {
             var result = await _lessonRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<LessonDto>(result);
+            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task RemoveAsync(Guid id)

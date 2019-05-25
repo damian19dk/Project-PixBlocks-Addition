@@ -16,13 +16,18 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         {
             _entities = entities;
         }
-        public async Task<Video> GetAsync(Guid id) => await _entities.Videos.Include(c=>c.Tags).SingleOrDefaultAsync(x => x.Id == id);
 
-        public async Task<Video> GetAsync(string title) => await _entities.Videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.Title == title);
+        public async Task<Video> GetAsync(Guid id) 
+            => await _entities.Videos.Include(c=>c.Tags).SingleOrDefaultAsync(x => x.Id == id);
 
-        public async Task<IEnumerable<Video>> GetAllAsync() => await _entities.Videos.Include(p=>p.Tags).ToListAsync();
+        public async Task<IEnumerable<Video>> GetAsync(string title) 
+            => await _entities.Videos.Include(c => c.Tags).Where(x => x.Title == title).ToListAsync();
 
-        public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10) => await _entities.Videos.Include(p => p.Tags).Skip((page - 1) * count).ToListAsync();
+        public async Task<IEnumerable<Video>> GetAllAsync() 
+            => await _entities.Videos.Include(p=>p.Tags).ToListAsync();
+
+        public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10) 
+            => await _entities.Videos.Include(p => p.Tags).Skip((page - 1) * count).ToListAsync();
 
         public async Task<Video> GetByMediaAsync(string mediaId)
             => await _entities.Videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.MediaId == mediaId);

@@ -89,7 +89,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ILessonRepository, LessonRepository>();
-            services.AddScoped<IExerciseRepository, ExercisieRepository>();
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ICourseService, CourseService>();

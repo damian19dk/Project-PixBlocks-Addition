@@ -38,7 +38,7 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [HttpGet("title")]
-        public async Task<CourseDto> Get(string title)
+        public async Task<IEnumerable<CourseDto>> Get(string title)
         {
             return await _courseService.GetAsync(title);
         }
