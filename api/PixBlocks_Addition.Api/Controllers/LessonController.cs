@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -19,18 +20,21 @@ namespace PixBlocks_Addition.Api.Controllers
             _lessonService = lessonService;
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
         public async Task Create(MediaResource lesson)
         {
             await _lessonService.CreateAsync(lesson);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("video")]
         public async Task AddVideo([FromBody]UploadResource upload)
         {
             await _lessonService.AddVideoAsync(upload);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
         public async Task RemoveVideo(Guid lessonId, Guid videoId)
         {

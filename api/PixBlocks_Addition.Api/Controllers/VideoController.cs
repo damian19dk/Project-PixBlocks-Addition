@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Infrastructure.Services.MediaServices;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PixBlocks_Addition.Api.Controllers
 {
@@ -20,6 +21,7 @@ namespace PixBlocks_Addition.Api.Controllers
             _videoService = videoService;
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
         public async Task CreateVideo([FromBody]MediaResource video)
         {
@@ -50,6 +52,7 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _videoService.GetAllAsync(page, count);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         public async Task Remove(Guid id)
         {
