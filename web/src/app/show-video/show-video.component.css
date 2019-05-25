@@ -15,3 +15,35 @@
 .text-justify {
     margin-top: 20px;
 }
+.btn2 {
+    background: transparent;
+    border: none;
+    margin: 30px auto 0;
+    display: block;
+    font-size: 20px;
+    outline: none;
+
+    position: relative;
+    transition: 0.3s;
+    padding: 10px;
+}
+    .btn2:before {
+        border-bottom: 1px solid black;
+        padding: 0 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 0;
+        transition: 0.3s;
+    }
+   .btn2:hover:before {
+        width: 100%;
+        padding: 0;
+    }
+    .btn2:active {
+        background: black;
+        color: white;
+        transition: none;
+    }
