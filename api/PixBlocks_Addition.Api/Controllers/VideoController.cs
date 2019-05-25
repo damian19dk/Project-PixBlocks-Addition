@@ -26,13 +26,13 @@ namespace PixBlocks_Addition.Api.Controllers
             await _videoService.AddAsync(video);
         }
 
-        [HttpGet("mediaId")]
+        [HttpGet]
         public async Task<VideoDto> GetVideo(string mediaId)
         {
             return await _videoService.GetAsync(mediaId);
         }
 
-        [HttpGet("{title}")]
+        [HttpGet("browse")]
         public async Task<IEnumerable<VideoDto>> Browse(string title)
         {
             return await _videoService.BrowseAsync(title);
