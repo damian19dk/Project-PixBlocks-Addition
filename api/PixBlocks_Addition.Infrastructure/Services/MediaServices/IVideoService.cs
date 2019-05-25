@@ -12,6 +12,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         Task AddAsync(MediaResource video);
         Task<VideoDto> GetAsync(Guid id);
         Task<VideoDto> GetAsync(string mediaId);
+        Task<IEnumerable<VideoDto>> BrowseAsync(string title);
         Task<IEnumerable<VideoDto>> GetAllAsync();
         Task RemoveAsync(Guid id);
         Task RemoveAsync(string mediaId);
