@@ -72,6 +72,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
+        public async Task<IEnumerable<LessonDto>> GetAllAsync(int page, int count = 10)
+        {
+            var result = await _lessonRepository.GetAllAsync(page, count);
+            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+        }
+
         public async Task<LessonDto> GetAsync(Guid id)
         {
             var result = await _lessonRepository.GetAsync(id);
