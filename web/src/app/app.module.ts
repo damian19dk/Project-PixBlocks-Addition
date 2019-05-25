@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, SafePipe, MinuteSecondsPipe } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,6 +26,7 @@ import { NewCourseComponent } from './courses/new-course/new-course.component';
 import { LoadingService } from './services/loading.service';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 import { FunctionalityNotPreparedComponent } from './functionality-not-prepared/functionality-not-prepared.component';
+import { CourseService } from './services/course.service';
 
 
 const routes: Routes = [
@@ -65,7 +67,8 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    NgbModule,
+    NgbModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -76,6 +79,7 @@ const routes: Routes = [
   providers: [
     AuthenticationService,
     VideoService,
+    CourseService,
     LoadingService
   ],
   bootstrap: [AppComponent]

@@ -17,12 +17,37 @@ export class NewCourseComponent implements OnInit {
   returnUrl: string;
   courseDto: CourseDto;
   error: string;
+  
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private courseService: CourseService) { }
 
   ngOnInit() {    
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Haskell' },
+      { item_id: 2, item_text: 'Python' },
+      { item_id: 3, item_text: 'JavaScript' },
+      { item_id: 4, item_text: 'Java' },
+      { item_id: 5, item_text: 'Ruby' }
+    ];
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Zaznacz wszystkie',
+      unSelectAllText: 'Odznacz wszystkie',
+      itemsShowLimit: 5,
+      allowSearchFilter: true,
+      searchPlaceholderText: 'Szukaj...'
+    };
+
+
+
+
     this.courseDto = new CourseDto();
 
     this.submitted = false;
@@ -40,6 +65,7 @@ export class NewCourseComponent implements OnInit {
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+
 
   get f() { return this.newCourseForm.controls; }
 
