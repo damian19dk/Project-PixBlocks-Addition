@@ -55,5 +55,11 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _courseService.GetAllAsync();
         }
 
+        [HttpGet("all_paging")]
+        public async Task<IEnumerable<CourseDto>> GetAll(int page, int count = 10)
+        {
+            return await _courseService.GetAllAsync(page, count);
+        }
+
     }
 }
