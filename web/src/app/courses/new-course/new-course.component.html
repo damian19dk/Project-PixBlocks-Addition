@@ -30,27 +30,17 @@
 
     </div>
 
-    <fieldset class="form-group">
-      <div class="row">
-        <legend class="col-form-label col-sm-2 pt-0">Język</legend>
-        <div class="col-sm-10">
-          <div class="form-check">
-            <input formControlName="language" class="form-check-input" type="radio" name="language" id="pl"
-              value="Polski" checked>
-            <label class="form-check-label" for="pl">
-              Polski
-            </label>
-          </div>
-          <div class="form-check">
-            <input formControlName="language" class="form-check-input" type="radio" name="language" id="en"
-              value="Angielski">
-            <label class="form-check-label" for="en">
-              Angielski
-            </label>
-          </div>
-        </div>
+    <div class="form-group row" ngbRadioGroup name="language" formControlName="language">
+      <label for="language" class="col-sm-2 col-form-label">Język</label>
+      <div class="col-sm-10 input-group">
+        <label ngbButtonLabel>
+          <input ngbButton type="radio" value="Polski"> Polski
+        </label>
+        <label ngbButtonLabel>
+          <input ngbButton type="radio" value="Angielski"> Angielski
+        </label>
       </div>
-    </fieldset>
+    </div>
 
     <div class="form-group row">
       <div class="col-sm-2">Premium</div>
@@ -64,14 +54,9 @@
     <div class="form-group row">
       <label for="tags" class="col-sm-2 col-form-label">Kategorie</label>
       <div class="col-sm-10">
-        <ng-multiselect-dropdown
-        formControlName="tags"
-        [placeholder]="'Wybierz kategorie'"
-        [data]="dropdownList"
-        [(ngModel)]="tags"
-        [settings]="dropdownSettings"
-      >
-      </ng-multiselect-dropdown>
+        <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz kategorie'" [data]="tagsList"
+          [settings]="tagsSettings">
+        </ng-multiselect-dropdown>
       </div>
     </div>
 
@@ -83,11 +68,12 @@
     </div>
 
     <div class="form-group row">
-        <label for="picture" class="col-sm-2 col-form-label">Zdjęcie</label>
-        <div class="col-sm-10">
-          <input formControlName="picture" type="text" class="form-control" id="picture" placeholder="Podaj adres obrazka">
-        </div>
+      <label for="picture" class="col-sm-2 col-form-label">Zdjęcie</label>
+      <div class="col-sm-10">
+        <input formControlName="picture" type="text" class="form-control" id="picture"
+          placeholder="Podaj adres obrazka">
       </div>
+    </div>
 
     <div class="form-group row">
       <div class="col-sm-10">
@@ -101,6 +87,6 @@
   </form>
 
 
-    
+
 
 </div>
