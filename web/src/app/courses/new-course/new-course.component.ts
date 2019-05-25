@@ -3,6 +3,7 @@ import { CourseService } from 'src/app/services/course.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CourseDto } from 'src/app/models/courseDto.model';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-new-course',
@@ -23,12 +24,12 @@ export class NewCourseComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private courseService: CourseService) { }
+    private courseService: CourseService,
+    private tagService: TagService) { }
 
   ngOnInit() {    
-    this.tagsList = [
-      "Ruby", "Haskell", "Java"
-    ];
+    this.tagsList = this.tagService.getTags();
+    
     this.tagsSettings = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',
