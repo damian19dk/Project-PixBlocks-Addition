@@ -1,5 +1,9 @@
 <div class="container">
 
+  <div *ngIf="error" class="alert alert-danger">
+    {{error}}
+  </div>
+
   <form [formGroup]="newCourseForm" (ngSubmit)="createNewCourse()">
     <div class="form-group row">
       <label for="title" class="col-sm-2 col-form-label">Tytuł</label>

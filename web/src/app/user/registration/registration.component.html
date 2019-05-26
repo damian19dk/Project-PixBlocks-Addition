@@ -1,20 +1,27 @@
 <div class="row mt-3 container col-centered">
     <div class="col-lg-4 col-md-6 col-12 col-centered">
+
+        <div *ngIf="submitted && error" class="alert alert-danger">
+            {{error}}
+        </div>
+
         <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
 
             <div class="form-group col-sm-12">
-                <label i18n="@@username">Nazwa użytkownika:</label>
+                <label>Nazwa użytkownika:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                     <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username"
                         type="text" class="form-control" i18n-placeholder placeholder="Wpisz nazwę użytkownika">
 
                     <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                        <div i18n="@@errors_empty_field" *ngIf="f.username.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.username.errors.required">Pole jest puste</div>
                         <div *ngIf="f.username.errors.minlength">Login musi mieć minimum 3 znaki</div>
                         <div *ngIf="f.username.errors.maxlength">Login może mieć maksymalnie 20 znaków</div>
                         <div *ngIf="f.username.errors.pattern">Login nie może zawierać spacji</div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -26,21 +33,21 @@
                         class="form-control" i18n-placeholder placeholder="Wpisz adres email">
 
                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                        <div i18n="@@errors_empty_field" *ngIf="f.email.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.email.errors.required">Pole jest puste</div>
                         <div *ngIf="f.email.errors.email">Niepoprawny adres e-mail</div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group col-sm-12">
-                <label i18n="@@password">Hasło:</label>
+                <label>Hasło:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password"
                         type="password" class="form-control" i18n-placeholder placeholder="Wpisz hasło">
 
                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div i18n="@@errors_empty_field" *ngIf="f.password.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.password.errors.required">Pole jest puste</div>
                         <div *ngIf="f.password.errors.minlength">Hasło musi mieć minimum 6 znaków</div>
                         <div *ngIf="f.password.errors.maxlength">Hasło może mieć maksymalnie 20 znaków</div>
                         <div *ngIf="f.password.errors.pattern">Hasło nie może zawierać spacji</div>
@@ -49,7 +56,7 @@
             </div>
 
             <div class="form-group col-sm-12">
-                <label i18n="@@confirmPassword">Powtórz hasło:</label>
+                <label>Powtórz hasło:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     <input [ngClass]="{'is-invalid' : submitted && f.confirmPassword.errors}"
@@ -57,19 +64,20 @@
                         placeholder="Powtórz hasło">
 
                     <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                        <div i18n="@@errors_empty_field" *ngIf="f.confirmPassword.errors.required">Pole jest puste</div>
+                        <div *ngIf="f.confirmPassword.errors.required">Pole jest puste</div>
                         <div *ngIf="f.confirmPassword.errors.mustMatch">Hasła różnią się</div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group col-sm-12">
-                <button i18n="@@buttons_register" [disabled]="loading" class="btn btn-primary">
-                    <div i18n *ngIf="!loading">Zarejestruj się</div>
-                    <div i18n *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
+                <button [disabled]="loading" class="btn btn-primary">
+                    <div *ngIf="!loading">Zarejestruj się</div>
+                    <div *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
                         Ładowanie...</div>
                 </button>
             </div>
         </form>
+
     </div>
 </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { LessonDto } from 'src/app/models/lessonDto.model';
 import { LessonService } from 'src/app/services/lesson.service';
 import { TagService } from 'src/app/services/tag.service';
@@ -30,12 +29,11 @@ export class NewLessonComponent implements OnInit {
   courses: Course[];
 
   constructor(private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private lessonService: LessonService,
     private tagService: TagService,
     private courseService: CourseService,
     private loadingService: LoadingService) { }
-
+    
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
 
@@ -96,14 +94,14 @@ export class NewLessonComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          this.error = error;
+          this.error = error.error.message;
           this.loading = false;
         });
   }
 
   searchCourse = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(200),
+      debounceTime(400),
       map(term => term === '' ? []
         : this.courses.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
