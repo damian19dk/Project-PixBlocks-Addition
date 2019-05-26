@@ -1,10 +1,9 @@
-<div class="row text-justify border-top">
+<div class="row text-justify border-top" *ngIf="video">
   <h2 class="header2">Informacje o tym wideo<h4 class="header4">{{video.title}}</h4></h2> 
-  
 </div>
 
 <div class="row text-justify border-top">
-  <div class="col-3 text-justify italic">
+  <div class="col-3 text-justify italic font-italic">
       Tagi:
   </div>
   <div class="col-6 text-justify">
@@ -12,7 +11,7 @@
   </div>
 </div>
 <div class="row text-justify border-top">
-  <div class="col-3 text-justify italic">            
+  <div class="col-3 text-justify font-italic">            
   Szczegóły:    
   </div>
   <div class="col-3 text-justify">
@@ -28,7 +27,7 @@
 </div> 
 
 <div class="row text-justify border-top">
-  <div class="col-3 text-justify italic">
+  <div class="col-3 text-justify font-italic">
   Opis:
   </div>
 
