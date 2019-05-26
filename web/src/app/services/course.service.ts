@@ -23,9 +23,9 @@ export class CourseService {
     return this.http.get<any>(this.origin + "/api/Course/all");
   }
 
-  addCourse(courseData: CourseDto) {
+  addCourse(courseDto: CourseDto) {
     let headers = environment.headers;
 
-    return this.http.post<CourseDto>(this.origin + "/api/Course/create", courseData, { headers });
+    return this.http.post<CourseDto>(this.origin + "/api/Course/create", courseDto, { headers });
   }
 }

@@ -93,15 +93,15 @@ export class NewLessonComponent implements OnInit {
 
     this.loading = false;
 
-    // this.lessonService.addLesson(this.lessonDto)
-    //   .subscribe(
-    //     data => {
-    //       this.loading = false;
-    //     },
-    //     error => {
-    //       this.error = error;
-    //       this.loading = false;
-    //     });
+    this.lessonService.addLesson(this.lessonDto)
+      .subscribe(
+        data => {
+          this.loading = false;
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
 
   searchCourse = (text$: Observable<string>) =>
