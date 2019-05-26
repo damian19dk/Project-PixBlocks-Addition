@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.Mappers;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
@@ -18,10 +20,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IImageRepository _imageRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IJWPlayerService _jwPlayerService;
+        private readonly IMapper _mapper;
 
         public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
-                            IImageHandler imageHandler, IImageRepository imageRepository)
+                            IImageHandler imageHandler, IImageRepository imageRepository, IAutoMapperConfig config)
         {
+            _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
             _videoRepository = videoRepository;
@@ -66,31 +70,31 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<VideoDto>> GetAllAsync()
         {
             var result = await _videoRepository.GetAllAsync();
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<Video>, IEnumerable<VideoDto>>(result);
+            return _mapper.Map<IEnumerable<Video>, IEnumerable<VideoDto>>(result);
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _videoRepository.GetAllAsync(page, count);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<Video>, IEnumerable<VideoDto>>(result);
+            return _mapper.Map<IEnumerable<Video>, IEnumerable<VideoDto>>(result);
         }
 
         public async Task<VideoDto> GetAsync(Guid id)
         {
             var video = await _videoRepository.GetAsync(id);
-            return Mappers.AutoMapperConfig.Mapper.Map<Video, VideoDto>(video);
+            return _mapper.Map<Video, VideoDto>(video);
         }
 
         public async Task<VideoDto> GetAsync(string mediaId)
         {
             var video = await _videoRepository.GetByMediaAsync(mediaId);
-            return Mappers.AutoMapperConfig.Mapper.Map<VideoDto>(video);
+            return _mapper.Map<VideoDto>(video);
         }
 
         public async Task<IEnumerable<VideoDto>> BrowseAsync(string title)
         {
             var videos = await _videoRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<VideoDto>>(videos);
+            return _mapper.Map<IEnumerable<VideoDto>>(videos);
         }
 
         public async Task RemoveAsync(Guid id)

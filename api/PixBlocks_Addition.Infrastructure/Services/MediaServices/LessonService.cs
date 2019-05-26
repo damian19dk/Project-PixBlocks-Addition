@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.Mappers;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
@@ -18,11 +20,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly ILessonRepository _lessonRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly IMapper _mapper;
 
         public LessonService(ILessonRepository lessonRepository, ICourseRepository courseRepository, 
                              IVideoRepository videoRepository, IImageHandler imageHandler, 
-                             IImageRepository imageRepository)
+                             IImageRepository imageRepository, IAutoMapperConfig config)
         {
+            _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
             _lessonRepository = lessonRepository;
@@ -90,25 +94,25 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<LessonDto>> GetAllAsync()
         {
             var result = await _lessonRepository.GetAllAsync();
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+            return _mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task<IEnumerable<LessonDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _lessonRepository.GetAllAsync(page, count);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+            return _mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task<LessonDto> GetAsync(Guid id)
         {
             var result = await _lessonRepository.GetAsync(id);
-            return Mappers.AutoMapperConfig.Mapper.Map<LessonDto>(result);
+            return _mapper.Map<LessonDto>(result);
         }
 
         public async Task<IEnumerable<LessonDto>> GetAsync(string title)
         {
             var result = await _lessonRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+            return _mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task RemoveAsync(Guid id)

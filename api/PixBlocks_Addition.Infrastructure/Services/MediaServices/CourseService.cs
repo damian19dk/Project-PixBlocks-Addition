@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.Mappers;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
@@ -18,11 +20,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IVideoRepository _videoRepository;
         private readonly IImageHandler _imageHandler;
         private readonly IImageRepository _imageRepository;
-
+        private readonly IMapper _mapper;
 
         public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository,
-            IImageHandler imageHandler, IImageRepository imageRepository)
+            IImageHandler imageHandler, IImageRepository imageRepository, IAutoMapperConfig config)
         {
+            _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
             _courseRepository = courseRepository;
@@ -87,25 +90,25 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<CourseDto>> GetAllAsync()
         {
             var result = await _courseRepository.GetAllAsync();
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
+            return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _courseRepository.GetAllAsync(page, count);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
+            return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
         }
 
         public async Task<CourseDto> GetAsync(Guid id)
         {
             var result = await _courseRepository.GetAsync(id);
-            return Mappers.AutoMapperConfig.Mapper.Map<Course, CourseDto>(result);
+            return _mapper.Map<Course, CourseDto>(result);
         }
 
         public async Task<IEnumerable<CourseDto>> GetAsync(string title)
         {
             var result = await _courseRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<CourseDto>>(result);
+            return _mapper.Map<IEnumerable<CourseDto>>(result);
         }
 
         public async Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId)

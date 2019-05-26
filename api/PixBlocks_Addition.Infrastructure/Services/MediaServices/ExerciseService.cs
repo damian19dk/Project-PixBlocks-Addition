@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.Mappers;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
@@ -19,11 +21,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IExerciseRepository _exerciseRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly ILessonRepository _lessonRepository;
+        private readonly IMapper _mapper;
 
         public ExerciseService(IExerciseRepository exerciseRepository, IVideoRepository videoRepository, 
                                ILessonRepository lessonRepository, IImageHandler imageHandler, 
-                               IImageRepository imageRepository)
+                               IImageRepository imageRepository, IAutoMapperConfig config)
         {
+            _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
             _exerciseRepository = exerciseRepository;
@@ -91,25 +95,25 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<ExerciseDto>> GetAllAsync()
         {
             var result = await _exerciseRepository.GetAllAsync();
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<ExerciseDto>>(result);
+            return _mapper.Map<IEnumerable<ExerciseDto>>(result);
         }
 
         public async Task<IEnumerable<ExerciseDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _exerciseRepository.GetAllAsync(page, count);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<ExerciseDto>>(result);
+            return _mapper.Map<IEnumerable<ExerciseDto>>(result);
         }
 
         public async Task<ExerciseDto> GetAsync(Guid id)
         {
             var result = await _exerciseRepository.GetAsync(id);
-            return Mappers.AutoMapperConfig.Mapper.Map<ExerciseDto>(result);
+            return _mapper.Map<ExerciseDto>(result);
         }
 
         public async Task<IEnumerable<ExerciseDto>> GetAsync(string title)
         {
             var result = await _exerciseRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<ExerciseDto>>(result);
+            return _mapper.Map<IEnumerable<ExerciseDto>>(result);
         }
 
         public async Task RemoveAsync(Guid id)
