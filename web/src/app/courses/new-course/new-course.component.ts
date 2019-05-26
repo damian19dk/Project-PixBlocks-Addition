@@ -3,6 +3,7 @@ import { CourseService } from 'src/app/services/course.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CourseDto } from 'src/app/models/courseDto.model';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-new-course',
@@ -17,29 +18,19 @@ export class NewCourseComponent implements OnInit {
   returnUrl: string;
   courseDto: CourseDto;
   error: string;
-  
+
   tagsList = [];
   tagsSettings = {};
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private courseService: CourseService) { }
+    private courseService: CourseService,
+    private tagService: TagService) { }
 
-  ngOnInit() {    
-    this.tagsList = [
-      "Ruby", "Haskell", "Java"
-    ];
-    this.tagsSettings = {
-      singleSelection: false,
-      selectAllText: 'Zaznacz wszystkie',
-      unSelectAllText: 'Odznacz wszystkie',
-      itemsShowLimit: 5,
-      allowSearchFilter: true,
-      searchPlaceholderText: 'Szukaj...'
-    };
+  ngOnInit() {
+    this.tagsList = this.tagService.getTags();
 
-
-
+    this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
 
     this.courseDto = new CourseDto();
 
@@ -47,13 +38,12 @@ export class NewCourseComponent implements OnInit {
     this.loading = false;
 
     this.newCourseForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      premium: [''],
-      tags: [''],
+      title: [null, Validators.required],
+      description: [null, Validators.required],
+      premium: [false],
+      tags: [null],
       language: ['Polski'],
-      parentName: [''],
-      picture: ['']
+      picture: [null]
     });
   }
 
@@ -70,9 +60,6 @@ export class NewCourseComponent implements OnInit {
     this.loading = true;
 
     this.courseDto = this.newCourseForm.value;
-    console.log(this.courseDto);
-
-    this.loading = false;
 
     this.courseService.addCourse(this.courseDto)
       .subscribe(
@@ -85,6 +72,6 @@ export class NewCourseComponent implements OnInit {
         });
   }
 
-  
+
 
 }
