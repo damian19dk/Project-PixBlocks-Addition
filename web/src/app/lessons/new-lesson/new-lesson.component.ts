@@ -35,7 +35,7 @@ export class NewLessonComponent implements OnInit {
     private tagService: TagService,
     private courseService: CourseService,
     private loadingService: LoadingService) { }
-
+    
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
 
