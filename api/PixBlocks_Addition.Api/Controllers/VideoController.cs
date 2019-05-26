@@ -25,7 +25,8 @@ namespace PixBlocks_Addition.Api.Controllers
         [HttpPost("create")]
         public async Task CreateVideo([FromBody]MediaResource video)
         {
-            await _videoService.AddAsync(video);
+            video.Image = Request.Form.Files.FirstOrDefault();
+            await _videoService.CreateAsync(video);
         }
 
         [HttpGet]

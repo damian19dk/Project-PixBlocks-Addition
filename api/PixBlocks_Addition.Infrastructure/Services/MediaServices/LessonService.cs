@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -12,13 +13,18 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public class LessonService : ILessonService
     {
+        private readonly IImageHandler _imageHandler;
+        private readonly IImageRepository _imageRepository;
         private readonly ILessonRepository _lessonRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
 
         public LessonService(ILessonRepository lessonRepository, ICourseRepository courseRepository, 
-                             IVideoRepository videoRepository)
+                             IVideoRepository videoRepository, IImageHandler imageHandler, 
+                             IImageRepository imageRepository)
         {
+            _imageHandler = imageHandler;
+            _imageRepository = imageRepository;
             _lessonRepository = lessonRepository;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
@@ -35,11 +41,25 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
-            foreach (string tag in resource.Tags)
-                tags.Add(new Tag(tag));
+            if (resource.Tags != null)
+            {
+                foreach (string tag in resource.Tags)
+                    tags.Add(new Tag(tag));
+            }
+            else
+            {
+                tags = null;
+            }
+
+            if (resource.Image != null)
+            {
+                var img = await _imageHandler.CreateAsync(resource.Image);
+                await _imageRepository.AddAsync(img);
+                resource.PictureUrl = img.Id.ToString();
+            }
 
             var lesson = new Lesson(course, string.Empty, resource.Premium, resource.Title, resource.Description, 
-                                    resource.Picture, 0, resource.Language, tags);
+                                    resource.PictureUrl, 0, resource.Language, tags);
             await _lessonRepository.AddAsync(lesson);
         }
 

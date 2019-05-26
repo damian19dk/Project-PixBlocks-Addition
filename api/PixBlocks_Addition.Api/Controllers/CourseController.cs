@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ namespace PixBlocks_Addition.Api.Controllers
         [HttpPost("create")]
         public async Task Create(MediaResource course)
         {
+            course.Image = Request.Form.Files.FirstOrDefault();
             await _courseService.CreateAsync(course);
         }
 

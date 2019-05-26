@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -13,16 +14,21 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public class VideoService : IVideoService
     {
+        private readonly IImageHandler _imageHandler;
+        private readonly IImageRepository _imageRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IJWPlayerService _jwPlayerService;
 
-        public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService)
+        public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
+                            IImageHandler imageHandler, IImageRepository imageRepository)
         {
+            _imageHandler = imageHandler;
+            _imageRepository = imageRepository;
             _videoRepository = videoRepository;
             _jwPlayerService = jwPlayerService;
         }
 
-        public async Task AddAsync(MediaResource video)
+        public async Task CreateAsync(MediaResource video)
         {
             var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
             if (videoFromDatabase != null)
@@ -30,8 +36,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 throw new MyException($"The video with mediaId: {video.MediaId} already exists.");
             }
             var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
+            
+            if (video.Image != null)
+            {
+                var img = await _imageHandler.CreateAsync(video.Image);
+                await _imageRepository.AddAsync(img);
+                video.PictureUrl = img.Id.ToString();
+            }
 
-            var picture = string.IsNullOrWhiteSpace(video.Picture) ? getPicture(video.MediaId) : video.Picture;
+            var picture = string.IsNullOrWhiteSpace(video.PictureUrl) ? getPicture(video.MediaId) : video.PictureUrl;
 
             HashSet<Tag> tags = new HashSet<Tag>();
             if (video.Tags != null)

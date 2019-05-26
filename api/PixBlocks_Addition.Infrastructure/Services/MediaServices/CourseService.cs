@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -15,9 +16,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly IImageHandler _imageHandler;
+        private readonly IImageRepository _imageRepository;
 
-        public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository)
+
+        public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository,
+            IImageHandler imageHandler, IImageRepository imageRepository)
         {
+            _imageHandler = imageHandler;
+            _imageRepository = imageRepository;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
         }
@@ -35,7 +42,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 throw new MyException($"Course with title {upload.ParentId} not found. Create the course first.");
             }
-            
+
             var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
@@ -49,7 +56,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task CreateAsync(MediaResource resource)
         {
             var c = await _courseRepository.GetAsync(resource.Title);
-            if(c.Count() > 0)
+            if (c.Count() > 0)
             {
                 throw new MyException($"The course with title {resource.Title} already exists.");
             }
@@ -59,12 +66,21 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 foreach (string tag in resource.Tags)
                     tags.Add(new Tag(tag));
-            }else
+            }
+            else
             {
                 tags = null;
             }
-            var course = new Course(resource.Premium, resource.Title, resource.Description, 
-                                    resource.Picture, resource.Language, 0, tags);
+
+            if (resource.Image != null)
+            {
+                var img = await _imageHandler.CreateAsync(resource.Image);
+                await _imageRepository.AddAsync(img);
+                resource.PictureUrl = img.Id.ToString();
+            }
+
+            var course = new Course(resource.Premium, resource.Title, resource.Description,
+                                    resource.PictureUrl, resource.Language, 0, tags);
             await _courseRepository.AddAsync(course);
         }
 
@@ -95,12 +111,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId)
         {
             var course = await _courseRepository.GetAsync(courseId);
-            if(course == null)
+            if (course == null)
             {
                 throw new MyException("Course not found.");
             }
             var courseVideo = course.CourseVideos.SingleOrDefault(x => x.Video.Id == videoId);
-            if(courseVideo == null)
+            if (courseVideo == null)
             {
                 throw new MyException("Video not found.");
             }

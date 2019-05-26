@@ -1,4 +1,5 @@
-﻿using PixBlocks_Addition.Domain.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using PixBlocks_Addition.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace PixBlocks_Addition.Infrastructure.ResourceModels
         public bool Premium { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Picture { get; set; }
+        public string PictureUrl { get; set; }
+        public IFormFile Image { get; set; }
         public string Language { get; set; }
         public IEnumerable<string> Tags { get; set; }
     }
