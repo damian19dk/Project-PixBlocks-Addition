@@ -19,8 +19,7 @@ export class ShowVideoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
-    private loadingService: LoadingService,
-  ) { }
+    private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.getVideo();
@@ -36,7 +35,7 @@ export class ShowVideoComponent implements OnInit {
         this.loadingService.unload();
       },
       error => {
-        this.error = error;
+        this.error = error.error.message;
         this.loadingService.unload();
       });
 
