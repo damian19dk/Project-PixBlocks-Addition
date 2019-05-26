@@ -10,14 +10,16 @@ import { LoadingService } from '../services/loading.service';
   styleUrls: ['./show-video.component.css']
 })
 export class ShowVideoComponent implements OnInit {
-
+  public isCollapsed1 = false;
+  public isCollapsed2 = false;
+  public isCollapsed3 = false;
   video: Video;
   error: string;
 
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,6 @@ export class ShowVideoComponent implements OnInit {
     this.loadingService.load();
 
     const id = this.route.snapshot.paramMap.get('id');
-    
     this.videoService.getVideo(id).subscribe(
       (data: Video) => {
         this.video = data;

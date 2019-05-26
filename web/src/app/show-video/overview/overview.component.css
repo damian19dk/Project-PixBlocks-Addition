@@ -1,5 +1,5 @@
 .col-3, .col-6 {
-    font-size: 25px;
+    font-size: 19px;
 }
 .italic {
     font-style: italic;
@@ -8,7 +8,6 @@
     margin-top: 10px;
 }
 #video {
-    margin-left: 1%;
     /* 16:9 */
     width: 1120px;
     height: 600px;
@@ -20,7 +19,7 @@ ul li {
         display: inline;
         text-align: center;
       }
-
+      
 a {
         display: inline-block;
         width: 25%;
@@ -32,13 +31,15 @@ a {
       
       .two:hover ~ hr {
         margin-left: 25%;
-        padding-right: 25%;
       }
       
       .three:hover ~ hr {
-        margin-left: 75%;
+        margin-left: 50%;
       }
       
+      .four:hover ~ hr {
+        margin-left: 75%;
+      }
       
       hr {
         height: .25rem;

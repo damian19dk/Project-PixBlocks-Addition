@@ -20,6 +20,8 @@ import { VideoBrowseComponent } from './video-browse/video-browse.component';
 import { ShowVideoComponent } from './show-video/show-video.component';
 import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.component';
 import { VideoService } from './services/video.service';
+import { OverviewComponent } from './show-video/overview/overview.component';
+import { QuestionsComponent } from './show-video/questions/questions.component';
 
 
 const routes: Routes = [
@@ -31,6 +33,7 @@ const routes: Routes = [
   {path: 'home', redirectTo: '', pathMatch: 'full'},
   {path: 'secret', component: UnauthorizedComponent},
   {path: 'show_video/:id', component: ShowVideoComponent},
+  {path: 'overview', component: OverviewComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -50,7 +53,9 @@ const routes: Routes = [
     ShowVideoComponent,
     VideoThumbnailComponent,
     SafePipe,
-    MinuteSecondsPipe
+    MinuteSecondsPipe,
+    OverviewComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,
