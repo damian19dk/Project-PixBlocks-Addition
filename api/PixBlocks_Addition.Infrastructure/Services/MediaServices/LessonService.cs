@@ -2,23 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.Mappers;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public class LessonService : ILessonService
     {
+        private readonly IImageHandler _imageHandler;
+        private readonly IImageRepository _imageRepository;
         private readonly ILessonRepository _lessonRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly IMapper _mapper;
 
         public LessonService(ILessonRepository lessonRepository, ICourseRepository courseRepository, 
-                             IVideoRepository videoRepository)
+                             IVideoRepository videoRepository, IImageHandler imageHandler, 
+                             IImageRepository imageRepository, IAutoMapperConfig config)
         {
+            _mapper = config.Mapper;
+            _imageHandler = imageHandler;
+            _imageRepository = imageRepository;
             _lessonRepository = lessonRepository;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
@@ -35,11 +45,25 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
-            foreach (string tag in resource.Tags)
-                tags.Add(new Tag(tag));
+            if (resource.Tags != null)
+            {
+                foreach (string tag in resource.Tags)
+                    tags.Add(new Tag(tag));
+            }
+            else
+            {
+                tags = null;
+            }
+
+            if (resource.Image != null)
+            {
+                var img = await _imageHandler.CreateAsync(resource.Image);
+                await _imageRepository.AddAsync(img);
+                resource.PictureUrl = img.Id.ToString();
+            }
 
             var lesson = new Lesson(course, string.Empty, resource.Premium, resource.Title, resource.Description, 
-                                    resource.Picture, 0, resource.Language, tags);
+                                    resource.PictureUrl, 0, resource.Language, tags);
             await _lessonRepository.AddAsync(lesson);
         }
 
@@ -70,25 +94,25 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<LessonDto>> GetAllAsync()
         {
             var result = await _lessonRepository.GetAllAsync();
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+            return _mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task<IEnumerable<LessonDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _lessonRepository.GetAllAsync(page, count);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+            return _mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task<LessonDto> GetAsync(Guid id)
         {
             var result = await _lessonRepository.GetAsync(id);
-            return Mappers.AutoMapperConfig.Mapper.Map<LessonDto>(result);
+            return _mapper.Map<LessonDto>(result);
         }
 
         public async Task<IEnumerable<LessonDto>> GetAsync(string title)
         {
             var result = await _lessonRepository.GetAsync(title);
-            return Mappers.AutoMapperConfig.Mapper.Map<IEnumerable<LessonDto>>(result);
+            return _mapper.Map<IEnumerable<LessonDto>>(result);
         }
 
         public async Task RemoveAsync(Guid id)
