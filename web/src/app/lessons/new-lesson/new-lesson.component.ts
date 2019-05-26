@@ -89,9 +89,6 @@ export class NewLessonComponent implements OnInit {
 
     this.lessonDto = this.newLessonForm.value;
     this.lessonDto.parentId = this.newLessonForm.value.parentId.id;
-    console.log(this.lessonDto);
-
-    this.loading = false;
 
     this.lessonService.addLesson(this.lessonDto)
       .subscribe(

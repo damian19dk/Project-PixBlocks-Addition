@@ -60,19 +60,16 @@ export class NewCourseComponent implements OnInit {
     this.loading = true;
 
     this.courseDto = this.newCourseForm.value;
-    console.log(this.courseDto);
 
-    this.loading = false;
-
-    // this.courseService.addCourse(this.courseDto)
-    //   .subscribe(
-    //     data => {
-    //       this.loading = false;
-    //     },
-    //     error => {
-    //       this.error = error;
-    //       this.loading = false;
-    //     });
+    this.courseService.addCourse(this.courseDto)
+      .subscribe(
+        data => {
+          this.loading = false;
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
 
   
