@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Infrastructure.Services.MediaServices;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PixBlocks_Addition.Api.Controllers
 {
@@ -20,10 +21,12 @@ namespace PixBlocks_Addition.Api.Controllers
             _videoService = videoService;
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
         public async Task CreateVideo([FromBody]MediaResource video)
         {
-            await _videoService.AddAsync(video);
+            video.Image = Request.Form.Files.FirstOrDefault();
+            await _videoService.CreateAsync(video);
         }
 
         [HttpGet]
@@ -32,12 +35,25 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _videoService.GetAsync(mediaId);
         }
 
+        [HttpGet("browse")]
+        public async Task<IEnumerable<VideoDto>> Browse(string title)
+        {
+            return await _videoService.BrowseAsync(title);
+        }
+
         [HttpGet("all")]
         public async Task<IEnumerable<VideoDto>> GetAll()
         {
             return await _videoService.GetAllAsync();
         }
 
+        [HttpGet("all_paging")]
+        public async Task<IEnumerable<VideoDto>> GetAll(int page, int count = 10)
+        {
+            return await _videoService.GetAllAsync(page, count);
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         public async Task Remove(Guid id)
         {

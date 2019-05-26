@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.DTOs;
@@ -21,18 +22,22 @@ namespace PixBlocks_Addition.Api.Controllers
             _exerciseService = exerciseService;
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
         public async Task Create(MediaResource exercise)
         {
+            exercise.Image = Request.Form.Files.FirstOrDefault();
             await _exerciseService.CreateAsync(exercise);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("video")]
         public async Task AddVideo([FromBody]UploadResource upload)
         {
             await _exerciseService.AddVideoAsync(upload);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
         public async Task RemoveVideo(Guid exerciseId, Guid videoId)
         {
@@ -46,7 +51,7 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [HttpGet("title")]
-        public async Task<ExerciseDto> Get(string title)
+        public async Task<IEnumerable<ExerciseDto>> Get(string title)
         {
             return await _exerciseService.GetAsync(title);
         }
@@ -55,6 +60,12 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<IEnumerable<ExerciseDto>> GetAll()
         {
             return await _exerciseService.GetAllAsync();
+        }
+
+        [HttpGet("all_paging")]
+        public async Task<IEnumerable<ExerciseDto>> GetAll(int page, int count = 10)
+        {
+            return await _exerciseService.GetAllAsync(page, count);
         }
     }
 }

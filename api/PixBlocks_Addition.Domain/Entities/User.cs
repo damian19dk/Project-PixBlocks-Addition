@@ -34,9 +34,8 @@ namespace PixBlocks_Addition.Domain.Entities
             Id = Guid.NewGuid();
             SetLogin(login);
             SetEmail(e_mail);
-            SetRole(role);
+            SetRole(role.Id);
             SetPassword(password, encrypter);
-            IsPremium = false;
         }
 
         public User(string login, string e_mail, int role, string password, IEncrypter encrypter)
@@ -44,25 +43,26 @@ namespace PixBlocks_Addition.Domain.Entities
             Id = Guid.NewGuid();
             SetLogin(login);
             SetEmail(e_mail);
-            IsRoleCorrectSet(role);
+            SetRole(role);
             SetPassword(password, encrypter);
-            IsPremium = false;
         }
 
         public void SetLogin(string login)
         {
-            if (login.Length < 3) throw new MyException(MyCodes.TooShortLogin);
-            if (login.Length >= 20) throw new MyException(MyCodes.TooLongLogin);
-            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodes.WrongCharactersInLogin);
-            if (!regex_login.IsMatch(login)) throw new MyException(MyCodes.WrongCharactersInLogin);
+            if (login.Length < 3) throw new MyException(MyCodesNumbers.TooShortLogin, MyCodes.TooShortLogin);
+            if (login.Length >= 20) throw new MyException(MyCodesNumbers.TooLongLogin, MyCodes.TooLongLogin);
+            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
+            if (!regex_login.IsMatch(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
             Login = login;
         }
 
         public void SetPassword(string password, IEncrypter encrypter)
         {
-            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodes.WrongCharactersInPassword);
-            if (password.Length < 6) throw new MyException(MyCodes.TooShortPassword);
-            if (password.Length >= 20) throw new MyException(MyCodes.TooLongPassword);
+            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodesNumbers.WrongCharactersInPassword, MyCodes.WrongCharactersInPassword);
+            if (password.Length < 6) throw new MyException(MyCodesNumbers.TooShortPassword, MyCodes.TooShortPassword);
+            if (password.Length >= 20) throw new MyException(MyCodesNumbers.TooLongPassword, MyCodes.TooLongPassword);
+            if (password == Password) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
+
             string salt = encrypter.GetSalt(password);
             string hash = encrypter.GetHash(password, salt);
 
@@ -75,24 +75,27 @@ namespace PixBlocks_Addition.Domain.Entities
             IsPremium = premium;
         }
 
-        public void SetRole(Role role)
+        public void SetRole(int role)
         {
-            RoleId = role.Id;
+            IsRoleCorrectSet(role);
+            if (role > 1) SetPremium(true);
+            RoleId = role;
         }
         public void SetEmail(string mail)
         {
-            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodes.WrongFormatOfMail);
+            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodesNumbers.WrongFormatOfMail, MyCodes.WrongFormatOfMail);
+            if (mail == Email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
             Email = mail;
         }
         public void SetStatus(int status)
         {
             if (status == 1 || status == 0) Status = status;
-            else throw new MyException(MyCodes.WrongUserStatus);
+            else throw new MyException(MyCodesNumbers.WrongUserStatus, MyCodes.WrongUserStatus);
         }
         public void IsRoleCorrectSet(int roleid)
         {
-            if (roleid == 3 || roleid == 1) RoleId = roleid;
-            else throw new MyException(MyCodes.WrongRoleId);
+            if (roleid == 3 || roleid == 2 || roleid == 1) RoleId = roleid;
+            else throw new MyException(MyCodesNumbers.WrongRoleId, MyCodes.WrongRoleId);
         }
     }
 }

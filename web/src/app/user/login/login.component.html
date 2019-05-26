@@ -18,7 +18,7 @@
             </div>
 
             <div class="form-group col-sm-12">
-                <label i18n="@@password">Password:</label>
+                <label i18n="@@password">Hasło:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password"
@@ -39,7 +39,7 @@
                 <button i18n="@@buttons_login" [disabled]="loading" class="btn btn-primary">
                     <div i18n *ngIf="!loading">Zaloguj się</div>
                     <div i18n *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
-                        Ładowanie..</div>
+                        Ładowanie...</div>
                 </button>
 
             </div>

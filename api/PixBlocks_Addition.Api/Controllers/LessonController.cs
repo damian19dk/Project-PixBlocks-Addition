@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -19,18 +21,22 @@ namespace PixBlocks_Addition.Api.Controllers
             _lessonService = lessonService;
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
         public async Task Create(MediaResource lesson)
         {
+            lesson.Image = Request.Form.Files.FirstOrDefault();
             await _lessonService.CreateAsync(lesson);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost("video")]
         public async Task AddVideo([FromBody]UploadResource upload)
         {
             await _lessonService.AddVideoAsync(upload);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
         public async Task RemoveVideo(Guid lessonId, Guid videoId)
         {
@@ -44,7 +50,7 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [HttpGet("title")]
-        public async Task<LessonDto> Get(string title)
+        public async Task<IEnumerable<LessonDto>> Get(string title)
         {
             return await _lessonService.GetAsync(title);
         }
@@ -53,6 +59,12 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<IEnumerable<LessonDto>> GetAll()
         {
             return await _lessonService.GetAllAsync();
+        }
+            
+        [HttpGet("all_paging")]
+        public async Task<IEnumerable<LessonDto>> GetALl(int page, int count = 10)
+        {
+            return await _lessonService.GetAllAsync(page, count);
         }
 
     }

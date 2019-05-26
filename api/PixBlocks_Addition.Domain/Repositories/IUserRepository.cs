@@ -11,6 +11,7 @@ namespace PixBlocks_Addition.Domain.Repositories
         Task<User> GetAsync(Guid id);
         Task<User> GetAsync(string login);
         Task<IEnumerable<User>> GetAllAsync();
+        Task<IEnumerable<User>> GetAllAsync(int page, int count = 10);
         Task<bool> IsEmailUnique(string email);
         Task<bool> IsLoginUnique(string login);
         Task RemoveAsync(Guid id);

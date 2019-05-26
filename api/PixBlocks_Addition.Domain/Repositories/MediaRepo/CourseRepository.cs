@@ -24,16 +24,23 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
                     .Include(c=>c.Category)
                     .Include(c => c.Tags).SingleOrDefaultAsync(x => x.Id == id);
 
-        public async Task<Course> GetAsync(string name) 
+        public async Task<IEnumerable<Course>> GetAsync(string name) 
             => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                     .Include(c => c.Category)
-                    .Include(c => c.Tags).SingleOrDefaultAsync(x => x.Title == name);
+                    .Include(c => c.Tags)
+                    .Where(x => x.Title == name).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllAsync() 
             => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                     .Include(c => c.Category)
                     .Include(c => c.Tags).ToListAsync();
+
+        public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10)
+            => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
+                    .Include(c => c.Lessons).ThenInclude(x => x.Tags)
+                    .Include(c => c.Category)
+                    .Include(c => c.Tags).Skip((page - 1) * count).ToListAsync();
     }
 }
