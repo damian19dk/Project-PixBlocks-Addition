@@ -1,4 +1,4 @@
-export class CourseDto {
+export class LessonDto {
     parentId: string;
     mediaId: string;
     premium: boolean;

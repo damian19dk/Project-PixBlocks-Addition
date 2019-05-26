@@ -1,6 +1,6 @@
 <div class="container">
 
-  <form [formGroup]="newCourseForm" (ngSubmit)="createNewCourse()">
+  <form [formGroup]="newLessonForm" (ngSubmit)="createNewLesson()">
     <div class="form-group row">
       <label for="title" class="col-sm-2 col-form-label">Tytuł</label>
       <div class="col-sm-10 input-group">
@@ -68,18 +68,39 @@
       </div>
     </div>
 
+
+
+    <ng-template #rt let-r="result" let-t="term">
+      <!-- <img [src]="r.picture" class="mr-1" style="width: 16px"> -->
+      <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
+    </ng-template>
+
+
+
+    <div class="form-group row">
+      <label for="parentId" class="col-sm-2 col-form-label">Kurs</label>
+      <div class="col-sm-10 input-group">
+        <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" id="parentId"
+          type="text" class="form-control" [ngbTypeahead]="searchCourse" [inputFormatter]="formatter"
+          [resultTemplate]="rt" placeholder="Wyszukaj kurs" />
+
+
+        <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
+          <div *ngIf="f.parentId.errors.required">Pole jest puste</div>
+        </div>
+      </div>
+    </div>
+
     <div class="form-group row">
       <div class="col-sm-10">
         <button type="submit" [disabled]="loading" class="btn btn-success">
-          <div *ngIf="!loading">Dodaj kurs</div>
+          <div *ngIf="!loading">Dodaj lekcję</div>
           <div *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
             Ładowanie..</div>
         </button>
       </div>
     </div>
   </form>
-
-
 
 
 </div>
