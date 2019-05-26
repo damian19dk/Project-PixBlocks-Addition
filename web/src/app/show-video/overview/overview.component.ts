@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Video } from '../models/video.model';
-import { VideoService } from '../services/video.service';
+import { Video } from 'src/app/models/video.model';
+import { VideoService } from 'src/app/services/video.service';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingService } from '../services/loading.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
-  selector: 'app-show-video',
-  templateUrl: './show-video.component.html',
-  styleUrls: ['./show-video.component.css']
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.css']
 })
-export class ShowVideoComponent implements OnInit {
-  public isCollapsed1 = true;
-  public isCollapsed2 = false;
-  public isCollapsed3 = true;
+export class OverviewComponent implements OnInit {
   video: Video;
   error: string;
 
@@ -25,7 +22,6 @@ export class ShowVideoComponent implements OnInit {
   ngOnInit() {
     this.getVideo();
   }
-
   getVideo() {
     this.loadingService.load();
 
