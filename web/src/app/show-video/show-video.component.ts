@@ -10,9 +10,9 @@ import { LoadingService } from '../services/loading.service';
   styleUrls: ['./show-video.component.css']
 })
 export class ShowVideoComponent implements OnInit {
-  public isCollapsed1 = false;
+  public isCollapsed1 = true;
   public isCollapsed2 = false;
-  public isCollapsed3 = false;
+  public isCollapsed3 = true;
   video: Video;
   error: string;
 

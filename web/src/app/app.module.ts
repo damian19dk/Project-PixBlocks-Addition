@@ -22,6 +22,7 @@ import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.compo
 import { VideoService } from './services/video.service';
 import { OverviewComponent } from './show-video/overview/overview.component';
 import { QuestionsComponent } from './show-video/questions/questions.component';
+import { CoursesComponent } from './show-video/courses/courses.component';
 
 
 const routes: Routes = [
@@ -55,7 +56,8 @@ const routes: Routes = [
     SafePipe,
     MinuteSecondsPipe,
     OverviewComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,

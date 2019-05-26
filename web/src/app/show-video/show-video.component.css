@@ -7,9 +7,13 @@
 .header2, .header4 {
     margin-top: 10px;
 }
+#video-field {
+  display: grid;
+  justify-content: center;
+  background-color: #444444;
+}
 #video {
-    margin-left: 1%;
-    /* 16:9 */
+  /* 16:9 */
     width: 1120px;
     height: 600px;
 }
@@ -39,12 +43,11 @@ a {
         margin-left: 75%;
       }
       
-      
       hr {
         height: .25rem;
         width: 25%;
         margin: 0;
         background: #444444;
         border: none;
-        transition: .3s ease-in-out;
+        transition: .2s ease-in-out;
       }
