@@ -18,7 +18,7 @@ export class NewCourseComponent implements OnInit {
   returnUrl: string;
   courseDto: CourseDto;
   error: string;
-  
+
   tagsList = [];
   tagsSettings = {};
 
@@ -27,7 +27,7 @@ export class NewCourseComponent implements OnInit {
     private courseService: CourseService,
     private tagService: TagService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.tagsList = this.tagService.getTags();
 
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
@@ -72,6 +72,6 @@ export class NewCourseComponent implements OnInit {
         });
   }
 
-  
+
 
 }
