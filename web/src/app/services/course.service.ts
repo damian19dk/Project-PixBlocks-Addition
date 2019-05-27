@@ -12,7 +12,7 @@ export class CourseService {
 
   getCourse(id: string) {
     let headers = new HttpHeaders()
-    .set("Access-Control-Allow-Origin", "*")
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
     .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
     .set("Content-Type", "application/json")
 
@@ -21,7 +21,7 @@ export class CourseService {
 
   getCourses() {
     let headers = new HttpHeaders()
-    .set("Access-Control-Allow-Origin", "*")
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
     .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
     .set("Content-Type", "application/json")
 

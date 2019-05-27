@@ -24,8 +24,6 @@ export class AuthenticationService {
     else {
       this.setUser(localStorage.getItem("Login"), localStorage.getItem("Authorization"), true);
     }
-
-
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
