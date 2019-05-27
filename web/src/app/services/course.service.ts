@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CourseDto } from '../models/courseDto.model';
 
@@ -8,24 +8,32 @@ import { CourseDto } from '../models/courseDto.model';
 })
 export class CourseService {
 
-  private origin: string;
-
-  constructor(
-    private http: HttpClient) {
-      this.origin = environment.baseUrl;
-     }
+  constructor(private http: HttpClient) {}
 
   getCourse(id: string) {
-    return this.http.get<any>(this.origin + "/api/Course/title?title=" + id);
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", "*")
+    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Content-Type", "application/json")
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/title?title=" + id, { headers });
   }
 
   getCourses() {
-    return this.http.get<any>(this.origin + "/api/Course/all");
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", "*")
+    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Content-Type", "application/json")
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/all", { headers });
   }
 
   addCourse(courseDto: CourseDto) {
-    let headers = environment.headers;
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Content-Type", "application/json")
 
-    return this.http.post<CourseDto>(this.origin + "/api/Course/create", courseDto, { headers });
+    return this.http.post<CourseDto>(environment.baseUrl + "/api/Course/create", courseDto, { headers });
   }
 }

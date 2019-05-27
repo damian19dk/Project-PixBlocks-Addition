@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 })
 export class VideoService {
   private origin = environment.baseUrl;
-  private headers = environment.headers;
 
   constructor(private http: HttpClient) { }
 
