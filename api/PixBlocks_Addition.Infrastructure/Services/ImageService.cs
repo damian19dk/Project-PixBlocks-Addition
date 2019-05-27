@@ -55,7 +55,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var image = await _imageRepository.GetAsync(id);
             if (image == null)
             {
-                throw new MyException(MyCodes.ImageNotFound, $"The image with id {id} was not found.");
+                throw new MyException(MyCodesNumbers.ImageNotFound, $"Nie znaleziono zdjęcia z id: {id}.");
             }
             return image;
         }

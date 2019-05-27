@@ -37,19 +37,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if (video == null)
             {
-                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {video.MediaId}. Wpierw stwórz wideo.");
             }
 
             var course = await _courseRepository.GetAsync(upload.ParentId);
             if (course == null)
             {
-                throw new MyException($"Course with title {upload.ParentId} not found. Create the course first.");
+                throw new MyException(MyCodesNumbers.CourseNotFound, $"Nie znaleziono kursu o tytule: {upload.ParentId}. Wpierw stwórz kurs.");
             }
 
             var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new MyException($"The course already has the same video.");
+                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideoInCourse);
             }
 
             course.CourseVideos.Add(new CourseVideo(course.Id, video));
@@ -61,7 +61,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var c = await _courseRepository.GetAsync(resource.Title);
             if (c.Count() > 0)
             {
-                throw new MyException($"The course with title {resource.Title} already exists.");
+                throw new MyException(MyCodesNumbers.SameTitleCourse, $"Kurs o tytule: {resource.Title} już istnieje.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -116,12 +116,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var course = await _courseRepository.GetAsync(courseId);
             if (course == null)
             {
-                throw new MyException("Course not found.");
+                throw new MyException(MyCodesNumbers.CourseNotFound, MyCodes.CourseNotFound);
             }
             var courseVideo = course.CourseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (courseVideo == null)
             {
-                throw new MyException("Video not found.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
             }
             course.CourseVideos.Remove(courseVideo);
             await _courseRepository.UpdateAsync(course);
