@@ -58,7 +58,7 @@ namespace PixBlocks_Addition.Api.Controllers
             var image = Request.Form.Files.FirstOrDefault();
             if (image == null)
             {
-                throw new MyException(MyCodes.ImageNotFound, "The image file is missing.");
+                throw new MyException(MyCodesNumbers.ImageNotFound, MyCodes.ImageNotFound);
             }
             return image;
         }

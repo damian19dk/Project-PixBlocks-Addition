@@ -38,7 +38,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
             if (videoFromDatabase != null)
             {
-                throw new MyException($"The video with mediaId: {video.MediaId} already exists.");
+                throw new MyException(MyCodesNumbers.SameVideo, $"Wideo o MediaId: {video.MediaId} już istnieje.");
             }
             var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
             
