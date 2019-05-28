@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             HashSet<Tag> tags = new HashSet<Tag>();
             if (video.Tags != null)
             {
+                video.Tags = video.Tags.First().Split();
                 foreach (string tag in video.Tags)
                     tags.Add(new Tag(tag));
             }

@@ -72,6 +72,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             HashSet<Tag> tags = new HashSet<Tag>();
             if (resource.Tags != null)
             {
+                resource.Tags = resource.Tags.First().Split();
                 foreach (string tag in resource.Tags)
                     tags.Add(new Tag(tag));
             }
