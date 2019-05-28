@@ -93,6 +93,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             await _exerciseRepository.AddAsync(exercise);
         }
 
+        public async Task<IEnumerable<ExerciseDto>> GetAllByTagsAsync(IEnumerable<string> tags)
+            => _mapper.Map<IEnumerable<ExerciseDto>>(await _exerciseRepository.GetAllByTagsAsync(tags));
+
         public async Task<IEnumerable<ExerciseDto>> GetAllAsync()
         {
             var result = await _exerciseRepository.GetAllAsync();
