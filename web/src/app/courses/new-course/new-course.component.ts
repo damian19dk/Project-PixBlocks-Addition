@@ -38,12 +38,15 @@ export class NewCourseComponent implements OnInit {
     this.loading = false;
 
     this.newCourseForm = this.formBuilder.group({
-      title: [null, Validators.required],
-      description: [null, Validators.required],
-      premium: [false],
-      tags: [null],
-      language: ['Polski'],
-      picture: [null]
+      ParentId: [null],
+      MediaId: [null],
+      Title: [null, Validators.required],
+      Description: [null, Validators.required],
+      Premium: [false],
+      Tags: [null],
+      Language: ['Polski'],
+      PictureUrl: [null],
+      Image: [null]
     });
   }
 

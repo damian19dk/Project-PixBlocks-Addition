@@ -13,7 +13,7 @@ export class CourseService {
   getCourse(id: string) {
     let headers = new HttpHeaders()
     .set("Access-Control-Allow-Origin", environment.baseUrl)
-    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Authorization", "Bearer " + localStorage.getItem("Token-Authorization"))
     .set("Content-Type", "application/json")
 
     return this.http.get<any>(environment.baseUrl + "/api/Course/title?title=" + id, { headers });
@@ -22,7 +22,7 @@ export class CourseService {
   getCourses() {
     let headers = new HttpHeaders()
     .set("Access-Control-Allow-Origin", environment.baseUrl)
-    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Authorization", "Bearer " + localStorage.getItem("Token-Authorization"))
     .set("Content-Type", "application/json")
 
     return this.http.get<any>(environment.baseUrl + "/api/Course/all", { headers });
@@ -31,7 +31,7 @@ export class CourseService {
   addCourse(courseDto: CourseDto) {
     let headers = new HttpHeaders()
     .set("Access-Control-Allow-Origin", environment.baseUrl)
-    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Authorization", "Bearer " + localStorage.getItem("Token-Authorization"))
     .set("Content-Type", "application/json")
 
     return this.http.post<CourseDto>(environment.baseUrl + "/api/Course/create", courseDto, { headers });

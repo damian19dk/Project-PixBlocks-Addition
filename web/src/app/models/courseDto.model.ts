@@ -1,12 +1,13 @@
 export class CourseDto {
-    parentId: string;
-    mediaId: string;
-    premium: boolean;
-    title: string;
-    description: string;
-    picture: string;
-    language: string;
-    tags: [
+    ParentId: string;
+    MediaId: string;
+    Premium: boolean;
+    Title: string;
+    Description: string;
+    PictureUrl: string;
+    Image: any;
+    Language: string;
+    Tags: [
         string
     ];
 }

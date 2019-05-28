@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './../models/user.model';
 import { environment } from '../../environments/environment';
 import { LoadingService } from './loading.service';
+import { interval } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,16 @@ export class AuthenticationService {
     private http: HttpClient,
     private loadingService: LoadingService) {
 
+    if (localStorage.getItem("Token-Expires") != undefined) {
+      interval(Number(localStorage.getItem("1000"))).subscribe(val => this.refresh());
+    }
 
     this.currentUser = new User();
-    if (localStorage.getItem("Authorization") == undefined) {
+    if (localStorage.getItem("Token-Authorization") == undefined) {
       this.setUser(null, null, false);
     }
     else {
-      this.setUser(localStorage.getItem("Login"), localStorage.getItem("Authorization"), true);
+      this.setUser(localStorage.getItem("Login"), localStorage.getItem("Token-Authorization"), true);
     }
   }
 
@@ -38,9 +42,26 @@ export class AuthenticationService {
 
   logout() {
     this.loadingService.load();
-    localStorage.removeItem("Authorization");
+    localStorage.removeItem("Token-Authorization");
     this.setUser(null, null, false);
     this.loadingService.unload();
+  }
+
+  refresh() {
+
+    if (localStorage.getItem("Token-Authorization") != undefined) {
+      return this.http.post<any>(this.origin + "/api/Identity/refresh", localStorage.getItem("Token-Refresh"))
+        .subscribe(
+          data => {
+            localStorage.setItem("Token-Authorization", data.accessToken);
+            localStorage.setItem("Token-Refresh", data.refreshToken)
+            localStorage.setItem("Token-Expires", data.expires)
+          },
+          error => {
+
+          }
+        );
+    }
   }
 
   isUserLogged() {
