@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <h2 class="display-4">Edytor kursów</h2>
+  </div>
+
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <button class="nav-link btn" [ngClass]="isNewCourseSelected ? 'active' : ''" (click)="changeToNewCourse()">Nowy kurs</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link btn" [ngClass]="!isNewCourseSelected ? 'active' : ''" (click)="changeToEditCourse()">Edycja</button>
+    </li>
+  </ul>
+
+  <app-new-course *ngIf="isNewCourseSelected">
+  </app-new-course>
+
+  <app-functionality-not-prepared *ngIf="!isNewCourseSelected">
+  </app-functionality-not-prepared>
+
+</div>

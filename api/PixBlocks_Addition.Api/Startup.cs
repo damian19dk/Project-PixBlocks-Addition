@@ -19,6 +19,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Newtonsoft.Json;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.Services.MediaServices;
+using PixBlocks_Addition.Infrastructure.Mappers;
 
 namespace PixBlocks_Addition.Api
 {
@@ -34,10 +35,13 @@ namespace PixBlocks_Addition.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+
+            services.Configure<HostOptions>(Configuration.GetSection("host"));
 
             var sqlSection = Configuration.GetSection("sql");
             services.Configure<SqlSettings>(sqlSection);
@@ -70,9 +74,10 @@ namespace PixBlocks_Addition.Api
                     };
                 });
 
-            services.AddAuthorization(p => p.AddPolicy("admin", x => x.RequireRole("Admin")));
+            services.AddAuthorization(p => p.AddPolicy("Premium", x => x.RequireClaim("Premium", "True")));
 
             services.AddOptions();
+            services.AddScoped<IAutoMapperConfig, AutoMapperConfig>();
             services.AddSingleton<IJwtHandler, JwtHandler>(sp =>
             {
                 var handlerOptions = sp.GetService<IOptions<JwtOptions>>();
@@ -84,13 +89,16 @@ namespace PixBlocks_Addition.Api
                 return new JwtHandler(handlerOptions);
             });
             services.AddSingleton<IEncrypter, Encrypter>();
+            services.AddSingleton<IImageHandler, ImageHandler>();
             services.AddSingleton<IJWPlayerAuthHandler, JWPlayerAuthHandler>();
 
+            services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ILessonRepository, LessonRepository>();
-            services.AddScoped<IExerciseRepository, ExercisieRepository>();
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
+            services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILessonService, LessonService>();
@@ -117,10 +125,10 @@ namespace PixBlocks_Addition.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors(builder =>
-                    builder.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin()
-                    .AllowCredentials()
+                builder.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowCredentials()
                 );
             }
             else
@@ -135,7 +143,7 @@ namespace PixBlocks_Addition.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "PixBlocks Addition V1");
             });
 
-            
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMiddleware<CancellationTokenMiddleware>();

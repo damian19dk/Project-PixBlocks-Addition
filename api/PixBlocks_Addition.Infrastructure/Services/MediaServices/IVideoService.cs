@@ -9,11 +9,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public interface IVideoService
     {
-        Task AddAsync(MediaResource video);
+        Task CreateAsync(MediaResource video);
         Task<VideoDto> GetAsync(Guid id);
-        Task<VideoDto> GetAsync(string title);
+        Task<VideoDto> GetAsync(string mediaId);
+        Task<IEnumerable<VideoDto>> BrowseAsync(string title);
+        Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags);
         Task<IEnumerable<VideoDto>> GetAllAsync();
+        Task<IEnumerable<VideoDto>> GetAllAsync(int page, int count = 10);
         Task RemoveAsync(Guid id);
-        Task RemoveAsync(string title);
+        Task RemoveAsync(string mediaId);
     }
 }

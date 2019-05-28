@@ -11,6 +11,7 @@ export class RegistrationComponent implements OnInit {
   loading: boolean;
   submitted: boolean;
   returnUrl: string;
+  error: string;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -27,11 +28,11 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
       confirmPassword: ['', Validators.required]
     }, {
-      validator: MustMatch('password', 'confirmPassword')
-    });
+        validator: MustMatch('password', 'confirmPassword')
+      });
 
     this.authenticationService.logout();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'login';
   }
 
   get f() { return this.registrationForm.controls; }
@@ -47,14 +48,18 @@ export class RegistrationComponent implements OnInit {
     this.loading = true;
 
     this.authenticationService.register(this.f.username.value, this.f.email.value, this.f.password.value, 3)
-    // .pipe(first())
-     .subscribe(
-         data => {
-             this.router.navigate([this.returnUrl]);
-         },
-         error => {
-            // this.error = error;
-             this.loading = false;
-         });
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error.error.message;
+          this.loading = false;
+        }
+      );
   }
+
+
+
+
 }

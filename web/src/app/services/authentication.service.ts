@@ -28,14 +28,7 @@ export class AuthenticationService {
   register(login: string, e_mail: string, password: string, roleId: number) {
     let headers = environment.headers;
 
-    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId }, { headers })
-      .pipe(map(user => {
-        if (user && user.token) {
-
-          localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-        }
-        return user;
-      }));
+    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
   }
 
   login(login: string, password: string) {

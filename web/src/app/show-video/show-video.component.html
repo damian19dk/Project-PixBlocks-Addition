@@ -1,74 +1,50 @@
 <div *ngIf="video">
-    <div class="container">
+    <div class="container-fluid">
 
         <div *ngIf="error" class="alert alert-danger">
             {{error}}
         </div>
         <div *ngIf="!error">
 
-            <div class="row">
+            <div class="row" id="video-field">
 
-                <iframe class="img-thumbnail" id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
+                <iframe id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
                     msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                     webkitallowfullscreen="webkitallowfullscreen" [src]="video.link | safe">
                 </iframe>
 
             </div>
-            <nav class="navbar">
-                <button class="btn2">Treść kursu</button>
-                <button class="btn">Przegląd</button>
-                <div class="btn">Pytania i odpowiedzi</div> 
-            </nav>
-            <div class="row text-justify border-top">
-                <h2 class="header2">Informacje o tym wideo <br><h4 class="header4">{{video.title}}</h4></h2> 
-                
-            </div>
-            <div class="row text-justify border-top">
-                <div class="col-3 text-justify italic">
-                    Tagi:
-                </div>
-                <div class="col-6 text-justify">
-                    {{video.tags}}, Python, Natural Dread Killaz, uwierz w siebie
+
+
+            <ul class="row border">
+                <li class="col-3 one border-right"><button class="btn" type="button" (click)="isCollapsed1 = !isCollapsed1"
+                        [attr.aria-expanded]="!isCollapsed1" aria-controls="myCollapse1">Kurs</button></li>
+                <li class="col-6 two border-right"><button class="btn" type="button" (click)="isCollapsed2 = !isCollapsed2"
+                        [attr.aria-expanded]="!isCollapsed2" aria-controls="myCollapse2">Przegląd</button> </li>
+                <li class="col-3 three"><button class="btn" type="button" (click)="isCollapsed3 = !isCollapsed3"
+                        [attr.aria-expanded]="!isCollapsed3" aria-controls="myCollapse3">Q&A</button> </li>
+                <hr />
+            </ul>
+
+            <div class="row">
+                <div class="col-3">
+                    <div id="myCollapse1" [ngbCollapse]="isCollapsed1">
+                        <app-courses></app-courses>>
                     </div>
                 </div>
-            <div class="row text-justify border-top">
-            <div class="col-3 text-justify italic">            
-               Szczegóły    
-            </div>
-            <div class="col-3 text-justify">
-                Czas trwania: {{video.duration | minuteSeconds}}
-                <br>
-                Język: polski
-                <br>
-                Napisy: nie
-            </div>
-            <div class="col-3 text-justify">
-                
-            </div>
-            </div> 
-
-            <div class="row text-justify border-top">
-                <div class="col-3 text-justify italic">
-                Opis
+                <div class="col-6">
+                    <div id="myCollapse2" [ngbCollapse]="isCollapsed2">
+                        <app-overview [video]=video></app-overview>
+                    </div>
                 </div>
-
-                <div class="col-6 text-justify">
-                {{video.description}} Po przejściu Hannibala przez Alpy i zreorganizowaniu wojsk, 
-                zagrożona została cała Italia. 
-                Senat rzymski w obliczu niebezpieczeństwa wysłał dwie armie konsularne, 
-                Publiusza Korneliusza Scypiona oraz Semproniusza Longusa, 
-                które jednak zostały pokonane nad rzeką Trebią w 218 roku p.n.e.
-                Tym zwycięstwem Hannibal otworzył sobie drogę do środkowej Italii. 
-                Senat zaniepokojony przebiegiem wojny powołał dwóch nowych konsulów, 
-                Serwiusza Geminiusza i Flaminiusza. Starali się oni zagrodzić drogę armii punickiej przez Apeniny, 
-                lecz Hannibal zupełnie zaskoczył Rzymian przeprawiając się przez bagnistą dolinę rzeki Arno. 
-                Dzięki temu manewrowi zastawił pułapkę na armię konsula Flaminiusza nad Jeziorem Trazymeńskim, 
-                gdzie w 217 roku p.n.e. doszło do wielkiej bitwy. 
-                W jej wyniku zginęło 15.000 żołnierzy rzymskich i sam konsul.
+                <div class="col-3">
+                    <div id="myCollapse3" [ngbCollapse]="isCollapsed3">
+                        <app-questions></app-questions>
+                    </div>
                 </div>
             </div>
-        
         </div>
 
     </div>
+
 </div>
