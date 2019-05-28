@@ -40,6 +40,10 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _videoService.BrowseAsync(title);
         }
 
+        [HttpGet("tags")]
+        public async Task<IEnumerable<VideoDto>> GetAll(params string[] tags)
+            => await _videoService.GetAllByTagsAsync(tags);
+
         [HttpGet("all")]
         public async Task<IEnumerable<VideoDto>> GetAll()
         {

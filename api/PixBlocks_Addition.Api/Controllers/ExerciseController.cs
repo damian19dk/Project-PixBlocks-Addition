@@ -55,6 +55,10 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _exerciseService.GetAsync(title);
         }
 
+        [HttpGet("tags")]
+        public async Task<IEnumerable<ExerciseDto>> GetAll(params string[] tags)
+            => await _exerciseService.GetAllByTagsAsync(tags);
+
         [HttpGet("all")]
         public async Task<IEnumerable<ExerciseDto>> GetAll()
         {

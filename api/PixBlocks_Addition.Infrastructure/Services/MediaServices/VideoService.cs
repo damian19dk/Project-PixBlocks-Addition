@@ -69,6 +69,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             await _videoRepository.UpdateAsync(vid);
         }
 
+        public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
+            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAllByTagsAsync(tags));
+
         public async Task<IEnumerable<VideoDto>> GetAllAsync()
         {
             var result = await _videoRepository.GetAllAsync();
