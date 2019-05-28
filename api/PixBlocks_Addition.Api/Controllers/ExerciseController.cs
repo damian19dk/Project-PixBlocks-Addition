@@ -24,9 +24,8 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task Create(MediaResource exercise)
+        public async Task Create([FromForm]MediaResource exercise)
         {
-            exercise.Image = Request.Form.Files.FirstOrDefault();
             await _exerciseService.CreateAsync(exercise);
         }
 
