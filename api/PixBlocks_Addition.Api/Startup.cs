@@ -77,7 +77,7 @@ namespace PixBlocks_Addition.Api
             services.AddAuthorization(p => p.AddPolicy("Premium", x => x.RequireClaim("Premium", "True")));
 
             services.AddOptions();
-            services.AddScoped<IAutoMapperConfig, AutoMapperConfig>();
+            services.AddSingleton<IAutoMapperConfig, AutoMapperConfig>();
             services.AddSingleton<IJwtHandler, JwtHandler>(sp =>
             {
                 var handlerOptions = sp.GetService<IOptions<JwtOptions>>();
