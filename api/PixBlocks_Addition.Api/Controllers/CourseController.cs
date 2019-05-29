@@ -55,6 +55,7 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _courseService.GetAsync(id);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPut("change")]
         public async Task Put([FromForm]ChangeMediaResource resource)
             => await _courseService.UpdateAsync(resource);

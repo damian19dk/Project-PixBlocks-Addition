@@ -22,7 +22,7 @@ namespace PixBlocks_Addition.Api.Controllers
             _exerciseService = exerciseService;
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
         public async Task Create([FromForm]MediaResource exercise)
         {
@@ -36,6 +36,7 @@ namespace PixBlocks_Addition.Api.Controllers
             await _exerciseService.AddVideoAsync(upload);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPut("change")]
         public async Task Put([FromForm]ChangeMediaResource resource)
             => await _exerciseService.UpdateAsync(resource);

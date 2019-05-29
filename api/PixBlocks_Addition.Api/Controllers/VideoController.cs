@@ -28,6 +28,7 @@ namespace PixBlocks_Addition.Api.Controllers
             await _videoService.CreateAsync(video);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPut("change")]
         public async Task Put([FromForm]ChangeMediaResource resource)
             => await _videoService.UpdateAsync(resource);
