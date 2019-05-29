@@ -21,11 +21,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IImageRepository _imageRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IJWPlayerService _jwPlayerService;
+        private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
-                            IImageHandler imageHandler, IImageRepository imageRepository, IAutoMapperConfig config)
+                            IImageHandler imageHandler, IImageRepository imageRepository,
+                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
         {
+            _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
@@ -66,7 +69,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                                 response.Duration, video.Language, tags);
 
             await _videoRepository.AddAsync(vid);
-            await _videoRepository.UpdateAsync(vid);
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
@@ -123,9 +125,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(ChangeMediaResource resource)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task UpdateAsync(ChangeMediaResource resource)
+            => await _changeMediaHandler.ChangeAsync(resource, _videoRepository);
     }
 }
