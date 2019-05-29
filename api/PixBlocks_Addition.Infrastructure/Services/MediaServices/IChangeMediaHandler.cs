@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
-    public interface IChangeMediaHandler<TEntity> where TEntity: Media
+    public interface IChangeMediaHandler<TEntity, TParent> where TEntity: Media where TParent: Media
     {
-        Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TEntity> parentRepository = null);
+        Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TParent> parentRepository = null);
     }
 }
