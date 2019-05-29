@@ -11,7 +11,7 @@ using PixBlocks_Addition.Infrastructure.ResourceModels;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
-    public class ChangeMediaHandler<TEntity>: IChangeMediaHandler<TEntity> where TEntity : Media
+    public class ChangeMediaHandler<TEntity, TParent>: IChangeMediaHandler<TEntity, TParent> where TEntity : Media where TParent: Media
     {
         private readonly IImageHandler _imageHandler;
         private readonly IImageRepository _imageRepository;
@@ -22,7 +22,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _imageRepository = imageRepository;
         }
 
-        public async Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TEntity> parentRepository = null)
+        public async Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TParent> parentRepository = null)
         {
             var entity = await mediaRepository.GetAsync(resource.Id);
             if (entity == null)
@@ -31,7 +31,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
             if (entity.Title != resource.Title)
             {
-                IEnumerable<TEntity> sameTitle;
+                IEnumerable<Media> sameTitle;
                 if (parentRepository == null)
                     sameTitle = await mediaRepository.GetAsync(resource.Title);
                 else
@@ -50,24 +50,31 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             if (resource.Premium != entity.Premium)
                 entity.SetPremium(resource.Premium);
 
-            resource.Tags = resource.Tags.First().Replace("\"", string.Empty).Replace("\\", string.Empty).Split(',', ' ');
-            //Remove tags
-            ISet<Tag> tagsToRemove = new HashSet<Tag>();
-            foreach (var tag in entity.Tags)
+            if (resource.Tags != null)
             {
-                if (!resource.Tags.Contains(tag.Name))
+                resource.Tags = resource.Tags.First().Replace("\"", string.Empty).Replace("\\", string.Empty).Split(',', ' ');
+                //Remove tags
+                ISet<Tag> tagsToRemove = new HashSet<Tag>();
+                foreach (var tag in entity.Tags)
                 {
-                    tagsToRemove.Add(tag);
+                    if (!resource.Tags.Contains(tag.Name))
+                    {
+                        tagsToRemove.Add(tag);
+                    }
+                }
+                await mediaRepository.RemoveTagsAsync(entity, tagsToRemove);
+                //Add tags
+                foreach (var tag in resource.Tags)
+                {
+                    if (!entity.Tags.Any(t => t.Name == tag))
+                    {
+                        entity.Tags.Add(new Tag(tag));
+                    }
                 }
             }
-            await mediaRepository.RemoveTagsAsync(entity, tagsToRemove);
-            //Add tags
-            foreach (var tag in resource.Tags)
+            else
             {
-                if (!entity.Tags.Any(t => t.Name == tag))
-                {
-                    entity.Tags.Add(new Tag(tag));
-                }
+                await mediaRepository.RemoveTagsAsync(entity, entity.Tags);
             }
 
             //Add picture from url
