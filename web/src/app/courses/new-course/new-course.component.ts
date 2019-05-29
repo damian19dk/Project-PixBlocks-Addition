@@ -38,12 +38,15 @@ export class NewCourseComponent implements OnInit {
     this.loading = false;
 
     this.newCourseForm = this.formBuilder.group({
+      parentId: [null],
+      mediaId: [null],
       title: [null, Validators.required],
       description: [null, Validators.required],
       premium: [false],
       tags: [null],
       language: ['Polski'],
-      picture: [null]
+      pictureUrl: [null],
+      image: [null]
     });
   }
 
@@ -60,8 +63,19 @@ export class NewCourseComponent implements OnInit {
     this.loading = true;
 
     this.courseDto = this.newCourseForm.value;
+    let formData = new FormData();
 
-    this.courseService.addCourse(this.courseDto)
+    formData.append('premium', String(this.courseDto.premium));
+    formData.append('title', this.courseDto.title);
+    formData.append('description', this.courseDto.description);
+    formData.append('pictureUrl', this.courseDto.pictureUrl);
+    formData.append('image', this.courseDto.image);
+    formData.append('language', this.courseDto.language);
+    formData.append('tags', this.courseDto.tags.join(" "));
+   // formData.append('parentId', this.courseDto.parentId);
+   // formData.append('mediaId', this.courseDto.mediaId);
+
+    this.courseService.addCourse(formData)
       .subscribe(
         data => {
           this.loading = false;

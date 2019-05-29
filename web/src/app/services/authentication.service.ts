@@ -16,11 +16,11 @@ export class AuthenticationService {
     private loadingService: LoadingService) {
 
     this.currentUser = new User();
-    if (localStorage.getItem("Authorization") == undefined) {
+    if (localStorage.getItem("Token") == undefined) {
       this.setUser(null, null, false);
     }
     else {
-      this.setUser(localStorage.getItem("Login"), localStorage.getItem("Authorization"), true);
+      this.setUser(localStorage.getItem("Login"), localStorage.getItem("Token"), true);
     }
   }
 
@@ -49,16 +49,33 @@ export class AuthenticationService {
     return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {}, { headers })
     .subscribe(
       data => {
-        localStorage.removeItem("Authorization");
+        localStorage.removeItem("Token");
         this.setUser(null, null, false);
         this.loadingService.unload();
       },
       error => {
-        localStorage.removeItem("Authorization");
+        localStorage.removeItem("Token");
         this.setUser(null, null, false);
         this.loadingService.unload();
       }
     );
+  }
+
+  refresh() {
+
+    if (localStorage.getItem("Token") != undefined) {
+      return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh", localStorage.getItem("Token-Refresh"))
+        .subscribe(
+          data => {
+            localStorage.setItem("Token", data.accessToken);
+            localStorage.setItem("Token-Refresh", data.refreshToken)
+            localStorage.setItem("Token-Expires", data.expires)
+          },
+          error => {
+
+          }
+        );
+    }
   }
 
   isUserLogged() {
