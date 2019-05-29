@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
-    public class GenericRepository<TEntity> where TEntity: Media
+    public class GenericRepository<TEntity> where TEntity : Media
     {
         private readonly PixBlocksContext _entities;
 
@@ -23,9 +23,19 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
+        public async Task RemoveTagsAsync(TEntity entity, IEnumerable<Tag> tags)
+        {
+            foreach (Tag tag in tags)
+            {
+                entity.Tags.Remove(tag);
+                _entities.Tags.Remove(tag);
+            }
+            await _entities.SaveChangesAsync();
+        }
+
         public async Task RemoveAsync(string title)
         {
-            var entity = await _entities.Set<TEntity>().SingleOrDefaultAsync(x=>x.Title == title);
+            var entity = await _entities.Set<TEntity>().SingleOrDefaultAsync(x => x.Title == title);
             _entities.Set<TEntity>().Remove(entity);
             await _entities.SaveChangesAsync();
         }

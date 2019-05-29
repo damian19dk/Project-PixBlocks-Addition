@@ -37,6 +37,11 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
+        [HttpPut("change")]
+        public async Task Put([FromForm]ChangeMediaResource resource)
+            => await _exerciseService.UpdateAsync(resource);
+
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
         public async Task RemoveVideo(Guid exerciseId, Guid videoId)
         {

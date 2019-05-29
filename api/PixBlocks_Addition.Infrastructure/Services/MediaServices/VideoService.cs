@@ -21,11 +21,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IImageRepository _imageRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IJWPlayerService _jwPlayerService;
+        private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
-                            IImageHandler imageHandler, IImageRepository imageRepository, IAutoMapperConfig config)
+                            IImageHandler imageHandler, IImageRepository imageRepository,
+                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
         {
+            _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
@@ -66,7 +69,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                                 response.Duration, video.Language, tags);
 
             await _videoRepository.AddAsync(vid);
-            await _videoRepository.UpdateAsync(vid);
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
@@ -90,11 +92,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return _mapper.Map<Video, VideoDto>(video);
         }
 
-        public async Task<VideoDto> GetAsync(string mediaId)
+        public async Task<VideoDto> GetByMediaIdAsync(string mediaId)
         {
             var video = await _videoRepository.GetByMediaAsync(mediaId);
             return _mapper.Map<VideoDto>(video);
         }
+
+        public async Task<IEnumerable<VideoDto>> GetAsync(string title)
+            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAsync(title));
 
         public async Task<IEnumerable<VideoDto>> BrowseAsync(string title)
         {
@@ -114,5 +119,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         private string getPicture(string mediaId)
             => "https://cdn.jwplayer.com/thumbs/" + mediaId + "-480.jpg";
+
+        public Task AddVideoAsync(UploadResource upload)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateAsync(ChangeMediaResource resource)
+            => await _changeMediaHandler.ChangeAsync(resource, _videoRepository);
     }
 }

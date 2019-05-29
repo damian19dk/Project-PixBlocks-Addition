@@ -19,6 +19,8 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
         
         public string Convert(string sourceMember, ResolutionContext context)
         {
+            if (sourceMember == null)
+                return null;
             if (sourceMember.StartsWith("http") || sourceMember.StartsWith("https"))
                 return sourceMember;
             else
