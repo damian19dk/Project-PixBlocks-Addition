@@ -90,11 +90,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return _mapper.Map<Video, VideoDto>(video);
         }
 
-        public async Task<VideoDto> GetAsync(string mediaId)
+        public async Task<VideoDto> GetByMediaIdAsync(string mediaId)
         {
             var video = await _videoRepository.GetByMediaAsync(mediaId);
             return _mapper.Map<VideoDto>(video);
         }
+
+        public async Task<IEnumerable<VideoDto>> GetAsync(string title)
+            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAsync(title));
 
         public async Task<IEnumerable<VideoDto>> BrowseAsync(string title)
         {
@@ -114,5 +117,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         private string getPicture(string mediaId)
             => "https://cdn.jwplayer.com/thumbs/" + mediaId + "-480.jpg";
+
+        public Task AddVideoAsync(UploadResource upload)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(ChangeMediaResource resource)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
