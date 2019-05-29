@@ -23,7 +23,6 @@ export class NewCourseComponent implements OnInit {
   tagsSettings = {};
 
   constructor(private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private courseService: CourseService,
     private tagService: TagService) { }
 
@@ -63,19 +62,8 @@ export class NewCourseComponent implements OnInit {
     this.loading = true;
 
     this.courseDto = this.newCourseForm.value;
-    let formData = new FormData();
 
-    formData.append('premium', String(this.courseDto.premium));
-    formData.append('title', this.courseDto.title);
-    formData.append('description', this.courseDto.description);
-    formData.append('pictureUrl', this.courseDto.pictureUrl);
-    formData.append('image', this.courseDto.image);
-    formData.append('language', this.courseDto.language);
-    formData.append('tags', this.courseDto.tags.join(" "));
-   // formData.append('parentId', this.courseDto.parentId);
-   // formData.append('mediaId', this.courseDto.mediaId);
-
-    this.courseService.addCourse(formData)
+    this.courseService.addCourse(this.courseDto.toFormData())
       .subscribe(
         data => {
           this.loading = false;
