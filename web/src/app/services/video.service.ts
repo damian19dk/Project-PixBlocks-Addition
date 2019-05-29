@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Video } from '../models/video.model';
 import { Observable } from 'rxjs';
 
@@ -9,15 +9,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VideoService {
-  private origin = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
   getVideos() {
-    return this.http.get<any>(this.origin + "/api/Identity/login");
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Identity/login");
   }
 
   getVideo(id: string):Observable<Video> {
-    return this.http.get<Video>(this.origin + "/api/JWPlayer/video?id=" + id);
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Authorization", "Bearer " + localStorage.getItem("Authorization"))
+    .set("Content-Type", "application/json");
+    
+    return this.http.get<Video>(environment.baseUrl + "/api/JWPlayer/video?id=" + id, { headers });
   }
 }

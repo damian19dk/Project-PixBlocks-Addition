@@ -9,13 +9,11 @@ import { LoadingService } from './loading.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private origin = environment.baseUrl;
   private currentUser: User;
 
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService) {
-
 
     this.currentUser = new User();
     if (localStorage.getItem("Authorization") == undefined) {
@@ -27,20 +25,40 @@ export class AuthenticationService {
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Content-Type", "application/json");
 
-    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId });
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
   }
 
   login(login: string, password: string) {
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Content-Type", "application/json");
 
-    return this.http.post<any>(this.origin + "/api/Identity/login", { login, password });
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/login", { login, password }, { headers });
   }
 
   logout() {
     this.loadingService.load();
-    localStorage.removeItem("Authorization");
-    this.setUser(null, null, false);
-    this.loadingService.unload();
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Content-Type", "application/json");
+
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {}, { headers })
+    .subscribe(
+      data => {
+        localStorage.removeItem("Authorization");
+        this.setUser(null, null, false);
+        this.loadingService.unload();
+      },
+      error => {
+        localStorage.removeItem("Authorization");
+        this.setUser(null, null, false);
+        this.loadingService.unload();
+      }
+    );
   }
 
   isUserLogged() {
