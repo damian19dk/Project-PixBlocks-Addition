@@ -43,19 +43,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if (video == null)
             {
-                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {video.MediaId}. Wpierw stwórz wideo.");
             }
 
             var exercise = await _exerciseRepository.GetAsync(upload.ParentId);
             if (exercise == null)
             {
-                throw new MyException($"Exercise with id {upload.ParentId} not found. Create the exercise first.");
+                throw new MyException(MyCodesNumbers.ExerciseNotFound, $"Nie znaleziono ćwiczenia o id: {upload.ParentId}. Wpierw stwórz ćwiczenie.");
             }
 
             var sameVideo = exercise.ExerciseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new MyException($"The exercise already has the same video.");
+                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideoInExercise);
             }
 
             exercise.ExerciseVideos.Add(new ExerciseVideo(exercise.Id, video));
@@ -69,7 +69,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exerciseInCourse = exercises.FirstOrDefault(c => c.Title == resource.Title);
             if (exerciseInCourse != null)
             {
-                throw new MyException($"Exercise with title {resource.Title} already exists in the lesson.");
+                throw new MyException(MyCodesNumbers.SameTitleExercise, $"Ćwiczenie o tytule: {resource.Title} już istnieje w lekcji.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -138,7 +138,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exercise = await _exerciseRepository.GetAsync(exerciseId);
             if (exercise == null)
             {
-                throw new MyException(MyCodes.ExerciseNotFound);
+                throw new MyException(MyCodesNumbers.ExerciseNotFound, MyCodes.ExerciseNotFound);
             }
             var exerciseVideo = exercise.ExerciseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (exerciseVideo == null)

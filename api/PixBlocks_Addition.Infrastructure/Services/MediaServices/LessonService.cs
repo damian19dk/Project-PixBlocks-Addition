@@ -44,7 +44,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var lessonInCourse = lessons.FirstOrDefault(c => c.Title == resource.Title);
             if(lessonInCourse!=null)
             {
-                throw new MyException($"Lesson with title {resource.Title} already exists in the course.");
+                throw new MyException(MyCodesNumbers.SameTitleLesson, $"Lekcja o tytule: {resource.Title} już istnieje.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -76,13 +76,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if(video == null)
             {
-                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {video.MediaId}. Wpierw stwórz wideo.");
             }
 
             var lesson = await _lessonRepository.GetAsync(upload.ParentId);
             if(lesson == null)
             {
-                throw new MyException($"Lesson with id {upload.ParentId} not found. Create the lesson first.");
+                throw new MyException(MyCodesNumbers.LessonNotFound, $"Nie znaleziono lekcji o id: {upload.ParentId}. Wpierw stwórz lekcję.");
             }
 
             var sameVideo = lesson.LessonVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
