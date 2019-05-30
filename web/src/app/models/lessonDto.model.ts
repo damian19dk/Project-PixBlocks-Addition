@@ -4,7 +4,8 @@ export class LessonDto {
     premium: boolean;
     title: string;
     description: string;
-    picture: string;
+    pictureUrl: string;
+    image: any;
     language: string;
     tags: [
         string

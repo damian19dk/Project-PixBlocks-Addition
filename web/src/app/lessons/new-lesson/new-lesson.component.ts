@@ -26,7 +26,7 @@ export class NewLessonComponent implements OnInit {
   tagsList = [];
   tagsSettings = {};
 
-  courses: Course[];
+  courses: any[];
 
   constructor(private formBuilder: FormBuilder,
     private lessonService: LessonService,
@@ -51,7 +51,8 @@ export class NewLessonComponent implements OnInit {
       tags: [null],
       language: ['Polski'],
       parentId: [null, Validators.required],
-      picture: [null]
+      pictureUrl: [null],
+      image: [null]
     });
 
     this.getCourses();
@@ -65,7 +66,7 @@ export class NewLessonComponent implements OnInit {
     this.loadingService.load();
 
     this.courseService.getCourses().subscribe(
-      (data: Course[]) => {
+      (data: []) => {
         this.courses = data;
         this.loadingService.unload();
       },
@@ -88,7 +89,19 @@ export class NewLessonComponent implements OnInit {
     this.lessonDto = this.newLessonForm.value;
     this.lessonDto.parentId = this.newLessonForm.value.parentId.id;
 
-    this.lessonService.addLesson(this.lessonDto)
+    let formData = new FormData();
+
+    this.lessonDto.parentId != null ? formData.append('parentId', this.lessonDto.parentId) : null;
+    this.lessonDto.mediaId != null ? formData.append('mediaId', this.lessonDto.mediaId) : null;
+    this.lessonDto.premium != null ? formData.append('premium', String(this.lessonDto.premium)) : null;
+    this.lessonDto.title != null ? formData.append('title', this.lessonDto.title) : null;
+    this.lessonDto.description != null ? formData.append('description', this.lessonDto.description) : null;
+    this.lessonDto.pictureUrl != null ? formData.append('pictureUrl', this.lessonDto.pictureUrl) : null;
+    this.lessonDto.image != null ? formData.append('image', this.lessonDto.image) : null;
+    this.lessonDto.language != null ? formData.append('language', this.lessonDto.language) : null;
+    this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags.join(" ")) : null;
+
+    this.lessonService.addLesson(formData)
       .subscribe(
         data => {
           this.loading = false;
@@ -103,7 +116,9 @@ export class NewLessonComponent implements OnInit {
     text$.pipe(
       debounceTime(400),
       map(term => term === '' ? []
-        : this.courses.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        : this.courses
+        .filter(v => v.title.toLowerCase()
+        .indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
   
 
