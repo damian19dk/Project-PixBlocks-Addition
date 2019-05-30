@@ -8,7 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  isNavbarCollapsed = true;
+  public isCollapsed = false;
   @Input() languageList;
   private returnUrl: string;
 

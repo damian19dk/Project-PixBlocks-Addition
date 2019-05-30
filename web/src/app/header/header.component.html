@@ -1,31 +1,42 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-<div class="container">
-  <nav class="navbar navbar-expand-md bg-white sticky-top">
-    <div class="collapse navbar-collapse">
-      <a class="navbar-brand text-primary" routerLink="/">PixBlocks</a>
-    </div>
-
-    <form class="form-inline my my-lg-0">
+ <div class="container-fluid">
+<nav class="navbar navbar-expand-lg sticky-top">
+  <a class="navbar-brand d-flex flex-fill" routerLink="/">PixBlocks</a>
+ 
+  <form class="form-inline d-none d-xl-block my my-lg-0">
       <input class="form-control mr-sm" type="search" placeholder="Szukaj..." aria-label="Search">
       <button class="btn"><i class="fas fa-search"></i></button>
     </form>
-    <div *ngIf="!isUserLogged()">
-      <div class="btn-group">
-        <button routerLink="/register" class="btn btn-outline-primary mr-sm-2" type="submit">Zarejestruj</button>
-        <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zaloguj</button>
+    <button class="navbar-toggler hidden-md-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="main-navbar">
+  <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+  
+      <div *ngIf="isUserLogged()">
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item btn btn-outline-primary mr-sm-2" routerLink="/settings">Ustawienia</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2" routerLink="/add_video">Dodaj wideo</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2" routerLink="/course_editor">Zarządzaj kursami</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2" routerLink="/lesson_editor">Zarządzaj lekcjami</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2" routerLink="/profile">Mój profil</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2" (click)="logout()">Wyloguj</li>
+      </ul>
       </div>
-    </div>
-    <div *ngIf="isUserLogged()">
-      <div class="btn-group">
-        <button class="btn btn-outline-primary mr-sm-2" routerLink="/settings">Ustawienia</button>
-        <button class="btn btn-outline-primary mr-sm-2" routerLink="/add_video">Dodaj wideo</button>
-        <button class="btn btn-outline-primary mr-sm-2" routerLink="/course_editor">Zarządzaj kursami</button>
-        <button class="btn btn-outline-primary mr-sm-2" routerLink="/lesson_editor">Zarządzaj lekcjami</button>
-        <button class="btn btn-outline-primary mr-sm-2" routerLink="/profile">Mój profil</button>
-        <button class="btn btn-outline-primary mr-sm-2" (click)="logout()">Wyloguj</button>
-      </div>
-    </div>
 
-
-  </nav>
+  </div>
+  <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+  <ul class="navbar-nav mr-auto">
+  <div *ngIf="!isUserLogged()">
+    <div class="btn-group">
+      <button routerLink="/register" class="btn btn-outline-primary mr-sm-2" type="submit">Zarejestruj</button>
+      <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zaloguj</button>
+    </div>
+  </div>
+  </ul>
 </div>
+</div>
+</nav>
+  
+</div> 
+ 
