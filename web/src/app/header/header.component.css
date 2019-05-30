@@ -1,3 +1,4 @@
+
 * {
   font-family: 'Oswald', sans-serif;
   font-weight: 150;
@@ -28,11 +29,17 @@
   transition: 0.3s;
   border-style: solid;
 }
-
 .btn-outline-primary:hover {
   background-color: #0d90fc;
   color: white;
 }
 .fa-search {
 font-size: 18px;
+}
+.container-fluid {
+  display: flex;
+  justify-content: center;
+}
+.flex-fill {
+  flex:1;   
 }
