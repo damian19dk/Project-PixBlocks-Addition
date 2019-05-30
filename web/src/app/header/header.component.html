@@ -13,13 +13,13 @@
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
       <div class="main-navbar">
       <div *ngIf="isUserLogged()">
-        <ul class="navbar-nav ml-auto">
-        <li class="nav-item btn btn-outline-primary my-2  my-sm-0 border-bottom border-right" type="button" routerLink="/settings">Ustawienia</li>
-        <li class="nav-item btn btn-outline-primary my-2  my-sm-0 border-bottom border-right" type="button" routerLink="/add_video">Dodaj wideo</li>
-        <li class="nav-item btn btn-outline-primary my-2  my-sm-0 border-bottom border-right" type="button" routerLink="/course_editor">Zarządzaj kursami</li>
-        <li class="nav-item btn btn-outline-primary my-2  my-sm-0 border-bottom border-right" type="button" routerLink="/lesson_editor">Zarządzaj lekcjami</li>
-        <li class="nav-item btn btn-outline-primary my-2  my-sm-0 border-bottom border-right" type="button" routerLink="/profile">Mój profil</li>
-        <li class="nav-item btn btn-outline-primary my-2  my-sm-0 border-bottom border-right" type="button" (click)="logout()">Wyloguj</li>
+        <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/settings">Ustawienia</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/add_video">Dodaj wideo</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/course_editor">Zarządzaj kursami</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/lesson_editor">Zarządzaj lekcjami</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/profile">Mój profil</li>
+        <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" (click)="logout()">Wyloguj</li>
       </ul>
       </div>
     </div>
