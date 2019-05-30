@@ -43,7 +43,3 @@ font-size: 18px;
 .flex-fill {
   flex:1;   
 }
-#navbarContent {
-  background-color: #565656;
-  position: relative;
-}
