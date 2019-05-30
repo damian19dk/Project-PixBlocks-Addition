@@ -18,7 +18,7 @@ export class VideoService {
     .set("Authorization", "Bearer " + localStorage.getItem("Token"))
     .set("Content-Type", "application/json");
 
-    return this.http.get<any>(environment.baseUrl + "/api/Identity/login");
+    return this.http.get<any>(environment.baseUrl + "/api/Identity/login", { headers });
   }
 
   getVideo(id: string):Observable<Video> {
