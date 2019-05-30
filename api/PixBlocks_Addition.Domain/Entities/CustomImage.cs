@@ -27,7 +27,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if(!CustomImage.ContentTypes.Contains(contentType))
             {
-                throw new MyException(MyCodes.InvalidImage, $"Unsupported media type {contentType}.");
+                throw new MyException(MyCodesNumbers.WrongFormatOfPhoto, $"Niewspierany typ pliku: {contentType}.");
             }
             ContentType = contentType;
             Image = base64Image;

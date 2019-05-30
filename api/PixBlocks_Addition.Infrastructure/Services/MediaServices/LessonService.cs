@@ -20,12 +20,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly ILessonRepository _lessonRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly IChangeMediaHandler<Lesson, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public LessonService(ILessonRepository lessonRepository, ICourseRepository courseRepository, 
                              IVideoRepository videoRepository, IImageHandler imageHandler, 
-                             IImageRepository imageRepository, IAutoMapperConfig config)
+                             IImageRepository imageRepository, IAutoMapperConfig config,
+                             IChangeMediaHandler<Lesson, Course> changeMediaHandler)
         {
+            _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
@@ -41,12 +44,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var lessonInCourse = lessons.FirstOrDefault(c => c.Title == resource.Title);
             if(lessonInCourse!=null)
             {
-                throw new MyException($"Lesson with title {resource.Title} already exists in the course.");
+                throw new MyException(MyCodesNumbers.SameTitleLesson, $"Lekcja o tytule: {resource.Title} już istnieje.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
             if (resource.Tags != null)
             {
+                resource.Tags = resource.Tags.First().Split();
                 foreach (string tag in resource.Tags)
                     tags.Add(new Tag(tag));
             }
@@ -72,13 +76,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if(video == null)
             {
-                throw new MyException($"Video with mediaId {video.MediaId} not found. Create the video first.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {video.MediaId}. Wpierw stwórz wideo.");
             }
 
             var lesson = await _lessonRepository.GetAsync(upload.ParentId);
             if(lesson == null)
             {
-                throw new MyException($"Lesson with id {upload.ParentId} not found. Create the lesson first.");
+                throw new MyException(MyCodesNumbers.LessonNotFound, $"Nie znaleziono lekcji o id: {upload.ParentId}. Wpierw stwórz lekcję.");
             }
 
             var sameVideo = lesson.LessonVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
@@ -90,6 +94,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             lesson.LessonVideos.Add(new LessonVideo(lesson.Id, video));
             await _lessonRepository.UpdateAsync(lesson);
         }
+
+        public async Task<IEnumerable<LessonDto>> GetAllByTagsAsync(IEnumerable<string> tags)
+            => _mapper.Map<IEnumerable<LessonDto>>(await _lessonRepository.GetAllByTagsAsync(tags));
 
         public async Task<IEnumerable<LessonDto>> GetAllAsync()
         {
@@ -140,5 +147,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             lesson.LessonVideos.Remove(lessonVideo);
             await _lessonRepository.UpdateAsync(lesson);
         }
+
+        public async Task UpdateAsync(ChangeMediaResource resource)
+            => await _changeMediaHandler.ChangeAsync(resource, _lessonRepository, _courseRepository);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -23,9 +24,8 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task Create(MediaResource course)
+        public async Task Create([FromForm]MediaResource course)
         {
-            course.Image = Request.Form.Files.FirstOrDefault();
             await _courseService.CreateAsync(course);
         }
 
@@ -36,7 +36,7 @@ namespace PixBlocks_Addition.Api.Controllers
             await _courseService.AddVideoAsync(upload);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
         public async Task RemoveVideo(Guid courseId, Guid videoId)
         {
@@ -55,13 +55,22 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _courseService.GetAsync(id);
         }
 
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("change")]
+        public async Task Put([FromForm]ChangeMediaResource resource)
+            => await _courseService.UpdateAsync(resource);
+
+        [HttpGet("tags")]
+        public async Task<IEnumerable<CourseDto>> GetAll(params string[] tags)
+            => await _courseService.GetAllByTagsAsync(tags);
+
         [HttpGet("all")]
         public async Task<IEnumerable<CourseDto>> GetAll()
         {
             return await _courseService.GetAllAsync();
         }
 
-        [HttpGet("all_paging")]
+        [HttpGet("allPaging")]
         public async Task<IEnumerable<CourseDto>> GetAll(int page, int count = 10)
         {
             return await _courseService.GetAllAsync(page, count);

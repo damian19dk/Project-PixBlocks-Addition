@@ -15,8 +15,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string WrongUserStatus => "Niewłasciwy status użytkownika!"; //1007
         public static string WrongCharactersInPassword => "Niedozwolone znaki w haśle!"; //1008
         public static string WrongCharactersInLogin => "Niedozwolone znaki w loginie!"; //1009
-        public static string InvalidImage => "invalid_image";
-        public static string ImageNotFound => "image_not_found";
+        public static string ImageNotFound => "Nie znaleziono zdjęcia!";
         public static string TooShortCourseName => "Za krótka nazwa kursu!"; //2000
         public static string TooLongDescription => "Za długi opis!"; //2001
         public static string SamePassword => "Nowe hasło musi być różne od starego!"; //1010
@@ -32,6 +31,9 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string LessonNotFound => "Nie znalezniono lekcji!"; //2003
         public static string VideoNotFound => "Nie znaleziono wideo!"; //2004
         public static string ExerciseNotFound => "Nie znaleziono ćwiczenia!"; //2005
+        public static string CourseNotFound => "Nie znaleziono kursu!";
+        public static string SameVideoInCourse => "Kurs posiada już takie wideo!";
+        public static string SameVideoInExercise => "Ćwiczenie posiada już takie wideo!";
 
     }
 }

@@ -24,9 +24,8 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task Create(MediaResource exercise)
+        public async Task Create([FromForm]MediaResource exercise)
         {
-            exercise.Image = Request.Form.Files.FirstOrDefault();
             await _exerciseService.CreateAsync(exercise);
         }
 
@@ -36,6 +35,11 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             await _exerciseService.AddVideoAsync(upload);
         }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("change")]
+        public async Task Put([FromForm]ChangeMediaResource resource)
+            => await _exerciseService.UpdateAsync(resource);
 
         [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
@@ -56,13 +60,17 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _exerciseService.GetAsync(title);
         }
 
+        [HttpGet("tags")]
+        public async Task<IEnumerable<ExerciseDto>> GetAll(params string[] tags)
+            => await _exerciseService.GetAllByTagsAsync(tags);
+
         [HttpGet("all")]
         public async Task<IEnumerable<ExerciseDto>> GetAll()
         {
             return await _exerciseService.GetAllAsync();
         }
 
-        [HttpGet("all_paging")]
+        [HttpGet("allPaging")]
         public async Task<IEnumerable<ExerciseDto>> GetAll(int page, int count = 10)
         {
             return await _exerciseService.GetAllAsync(page, count);
