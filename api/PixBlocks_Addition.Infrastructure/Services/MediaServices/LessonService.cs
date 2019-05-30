@@ -20,12 +20,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly ILessonRepository _lessonRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly IChangeMediaHandler<Lesson, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public LessonService(ILessonRepository lessonRepository, ICourseRepository courseRepository, 
                              IVideoRepository videoRepository, IImageHandler imageHandler, 
-                             IImageRepository imageRepository, IAutoMapperConfig config)
+                             IImageRepository imageRepository, IAutoMapperConfig config,
+                             IChangeMediaHandler<Lesson, Course> changeMediaHandler)
         {
+            _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
@@ -144,5 +147,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             lesson.LessonVideos.Remove(lessonVideo);
             await _lessonRepository.UpdateAsync(lesson);
         }
+
+        public async Task UpdateAsync(ChangeMediaResource resource)
+            => await _changeMediaHandler.ChangeAsync(resource, _lessonRepository, _courseRepository);
     }
 }
