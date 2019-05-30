@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
 import { User } from './../models/user.model';
 import { environment } from '../../environments/environment';
@@ -10,47 +9,73 @@ import { LoadingService } from './loading.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private origin = environment.baseUrl;
   private currentUser: User;
 
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService) {
 
-
-    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (this.currentUser == null) {
-      this.currentUser = new User();
+    this.currentUser = new User();
+    if (localStorage.getItem("Token") == undefined) {
       this.setUser(null, null, false);
+    }
+    else {
+      this.setUser(localStorage.getItem("Login"), localStorage.getItem("Token"), true);
     }
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
-    let headers = environment.headers;
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Content-Type", "application/json");
 
-    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
   }
 
   login(login: string, password: string) {
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Content-Type", "application/json");
 
-    let headers = environment.headers;
-
-    return this.http.post<any>(this.origin + "/api/Identity/login", { login, password }, { headers })
-      .pipe(map(user => {
-
-        this.setUser(login, user.token, true);
-
-        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-        
-        return user;
-      }));
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/login", { login, password }, { headers });
   }
 
   logout() {
     this.loadingService.load();
-    localStorage.removeItem("currentUser");
-    this.setUser(null, null, false);
-    this.loadingService.unload();
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Content-Type", "application/json");
+
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {}, { headers })
+    .subscribe(
+      data => {
+        localStorage.removeItem("Token");
+        this.setUser(null, null, false);
+        this.loadingService.unload();
+      },
+      error => {
+        localStorage.removeItem("Token");
+        this.setUser(null, null, false);
+        this.loadingService.unload();
+      }
+    );
+  }
+
+  refresh() {
+
+    if (localStorage.getItem("Token") != undefined) {
+      return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh", localStorage.getItem("Token-Refresh"))
+        .subscribe(
+          data => {
+            localStorage.setItem("Token", data.accessToken);
+            localStorage.setItem("Token-Refresh", data.refreshToken)
+            localStorage.setItem("Token-Expires", data.expires)
+          },
+          error => {
+
+          }
+        );
+    }
   }
 
   isUserLogged() {

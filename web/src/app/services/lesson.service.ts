@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { LessonDto } from '../models/lessonDto.model';
 
@@ -8,19 +8,23 @@ import { LessonDto } from '../models/lessonDto.model';
 })
 export class LessonService {
 
-  origin: string;
-
-  constructor(private http: HttpClient) {
-    this.origin = environment.baseUrl;
-   }
+  constructor(private http: HttpClient) {}
 
   getLesson(id: string) {
-    return this.http.get<any>(this.origin + "/api/Lesson/title?title=" + id);
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Authorization", "Bearer " + localStorage.getItem("Token-Authorization"))
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Lesson/title?title=" + id, { headers });
   }
 
   addLesson(lessonDto: LessonDto) {
-    let headers = environment.headers;
+    let headers = new HttpHeaders()
+    .set("Access-Control-Allow-Origin", environment.baseUrl)
+    .set("Authorization", "Bearer " + localStorage.getItem("Token-Authorization"))
+    .set("Content-Type", "application/json");
 
-    return this.http.post<LessonDto>(this.origin + "/api/Lesson/create", lessonDto, { headers });
+    return this.http.post<LessonDto>(environment.baseUrl + "/api/Lesson/create", lessonDto, { headers });
   }
 }
