@@ -29,7 +29,6 @@
   transition: 0.3s;
   border-style: solid;
 }
-
 .btn-outline-primary:hover {
   background-color: #0d90fc;
   color: white;
@@ -37,12 +36,6 @@
 .fa-search {
 font-size: 18px;
 }
-/*
-.hidden-md-up {
-  border-style: solid;
-  border-color: black;
-  color: #0d90fc;
-}*/
 .container-fluid {
   display: flex;
   justify-content: center;
