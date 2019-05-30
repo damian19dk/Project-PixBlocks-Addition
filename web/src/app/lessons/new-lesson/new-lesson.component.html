@@ -1,7 +1,10 @@
 <div class="container">
 
-  <div *ngIf="error" class="alert alert-danger">
+  <div *ngIf="sent && error" class="alert alert-danger">
     {{error}}
+  </div>
+  <div *ngIf="sent && !error" class="alert alert-success">
+    Lekcja została dodana pomyślnie
   </div>
 
   <form [formGroup]="newLessonForm" (ngSubmit)="createNewLesson()">
