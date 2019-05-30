@@ -37,11 +37,12 @@
 .fa-search {
 font-size: 18px;
 }
+/*
 .hidden-md-up {
   border-style: solid;
   border-color: black;
   color: #0d90fc;
-}
+}*/
 .container-fluid {
   display: flex;
   justify-content: center;
@@ -52,7 +53,4 @@ font-size: 18px;
 #navbarContent {
   background-color: #565656;
   position: relative;
-}
-.navbar-toggler-icon {
-  background-color: #565656;
 }
