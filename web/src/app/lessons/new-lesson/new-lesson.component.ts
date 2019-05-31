@@ -19,6 +19,7 @@ export class NewLessonComponent implements OnInit {
   newLessonForm: FormGroup;
   loading: boolean;
   submitted: boolean;
+  sent: boolean;
   returnUrl: string;
   lessonDto: LessonDto;
   error: string;
@@ -42,6 +43,7 @@ export class NewLessonComponent implements OnInit {
     this.lessonDto = new LessonDto();
 
     this.submitted = false;
+    this.sent = false;
     this.loading = false;
 
     this.newLessonForm = this.formBuilder.group({
@@ -69,6 +71,7 @@ export class NewLessonComponent implements OnInit {
       (data: []) => {
         this.courses = data;
         this.loadingService.unload();
+        console.log(this.courses);
       },
       error => {
         this.error = error;
@@ -104,10 +107,12 @@ export class NewLessonComponent implements OnInit {
     this.lessonService.addLesson(formData)
       .subscribe(
         data => {
+          this.sent = true;
           this.loading = false;
         },
         error => {
           this.error = error.error.message;
+          this.sent = true;
           this.loading = false;
         });
   }
