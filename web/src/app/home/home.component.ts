@@ -12,6 +12,7 @@ import { Video } from '../models/video.model';
 export class HomeComponent implements OnInit {
 
   videos: any;
+  error: string;
 
   constructor(
     private videoService: VideoService,
@@ -177,21 +178,30 @@ export class HomeComponent implements OnInit {
       }
     ];
     
-    this.getVideos();
+    //this.getVideos();
   }
 
-  isUserLogged() {
-    return this.authenticationService.isUserLogged();
+  isLogged() {
+    return this.authenticationService.isLogged();
   }
 
-  getUserLogin() {
-    return this.authenticationService.getUserLogin();
+  getLogin() {
+    return this.authenticationService.getLogin();
   }
 
   getVideos() {
     this.loadingService.load();
 
-    this.loadingService.unload();
+    this.videoService.getVideos().subscribe(
+      data => {
+        this.videos = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error.error.message;
+        this.loadingService.unload();
+      }
+    )
   }
 
 }

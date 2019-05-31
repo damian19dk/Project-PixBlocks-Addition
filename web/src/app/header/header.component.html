@@ -2,30 +2,33 @@
 <div class="container-fluid">
 <nav class="navbar navbar-expand-lg sticky-top">
   <a class="navbar-brand" routerLink="/">PixBlocks</a>
+
     <form class="form-inline d-none d-xl-block my my-lg-0">
       <input class="form-control mr-sm" type="search" placeholder="Szukaj..." aria-label="Search">
       <button class="btn"><i class="fas fa-search"></i></button>
     </form>
+
     <button class="navbar-toggler hidden-md-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbars-options" aria-controls="navbars-options" aria-expanded="false" aria-label="Toggle navigation">
      <i class="fas fa-bars"></i>
     </button>
   
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar">
-      <div *ngIf="isUserLogged()">
-        <ul class="nav navbar-nav ml-auto">
-          <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/settings">Ustawienia</li>
-          <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/add_video">Dodaj wideo</li>
-          <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/course_editor">Zarządzaj kursami</li>
-          <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/lesson_editor">Zarządzaj lekcjami</li>
-          <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/profile">Mój profil</li>
-          <li class="nav-item btn btn-outline-primary mr-sm-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" (click)="logout()">Wyloguj</li>
+      <div *ngIf="isLogged()">
+        <ul class="navbar-nav ml-auto">
+          <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/settings">Ustawienia</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/add_video">Dodaj wideo</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/course_editor">Zarządzaj kursami</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/lesson_editor">Zarządzaj lekcjami</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/profile">Mój profil</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" (click)="logout()">Wyloguj</button>
         </ul>
       </div>
     </div>
   </div>
+  
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
-    <div *ngIf="!isUserLogged()">
+    <div *ngIf="!isLogged()">
         <ul class="navbar-nav mr-auto">
           <button routerLink="/register" class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit">Zarejestruj</button>
           <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit">Zaloguj</button>

@@ -10,7 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthenticationService } from './services/authentication.service';
@@ -33,22 +33,24 @@ import { CourseService } from './services/course.service';
 import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.component';
 import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
 import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component';
+import { TokenInterceptor } from './interceptors/token-interceptor';
+import { AccessControlAllowOriginInterceptor } from './interceptors/access-control-allow-origin-interceptor';
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent},
-  {path: 'add_video', component: AddVideoComponent},
-  {path: 'course_editor', component: CourseManagerComponent},
-  {path: 'lesson_editor', component: LessonManagerComponent},
-  {path: '', component: HomeComponent},
-  {path: 'home', redirectTo: '', pathMatch: 'full'},
-  {path: 'secret', component: UnauthorizedComponent},
-  {path: 'show_video/:id', component: ShowVideoComponent},
-  {path: 'overview', component: OverviewComponent},
-  {path: 'settings', component: FunctionalityNotPreparedComponent},
-  {path: 'profile', component: FunctionalityNotPreparedComponent},
-  {path: '**', component: PageNotFoundComponent}
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'add_video', component: AddVideoComponent },
+  { path: 'course_editor', component: CourseManagerComponent },
+  { path: 'lesson_editor', component: LessonManagerComponent },
+  { path: '', component: HomeComponent },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'show_video/:id', component: ShowVideoComponent },
+  { path: 'overview', component: OverviewComponent },
+  { path: 'settings', component: FunctionalityNotPreparedComponent },
+  { path: 'profile', component: FunctionalityNotPreparedComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -94,7 +96,17 @@ const routes: Routes = [
     AuthenticationService,
     VideoService,
     CourseService,
-    LoadingService
+    LoadingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessControlAllowOriginInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

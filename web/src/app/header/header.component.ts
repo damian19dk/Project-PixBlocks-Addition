@@ -24,15 +24,14 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    //window.location.reload(); Reload strony, chwilowo niepotrzebny
     this.router.navigate([this.returnUrl]);
   }
 
-  isUserLogged() {
-    return this.authenticationService.isUserLogged();
+  isLogged() {
+    return this.authenticationService.isLogged();
   }
 
-  getUserLogin() {
-    return this.authenticationService.getUserLogin();
+  getLogin() {
+    return this.authenticationService.getLogin();
   }
 }
