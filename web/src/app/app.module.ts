@@ -38,19 +38,19 @@ import { AccessControlAllowOriginInterceptor } from './interceptors/access-contr
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent},
-  {path: 'add_video', component: AddVideoComponent},
-  {path: 'course_editor', component: CourseManagerComponent},
-  {path: 'lesson_editor', component: LessonManagerComponent},
-  {path: '', component: HomeComponent},
-  {path: 'home', redirectTo: '', pathMatch: 'full'},
-  {path: 'secret', component: UnauthorizedComponent},
-  {path: 'show_video/:id', component: ShowVideoComponent},
-  {path: 'overview', component: OverviewComponent},
-  {path: 'settings', component: FunctionalityNotPreparedComponent},
-  {path: 'profile', component: FunctionalityNotPreparedComponent},
-  {path: '**', component: PageNotFoundComponent}
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'add_video', component: AddVideoComponent },
+  { path: 'course_editor', component: CourseManagerComponent },
+  { path: 'lesson_editor', component: LessonManagerComponent },
+  { path: '', component: HomeComponent },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'show_video/:id', component: ShowVideoComponent },
+  { path: 'overview', component: OverviewComponent },
+  { path: 'settings', component: FunctionalityNotPreparedComponent },
+  { path: 'profile', component: FunctionalityNotPreparedComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

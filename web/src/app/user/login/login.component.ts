@@ -11,7 +11,6 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error: string;
 
-
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('[^ ]*')]]
     });
 
-    this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -52,7 +50,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error.message;
+          this.error = error.error.message;
           this.loading = false;
         });
   }
