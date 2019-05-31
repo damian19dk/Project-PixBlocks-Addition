@@ -36,6 +36,7 @@ import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component
 import { TokenInterceptor } from './interceptors/token-interceptor';
 import { AccessControlAllowOriginInterceptor } from './interceptors/access-control-allow-origin-interceptor';
 import { JwtInterceptor } from './interceptors/jwt-interceptor';
+import { LessonService } from './services/lesson.service';
 
 
 const routes: Routes = [
@@ -45,7 +46,6 @@ const routes: Routes = [
   { path: 'course_editor', component: CourseManagerComponent },
   { path: 'lesson_editor', component: LessonManagerComponent },
   { path: '', component: HomeComponent },
-  { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'show_video/:id', component: ShowVideoComponent },
   { path: 'overview', component: OverviewComponent },
@@ -97,6 +97,7 @@ const routes: Routes = [
     AuthenticationService,
     VideoService,
     CourseService,
+    LessonService,
     LoadingService,
     {
       provide: HTTP_INTERCEPTORS,
