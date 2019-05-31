@@ -10,7 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthenticationService } from './services/authentication.service';
@@ -33,6 +33,7 @@ import { CourseService } from './services/course.service';
 import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.component';
 import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
 import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component';
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
 
 const routes: Routes = [
@@ -94,7 +95,12 @@ const routes: Routes = [
     AuthenticationService,
     VideoService,
     CourseService,
-    LoadingService
+    LoadingService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

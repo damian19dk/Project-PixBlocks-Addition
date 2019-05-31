@@ -1,7 +1,3 @@
-  * {
-      font-family: 'Oswald', sans-serif;
-  }
-
   .card {
       height: 465px;
   }
@@ -21,8 +17,8 @@
   }
 
   .card-img-top {
-      width: 100%;
-      height: 100%;
+      width: 350px;
+      height: 250px;
       display: block;
       transition: transform .4s, opacity .4s;
       opacity: 0.85

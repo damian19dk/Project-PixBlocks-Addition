@@ -26,7 +26,6 @@ export class AuthenticationService {
 
   register(login: string, e_mail: string, password: string, roleId: number) {
     let headers = new HttpHeaders()
-    .set("Access-Control-Allow-Origin", environment.baseUrl)
     .set("Content-Type", "application/json");
 
     return this.http.post<any>(environment.baseUrl + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
@@ -34,7 +33,6 @@ export class AuthenticationService {
 
   login(login: string, password: string) {
     let headers = new HttpHeaders()
-    .set("Access-Control-Allow-Origin", environment.baseUrl)
     .set("Content-Type", "application/json");
 
     return this.http.post<any>(environment.baseUrl + "/api/Identity/login", { login, password }, { headers });
@@ -43,7 +41,6 @@ export class AuthenticationService {
   logout() {
     this.loadingService.load();
     let headers = new HttpHeaders()
-    .set("Access-Control-Allow-Origin", environment.baseUrl)
     .set("Content-Type", "application/json");
 
     return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {}, { headers })
@@ -84,6 +81,10 @@ export class AuthenticationService {
 
   getUserLogin() {
     return this.currentUser.login;
+  }
+
+  getToken() {
+    return localStorage.getItem("Token");
   }
 
   setUser(login: string, token: string, isLogged: boolean) {

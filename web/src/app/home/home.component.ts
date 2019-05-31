@@ -12,6 +12,7 @@ import { Video } from '../models/video.model';
 export class HomeComponent implements OnInit {
 
   videos: any;
+  error: string;
 
   constructor(
     private videoService: VideoService,
@@ -177,7 +178,7 @@ export class HomeComponent implements OnInit {
       }
     ];
     
-    this.getVideos();
+    //this.getVideos();
   }
 
   isUserLogged() {
@@ -191,7 +192,16 @@ export class HomeComponent implements OnInit {
   getVideos() {
     this.loadingService.load();
 
-    this.loadingService.unload();
+    this.videoService.getVideos().subscribe(
+      data => {
+        this.videos = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error.error.message;
+        this.loadingService.unload();
+      }
+    )
   }
 
 }
