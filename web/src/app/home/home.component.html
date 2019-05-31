@@ -3,9 +3,9 @@
         Programowanie dla każdego!
     </div>
 
-    <div *ngIf="isUserLogged()" class="row alert alert-info">
+    <div *ngIf="isLogged()" class="row alert alert-info">
         <div class="col h-40 p-3">
-            Witaj <b>{{getUserLogin()}}</b>, zobacz, co nowego ostatnio dodaliśmy:
+            Witaj <b>{{getLogin()}}</b>, zobacz, co nowego ostatnio dodaliśmy:
         </div>
     </div>
 
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div *ngIf="isUserLogged()">
+    <div *ngIf="isLogged()">
         <div class="row align-items-end alert alert-info">
             <div class="col h-40 p-3">
                 Poprzednio oglądałeś:

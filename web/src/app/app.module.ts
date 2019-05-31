@@ -34,6 +34,7 @@ import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.
 import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
 import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component';
 import { TokenInterceptor } from './interceptors/token-interceptor';
+import { AccessControlAllowOriginInterceptor } from './interceptors/access-control-allow-origin-interceptor';
 
 
 const routes: Routes = [
@@ -99,6 +100,11 @@ const routes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessControlAllowOriginInterceptor,
       multi: true
     }
   ],

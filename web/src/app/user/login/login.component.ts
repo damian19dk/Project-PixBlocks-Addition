@@ -47,8 +47,8 @@ export class LoginComponent implements OnInit {
           this.authenticationService.setUser(this.f.username.value, data.accessToken, true);
           localStorage.setItem("Token", data.accessToken);
           localStorage.setItem("Login", this.f.username.value);
-          localStorage.setItem("Token-Refresh", data.refreshToken);
-          localStorage.setItem("Token-Expires", data.expires);                 
+          localStorage.setItem("TokenRefresh", data.refreshToken);
+          localStorage.setItem("TokenExpires", data.expires);                 
           this.router.navigate([this.returnUrl]);
         },
         error => {

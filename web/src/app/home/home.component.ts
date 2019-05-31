@@ -181,12 +181,12 @@ export class HomeComponent implements OnInit {
     //this.getVideos();
   }
 
-  isUserLogged() {
-    return this.authenticationService.isUserLogged();
+  isLogged() {
+    return this.authenticationService.isLogged();
   }
 
-  getUserLogin() {
-    return this.authenticationService.getUserLogin();
+  getLogin() {
+    return this.authenticationService.getLogin();
   }
 
   getVideos() {

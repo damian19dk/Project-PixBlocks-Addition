@@ -16,7 +16,7 @@ export class AccessControlAllowOriginInterceptor implements HttpInterceptor {
 
         request = request.clone({
             setHeaders: {
-                AccessControlAllowOrigin: environment.baseUrl
+                "Access-Control-Allow-Origin": environment.baseUrl
             }
         });
         return next.handle(request);

@@ -40,10 +40,8 @@ export class AuthenticationService {
 
   logout() {
     this.loadingService.load();
-    let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
 
-    return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {}, { headers })
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {})
     .subscribe(
       data => {
         localStorage.removeItem("Token");
@@ -65,8 +63,8 @@ export class AuthenticationService {
         .subscribe(
           data => {
             localStorage.setItem("Token", data.accessToken);
-            localStorage.setItem("Token-Refresh", data.refreshToken)
-            localStorage.setItem("Token-Expires", data.expires)
+            localStorage.setItem("TokenRefresh", data.refreshToken)
+            localStorage.setItem("TokenExpires", data.expires)
           },
           error => {
 
@@ -75,11 +73,11 @@ export class AuthenticationService {
     }
   }
 
-  isUserLogged() {
+  isLogged() {
     return this.currentUser.isLogged;
   }
 
-  getUserLogin() {
+  getLogin() {
     return this.currentUser.login;
   }
 

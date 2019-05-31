@@ -14,7 +14,7 @@
   
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar">
-      <div *ngIf="isUserLogged()">
+      <div *ngIf="isLogged()">
         <ul class="navbar-nav ml-auto">
           <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/settings">Ustawienia</button>
           <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" routerLink="/add_video">Dodaj wideo</button>
@@ -28,7 +28,7 @@
   </div>
   
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
-    <div *ngIf="!isUserLogged()">
+    <div *ngIf="!isLogged()">
         <ul class="navbar-nav mr-auto">
           <button routerLink="/register" class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit">Zarejestruj</button>
           <button routerLink="/login" class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit">Zaloguj</button>
