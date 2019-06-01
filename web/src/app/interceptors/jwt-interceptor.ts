@@ -1,6 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -10,6 +10,8 @@ import { LoadingService } from '../services/loading.service';
 export class JwtInterceptor implements HttpInterceptor {
 
     private returnUrl: string;
+    isRefreshingToken: boolean = false;
+    tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -40,11 +42,11 @@ export class JwtInterceptor implements HttpInterceptor {
                             );
                     }
                     else {
-                        this.router.navigate([this.returnUrl]);
-                        const error = err.error.message || err.statusText;
-                        return throwError(error);
+                        this.router.navigate([this.returnUrl]);                        
                     }
                 }
+                const error = err.error.message || err.statusText;
+                return throwError(error);
             }));
     }
 }

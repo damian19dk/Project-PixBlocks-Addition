@@ -22,6 +22,8 @@ export class NewCourseComponent implements OnInit {
   tagsList = [];
   tagsSettings = {};
 
+  fileToUpload: File = null;
+
   constructor(private formBuilder: FormBuilder,
     private courseService: CourseService,
     private tagService: TagService) { }
@@ -63,6 +65,7 @@ export class NewCourseComponent implements OnInit {
     this.loading = true;
 
     this.courseDto = this.newCourseForm.value;
+    this.courseDto.image = this.fileToUpload;
     let formData = new FormData();
 
     this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
@@ -71,11 +74,11 @@ export class NewCourseComponent implements OnInit {
     this.courseDto.title != null ? formData.append('title', this.courseDto.title) : null;
     this.courseDto.description != null ? formData.append('description', this.courseDto.description) : null;
     this.courseDto.pictureUrl != null ? formData.append('pictureUrl', this.courseDto.pictureUrl) : null;
-    this.courseDto.image != null ? formData.append('image', this.courseDto.image) : null;
+    this.courseDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.courseDto.language != null ? formData.append('language', this.courseDto.language) : null;
     this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags.join(" ")) : null;
 
-    
+
     this.courseService.addCourse(formData)
       .subscribe(
         data => {
@@ -90,6 +93,8 @@ export class NewCourseComponent implements OnInit {
         });
   }
 
-
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
 
 }
