@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { User } from './../models/user.model';
 import { environment } from '../../environments/environment';
 import { LoadingService } from './loading.service';
 
@@ -17,14 +16,14 @@ export class AuthenticationService {
 
   register(login: string, e_mail: string, password: string, roleId: number) {
     let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
+      .set("Content-Type", "application/json");
 
     return this.http.post<any>(environment.baseUrl + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
   }
 
   login(login: string, password: string) {
     let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
+      .set("Content-Type", "application/json");
 
     return this.http.post<any>(environment.baseUrl + "/api/Identity/login", { login, password }, { headers });
   }
@@ -33,33 +32,30 @@ export class AuthenticationService {
     this.loadingService.load();
 
     return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {})
-    .subscribe(
-      data => {
-        localStorage.removeItem("Token");
-        this.loadingService.unload();
-      },
-      error => {
-        localStorage.removeItem("Token");
-        this.loadingService.unload();
-      }
-    );
+      .subscribe(
+        data => {
+          this.clearUserData();
+          this.loadingService.unload();
+        },
+        error => {
+          this.clearUserData();
+          this.loadingService.unload();
+        }
+      );
   }
 
-  refresh() {
-
-    if (localStorage.getItem("Token") != undefined) {
-      return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh", localStorage.getItem("Token-Refresh"))
-        .subscribe(
-          data => {
-            localStorage.setItem("Token", data.accessToken);
-            localStorage.setItem("TokenRefresh", data.refreshToken)
-            localStorage.setItem("TokenExpires", data.expires)
-          },
-          error => {
-
-          }
-        );
-    }
+  refreshToken() {
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh?token=" + localStorage.getItem("TokenRefresh"), {})
+      .subscribe(
+        data => {
+          localStorage.setItem("Token", data.accessToken);
+          localStorage.setItem("TokenRefresh", data.refreshToken)
+          localStorage.setItem("TokenExpires", data.expires)
+        },
+        error => {
+          
+        }
+      );
   }
 
   isLogged() {
@@ -72,6 +68,25 @@ export class AuthenticationService {
 
   getToken() {
     return localStorage.getItem("Token");
+  }
+
+  isTokenExpired() {
+    return Date.now() > (parseInt(localStorage.getItem("TokenExpires")) * 1000);
+  }
+
+  clearUserData() {
+    localStorage.removeItem("Token");
+    localStorage.removeItem("TokenRefresh");
+    localStorage.removeItem("TokenExpires");
+    localStorage.removeItem("Login");
+  }
+
+  handleTokenExpiration() {
+    setInterval(f => {
+      if (this.isLogged() && this.isTokenExpired()) {
+        this.refreshToken();
+      }
+    }, 5000);
   }
 
 }

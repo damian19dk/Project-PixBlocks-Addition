@@ -19,10 +19,19 @@ export class JwtInterceptor implements HttpInterceptor {
          }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        return next.handle(request).pipe(catchError(err => {
-            if (err.status === 401) {
+        return next.handle(request).pipe(
+            catchError(err => {
+            if (err.status === 401 || err.status === 403) {
                 this.loadingService.unload();
-                this.router.navigate([this.returnUrl]);
+
+                if(this.authenticationService.isLogged() && this.authenticationService.isTokenExpired()) {
+                    this.authenticationService.refreshToken();
+                    return next.handle(request);
+                }
+                else {
+                    this.router.navigate([this.returnUrl]);
+                }
+                
             }
             const error = err.error.message || err.statusText;
             return throwError(error);
