@@ -6,23 +6,24 @@
         </div>
         <div *ngIf="!error">
 
-            <div class="row" id="video-field">
-
+            <div class="row container-fluid" id="video-field">
                 <iframe id="video" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen"
                     msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                     webkitallowfullscreen="webkitallowfullscreen" [src]="video.link | safe">
                 </iframe>
-
             </div>
 
 
             <ul class="row border">
-                <li class="col-3 one border-right"><button class="btn" type="button" (click)="isCollapsed1 = !isCollapsed1"
-                        [attr.aria-expanded]="!isCollapsed1" aria-controls="myCollapse1">Kurs</button></li>
-                <li class="col-6 two border-right"><button class="btn" type="button" (click)="isCollapsed2 = !isCollapsed2"
-                        [attr.aria-expanded]="!isCollapsed2" aria-controls="myCollapse2">Przegląd</button> </li>
-                <li class="col-3 three"><button class="btn" type="button" (click)="isCollapsed3 = !isCollapsed3"
-                        [attr.aria-expanded]="!isCollapsed3" aria-controls="myCollapse3">Q&A</button> </li>
+                <li class="col-3 one border-right"><button class="btn btn-secondary" type="button"
+                        (click)="isCollapsed1 = !isCollapsed1" [attr.aria-expanded]="!isCollapsed1"
+                        aria-controls="myCollapse1">Kurs</button></li>
+                <li class="col-6 two border-right"><button class="btn btn-secondary" type="button"
+                        (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2"
+                        aria-controls="myCollapse2">Przegląd</button> </li>
+                <li class="col-3 three"><button class="btn btn-secondary" type="button"
+                        (click)="isCollapsed3 = !isCollapsed3" [attr.aria-expanded]="!isCollapsed3"
+                        aria-controls="myCollapse3">Q&A</button> </li>
                 <hr />
             </ul>
 

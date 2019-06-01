@@ -13,15 +13,15 @@ export class VideoService {
 
   getVideos() {
     let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
+      .set("Content-Type", "application/json");
 
     return this.http.get<any>(environment.baseUrl + "/api/Identity/login", { headers });
   }
 
-  getVideo(id: string):Observable<Video> {
+  getVideo(id: string): Observable<Video> {
     let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
-    
+      .set("Content-Type", "application/json");
+
     return this.http.get<Video>(environment.baseUrl + "/api/JWPlayer/video?id=" + id, { headers });
   }
 }

@@ -16,7 +16,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthenticationService } from './services/authentication.service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AddVideoComponent } from './add-video/add-video.component';
-import { UploadVideoComponent } from './upload-video/upload-video.component';
 import { VideoBrowseComponent } from './video-browse/video-browse.component';
 import { ShowVideoComponent } from './show-video/show-video.component';
 import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.component';
@@ -48,7 +47,6 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'show_video/:id', component: ShowVideoComponent },
-  { path: 'overview', component: OverviewComponent },
   { path: 'settings', component: FunctionalityNotPreparedComponent },
   { path: 'profile', component: FunctionalityNotPreparedComponent },
   { path: '**', component: PageNotFoundComponent }
@@ -65,7 +63,6 @@ const routes: Routes = [
     PageNotFoundComponent,
     UnauthorizedComponent,
     AddVideoComponent,
-    UploadVideoComponent,
     VideoBrowseComponent,
     ShowVideoComponent,
     VideoThumbnailComponent,

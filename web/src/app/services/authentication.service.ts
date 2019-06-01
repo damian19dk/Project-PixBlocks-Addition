@@ -45,17 +45,7 @@ export class AuthenticationService {
   }
 
   refreshToken() {
-    return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh?token=" + localStorage.getItem("TokenRefresh"), {})
-      .subscribe(
-        data => {
-          localStorage.setItem("Token", data.accessToken);
-          localStorage.setItem("TokenRefresh", data.refreshToken)
-          localStorage.setItem("TokenExpires", data.expires)
-        },
-        error => {
-          
-        }
-      );
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh?token=" + localStorage.getItem("TokenRefresh"), {});
   }
 
   isLogged() {
@@ -79,14 +69,6 @@ export class AuthenticationService {
     localStorage.removeItem("TokenRefresh");
     localStorage.removeItem("TokenExpires");
     localStorage.removeItem("Login");
-  }
-
-  handleTokenExpiration() {
-    setInterval(f => {
-      if (this.isLogged() && this.isTokenExpired()) {
-        this.refreshToken();
-      }
-    }, 5000);
   }
 
 }
