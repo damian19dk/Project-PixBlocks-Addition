@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Video } from '../models/video.model';
-import { VideoService } from '../services/video.service';
+import { Video } from './../../models/video.model';
+import { VideoService } from './../../services/video.service';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingService } from '../services/loading.service';
+import { LoadingService } from './../../services/loading.service'
 
 @Component({
   selector: 'app-show-video',

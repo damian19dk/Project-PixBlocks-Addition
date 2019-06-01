@@ -12,22 +12,22 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './error-pages/page-not-found/page-not-found.component';
 import { AuthenticationService } from './services/authentication.service';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { AddVideoComponent } from './add-video/add-video.component';
-import { VideoBrowseComponent } from './video-browse/video-browse.component';
-import { ShowVideoComponent } from './show-video/show-video.component';
-import { VideoThumbnailComponent } from './video-thumbnail/video-thumbnail.component';
+import { UnauthorizedComponent } from './error-pages/unauthorized/unauthorized.component';
+import { AddVideoComponent } from './video/add-video/add-video.component';
+import { VideoBrowseComponent } from './video/video-browse/video-browse.component';
+import { ShowVideoComponent } from './video/show-video/show-video.component';
+import { VideoThumbnailComponent } from './video/video-thumbnail/video-thumbnail.component';
 import { VideoService } from './services/video.service';
-import { OverviewComponent } from './show-video/overview/overview.component';
-import { QuestionsComponent } from './show-video/questions/questions.component';
-import { CoursesComponent } from './show-video/courses/courses.component';
+import { OverviewComponent } from './video/show-video/overview/overview.component';
+import { QuestionsComponent } from './video/show-video/questions/questions.component';
+import { CoursesComponent } from './video/show-video/courses/courses.component';
 import { CourseManagerComponent } from './courses/course-manager/course-manager.component';
 import { NewCourseComponent } from './courses/new-course/new-course.component';
 import { LoadingService } from './services/loading.service';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
-import { FunctionalityNotPreparedComponent } from './functionality-not-prepared/functionality-not-prepared.component';
+import { FunctionalityNotPreparedComponent } from './error-pages/functionality-not-prepared/functionality-not-prepared.component';
 import { CourseService } from './services/course.service';
 import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.component';
 import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
@@ -36,6 +36,7 @@ import { TokenInterceptor } from './interceptors/token-interceptor';
 import { AccessControlAllowOriginInterceptor } from './interceptors/access-control-allow-origin-interceptor';
 import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { LessonService } from './services/lesson.service';
+import { CourseThumbnailComponent } from './courses/course-thumbnail/course-thumbnail.component';
 
 
 const routes: Routes = [
@@ -77,7 +78,8 @@ const routes: Routes = [
     FunctionalityNotPreparedComponent,
     LessonManagerComponent,
     NewLessonComponent,
-    EditLessonComponent
+    EditLessonComponent,
+    CourseThumbnailComponent
   ],
   imports: [
     BrowserModule,
