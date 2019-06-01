@@ -9,19 +9,10 @@ import { LoadingService } from './loading.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUser: User;
 
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService) {
-
-    this.currentUser = new User();
-    if (localStorage.getItem("Token") == undefined) {
-      this.setUser(null, null, false);
-    }
-    else {
-      this.setUser(localStorage.getItem("Login"), localStorage.getItem("Token"), true);
-    }
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
@@ -45,12 +36,10 @@ export class AuthenticationService {
     .subscribe(
       data => {
         localStorage.removeItem("Token");
-        this.setUser(null, null, false);
         this.loadingService.unload();
       },
       error => {
         localStorage.removeItem("Token");
-        this.setUser(null, null, false);
         this.loadingService.unload();
       }
     );
@@ -74,21 +63,15 @@ export class AuthenticationService {
   }
 
   isLogged() {
-    return this.currentUser.isLogged;
+    return localStorage.getItem("Token") != undefined;
   }
 
   getLogin() {
-    return this.currentUser.login;
+    return localStorage.getItem("Login");
   }
 
   getToken() {
     return localStorage.getItem("Token");
-  }
-
-  setUser(login: string, token: string, isLogged: boolean) {
-    this.currentUser.login = login;
-    this.currentUser.token = token;
-    this.currentUser.isLogged = isLogged;
   }
 
 }

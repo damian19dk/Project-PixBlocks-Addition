@@ -71,7 +71,6 @@ export class NewLessonComponent implements OnInit {
       (data: []) => {
         this.courses = data;
         this.loadingService.unload();
-        console.log(this.courses);
       },
       error => {
         this.error = error;

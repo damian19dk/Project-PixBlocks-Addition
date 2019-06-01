@@ -9,7 +9,7 @@ import { LoadingService } from '../services/loading.service';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-    returnUrl: string;
+    private returnUrl: string;
 
     constructor(public route: ActivatedRoute,
         public router: Router,
