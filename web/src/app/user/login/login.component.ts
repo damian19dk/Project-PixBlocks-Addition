@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .subscribe(
         data => {
-          this.authenticationService.setUser(this.f.username.value, data.accessToken, true);
           localStorage.setItem("Token", data.accessToken);
           localStorage.setItem("Login", this.f.username.value);
           localStorage.setItem("TokenRefresh", data.refreshToken);
@@ -50,7 +49,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error.error.message;
+          this.error = error;
           this.loading = false;
         });
   }

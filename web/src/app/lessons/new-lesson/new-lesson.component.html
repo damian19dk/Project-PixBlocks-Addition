@@ -77,8 +77,7 @@
     <div class="form-group row">
       <label for="image" class="col-sm-2 col-form-label">Obrazek</label>
       <div class="col-sm-10 custom-file">
-        <input formControlName="image" type="file" class="form-control custom-file-input" id="image"
-          placeholder="Podaj adres obrazka">
+        <input formControlName="image" type="file" class="form-control custom-file-input" id="image">
         <label class="custom-file-label" for="customFile">Wybierz plik</label>
       </div>
     </div>
@@ -90,15 +89,12 @@
       <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
     </ng-template>
 
-
-
     <div class="form-group row">
       <label for="parentId" class="col-sm-2 col-form-label">Kurs</label>
       <div class="col-sm-10 input-group">
         <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" id="parentId"
           type="text" class="form-control" [ngbTypeahead]="searchCourse" [inputFormatter]="formatter"
           [resultTemplate]="rt" placeholder="Wyszukaj kurs" />
-
 
         <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
           <div *ngIf="f.parentId.errors.required">Pole jest puste</div>

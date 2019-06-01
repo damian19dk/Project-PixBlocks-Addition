@@ -85,7 +85,7 @@ export class NewCourseComponent implements OnInit {
         },
         error => {
           this.sent = true;
-          this.error = error.error.message;
+          this.error = error;
           this.loading = false;
         });
   }
