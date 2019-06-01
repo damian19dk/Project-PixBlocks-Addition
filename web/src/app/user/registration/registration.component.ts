@@ -52,7 +52,7 @@ export class RegistrationComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error.error == null ? null : error.error.message;
+          this.error = error;
           this.loading = false;
         }
       );

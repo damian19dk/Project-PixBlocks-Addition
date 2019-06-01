@@ -35,7 +35,7 @@ export class ShowVideoComponent implements OnInit {
         this.loadingService.unload();
       },
       error => {
-        this.error = error.error == null ? null : error.error.message;
+        this.error = error;
         this.loadingService.unload();
       });
 

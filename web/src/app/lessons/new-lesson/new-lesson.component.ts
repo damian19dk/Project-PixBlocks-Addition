@@ -111,7 +111,7 @@ export class NewLessonComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          this.error = error.error.message;
+          this.error = error;
           this.sent = true;
           this.loading = false;
         });
@@ -122,7 +122,9 @@ export class NewLessonComponent implements OnInit {
       debounceTime(400),
       map(term => term === '' ? []
         : this.courses
-        .filter(v => v.title.toLowerCase()
+        .filter(course => course != null)
+        .filter(course => course.title != null)
+        .filter(course => course.title.toLowerCase()
         .indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
   
