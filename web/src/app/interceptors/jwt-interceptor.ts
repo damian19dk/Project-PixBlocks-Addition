@@ -10,8 +10,8 @@ import { LoadingService } from '../services/loading.service';
 export class JwtInterceptor implements HttpInterceptor {
 
     private returnUrl: string;
-    isRefreshingToken: boolean = false;
-    tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    private isRefreshingToken: boolean = false;
+    private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -37,14 +37,16 @@ export class JwtInterceptor implements HttpInterceptor {
                                 },
                                 error => {
                                     this.router.navigate([this.returnUrl]);
-                                    return throwError(error);
+                                    return throwError(err.error.message || err.statusText);
                                 }
                             );
                     }
                     else {
-                        this.router.navigate([this.returnUrl]);                        
+                        this.router.navigate([this.returnUrl]);
                     }
                 }
+
+
                 const error = err.error.message || err.statusText;
                 return throwError(error);
             }));

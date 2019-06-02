@@ -32,8 +32,7 @@ import { CourseService } from './services/course.service';
 import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.component';
 import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
 import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component';
-import { TokenInterceptor } from './interceptors/token-interceptor';
-import { AccessControlAllowOriginInterceptor } from './interceptors/access-control-allow-origin-interceptor';
+import { HeadersInterceptor } from './interceptors/headers-interceptor';
 import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { LessonService } from './services/lesson.service';
 import { CourseThumbnailComponent } from './courses/course-thumbnail/course-thumbnail.component';
@@ -100,12 +99,7 @@ const routes: Routes = [
     LoadingService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AccessControlAllowOriginInterceptor,
+      useClass: HeadersInterceptor,
       multi: true
     },
     {
