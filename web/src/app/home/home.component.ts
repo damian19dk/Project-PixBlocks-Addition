@@ -19,7 +19,9 @@ export class HomeComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.getVideos();
+    if (this.authenticationService.isLogged()) {
+      this.getVideos();
+    }
   }
 
   isLogged() {
@@ -31,20 +33,18 @@ export class HomeComponent implements OnInit {
   }
 
   getVideos() {
-    if (this.authenticationService.isLogged()) {
-      this.loadingService.load();
+    this.loadingService.load();
 
-      this.videoService.getHostedPlaylist("15GkO0Bz").subscribe(
-        data => {
-          this.videos = data.playlist;
-          this.loadingService.unload();
-        },
-        error => {
-          this.error = error;
-          this.loadingService.unload();
-        }
-      );
-    }
+    this.videoService.getHostedPlaylist("15GkO0Bz").subscribe(
+      data => {
+        this.videos = data.playlist;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
   }
 
 }

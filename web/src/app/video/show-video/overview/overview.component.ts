@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Video } from 'src/app/models/video.model';
+import { Video } from 'src/app/models/videoJWPlayer.model';
 
 @Component({
   selector: 'app-overview',
