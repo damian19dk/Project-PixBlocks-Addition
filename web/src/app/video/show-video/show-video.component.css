@@ -1,16 +1,7 @@
 #video-field {
-  display: grid;
+  display: flex;
   justify-content: center;
   background-color: #444444;
-}
-
-#video {
-  /* 16:9 */
-  display: flex;
-  max-width: 1120px;
-  min-width: 600px;
-  max-height: 600px;
-  min-height: 300px;
 }
 
 ul li {

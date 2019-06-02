@@ -22,11 +22,10 @@ export class CourseThumbnailComponent implements OnInit {
 
   private getPicture() {
     let picture = null;
-    if(this.course.picture == null)
-      return null;  
-
-    if(this.course.picture.indexOf('image/') == -1)
-      return null;
+    if(this.course.picture == null) {
+      this.course.picture = "https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png";
+      return;
+    }  
 
     picture = this.course.picture.substring(this.course.picture.indexOf('image/') + 6);
     this.course.picture = environment.baseUrl + "/api/Image/" + picture;
