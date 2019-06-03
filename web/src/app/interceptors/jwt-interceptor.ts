@@ -1,7 +1,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication.service';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
@@ -26,6 +26,10 @@ export class JwtInterceptor implements HttpInterceptor {
             catchError(err => {
                 if (err.status === 401 || err.status === 403) {
                     this.loadingService.unload();
+
+                    if(request.url.includes("cancel")) {
+                        this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']);
+                    }
 
                     if (this.authenticationService.isLogged() && this.authenticationService.isTokenExpired()) {
                         this.authenticationService.refreshToken()
