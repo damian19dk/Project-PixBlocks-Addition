@@ -39,6 +39,10 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string UserNotFoundJWT => "3001";
         public static string RefreshAToken => "3002";
         public static string RefreshToken => "3003";
+        //JWPlayer
+        public static string CouldNotUploadVideo => "4000";
+        //Resources
+        public static string MissingFile => "5000";
 
     }
 }

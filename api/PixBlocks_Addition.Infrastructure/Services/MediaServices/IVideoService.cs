@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
-    public interface IVideoService : IMediaService<VideoDto, MediaResource>
+    public interface IVideoService : IMediaService<VideoDto, CreateVideoResource>
     {
         Task<VideoDto> GetByMediaIdAsync(string mediaId);
     }

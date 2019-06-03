@@ -36,15 +36,31 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _jwPlayerService = jwPlayerService;
         }
 
-        public async Task CreateAsync(MediaResource video)
+        public async Task CreateAsync(CreateVideoResource video)
         {
-            var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
-            if (videoFromDatabase != null)
+            if (!string.IsNullOrEmpty(video.MediaId))
             {
-                throw new MyException(MyCodesNumbers.SameVideo, $"Wideo o MediaId: {video.MediaId} już istnieje.");
+                var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
+                if (videoFromDatabase != null)
+                {
+                    throw new MyException(MyCodesNumbers.SameVideo, $"Video with mediaId: {video.MediaId} already exists.");
+                }
+                var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
+                if(response == null)
+                {
+                    throw new MyException($"Video with mediaId: {video.MediaId} not found.");
+                }
             }
-            var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
-            
+            else
+            {
+                if(video.Video == null)
+                {
+                    throw new MyException(MyCodesNumbers.MissingFile, "Video file is missing.");
+                }
+
+                video.MediaId = await _jwPlayerService.UploadVideoAsync(video.Video);
+            }
+
             if (video.Image != null)
             {
                 var img = await _imageHandler.CreateAsync(video.Image);
@@ -57,7 +73,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             HashSet<Tag> tags = new HashSet<Tag>();
             if (video.Tags != null)
             {
-                video.Tags = video.Tags.First().Split();
+                video.Tags = video.Tags.First().Replace("\"", string.Empty).Replace("\\", string.Empty).Split(',', ' ');
                 foreach (string tag in video.Tags)
                     tags.Add(new Tag(tag));
             }
@@ -65,10 +81,35 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 tags = null;
             }
-            var vid = new Video(video.MediaId, video.Premium, video.Title, video.Description, picture,
-                                response.Duration, video.Language, tags);
 
+
+            var vid = new Video(video.MediaId, video.Premium, video.Title, video.Description, picture,
+                                0, video.Language, tags);
+            vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
+            setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
+        }
+
+        private async Task setDuration(string mediaId, Video video, IVideoRepository videoRepository)
+        {
+            var response = await _jwPlayerService.ShowVideoAsync(mediaId);
+            while (response.Status == "processing")
+            {
+                await Task.Delay(TimeSpan.FromSeconds(35));
+                try
+                {
+                    response = await _jwPlayerService.ShowVideoAsync(mediaId);
+                }
+                catch (Exception e)
+                {
+                    video.SetStatus("Unknown");
+                    await videoRepository.UpdateAsync(video);
+                    throw e;
+                }
+            }
+            video.SetStatus(response.Status);
+            video.SetDuration((long)response.Duration);
+            await videoRepository.UpdateAsync(video);
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)

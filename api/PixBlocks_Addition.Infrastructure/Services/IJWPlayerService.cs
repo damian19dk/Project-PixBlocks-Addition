@@ -1,4 +1,5 @@
-﻿using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
+﻿using Microsoft.AspNetCore.Http;
+using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services
@@ -7,6 +8,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         Task<JWPlayerMedia> GetPlaylistAsync(string id);
         Task<JWPlayerVideo> GetVideoAsync(string id);
+        Task<JWPlayerStatus> ShowVideoAsync(string mediaId);
         Task<string> CreateVideoAsync();
+        Task<string> UploadVideoAsync(IFormFile formFile);
     }
 }
