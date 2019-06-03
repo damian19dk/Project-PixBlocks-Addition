@@ -1,20 +1,20 @@
-<div *ngIf="course" class="card bg-white box-shadow m-3 w-30 mt-auto">
+<div *ngIf="course" class="card mb-4 bg-white box-shadow">
 
   <div class="card-header text-center">
-    {{course.title}}
+      {{course.title}}
   </div>
 
   <div class="card-box">
-    <img class="card-img-top align-middle mx-auto d-block" src={{course.picture}} alt="Tu miał być kurs" />
+      <img class="card-img-top align-middle mx-auto d-block" src={{course.picture}} alt="Tu miał być film" />
   </div>
 
   <div class="card-body">
-    <p class="card-text">{{course.description}}</p>
+      <p class="card-text">{{course.description}}</p>
 
-    <div class="d-flex justify-content-between align-items-center">
-      <small>{{course.duration | minuteSeconds}}</small>
-      <button type="button" class="btn btn-sm btn-outline-dark" routerLink='/'>Oglądaj</button>
-    </div>
+      <div class="d-flex justify-content-between align-items-center">
+          <small>{{course.duration | minuteSeconds}}</small>
+          <button type="button" class="btn btn-sm btn-outline-primary">Edytuj</button>
+      </div>
   </div>
 
 </div>

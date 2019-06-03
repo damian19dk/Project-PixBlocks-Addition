@@ -24,6 +24,13 @@ export class CourseService {
     return this.http.get<any>(environment.baseUrl + "/api/Course/all", { headers });
   }
 
+  getCoursesPaging(page: number, count: number = 3) {
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/allPaging?page=" + page + "&count=" + count, { headers });
+  }
+
   addCourse(courseDto: any) {
     let headers = new HttpHeaders()
     return this.http.post<any>(environment.baseUrl + "/api/Course/create", courseDto, { headers });
