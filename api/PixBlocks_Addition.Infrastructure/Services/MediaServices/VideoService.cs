@@ -73,7 +73,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             HashSet<Tag> tags = new HashSet<Tag>();
             if (video.Tags != null)
             {
-                video.Tags = video.Tags.First().Split();
+                video.Tags = video.Tags.First().Replace("\"", string.Empty).Replace("\\", string.Empty).Split(',', ' ');
                 foreach (string tag in video.Tags)
                     tags.Add(new Tag(tag));
             }
