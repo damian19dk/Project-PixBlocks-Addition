@@ -43,6 +43,11 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string CouldNotUploadVideo => "4000";
         //Resources
         public static string MissingFile => "5000";
-
+        //Domain
+        public static string InvalidTitle => "6001";
+        public static string InvalidDescription => "6002";
+        public static string InvalidPictureSrc => "6003";
+        public static string InvalidDuration => "6004";
+        public static string InvalidLanguage => "6005";
     }
 }
