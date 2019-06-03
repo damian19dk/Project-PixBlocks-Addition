@@ -1,8 +1,6 @@
 .card {
-    max-width: 300px;
-    max-height: 350px;
-    width: auto;
-    height: auto;
+    width: 300px;
+    height: 350px;
 }
 
 .card-box {
@@ -22,8 +20,8 @@
 }
 
 .card-img-top {
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     display: block;
     transition: transform .4s, opacity .4s;
     opacity: 0.85

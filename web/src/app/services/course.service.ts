@@ -31,7 +31,7 @@ export class CourseService {
     return this.http.get<any>(environment.baseUrl + "/api/Course/all", { headers });
   }
 
-  getCoursesPaging(page: number, count: number = 3) {
+  getCoursesPaging(page: number, count: number = 6) {
     let headers = new HttpHeaders()
     .set("Content-Type", "application/json");
 
