@@ -37,7 +37,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 else
                     sameTitle = await parentRepository.GetAsync(resource.Title);
 
-                if (sameTitle.Count() > 0)
+                if (sameTitle != null && sameTitle.Count() > 0)
                 {
                     throw new MyException($"There is already a media with title {resource.Title}.");
                 }
@@ -74,7 +74,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
             else
             {
-                await mediaRepository.RemoveTagsAsync(entity, entity.Tags);
+                await mediaRepository.RemoveAllTagsAsync(entity);
             }
 
             //Add picture from url
