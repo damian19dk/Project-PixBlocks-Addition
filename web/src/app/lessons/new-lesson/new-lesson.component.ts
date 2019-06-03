@@ -122,7 +122,8 @@ export class NewLessonComponent implements OnInit {
     text$.pipe(
       debounceTime(400),
       map(term => term === '' ? []
-        : this.courses
+        : 
+        this.courses
           .filter(course => course != null)
           .filter(course => course.title != null)
           .filter(course => course.title.toLowerCase()
