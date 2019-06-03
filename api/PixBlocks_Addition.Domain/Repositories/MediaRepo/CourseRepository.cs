@@ -48,6 +48,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
             => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                     .Include(c => c.Category)
-                    .Include(c => c.Tags).Skip((page - 1) * count).ToListAsync();
+                    .Include(c => c.Tags).Skip((page - 1) * count).Take(count).ToListAsync();
     }
 }
