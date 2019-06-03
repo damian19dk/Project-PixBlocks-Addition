@@ -116,7 +116,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<CourseDto>> GetAsync(string title)
         {
             var result = await _courseRepository.GetAsync(title);
-            return _mapper.Map<IEnumerable<CourseDto>>(result);
+            return _mapper.Map<IEnumerable<Course>, IEnumerable <CourseDto >>(result);
         }
 
         public async Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId)
