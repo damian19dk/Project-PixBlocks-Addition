@@ -11,8 +11,8 @@
     <div class="form-group row">
       <label for="title" class="col-sm-2 col-form-label">Tytuł</label>
       <div class="col-sm-10 input-group">
-        <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control" id="title"
-          formControlName="title" placeholder="Wpisz tytuł">
+        <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control" id="title" formControlName="title"
+          placeholder="Wpisz tytuł">
 
         <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
           <div *ngIf="f.title.errors.required">Pole jest puste</div>
@@ -25,8 +25,8 @@
     <div class="form-group row">
       <label for="description" class="col-sm-2 col-form-label">Opis</label>
       <div class="col-sm-10 input-group">
-        <input [ngClass]="{'is-invalid' : submitted && f.description.errors}" type="text" class="form-control"
-          id="description" formControlName="description" placeholder="Wpisz opis">
+        <input [ngClass]="{'is-invalid' : submitted && f.description.errors}" type="text" class="form-control" id="description" formControlName="description"
+          placeholder="Wpisz opis">
 
         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
           <div *ngIf="f.description.errors.required">Pole jest puste</div>
@@ -60,8 +60,7 @@
     <div class="form-group row">
       <label for="tags" class="col-sm-2 col-form-label">Kategorie</label>
       <div class="col-sm-10">
-        <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz kategorie'" [data]="tagsList"
-          [settings]="tagsSettings">
+        <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz kategorie'" [data]="tagsList" [settings]="tagsSettings">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -69,16 +68,20 @@
     <div class="form-group row">
       <label for="picture" class="col-sm-2 col-form-label">Zdjęcie</label>
       <div class="col-sm-10">
-        <input formControlName="pictureUrl" type="text" class="form-control" id="picture"
-          placeholder="Podaj adres obrazka">
+        <input formControlName="pictureUrl" type="text" class="form-control" id="picture" placeholder="Podaj adres obrazka">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="image" class="col-sm-2 col-form-label">Obrazek</label>
-      <div class="col-sm-10 custom-file">
-        <input formControlName="image" type="file" class="form-control custom-file-input" id="image">
-        <label class="custom-file-label" for="customFile">Wybierz plik</label>
+      <div class="col-sm-10 input-group input-file">
+        <span class="input-group-btn">
+          <button class="btn btn-default btn-primary" type="button">Choose</button>
+        </span>
+        <input class="col-sm-2" formControlName="image" type="text" class="form-control" id="image">
+        <span class="input-group-btn">
+          <button class="btn btn-warning btn-reset" type="button">Reset</button>
+        </span>
       </div>
     </div>
 
@@ -92,9 +95,8 @@
     <div class="form-group row">
       <label for="parentId" class="col-sm-2 col-form-label">Kurs</label>
       <div class="col-sm-10 input-group">
-        <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" id="parentId"
-          type="text" class="form-control" [ngbTypeahead]="searchCourse" [inputFormatter]="formatter"
-          [resultTemplate]="rt" placeholder="Wyszukaj kurs" />
+        <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" id="parentId" type="text" class="form-control"
+          [ngbTypeahead]="searchCourse" [inputFormatter]="formatter" [resultTemplate]="rt" placeholder="Wyszukaj kurs" />
 
         <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
           <div *ngIf="f.parentId.errors.required">Pole jest puste</div>
@@ -106,7 +108,8 @@
       <div class="col-sm-10">
         <button type="submit" [disabled]="loading" class="btn btn-success">
           <div *ngIf="!loading">Dodaj lekcję</div>
-          <div *ngIf="loading"><span class="spinner-border spinner-border-sm"></span>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm"></span>
             Ładowanie..</div>
         </button>
       </div>

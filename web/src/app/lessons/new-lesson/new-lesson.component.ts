@@ -68,7 +68,7 @@ export class NewLessonComponent implements OnInit {
     this.loadingService.load();
 
     this.courseService.getCourses().subscribe(
-      (data: []) => {
+      data => {
         this.courses = data;
         this.loadingService.unload();
       },
