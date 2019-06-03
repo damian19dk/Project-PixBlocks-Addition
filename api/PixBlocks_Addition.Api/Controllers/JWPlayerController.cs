@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,12 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             return await _jwPlayer.CreateVideoAsync();
         }
-
+        
+        [HttpPost("upload")]
+        public async Task<string> UploadVideo()
+        {
+            var file = Request.HasFormContentType ? Request.Form.Files.FirstOrDefault() : null;
+            return await _jwPlayer.UploadVideoAsync(file);
+        }
     }
 }
