@@ -5,6 +5,7 @@ using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Settings;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -43,6 +44,19 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var endpoint = "/v2/media/" + id;
             var result = await getMediaAsync(endpoint);
             return result.Videos.Single();
+        }
+
+        public async Task<JWPlayerStatus> ShowVideoAsync(string mediaId)
+        {
+            var endpoint = "/v1/videos/show/?";
+            var dic = new Dictionary<string, string>();
+            dic.Add("video_key", mediaId);
+            var sig = _auth.CreateSignature(_jwPlayerOptions.Value.ApiKey, _jwPlayerOptions.Value.SecretKey, "json", dic);
+            var response = await getAsync(hostapi + endpoint + sig);
+            var result = await response.ReadAsStringAsync();
+            result = result.Split("video\":").Last();
+            result = result.Remove(result.Length - 1);
+            return JsonConvert.DeserializeObject<JWPlayerStatus>(result);
         }
 
         public async Task<string> CreateVideoAsync()

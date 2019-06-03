@@ -34,6 +34,11 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _jwPlayer.GetVideoAsync(id);
         }
 
+        [HttpGet("show")]
+        [Authorize(Policy = "Premium")]
+        public async Task<JWPlayerStatus> ShowVideo(string mediaId)
+            => await _jwPlayer.ShowVideoAsync(mediaId);
+
         [HttpGet("create")]
         public async Task<string> CreateVideo()
         {
