@@ -1,10 +1,12 @@
   .card {
-      height: 465px;
+    height: 90%;
   }
 
   .card-box {
       display: inline-block;
       overflow: hidden;
+      height: 100%;
+      width: 100%;
   }
 
   .box-shadow {
