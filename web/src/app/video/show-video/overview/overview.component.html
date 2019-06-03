@@ -1,21 +1,20 @@
 <div *ngIf="video">
   <div class="row text-justify border-top">
-    <h2 class="header2">Informacje o tym video<h4 class="header4">{{video.title}}</h4>
-    </h2>
+    <div class="col-3 text-justify">Tytuł:</div>
+    <div class="col-6 text-justify">
+      {{video.title}}
+    </div>
   </div>
 
   <div class="row text-justify border-top">
-    <div class="col-3 text-justify italic font-italic">
-      Tagi:
-    </div>
+    <div class="col-3 text-justify">Tagi:</div>
     <div class="col-6 text-justify">
-      {{video.tags}}
+      <span class="badge badge-dark" *ngFor="let tag of tags">{{tag}}</span>
     </div>
   </div>
+
   <div class="row text-justify border-top">
-    <div class="col-3 text-justify font-italic">
-      Szczegóły:
-    </div>
+    <div class="col-3 text-justify">Szczegóły:</div>
     <div class="col-3 text-justify">
       <p class="row">Czas trwania: {{video.duration | minuteSeconds}}</p>
       <p class="row">Język: {{video.language}}</p>
@@ -24,9 +23,7 @@
   </div>
 
   <div class="row text-justify border-top">
-    <div class="col-3 text-justify font-italic">
-      Opis:
-    </div>
+    <div class="col-3 text-justify">Opis:</div>
 
     <div class="col-9 text-justify">
       {{video.description}} Po przejściu Hannibala przez Alpy i zreorganizowaniu wojsk,

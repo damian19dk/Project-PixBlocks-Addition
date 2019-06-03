@@ -3,17 +3,14 @@
 <nav class="navbar navbar-expand-lg sticky-top">
   <a class="navbar-brand" routerLink="/">PixBlocks</a>
 
-    <form class="form-inline d-none d-xl-block my my-lg-0">
-      <input class="form-control mr-sm" type="search" placeholder="Szukaj..." aria-label="Search">
-      <button class="btn"><i class="fas fa-search"></i></button>
-    </form>
-
     <button class="navbar-toggler hidden-md-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbars-options" aria-controls="navbars-options" aria-expanded="false" aria-label="Toggle navigation">
      <i class="fas fa-bars"></i>
     </button>
   
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar">
+
+      <!-- <app-search-bar></app-search-bar> -->
       
       <div *ngIf="isLogged()">
         <ul class="navbar-nav ml-auto">

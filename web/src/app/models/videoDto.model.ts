@@ -1,15 +1,13 @@
 export class Video {
-    id: string;
+    parentId: string;
     mediaId: string;
-    category: string;
     premium: boolean;
     title: string;
     description: string;
-    picture: string;
-    duration: number;
-    publishDate: number;
+    pictureUrl: string;
+    image: any;
     language: string;
     tags: [
-      string
+        string
     ];
 }

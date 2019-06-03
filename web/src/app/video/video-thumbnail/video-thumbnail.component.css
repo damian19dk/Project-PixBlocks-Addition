@@ -1,10 +1,12 @@
   .card {
-      height: 465px;
+    height: 90%;
   }
 
   .card-box {
       display: inline-block;
       overflow: hidden;
+      height: 100%;
+      width: 100%;
   }
 
   .box-shadow {
@@ -17,8 +19,9 @@
   }
 
   .card-img-top {
-      width: 350px;
-      height: 250px;
+      width: 100%;
+      height: 100%;
+      max-height: 300px;
       display: block;
       transition: transform .4s, opacity .4s;
       opacity: 0.85
@@ -36,6 +39,7 @@
       padding-bottom: 2%;
       padding-top: 2%;
       margin-top: 20px;
+      margin-bottom: 20px;
       text-align: justify;
   }
 

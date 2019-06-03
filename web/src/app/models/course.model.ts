@@ -4,12 +4,12 @@ export class Course {
             id: string,
             mediaId: string,
             category: string,
-            premium: true,
+            premium: boolean,
             title: string,
             description: string,
             picture: string,
-            duration: 0,
-            publishDate: "2019-05-19T21:26:58.169Z",
+            duration: number,
+            publishDate: number,
             language: string,
             tags: [
                 string
@@ -23,12 +23,12 @@ export class Course {
                     id: string,
                     mediaId: string,
                     category: string,
-                    premium: true,
+                    premium: boolean,
                     title: string,
                     description: string,
                     picture: string,
-                    duration: 0,
-                    publishDate: "2019-05-19T21:26:58.169Z",
+                    duration: number,
+                    publishDate: number,
                     language: string,
                     tags: [
                         string
@@ -42,12 +42,12 @@ export class Course {
                             id: string,
                             mediaId: string,
                             category: string,
-                            premium: true,
+                            premium: boolean,
                             title: string,
                             description: string,
                             picture: string,
-                            duration: 0,
-                            publishDate: "2019-05-19T21:26:58.169Z",
+                            duration: number,
+                            publishDate: number,
                             language: string,
                             tags: [
                                 string
@@ -57,12 +57,12 @@ export class Course {
                     id: string,
                     mediaId: string,
                     category: string,
-                    premium: true,
+                    premium: boolean,
                     title: string,
                     description: string,
                     picture: string,
-                    duration: 0,
-                    publishDate: "2019-05-19T21:26:58.169Z",
+                    duration: number,
+                    publishDate: number,
                     language: string,
                     tags: [
                         string
@@ -72,12 +72,12 @@ export class Course {
             id: string,
             mediaId: string,
             category: string,
-            premium: true,
+            premium: boolean,
             title: string,
             description: string,
             picture: string,
-            duration: 0,
-            publishDate: "2019-05-19T21:26:58.170Z",
+            duration: number,
+            publishDate: number,
             language: string,
             tags: [
                 string
@@ -87,12 +87,12 @@ export class Course {
     id: string;
     mediaId: string;
     category: string;
-    premium: true;
+    premium: boolean;
     title: string;
     description: string;
     picture: string;
-    duration: 0;
-    publishDate: "2019-05-19T21:26:58.170Z";
+    duration: number;
+    publishDate: number;
     language: string;
     tags: [
         string

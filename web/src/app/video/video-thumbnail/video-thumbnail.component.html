@@ -1,11 +1,11 @@
-<div class="card mb-4 bg-white box-shadow">
+<div *ngIf="video" class="card mb-4 bg-white box-shadow">
 
     <div class="card-header text-center">
         {{video.title}}
-    </div>
+    </div>  
 
     <div class="card-box">
-        <img class="card-img-top" src={{video.image}} alt="Tu miał być film" />
+        <img class="card-img-top align-middle mx-auto d-block" src={{video.image}} alt="Tu miał być film" />
     </div>
 
     <div class="card-body">

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-edit-course',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditCourseComponent implements OnInit {
 
-  constructor() { }
+  page: number = 1;
+
+  courses: Course[];
+  error: string;
+
+  constructor(
+    private courseService: CourseService,
+    private loadingService: LoadingService) { }
 
   ngOnInit() {
+    this.getCourses();
+  }
+
+  getCourses() {
+    this.loadingService.load();
+
+    this.courseService.getCoursesPaging(this.page).subscribe(
+      (data: Course[]) => {
+        this.courses = data;
+        this.loadingService.unload();
+        },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
   }
 
 }

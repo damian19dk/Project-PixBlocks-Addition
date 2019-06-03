@@ -1,0 +1,22 @@
+#video-field {
+  background-color: #444444;
+  width: 100%;
+  justify-content: center;
+}
+
+#video {
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+ul li {
+  display: inline;
+  text-align: center;
+}
+
+li button {
+  width: 100%;
+  height: 100%;
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Video } from './../models/video.model';
+import { Video } from '../../models/videoJWPlayer.model';
 
 @Component({
   selector: 'app-video-thumbnail',

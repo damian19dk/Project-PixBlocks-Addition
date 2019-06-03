@@ -10,13 +10,18 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
-  getCourse(id: string) {
+  findCourseByTitle(title: string) {
     let headers = new HttpHeaders()
-    .set("Access-Control-Allow-Origin", environment.baseUrl)
-    .set("Authorization", "Bearer " + localStorage.getItem("Token"))
     .set("Content-Type", "application/json");
 
-    return this.http.get<any>(environment.baseUrl + "/api/Course/title?title=" + id, { headers });
+    return this.http.get<any>(environment.baseUrl + "/api/Course/title?title=" + title, { headers });
+  }
+
+  getCourse(id: string) {
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/?id=" + id, { headers });
   }
 
   getCourses() {
@@ -24,6 +29,13 @@ export class CourseService {
     .set("Content-Type", "application/json");
 
     return this.http.get<any>(environment.baseUrl + "/api/Course/all", { headers });
+  }
+
+  getCoursesPaging(page: number, count: number = 6) {
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/allPaging?page=" + page + "&count=" + count, { headers });
   }
 
   addCourse(courseDto: any) {

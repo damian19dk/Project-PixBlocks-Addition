@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Video } from '../models/video.model';
-import { VideoService } from '../services/video.service';
+import { Video } from '../../models/videoJWPlayer.model';
+import { VideoService } from './../../services/video.service';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingService } from '../services/loading.service';
+import { LoadingService } from './../../services/loading.service'
 
 @Component({
   selector: 'app-show-video',
@@ -10,9 +10,9 @@ import { LoadingService } from '../services/loading.service';
   styleUrls: ['./show-video.component.css']
 })
 export class ShowVideoComponent implements OnInit {
-  public isCollapsed1 = true;
-  public isCollapsed2 = false;
-  public isCollapsed3 = true;
+  isCollapsed1 = true;
+  isCollapsed2 = false;
+  isCollapsed3 = true;
   video: Video;
   error: string;
 
@@ -29,7 +29,7 @@ export class ShowVideoComponent implements OnInit {
     this.loadingService.load();
 
     const id = this.route.snapshot.paramMap.get('id');
-    this.videoService.getVideo(id).subscribe(
+    this.videoService.getHostedVideo(id).subscribe(
       (data: Video) => {
         this.video = data;
         this.loadingService.unload();
