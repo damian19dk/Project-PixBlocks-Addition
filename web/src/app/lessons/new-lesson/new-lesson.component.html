@@ -25,8 +25,8 @@
     <div class="form-group row">
       <label for="description" class="col-sm-2 col-form-label">Opis</label>
       <div class="col-sm-10 input-group">
-        <input [ngClass]="{'is-invalid' : submitted && f.description.errors}" type="text" class="form-control"
-          id="description" formControlName="description" placeholder="Wpisz opis">
+        <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
+          id="description" formControlName="description" placeholder="Wpisz opis"></textarea>
 
         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
           <div *ngIf="f.description.errors.required">Pole jest puste</div>
@@ -87,7 +87,8 @@
 
     <ng-template #rt let-r="result" let-t="term">
       <!-- <img [src]="r.picture" class="mr-1" style="width: 16px"> -->
-      <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
+      <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
+      <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
     </ng-template>
 
     <div class="form-group row">
