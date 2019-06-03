@@ -97,4 +97,8 @@ export class NewCourseComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
+  imitateFileInput() {
+    document.getElementById('image').click();
+  }
+
 }
