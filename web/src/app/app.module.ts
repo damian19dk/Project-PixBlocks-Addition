@@ -36,6 +36,7 @@ import { HeadersInterceptor } from './interceptors/headers-interceptor';
 import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { LessonService } from './services/lesson.service';
 import { CourseThumbnailComponent } from './courses/course-thumbnail/course-thumbnail.component';
+import { SearchBarComponent } from './common/search-bar/search-bar.component';
 
 
 const routes: Routes = [
@@ -78,7 +79,8 @@ const routes: Routes = [
     LessonManagerComponent,
     NewLessonComponent,
     EditLessonComponent,
-    CourseThumbnailComponent
+    CourseThumbnailComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
