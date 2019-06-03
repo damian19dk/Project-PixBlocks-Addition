@@ -7,5 +7,6 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
 {
     public class VideoDto: MediaDto
     {
+        public string Status { get; set; }
     }
 }
