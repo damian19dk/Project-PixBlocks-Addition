@@ -57,6 +57,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task CreateAsync(MediaResource resource)
         {
+            if(resource.Title==null)
+            {
+                throw new MyException(MyCodesNumbers.InvalidTitle, "Title cannot be null.");
+            }
             var c = await _courseRepository.GetAsync(resource.Title);
             if (c.Count() > 0)
             {

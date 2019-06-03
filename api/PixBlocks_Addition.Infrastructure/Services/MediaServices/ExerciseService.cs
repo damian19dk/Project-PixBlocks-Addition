@@ -65,6 +65,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task CreateAsync(MediaResource resource)
         {
             var lesson = await _lessonRepository.GetAsync(resource.ParentId);
+            if(lesson == null)
+            {
+                throw new MyException(MyCodesNumbers.LessonNotFound, $"Lesson {resource.ParentId} not found.");
+            }
             var exercises = lesson.Exercises;
             var exerciseInCourse = exercises.FirstOrDefault(c => c.Title == resource.Title);
             if (exerciseInCourse != null)
