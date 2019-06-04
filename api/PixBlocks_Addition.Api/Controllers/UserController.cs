@@ -14,13 +14,19 @@ namespace PixBlocks_Addition.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        [HttpPost("passwordChange")]
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpPut("passwordChange")]
         public async Task ChangePassword(string login, string newPassword, string oldPassword)
         {
             await _userService.ChangePassword(login, newPassword, oldPassword);
         }
 
-        [HttpPost("emailChange")]
+        [HttpPut("emailChange")]
         public async Task ChangeEmail(string login, string email)
         {
             await _userService.ChangeEmail(login, email);
