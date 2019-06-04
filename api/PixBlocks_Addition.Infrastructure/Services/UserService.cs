@@ -14,8 +14,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public UserService(IUserRepository userRepository, IEncrypter encrypter)
         {
-            userRepository = _userRepository;
-            encrypter = _encrypter;
+            _userRepository = userRepository;
+            _encrypter = encrypter;
         }
 
         public async Task ChangeEmail(string login, string email)
