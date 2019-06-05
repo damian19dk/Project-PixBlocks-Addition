@@ -49,6 +49,7 @@ namespace PixBlocks_Addition.Api
             sqlSection.Bind(sqlSettings);
 
             services.AddEntityFrameworkSqlServer()
+                .AddEntityFrameworkInMemoryDatabase()
                 .AddDbContext<PixBlocksContext>()
                 .AddDbContext<RefreshTokenContext>();
 
