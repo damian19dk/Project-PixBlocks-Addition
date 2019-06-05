@@ -52,6 +52,11 @@ namespace PixBlocks_Addition.Domain.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (_settings.Value.InMemory)
+            {
+                optionsBuilder.UseInMemoryDatabase("PixBlocks");
+                return;
+            }
             optionsBuilder.UseSqlServer(_settings.Value.ConnectionString,
                 options =>
                 {

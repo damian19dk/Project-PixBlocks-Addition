@@ -6,7 +6,7 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
 {
     public class MediaDto
     {
-        public Guid Id { get; protected set; }
+        public Guid Id { get; set; }
         public string MediaId { get; set; }
         public string Category { get; set; }
         public bool Premium { get; set; }
