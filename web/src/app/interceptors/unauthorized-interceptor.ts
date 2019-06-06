@@ -7,11 +7,9 @@ import { Injectable } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor {
+export class UnauthorizedInterceptor implements HttpInterceptor {
 
     private returnUrl: string;
-    private isRefreshingToken: boolean = false;
-    private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     constructor(public route: ActivatedRoute,
         public router: Router,
@@ -31,25 +29,8 @@ export class JwtInterceptor implements HttpInterceptor {
                         this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']);
                     }
 
-                    if (this.authenticationService.isLogged() && this.authenticationService.isTokenExpired()) {
-                        this.authenticationService.refreshToken()
-                            .subscribe(
-                                data => {
-                                    localStorage.setItem("Token", data.accessToken);
-                                    localStorage.setItem("TokenRefresh", data.refreshToken);
-                                    localStorage.setItem("TokenExpires", data.expires);
-                                },
-                                error => {
-                                    this.router.navigate([this.returnUrl]);
-                                    return throwError(err.error.message || err.statusText);
-                                }
-                            );
-                    }
-                    else {
-                        this.router.navigate([this.returnUrl]);
-                    }
+                    this.router.navigate([this.returnUrl]);
                 }
-
 
                 const error = err.error.message || err.statusText;
                 return throwError(error);
