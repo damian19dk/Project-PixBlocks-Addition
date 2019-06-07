@@ -10,7 +10,8 @@ namespace PixBlocks_Addition.Tests.EndToEnd.Extentions
     {
         private static string[] arrayProperties = { "Tags" };
         private static string[] useToStringForProperties = { "Id", "Premium", "PublishDate", "Duration" };
-
+        private static string[] noMapProperties = { "Courses", "Lessons", "Exercises", "Videos",
+                                                    "CourseVideos", "LessonVideos", "ExerciseVideos", "PublishDate"};
         public static Dictionary<string, string> GetProperties<MediaDto, TResult>(this MediaDto lesson, Func<MediaDto, TResult> func)
         {
             var parameters = func(lesson);
@@ -34,6 +35,34 @@ namespace PixBlocks_Addition.Tests.EndToEnd.Extentions
                 else
                 {
                     dict.Add(p.Name, (string)p.GetValue(parameters));
+                }
+            }
+
+            return dict;
+        }
+
+        public static Dictionary<string, string> GetProperties<MediaDto>(this MediaDto lesson)
+        {
+            var properties =  typeof(Infrastructure.DTOs.MediaDto).GetProperties();
+            var dict = new Dictionary<string, string>();
+
+            foreach (var p in properties)
+            {
+                if (arrayProperties.Contains(p.Name))
+                {
+                    dict.Add(p.Name, string.Join(',', (IEnumerable<string>)p.GetValue(lesson)));
+                }
+                else if (useToStringForProperties.Contains(p.Name))
+                {
+                    dict.Add(p.Name, p.GetValue(lesson).ToString());
+                }
+                else if (p.Name == "Picture")
+                {
+                    dict.Add("PictureUrl", (string)p.GetValue(lesson));
+                }
+                else
+                {
+                    dict.Add(p.Name, (string)p.GetValue(lesson));
                 }
             }
 

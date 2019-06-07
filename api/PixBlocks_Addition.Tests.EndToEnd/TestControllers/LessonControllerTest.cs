@@ -61,18 +61,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 PublishDate = LessonDto.PublishDate,
                 Tags = expectedTags.Split(',')
             };
-            var parameters = expectedLesson.GetProperties(x
-                => new
-                {
-                    x.Title,
-                    x.Description,
-                    x.Language,
-                    x.Premium,
-                    x.Id,
-                    x.Duration,
-                    x.Picture,
-                    x.Tags
-                });
+            var parameters = expectedLesson.GetProperties();
 
             await sendMultiPartAsync(address, "PUT", parameters);
             var response = await httpClient.GetAsync($"api/lesson?id={LessonDto.Id}");
