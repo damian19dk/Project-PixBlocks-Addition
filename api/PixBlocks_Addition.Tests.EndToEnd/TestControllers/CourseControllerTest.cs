@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,16 +38,19 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 Tags = CourseDto.Tags
             };
             var tags = string.Join(',', CourseDto.Tags);
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("title", expectedTitle);
-            parameters.Add("description", expectedDescription);
-            parameters.Add("language", expectedLanguage);
-            parameters.Add("premium", expectedPremium.ToString());
-            parameters.Add("id", CourseDto.Id.ToString());
-            parameters.Add("mediaId", CourseDto.MediaId);
-            parameters.Add("duration", CourseDto.Duration.ToString());
-            parameters.Add("PictureUrl", CourseDto.Picture);
-            parameters.Add("Tags", tags);
+            var parameters = expectedCourse.GetProperties(x
+                => new
+                {
+                    x.Title,
+                    x.Description,
+                    x.Language,
+                    x.Premium,
+                    x.Id,
+                    x.MediaId,
+                    x.Duration,
+                    x.Picture,
+                    x.Tags
+                });
 
             await sendMultiPartAsync(address, "PUT", parameters);
             var response = await httpClient.GetAsync($"api/course?id={CourseDto.Id}");
