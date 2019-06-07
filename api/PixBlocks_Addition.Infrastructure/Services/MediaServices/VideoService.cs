@@ -71,17 +71,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var picture = string.IsNullOrWhiteSpace(video.PictureUrl) ? getPicture(video.MediaId) : video.PictureUrl;
 
             HashSet<Tag> tags = new HashSet<Tag>();
-            if (string.IsNullOrEmpty(video.Tags))
+            if (!string.IsNullOrEmpty(video.Tags))
             {
                 var videoTags = video.Tags.Split(',', ';');
                 foreach (string tag in videoTags)
                     tags.Add(new Tag(tag));
             }
-            else
-            {
-                tags = null;
-            }
-
 
             var vid = new Video(video.MediaId, video.Premium, video.Title, video.Description, picture,
                                 0, video.Language, tags);
