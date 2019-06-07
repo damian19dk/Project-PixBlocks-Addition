@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 
 namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 {
     [TestFixture]
-    public class LessonControllerTest: BaseControllerTest
+    public class LessonControllerTest : BaseControllerTest
     {
         public LessonDto LessonDto { get; set; }
 
@@ -60,17 +61,18 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 PublishDate = LessonDto.PublishDate,
                 Tags = expectedTags.Split(',')
             };
-            var tags = string.Join(',', LessonDto.Tags);
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("title", expectedTitle);
-            parameters.Add("description", expectedDescription);
-            parameters.Add("language", expectedLanguage);
-            parameters.Add("premium", expectedPremium.ToString());
-            parameters.Add("id", LessonDto.Id.ToString());
-            parameters.Add("mediaId", LessonDto.MediaId);
-            parameters.Add("duration", LessonDto.Duration.ToString());
-            parameters.Add("PictureUrl", LessonDto.Picture);
-            parameters.Add("Tags", expectedTags);
+            var parameters = expectedLesson.GetProperties(x
+                => new
+                {
+                    x.Title,
+                    x.Description,
+                    x.Language,
+                    x.Premium,
+                    x.Id,
+                    x.Duration,
+                    x.Picture,
+                    x.Tags
+                });
 
             await sendMultiPartAsync(address, "PUT", parameters);
             var response = await httpClient.GetAsync($"api/lesson?id={LessonDto.Id}");
