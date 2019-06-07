@@ -39,7 +39,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             courseData.Add("Title", "Title1");
             courseData.Add("Description", "Some description.");
             courseData.Add("Language", "English");
-            courseData.Add("Tags", "tag1");
+            courseData.Add("Tags", "tag3");
 
             await sendMultiPartAsync("api/course/create", "POST", courseData);
             var response = await httpClient.GetAsync("api/course/all");
@@ -68,7 +68,10 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 
             foreach (var p in parameters)
             {
-                multipartContent.Add(new StringContent(p.Value), p.Key);
+                if(p.Value != null)
+                    multipartContent.Add(new StringContent(p.Value), p.Key);
+                else
+                    multipartContent.Add(new StringContent(string.Empty), p.Key);
             }
 
             if (video != null)
