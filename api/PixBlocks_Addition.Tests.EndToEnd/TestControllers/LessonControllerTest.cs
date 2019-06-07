@@ -34,7 +34,6 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var response = await httpClient.GetAsync("api/lesson/title?title=LessonTitle1");
             var responseString = await response.Content.ReadAsStringAsync();
             var lessons = JsonConvert.DeserializeObject<IEnumerable<LessonDto>>(responseString);
-            lessons.Select(x => new { x.Language, x.Id });
             LessonDto = lessons.Single();
         }
 
