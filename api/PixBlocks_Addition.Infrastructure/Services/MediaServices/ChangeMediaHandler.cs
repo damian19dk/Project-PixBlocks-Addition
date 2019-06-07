@@ -49,22 +49,22 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 entity.SetLanguage(resource.Language);
             if (resource.Premium != entity.Premium)
                 entity.SetPremium(resource.Premium);
-
-            if (resource.Tags != null)
+            
+            if (!string.IsNullOrEmpty(resource.Tags))
             {
-                resource.Tags = resource.Tags.First().Replace("\"", string.Empty).Replace("\\", string.Empty).Split(',', ' ');
+                var tags = resource.Tags.Split(',', ';');
                 //Remove tags
                 ISet<Tag> tagsToRemove = new HashSet<Tag>();
                 foreach (var tag in entity.Tags)
                 {
-                    if (!resource.Tags.Contains(tag.Name))
+                    if (!tags.Contains(tag.Name))
                     {
                         tagsToRemove.Add(tag);
                     }
                 }
                 await mediaRepository.RemoveTagsAsync(entity, tagsToRemove);
                 //Add tags
-                foreach (var tag in resource.Tags)
+                foreach (var tag in tags)
                 {
                     if (!entity.Tags.Any(t => t.Name == tag))
                     {
