@@ -25,9 +25,13 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
                 if (err.status === 401 || err.status === 403) {
                     this.loadingService.unload();
 
-                    if(request.url.includes("cancel")) {
+
+                    if (request.url.includes("cancel")) {
                         this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']);
                     }
+
+                    this.authenticationService.clearUserData();
+
 
                     this.router.navigate([this.returnUrl]);
                 }

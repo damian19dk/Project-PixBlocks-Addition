@@ -23,6 +23,7 @@ export class NewCourseComponent implements OnInit {
   tagsSettings = {};
 
   fileToUpload: File = null;
+  fileUploadMessage: string = 'Wybierz plik';
 
   constructor(private formBuilder: FormBuilder,
     private courseService: CourseService,
@@ -95,6 +96,12 @@ export class NewCourseComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    if(this.fileToUpload.size > 0) {
+      this.fileUploadMessage = 'Gotowy do wysłania';
+    }
+    else {
+      this.fileUploadMessage = 'Wybierz plik';
+    } 
   }
 
   imitateFileInput() {
