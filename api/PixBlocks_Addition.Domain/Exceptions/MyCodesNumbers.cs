@@ -34,6 +34,8 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string SameTitleCourse => "2009";
         public static string SameTitleExercise => "2010";
         public static string SameTitleLesson => "2011";
+        public static string SameTitleMedia => "2012";
+        public static string MediaNotFound => "2013";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";

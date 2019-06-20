@@ -59,7 +59,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             if(resource.Title==null)
             {
-                throw new MyException(MyCodesNumbers.InvalidTitle, "Title cannot be null.");
+                throw new MyException(MyCodesNumbers.InvalidTitle, "Tytuł nie może być pusty!");
             }
             var c = await _courseRepository.GetAsync(resource.Title);
             if (c.Count() > 0)
@@ -147,7 +147,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var course = await _courseRepository.GetAsync(id);
             if (course == null)
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with id {id} not found. Create the course first.");
+                throw new MyException(MyCodesNumbers.CourseNotFound, $"Nie znaleziono kursu o id: {id}. Wpierw stwórz kurs!");
             }
             return course;
         }
