@@ -2,8 +2,9 @@
     margin-top: 20px;
     font-family: 'Oswald', sans-serif;
     text-align: center;
+    background-color: #eceff1;
 }
-.page-footer {
-    border-style: solid;
+.page-footer2 {
+    border-top: solid;
     border-color: #696969;
 }
