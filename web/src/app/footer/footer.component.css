@@ -25,4 +25,8 @@
 }
 .btns {
     margin-top: 0;
+    margin-bottom: 20px;
+}
+.img-fluid {
+    margin-top: 1%;
 }
