@@ -33,10 +33,10 @@ import { LessonManagerComponent } from './lessons/lesson-manager/lesson-manager.
 import { NewLessonComponent } from './lessons/new-lesson/new-lesson.component';
 import { EditLessonComponent } from './lessons/edit-lesson/edit-lesson.component';
 import { HeadersInterceptor } from './interceptors/headers-interceptor';
-import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { LessonService } from './services/lesson.service';
 import { CourseThumbnailComponent } from './courses/course-thumbnail/course-thumbnail.component';
 import { SearchBarComponent } from './common/search-bar/search-bar.component';
+import { UnauthorizedInterceptor } from './interceptors/unauthorized-interceptor';
 
 
 const routes: Routes = [
@@ -106,7 +106,7 @@ const routes: Routes = [
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
+      useClass: UnauthorizedInterceptor,
       multi: true
     }
   ],
