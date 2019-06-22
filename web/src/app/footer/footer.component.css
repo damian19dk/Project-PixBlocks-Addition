@@ -17,6 +17,9 @@
     background-color:#FF0000;
     border-radius: 50%;
 }
+.btn-li {
+    background-color: #0077B5;
+}
 .fab {
     margin-top: 1px;
 }
