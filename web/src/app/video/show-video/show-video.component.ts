@@ -10,9 +10,7 @@ import { LoadingService } from './../../services/loading.service'
   styleUrls: ['./show-video.component.css']
 })
 export class ShowVideoComponent implements OnInit {
-  isCollapsed1 = true;
-  isCollapsed2 = false;
-  isCollapsed3 = true;
+  tags: any;
   video: Video;
   error: string;
 
@@ -32,6 +30,8 @@ export class ShowVideoComponent implements OnInit {
     this.videoService.getHostedVideo(id).subscribe(
       (data: Video) => {
         this.video = data;
+        this.tags = this.video.tags == null ? null : this.video.tags.split(' ');
+        this.tags = this.tags == [] ? ['brak'] : this.tags;
         this.loadingService.unload();
       },
       error => {
