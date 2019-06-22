@@ -7,20 +7,6 @@
     margin-bottom: 20px;
 }
 
-#opis {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15%;
-    margin-right: 15%;
-    text-align: center;
-}
-
-#new {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .homepage-part {
     margin-top: 20px;
 }
