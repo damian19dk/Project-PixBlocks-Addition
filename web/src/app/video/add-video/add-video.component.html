@@ -63,6 +63,10 @@
   <div class="btn btn-outline-primary description-accept-btn">Dodaj opis</div>
 </div> -->
 <div class="container">
+  <div class="row film-row">
+        <h2 class="display-4">Dodaj film</h2>
+    </div>
+    <p></p>
   <div class="form-group row">
     <label class="col-sm-2 col-form-label">Tytuł</label>
       <div class="col-sm-10 input-group">
@@ -86,4 +90,15 @@
         </div> -->  
       </div>
   </div>
+  <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" [disabled]="loading" class="btn btn-success">
+          <div *ngIf="!loading">Dodaj film</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm"></span>
+            Ładowanie..</div>
+        </button>
+      </div>
+    </div>
+    <img src="assets/svg/undraw_media_player_ylg8(1).svg">
 </div>
