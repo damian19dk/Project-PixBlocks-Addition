@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">
 <div class="row align-items-start" id="watch-video-btn">
     <div class="col h-40 p-3">
       <span>
@@ -61,4 +61,29 @@
     </div>     
   </div>
   <div class="btn btn-outline-primary description-accept-btn">Dodaj opis</div>
+</div> -->
+<div class="container">
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Tytuł</label>
+      <div class="col-sm-10 input-group">
+        <input type="text" class="form-control" id="title"
+          formControlName="title" placeholder="Wpisz tytuł">
+
+      <!--  <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+          <div *ngIf="f.title.errors.required">Pole jest puste</div>
+        </div> --> 
+      </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Opis</label>
+      <div class="col-sm-10 input-group">
+        <textarea class="form-control" id="description"
+          formControlName="description" placeholder="Wpisz opis"></textarea>
+
+      <!--<div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+          <div *ngIf="f.description.errors.required">Pole jest puste</div>
+        </div> -->  
+      </div>
+  </div>
 </div>
