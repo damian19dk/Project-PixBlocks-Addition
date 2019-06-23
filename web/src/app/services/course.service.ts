@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { CourseDto } from '../models/courseDto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +40,10 @@ export class CourseService {
   addCourse(courseDto: any) {
     let headers = new HttpHeaders()
     return this.http.post<any>(environment.baseUrl + "/api/Course/create", courseDto, { headers });
+  }
+
+  updateCourse(courseDto: any) {
+    let headers = new HttpHeaders()
+    return this.http.put<any>(environment.baseUrl + "/api/Course/change", courseDto, { headers });
   }
 }

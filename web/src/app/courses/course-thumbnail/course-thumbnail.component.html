@@ -6,20 +6,118 @@
         </button>
     </div>
     <div class="modal-body input-group container">
-        <div class="row">
-            <span class="input-group-text">Tytuł:</span><input type="text" value={{course.title}} />
+
+        <div *ngIf="error" class="alert alert-danger col-12">
+            {{error}}
         </div>
-        <div class="row">
-            <span class="input-group-text">Opis:</span><input value={{course.description}} />
+
+        <div *ngIf="sent && !error" class="alert alert-success col-12">
+            Kurs zaktualizowano pomyślnie
         </div>
-        <div class="row">
-            <span class="input-group-text">Czas trwania:</span><input value={{course.duration}} />
-        </div>
-    </div>
-    <div class="modal-footer justify-content-end">
-        <button type="button" class="btn btn-warning" (click)="modal.close('Save click')">Usuń</button>
-        <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Zapisz</button>
-        <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Zamknij</button>
+
+        <form [formGroup]="editCourseForm" (ngSubmit)="editCourse()" class="col-12">
+
+            <div class="form-group row">
+                <div class="col-sm-10 input-group">
+                    <input type="text" class="form-control" formControlName="id" hidden>
+                </div>
+                <div class="col-sm-10 input-group">
+                    <input type="text" class="form-control" formControlName="mediaId" hidden>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="title" class="col-sm-2 col-form-label">Tytuł</label>
+                <div class="col-sm-10 input-group">
+                    <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control"
+                        id="title" formControlName="title" placeholder="Wpisz tytuł">
+
+                    <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                        <div *ngIf="f.title.errors.required">Pole jest puste</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="form-group row">
+                <label for="description" class="col-sm-2 col-form-label">Opis</label>
+                <div class="col-sm-10 input-group">
+                    <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
+                        id="description" formControlName="description" placeholder="Wpisz opis"></textarea>
+
+                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                        <div *ngIf="f.description.errors.required">Pole jest puste</div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="form-group row" ngbRadioGroup name="language" formControlName="language">
+                <label for="language" class="col-sm-2 col-form-label">Język</label>
+                <div class="col-sm-10 input-group">
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" value="Polski"> Polski
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" value="Angielski"> Angielski
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">Premium</div>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input formControlName="premium" class="form-check-input checkbox" type="checkbox" id="premium">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="tags" class="col-sm-2 col-form-label">Kategorie</label>
+                <div class="col-sm-10">
+                    <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz kategorie'"
+                        [data]="tagsList" [settings]="tagsSettings">
+                    </ng-multiselect-dropdown>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="picture" class="col-sm-2 col-form-label">Obrazek</label>
+                <div class="col-sm-10">
+                    <input formControlName="pictureUrl" type="text" class="form-control" id="picture"
+                        placeholder="Podaj adres obrazka">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="image" class="col-sm-2 col-form-label">Zdjęcie</label>
+                <div class="col-sm-10">
+                    <label class="file-label" (click)="imitateFileInput()">{{fileUploadMessage}}</label>
+                    <input (change)="handleFileInput($event.target.files)" type="file" class="form-control" id="image"
+                        hidden>
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-end">
+                <button type="submit" [disabled]="loading" class="btn btn-warning" (click)="modal.close('Save click')">
+                    Usuń
+                </button>
+                <button [disabled]="loading" type="submit" class="btn btn-success" (click)="editCourse()">
+                    <div *ngIf="!loading">Zapisz</div>
+                    <div *ngIf="loading">
+                        <span class="spinner-border spinner-border-sm"></span>
+                        Ładowanie..</div>
+                </button>
+                <button type="button" [disabled]="loading" class="btn btn-danger" (click)="modal.close('Close click')">
+                    Zamknij
+                </button>
+            </div>
+        </form>
     </div>
 </ng-template>
 
