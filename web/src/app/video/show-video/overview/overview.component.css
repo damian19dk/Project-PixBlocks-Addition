@@ -1,0 +1,8 @@
+ul li {
+  display: inline;
+  text-align: justify;
+}
+
+.row {
+  margin-top: 20px;
+}

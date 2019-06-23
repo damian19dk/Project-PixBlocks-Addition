@@ -16,7 +16,7 @@ export class LoadingService {
   }
 
   unload() {
-    setTimeout(() => {this.loading = false;}, 400);
+    setTimeout(() => {this.loading = false;}, 160);
   }
 
   isLoading() {

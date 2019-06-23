@@ -1,0 +1,43 @@
+<div *ngIf="video">
+  <div class="row text-justify border-top">
+    <div class="col-3 text-justify">Tytuł:</div>
+    <div class="col-6 text-justify">
+      {{video.title}}
+    </div>
+  </div>
+
+  <div class="row text-justify border-top">
+    <div class="col-3 text-justify">Tagi:</div>
+    <div class="col-6 text-justify">
+      <span class="badge badge-dark" *ngFor="let tag of tags">{{tag}}</span>
+    </div>
+  </div>
+
+  <div class="row text-justify border-top">
+    <div class="col-3 text-justify">Szczegóły:</div>
+    <div class="col-6 text-justify">
+      <p class="row">Czas trwania: {{video.duration | minuteSeconds}}</p>
+      <p class="row">Język: {{video.language}}</p>
+      <p class="row">Napisy: brak</p>
+    </div>
+  </div>
+
+  <div class="row text-justify border-top">
+    <div class="col-3 text-justify">Opis:</div>
+
+    <div class="col-6 text-justify">
+      {{video.description}} Po przejściu Hannibala przez Alpy i zreorganizowaniu wojsk,
+      zagrożona została cała Italia.
+      Senat rzymski w obliczu niebezpieczeństwa wysłał dwie armie konsularne,
+      Publiusza Korneliusza Scypiona oraz Semproniusza Longusa,
+      które jednak zostały pokonane nad rzeką Trebią w 218 roku p.n.e.
+      Tym zwycięstwem Hannibal otworzył sobie drogę do środkowej Italii.
+      Senat zaniepokojony przebiegiem wojny powołał dwóch nowych konsulów,
+      Serwiusza Geminiusza i Flaminiusza. Starali się oni zagrodzić drogę armii punickiej przez Apeniny,
+      lecz Hannibal zupełnie zaskoczył Rzymian przeprawiając się przez bagnistą dolinę rzeki Arno.
+      Dzięki temu manewrowi zastawił pułapkę na armię konsula Flaminiusza nad Jeziorem Trazymeńskim,
+      gdzie w 217 roku p.n.e. doszło do wielkiej bitwy.
+      W jej wyniku zginęło 15.000 żołnierzy rzymskich i sam konsul.
+    </div>
+  </div>
+</div>

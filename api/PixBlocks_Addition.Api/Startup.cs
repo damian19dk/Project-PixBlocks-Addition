@@ -49,6 +49,7 @@ namespace PixBlocks_Addition.Api
             sqlSection.Bind(sqlSettings);
 
             services.AddEntityFrameworkSqlServer()
+                .AddEntityFrameworkInMemoryDatabase()
                 .AddDbContext<PixBlocksContext>()
                 .AddDbContext<RefreshTokenContext>();
 
@@ -77,7 +78,7 @@ namespace PixBlocks_Addition.Api
             services.AddAuthorization(p => p.AddPolicy("Premium", x => x.RequireClaim("Premium", "True")));
 
             services.AddOptions();
-            services.AddScoped<IAutoMapperConfig, AutoMapperConfig>();
+            services.AddSingleton<IAutoMapperConfig, AutoMapperConfig>();
             services.AddSingleton<IJwtHandler, JwtHandler>(sp =>
             {
                 var handlerOptions = sp.GetService<IOptions<JwtOptions>>();
@@ -98,6 +99,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<ILessonRepository, LessonRepository>();
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
+            services.AddScoped(typeof(IChangeMediaHandler<,>), typeof(ChangeMediaHandler<,>));
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ICourseService, CourseService>();

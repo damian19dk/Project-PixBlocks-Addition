@@ -23,21 +23,32 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task CreateVideo([FromForm]MediaResource video)
+        public async Task CreateVideo([FromForm]CreateVideoResource video)
         {
             await _videoService.CreateAsync(video);
         }
 
-        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("change")]
+        public async Task Put([FromForm]ChangeMediaResource resource)
+            => await _videoService.UpdateAsync(resource);
+
+        [HttpGet("{mediaId}")]
         public async Task<VideoDto> GetVideo(string mediaId)
         {
-            return await _videoService.GetAsync(mediaId);
+            return await _videoService.GetByMediaIdAsync(mediaId);
+        }
+
+        [HttpGet]
+        public async Task<VideoDto> GetVideo(Guid id)
+        {
+            return await _videoService.GetAsync(id);
         }
 
         [HttpGet("browse")]
         public async Task<IEnumerable<VideoDto>> Browse(string title)
         {
-            return await _videoService.BrowseAsync(title);
+            return await _videoService.GetAsync(title);
         }
 
         [HttpGet("tags")]

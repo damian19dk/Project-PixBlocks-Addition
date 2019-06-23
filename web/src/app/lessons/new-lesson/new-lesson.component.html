@@ -1,7 +1,10 @@
 <div class="container">
 
-  <div *ngIf="error" class="alert alert-danger">
+  <div *ngIf="sent && error" class="alert alert-danger">
     {{error}}
+  </div>
+  <div *ngIf="sent && !error" class="alert alert-success">
+    Lekcja została dodana pomyślnie
   </div>
 
   <form [formGroup]="newLessonForm" (ngSubmit)="createNewLesson()">
@@ -22,8 +25,8 @@
     <div class="form-group row">
       <label for="description" class="col-sm-2 col-form-label">Opis</label>
       <div class="col-sm-10 input-group">
-        <input [ngClass]="{'is-invalid' : submitted && f.description.errors}" type="text" class="form-control"
-          id="description" formControlName="description" placeholder="Wpisz opis">
+        <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control" id="description"
+          formControlName="description" placeholder="Wpisz opis"></textarea>
 
         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
           <div *ngIf="f.description.errors.required">Pole jest puste</div>
@@ -64,10 +67,20 @@
     </div>
 
     <div class="form-group row">
-      <label for="picture" class="col-sm-2 col-form-label">Zdjęcie</label>
+      <label for="picture" class="col-sm-2 col-form-label">Obrazek</label>
       <div class="col-sm-10">
-        <input formControlName="picture" type="text" class="form-control" id="picture"
+        <input formControlName="pictureUrl" type="text" class="form-control" id="picture"
           placeholder="Podaj adres obrazka">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="image" class="col-sm-2 col-form-label">Zdjęcie</label>
+      <div class="col-sm-10">
+        <label class="file-label"
+          (click)="imitateFileInput()">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+        <input [ngClass]="{'is-valid' : fileToUpload}" (change)="handleFileInput($event.target.files)" type="file"
+          class="form-control" id="image" hidden>
       </div>
     </div>
 
@@ -75,10 +88,9 @@
 
     <ng-template #rt let-r="result" let-t="term">
       <!-- <img [src]="r.picture" class="mr-1" style="width: 16px"> -->
-      <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
+      <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
+      <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
     </ng-template>
-
-
 
     <div class="form-group row">
       <label for="parentId" class="col-sm-2 col-form-label">Kurs</label>
@@ -86,7 +98,6 @@
         <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" id="parentId"
           type="text" class="form-control" [ngbTypeahead]="searchCourse" [inputFormatter]="formatter"
           [resultTemplate]="rt" placeholder="Wyszukaj kurs" />
-
 
         <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
           <div *ngIf="f.parentId.errors.required">Pole jest puste</div>

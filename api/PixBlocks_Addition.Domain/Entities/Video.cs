@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,6 +15,17 @@ namespace PixBlocks_Addition.Domain.Entities
 
         protected Video()
         {
+        }
+
+        public string Status { get; protected set; }
+
+        public void SetStatus(string status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                throw new MyException($"Invalid status name {status}.");
+            }
+            Status = status;
         }
     }
 }

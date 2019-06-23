@@ -1,26 +1,15 @@
 export class Video {
+    id: string;
     mediaId: string;
-    description: string;
-    pubDate: number;
-    tags: string;
-    image: string;
+    category: string;
+    premium: boolean;
     title: string;
-    feedId: string;
-    sources: [
-        {
-            width: number,
-            height: number,
-            type: string,
-            file: string,
-            label: string
-        }
-    ];
-    tracks: [
-        {
-            kind: string,
-            file: string
-        }
-    ];
-    link: string;
+    description: string;
+    picture: string;
     duration: number;
+    publishDate: number;
+    language: string;
+    tags: [
+      string
+    ];
 }

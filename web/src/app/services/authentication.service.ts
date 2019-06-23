@@ -1,70 +1,111 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
-import { User } from './../models/user.model';
 import { environment } from '../../environments/environment';
 import { LoadingService } from './loading.service';
+import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private origin = environment.baseUrl;
-  private currentUser: User;
+
+  private isTokenRefreshing: boolean = false;
 
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService) {
+    setInterval(() => this.autoRefresh(), 24000) // 30000ms = 5min
+  }
 
-
-    this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (this.currentUser == null) {
-      this.currentUser = new User();
-      this.setUser(null, null, false);
+  autoRefresh() {
+    if (!this.isTokenRefreshing && this.isLogged() && this.isTokenExpired()) {
+      this.isTokenRefreshing = true;
+      this.refreshToken().subscribe(
+        data => {
+          localStorage.setItem("Token", data.accessToken);
+          localStorage.setItem("TokenRefresh", data.refreshToken);
+          localStorage.setItem("TokenExpires", data.expires);
+          this.isTokenRefreshing = false;
+        }
+      )
     }
   }
 
   register(login: string, e_mail: string, password: string, roleId: number) {
-    let headers = environment.headers;
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
 
-    return this.http.post<any>(this.origin + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
   }
 
   login(login: string, password: string) {
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
 
-    let headers = environment.headers;
-
-    return this.http.post<any>(this.origin + "/api/Identity/login", { login, password }, { headers })
-      .pipe(map(user => {
-
-        this.setUser(login, user.token, true);
-
-        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
-        
-        return user;
-      }));
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/login", { login, password }, { headers });
   }
 
   logout() {
     this.loadingService.load();
-    localStorage.removeItem("currentUser");
-    this.setUser(null, null, false);
+
+    // this.cancelToken()
+    //   .subscribe(
+    //     data => {
+    //       this.clearUserData();
+    //       this.loadingService.unload();
+    //     },
+    //     error => {
+    //       this.clearUserData();
+    //       this.loadingService.unload();
+    //     }
+    //   );
+    this.clearUserData();
     this.loadingService.unload();
   }
 
-  isUserLogged() {
-    return this.currentUser.isLogged;
+  cancelToken() {
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {});
   }
 
-  getUserLogin() {
-    return this.currentUser.login;
+  refreshToken() {
+    return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh?token=" + localStorage.getItem("TokenRefresh"), {});
   }
 
-  setUser(login: string, token: string, isLogged: boolean) {
-    this.currentUser.login = login;
-    this.currentUser.token = token;
-    this.currentUser.isLogged = isLogged;
+
+
+  isLogged() {
+    return localStorage.getItem("Token") != undefined;
+  }
+
+  getLogin() {
+    return localStorage.getItem("Login");
+  }
+
+  getToken() {
+    return localStorage.getItem("Token");
+  }
+
+  getExpirationTime() {
+    return localStorage.getItem("TokenExpires") == undefined ? 5000 : (parseInt(localStorage.getItem("TokenExpires")) - Date.now());
+  }
+
+  isTokenExpired() {
+    return Date.now() > (parseInt(localStorage.getItem("TokenExpires")) * 1000);
+  }
+
+  clearUserData() {
+    localStorage.removeItem("Token");
+    localStorage.removeItem("TokenRefresh");
+    localStorage.removeItem("TokenExpires");
+    localStorage.removeItem("Login");
+  }
+
+  setUserData(token: string, tokenRefresh: string, tokenExpires: string, login: string) {
+    localStorage.setItem("Token", token);
+    localStorage.setItem("TokenRefresh", tokenRefresh);
+    localStorage.setItem("TokenExpires", tokenExpires);
+    localStorage.setItem("Login", login);
   }
 
 }

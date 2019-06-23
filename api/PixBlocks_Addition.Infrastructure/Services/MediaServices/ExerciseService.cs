@@ -21,13 +21,16 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IExerciseRepository _exerciseRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly ILessonRepository _lessonRepository;
+        private readonly IChangeMediaHandler<Exercise, Lesson> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public ExerciseService(IExerciseRepository exerciseRepository, IVideoRepository videoRepository, 
                                ILessonRepository lessonRepository, IImageHandler imageHandler, 
-                               IImageRepository imageRepository, IAutoMapperConfig config)
+                               IImageRepository imageRepository, IAutoMapperConfig config,
+                               IChangeMediaHandler<Exercise, Lesson> changeMediaHandler)
         {
             _mapper = config.Mapper;
+            _changeMediaHandler = changeMediaHandler;
             _imageHandler = imageHandler;
             _imageRepository = imageRepository;
             _exerciseRepository = exerciseRepository;
@@ -62,6 +65,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task CreateAsync(MediaResource resource)
         {
             var lesson = await _lessonRepository.GetAsync(resource.ParentId);
+            if(lesson == null)
+            {
+                throw new MyException(MyCodesNumbers.LessonNotFound, $"Lesson {resource.ParentId} not found.");
+            }
             var exercises = lesson.Exercises;
             var exerciseInCourse = exercises.FirstOrDefault(c => c.Title == resource.Title);
             if (exerciseInCourse != null)
@@ -70,15 +77,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
-            if (resource.Tags != null)
+            if (!string.IsNullOrEmpty(resource.Tags))
             {
-                resource.Tags = resource.Tags.First().Split();
-                foreach (string tag in resource.Tags)
+                var resourceTags = resource.Tags.Split(',', ';');
+                foreach (string tag in resourceTags)
                     tags.Add(new Tag(tag));
-            }
-            else
-            {
-                tags = null;
             }
 
             if (resource.Image != null)
@@ -145,5 +148,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             exercise.ExerciseVideos.Remove(exerciseVideo);
             await _exerciseRepository.UpdateAsync(exercise);
         }
+
+        public async Task UpdateAsync(ChangeMediaResource resource)
+            => await _changeMediaHandler.ChangeAsync(resource, _exerciseRepository, _lessonRepository);
+        
     }
 }

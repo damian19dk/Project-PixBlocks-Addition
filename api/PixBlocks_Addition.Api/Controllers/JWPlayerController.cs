@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,11 +35,22 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _jwPlayer.GetVideoAsync(id);
         }
 
+        [HttpGet("show")]
+        [Authorize(Policy = "Premium")]
+        public async Task<JWPlayerStatus> ShowVideo(string mediaId)
+            => await _jwPlayer.ShowVideoAsync(mediaId);
+
         [HttpGet("create")]
         public async Task<string> CreateVideo()
         {
             return await _jwPlayer.CreateVideoAsync();
         }
-
+        
+        [HttpPost("upload")]
+        public async Task<string> UploadVideo()
+        {
+            var file = Request.HasFormContentType ? Request.Form.Files.FirstOrDefault() : null;
+            return await _jwPlayer.UploadVideoAsync(file);
+        }
     }
 }

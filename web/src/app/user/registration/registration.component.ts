@@ -31,7 +31,6 @@ export class RegistrationComponent implements OnInit {
         validator: MustMatch('password', 'confirmPassword')
       });
 
-    this.authenticationService.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'login';
   }
 
@@ -47,13 +46,13 @@ export class RegistrationComponent implements OnInit {
 
     this.loading = true;
 
-    this.authenticationService.register(this.f.username.value, this.f.email.value, this.f.password.value, 3)
+    this.authenticationService.register(this.f.username.value, this.f.email.value, this.f.password.value, 2)
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error.error.message;
+          this.error = error;
           this.loading = false;
         }
       );

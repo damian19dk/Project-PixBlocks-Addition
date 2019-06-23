@@ -2,17 +2,18 @@
 using Microsoft.Extensions.Options;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Settings;
+using System;
 using System.Linq;
 
 namespace PixBlocks_Addition.Domain.Contexts
 {
-    public class PixBlocksContext : DbContext
+    public class PixBlocksContext : DbContext, ICloneable
     {
-        private readonly SqlSettings _settings;
+        private readonly IOptions<SqlSettings> _settings;
 
         public PixBlocksContext(DbContextOptions<PixBlocksContext> options, IOptions<SqlSettings> sqlSettings) : base(options)
         {
-            _settings = sqlSettings.Value;
+            _settings = sqlSettings;
         }
 
         public DbSet<CustomImage> Images { get; set; }
@@ -24,6 +25,7 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,11 +52,21 @@ namespace PixBlocks_Addition.Domain.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_settings.ConnectionString,
+            if (_settings.Value.InMemory)
+            {
+                optionsBuilder.UseInMemoryDatabase("PixBlocks");
+                return;
+            }
+            optionsBuilder.UseSqlServer(_settings.Value.ConnectionString,
                 options =>
                 {
                     options.MigrationsAssembly("PixBlocks_Addition.Api");
                 });
+        }
+
+        public object Clone()
+        {
+            return new PixBlocksContext(new DbContextOptions<PixBlocksContext>(), _settings);
         }
     }
 }

@@ -10,13 +10,12 @@ namespace PixBlocks_Addition.Infrastructure.ResourceModels
     public class MediaResource
     {
         public Guid ParentId { get; set; }
-        public string MediaId { get; set; }
         public bool Premium { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string PictureUrl { get; set; }
         public IFormFile Image { get; set; }
         public string Language { get; set; }
-        public IEnumerable<string> Tags { get; set; }
+        public string Tags { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CourseDto } from '../models/courseDto.model';
 
@@ -8,24 +8,38 @@ import { CourseDto } from '../models/courseDto.model';
 })
 export class CourseService {
 
-  private origin: string;
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http: HttpClient) {
-      this.origin = environment.baseUrl;
-     }
+  findCourseByTitle(title: string) {
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/title?title=" + title, { headers });
+  }
 
   getCourse(id: string) {
-    return this.http.get<any>(this.origin + "/api/Course/title?title=" + id);
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/?id=" + id, { headers });
   }
 
   getCourses() {
-    return this.http.get<any>(this.origin + "/api/Course/all");
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Course/all", { headers });
   }
 
-  addCourse(courseDto: CourseDto) {
-    let headers = environment.headers;
+  getCoursesPaging(page: number, count: number = 6) {
+    let headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
 
-    return this.http.post<CourseDto>(this.origin + "/api/Course/create", courseDto, { headers });
+    return this.http.get<any>(environment.baseUrl + "/api/Course/allPaging?page=" + page + "&count=" + count, { headers });
+  }
+
+  addCourse(courseDto: any) {
+    let headers = new HttpHeaders()
+    return this.http.post<any>(environment.baseUrl + "/api/Course/create", courseDto, { headers });
   }
 }

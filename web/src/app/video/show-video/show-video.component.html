@@ -1,0 +1,24 @@
+<div *ngIf="video">
+
+    <div *ngIf="error" class="alert alert-danger">
+        {{error}}
+    </div>
+
+    <div *ngIf="!error">
+
+        <div class="embed-responsive embed-responsive-21by9 " id="video-field">
+            <iframe class="embed-responsive-item justify-content-md-center" id="video" allowfullscreen="allowfullscreen"
+                mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
+                oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"
+                [src]="video.link | safe">
+            </iframe>
+        </div>
+
+        <div>
+            <span class="video-title">{{video.title}}</span>
+            <div class="video-description">{{video.description}} To jest bardzo krótki opis, ale jeszcze nie mam pojęcia, czego</div>
+        </div>
+
+    </div>
+
+</div>
