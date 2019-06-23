@@ -2,4 +2,31 @@
     margin-top: 20px;
     font-family: 'Oswald', sans-serif;
     text-align: center;
+   /* background-color: #eceff1; */
+}
+.page-footers {
+    border-top: solid;
+    border-color: #696969;
+    background-color: #eceff1;
+}
+.btn-fb {
+    background-color: #3c5a99;
+    border-radius: 50%;
+}
+.btn-yt {
+    background-color:#FF0000;
+    border-radius: 50%;
+}
+.btn-li {
+    background-color: #0077B5;
+}
+.fab {
+    margin-top: 1px;
+}
+.btns {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.img-fluid {
+    margin-top: 1%;
 }
