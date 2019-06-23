@@ -27,7 +27,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var entity = await mediaRepository.GetAsync(resource.Id);
             if (entity == null)
             {
-                throw new MyException($"Media with id {resource.Id} not found. Create the media first.");
+                throw new MyException(MyCodesNumbers.MediaNotFound, $"Nie znaleziono media o id: {resource.Id}. Wpierw stwórz media");
             }
             if (entity.Title != resource.Title)
             {
@@ -37,9 +37,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 else
                     sameTitle = await parentRepository.GetAsync(resource.Title);
 
-                if (sameTitle.Count() > 0)
+                if (sameTitle != null && sameTitle.Count() > 0)
                 {
-                    throw new MyException($"There is already a media with title {resource.Title}.");
+                    throw new MyException(MyCodesNumbers.SameTitleMedia, $"Istnieje już media o tytule: {resource.Title}.");
                 }
                 entity.SetTitle(resource.Title);
             }
@@ -49,22 +49,22 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 entity.SetLanguage(resource.Language);
             if (resource.Premium != entity.Premium)
                 entity.SetPremium(resource.Premium);
-
-            if (resource.Tags != null)
+            
+            if (!string.IsNullOrEmpty(resource.Tags))
             {
-                resource.Tags = resource.Tags.First().Replace("\"", string.Empty).Replace("\\", string.Empty).Split(',', ' ');
+                var tags = resource.Tags.Split(',', ';');
                 //Remove tags
                 ISet<Tag> tagsToRemove = new HashSet<Tag>();
                 foreach (var tag in entity.Tags)
                 {
-                    if (!resource.Tags.Contains(tag.Name))
+                    if (!tags.Contains(tag.Name))
                     {
                         tagsToRemove.Add(tag);
                     }
                 }
                 await mediaRepository.RemoveTagsAsync(entity, tagsToRemove);
                 //Add tags
-                foreach (var tag in resource.Tags)
+                foreach (var tag in tags)
                 {
                     if (!entity.Tags.Any(t => t.Name == tag))
                     {
@@ -74,7 +74,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
             else
             {
-                await mediaRepository.RemoveTagsAsync(entity, entity.Tags);
+                await mediaRepository.RemoveAllTagsAsync(entity);
             }
 
             //Add picture from url
