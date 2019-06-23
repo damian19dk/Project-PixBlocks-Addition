@@ -9,7 +9,7 @@ export class TagService {
   private tagSettingsForMultiselect: any;
 
   constructor() {
-    this.allTags = ["Haskell", "Java", "Ruby"]; // zamockowane dane
+    this.allTags = ["Haskell", "Java", "Ruby", "Python", "Kotlet schabowy", "WebDevelop", "Systemy operacyjne", "JavaScript"].sort(); // zamockowane dane
     this.tagSettingsForMultiselect = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',
@@ -27,5 +27,13 @@ export class TagService {
 
   getTagSettingsForMultiselect() {
     return this.tagSettingsForMultiselect;
+  }
+
+  toTagsList(tags: any) {
+    return tags.join().split(' ');
+  }
+
+  toTagsString(tags: any) {
+    return tags.join();
   }
 }

@@ -2,6 +2,7 @@
   background-color: #444444;
   width: 100%;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 #video {
@@ -11,24 +12,19 @@
   min-height: 100%;
 }
 
-ul li {
-  display: inline;
-  text-align: center;
-}
-
-.toogle-button {
-  transition: 0.5s background-color 0.5s color;
-}
-
-.toogle-button:hover {
-  background-color: #444444;
-  color: #ffffff;
-}
-
 .video-title {
-  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.video-description {
+.video-title div {
+  font-size: 24px;
+  font-weight: bold;
+}
 
+.video-description , .video-description div {
+  margin-top: 10px;
+}
+
+.fas {
+  margin-right: 6px;
 }

@@ -1,5 +1,6 @@
 export class CourseDto {
     parentId: string;
+    id: string;
     mediaId: string;
     premium: boolean;
     title: string;
