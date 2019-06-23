@@ -8,9 +8,14 @@
     padding: 6px 12px;
     cursor: pointer;
 }
+.btn-success {
+    margin-right: 15px;
+}
 .film-row {
     border-bottom: solid;
-} /*
+    margin-right: 50%;
+}
+/*
 .display-4 {
     border-bottom: solid;
 }
