@@ -3,7 +3,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({
+    templateUrl: 'login.component.html',
+    styleUrls: ['./login.component.css'] 
+})
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading: boolean;

@@ -1,20 +1,47 @@
+<ng-template #editModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Edytuj kurs</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body input-group container">
+        <div class="row">
+            <span class="input-group-text">Tytuł:</span><input type="text" value={{course.title}} />
+        </div>
+        <div class="row">
+            <span class="input-group-text">Opis:</span><input value={{course.description}} />
+        </div>
+        <div class="row">
+            <span class="input-group-text">Czas trwania:</span><input value={{course.duration}} />
+        </div>
+    </div>
+    <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-warning" (click)="modal.close('Save click')">Usuń</button>
+        <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Zapisz</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Zamknij</button>
+    </div>
+</ng-template>
+
+
 <div *ngIf="course" class="card mb-4 bg-white box-shadow">
 
-  <div class="card-header text-center">
-      {{course.title}}
-  </div>
+    <div class="card-header text-center">
+        {{course.title}}
+    </div>
 
-  <div class="card-box">
-      <img class="card-img-top align-middle mx-auto d-block" src={{course.picture}} alt="Tu miał być kurs" />
-  </div>
+    <div class="card-box">
+        <img class="card-img-top align-middle mx-auto d-block" src={{course.picture}} alt="Tu miał być kurs" />
+    </div>
 
-  <div class="card-body">
-      <p class="card-text">{{course.description}}</p>
+    <div class="card-body">
+        <p class="card-text">{{course.description}}</p>
 
-      <div class="d-flex justify-content-between align-items-center">
-          <small>{{course.duration | minuteSeconds}}</small>
-          <button type="button" class="btn btn-sm btn-outline-primary">Edytuj</button>
-      </div>
-  </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <small>{{course.duration | minuteSeconds}}</small>
+            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openVerticallyCentered(editModal)"><i
+                    class="fas fa-edit"></i>Edytuj</button>
+        </div>
+    </div>
 
 </div>
