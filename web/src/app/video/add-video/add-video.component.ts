@@ -80,7 +80,7 @@ export class AddVideoComponent implements OnInit {
     this.videoDto.tags != null ? formData.append('tags', this.videoDto.tags.join(" ")) : null;
 
 
-    this.videoService.addVideo(formData)
+    this.videoService.add(formData)
       .subscribe(
         data => {
           this.sent = true;

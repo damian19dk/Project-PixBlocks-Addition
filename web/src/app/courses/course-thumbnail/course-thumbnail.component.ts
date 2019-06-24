@@ -94,7 +94,7 @@ export class CourseThumbnailComponent implements OnInit {
     this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags.join(" ")) : null;
 
 
-    this.courseService.updateCourse(formData)
+    this.courseService.update(formData)
       .subscribe(
         data => {
           this.sent = true;

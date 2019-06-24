@@ -68,7 +68,7 @@ export class NewLessonComponent implements OnInit {
   getCourses() {
     this.loadingService.load();
 
-    this.courseService.getCourses().subscribe(
+    this.courseService.getAll().subscribe(
       (data: []) => {
         this.courses = data;
         this.loadingService.unload();
@@ -105,7 +105,7 @@ export class NewLessonComponent implements OnInit {
     this.lessonDto.language != null ? formData.append('language', this.lessonDto.language) : null;
     this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags.join(" ")) : null;
 
-    this.lessonService.addLesson(formData)
+    this.lessonService.add(formData)
       .subscribe(
         data => {
           this.sent = true;

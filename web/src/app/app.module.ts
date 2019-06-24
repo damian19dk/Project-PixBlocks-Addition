@@ -13,7 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './error-pages/page-not-found/page-not-found.component';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthService } from './services/auth.service';
 import { UnauthorizedComponent } from './error-pages/unauthorized/unauthorized.component';
 import { AddVideoComponent } from './video/add-video/add-video.component';
 import { VideoBrowseComponent } from './video/video-browse/video-browse.component';
@@ -94,7 +94,7 @@ const routes: Routes = [
     ReactiveFormsModule,
   ],
   providers: [
-    AuthenticationService,
+    AuthService,
     VideoService,
     CourseService,
     LessonService,

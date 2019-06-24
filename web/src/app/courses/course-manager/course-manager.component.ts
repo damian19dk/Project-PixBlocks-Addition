@@ -24,7 +24,7 @@ export class CourseManagerComponent implements OnInit {
 
   getCourse() {
     this.loadingService.load();
-    this.courseService.getCourse("Sto twarzy grzybiarzy")
+    this.courseService.getOne("Sto twarzy grzybiarzy")
       .subscribe(
         (data: Course) => {
           this.course = data;

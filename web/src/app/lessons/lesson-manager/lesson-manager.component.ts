@@ -24,7 +24,7 @@ export class LessonManagerComponent implements OnInit {
 
   getCourse() {
     this.loadingService.load();
-    this.lessonService.getLesson("Sto twarzy grzybiarzy")
+    this.lessonService.getOne("Sto twarzy grzybiarzy")
       .subscribe(
         (data: Lesson) => {
           this.lesson = data;

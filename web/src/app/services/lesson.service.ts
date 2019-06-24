@@ -1,26 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { LessonDto } from '../models/lessonDto.model';
+import { DataService } from './data.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LessonService {
+export class LessonService extends DataService {
 
-  constructor(private http: HttpClient) {}
-
-  getLesson(id: string) {
-    let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
-
-    return this.http.get<any>(environment.baseUrl + "/api/Lesson/title?title=" + id, { headers });
+  constructor(protected http: HttpClient) {
+    super("Lesson", http);
   }
 
-  addLesson(lessonDto: any) {
-    let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
-
-    return this.http.post<LessonDto>(environment.baseUrl + "/api/Lesson/create", lessonDto, { headers });
-  }
 }

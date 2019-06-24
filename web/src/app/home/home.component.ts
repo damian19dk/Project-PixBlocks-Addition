@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../services/video.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private videoService: VideoService,
     private loadingService: LoadingService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthService) { }
 
   ngOnInit() {
     if (this.authenticationService.isLogged()) {

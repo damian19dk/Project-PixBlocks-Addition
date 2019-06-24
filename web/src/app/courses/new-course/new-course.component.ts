@@ -80,7 +80,7 @@ export class NewCourseComponent implements OnInit {
     this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags.join(" ")) : null;
 
 
-    this.courseService.addCourse(formData)
+    this.courseService.add(formData)
       .subscribe(
         data => {
           this.sent = true;

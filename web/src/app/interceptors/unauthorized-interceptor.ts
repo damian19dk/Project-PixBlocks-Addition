@@ -1,9 +1,9 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
-import { AuthenticationService } from '../services/authentication.service';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
 
     constructor(public route: ActivatedRoute,
         public router: Router,
-        public authenticationService: AuthenticationService,
+        public authenticationService: AuthService,
         public loadingService: LoadingService,
         public http: HttpClient) {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'unauthorized';
@@ -31,8 +31,6 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
                     }
 
                     this.authenticationService.clearUserData();
-
-
                     this.router.navigate([this.returnUrl]);
                 }
 
