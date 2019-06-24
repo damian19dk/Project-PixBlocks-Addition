@@ -48,7 +48,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideoInCourse);
+                throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
             }
 
             course.CourseVideos.Add(new CourseVideo(course.Id, video));
@@ -59,7 +59,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             if(resource.Title==null)
             {
-                throw new MyException(MyCodesNumbers.InvalidTitle, "Tytuł nie może być pusty!");
+                throw new MyException(MyCodesNumbers.InvalidTitle, MyCodes.EmptyTitle);
             }
             var c = await _courseRepository.GetAsync(resource.Title);
             if (c.Count() > 0)

@@ -55,7 +55,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var sameVideo = exercise.ExerciseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideoInExercise);
+                throw new MyException(MyCodesNumbers.SameVideoInExercise, MyCodes.SameVideoInExercise);
             }
 
             exercise.ExerciseVideos.Add(new ExerciseVideo(exercise.Id, video));
@@ -122,7 +122,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exercise = await _exerciseRepository.GetAsync(id);
             if (exercise == null)
             {
-                throw new MyException($"Nie znaleziono ćwiczenia o id {id}.");
+                throw new MyException(MyCodes.ExerciseNotFound, $"Nie znaleziono ćwiczenia o id {id}.");
             }
             if (exercise.ExerciseVideos!= null && exercise.ExerciseVideos.Count > 0)
             {

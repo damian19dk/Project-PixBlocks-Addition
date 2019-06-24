@@ -53,16 +53,28 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (string.IsNullOrEmpty(title))
             {
-                throw new MyException(MyCodesNumbers.InvalidTitle, "The title cannot be null or empty.");
+                throw new MyException(MyCodesNumbers.EmptyTitle, MyCodes.EmptyTitle);
             }
-            if (title.Length < 3 || title.Length > 250)
+            if (title.Length < 3)
             {
-                throw new MyException(MyCodesNumbers.InvalidTitle, "The title must be between 3 and 250 characters.");
+                throw new MyException(MyCodesNumbers.TooShortTitle, MyCodes.TooShortTitle);
+            }
+            if (title.Length > 250)
+            {
+                throw new MyException(MyCodesNumbers.TooLongTitle, MyCodes.TooLongTitle);
             }
             Title = title;
         }
         public void SetDescription(string description)
         {
+            if (description.Length < 3)
+            {
+                throw new MyException(MyCodesNumbers.TooShortDescription, MyCodes.TooShortDescription);
+            }
+            if (description.Length > 1000)
+            {
+                throw new MyException(MyCodesNumbers.TooLongDescription, MyCodes.TooLongDescription);
+            }
             Description = description;
         }
         public void SetPicture(string src)
@@ -70,14 +82,14 @@ namespace PixBlocks_Addition.Domain.Entities
             Guid result;
             if (!string.IsNullOrEmpty(src) && !Guid.TryParse(src, out result))
                 if (!regex_url.IsMatch(src))
-                    throw new MyException(MyCodesNumbers.InvalidPictureSrc, $"The picture source must be a Guid or url.");
+                    throw new MyException(MyCodesNumbers.InvalidPictureSrc, MyCodes.InvalidPicSource);
             Picture = src;
         }
         public void SetDuration(long length)
         {
             if(length<0)
             {
-                throw new MyException(MyCodesNumbers.InvalidDuration, "Duration cannot negative.");
+                throw new MyException(MyCodesNumbers.InvalidDuration, MyCodes.InvalidDuration);
             }
             Duration = length;
         }
@@ -85,15 +97,19 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if(string.IsNullOrWhiteSpace(lang))
             {
-                throw new MyException(MyCodesNumbers.InvalidLanguage, "Language cannot be null or empty.");
+                throw new MyException(MyCodesNumbers.EmptyLanguage, MyCodes.EmptyLanguageTitle);
             }
             if(!regex_language.IsMatch(lang))
             {
-                throw new MyException(MyCodesNumbers.InvalidLanguage, "Language contains illegal characters.");
+                throw new MyException(MyCodesNumbers.InvalidLanguage, MyCodes.WrongCharactersInLanguage);
             }
-            if(lang.Length < 2 || lang.Length > 60)
+            if(lang.Length < 2)
             {
-                throw new MyException(MyCodesNumbers.InvalidLanguage, "Language must be between 2 and 60 characters.");
+                throw new MyException(MyCodesNumbers.TooShortLanguage, MyCodes.TooShortLanguage);
+            }
+            if (lang.Length > 60)
+            {
+                throw new MyException(MyCodesNumbers.TooLongLanguage, MyCodes.TooLongLanguage);
             }
             Language = lang;
         }
