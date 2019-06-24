@@ -133,7 +133,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             catch (Exception)
             {
-                throw new MyException("Couldn't load the specific resource " + url);
+                throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
             }
         }
     }

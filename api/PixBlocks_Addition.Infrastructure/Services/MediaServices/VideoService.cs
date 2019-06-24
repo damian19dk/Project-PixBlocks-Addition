@@ -43,19 +43,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
                 if (videoFromDatabase != null)
                 {
-                    throw new MyException(MyCodesNumbers.SameVideo, $"Video with mediaId: {video.MediaId} already exists.");
+                    throw new MyException(MyCodesNumbers.SameVideo, $"Wideo o id: {video.MediaId} istnieje!");
                 }
                 var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
                 if(response == null)
                 {
-                    throw new MyException($"Video with mediaId: {video.MediaId} not found.");
+                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o id:{video.MediaId}!");
                 }
             }
             else
             {
                 if(video.Video == null)
                 {
-                    throw new MyException(MyCodesNumbers.MissingFile, "Video file is missing.");
+                    throw new MyException(MyCodesNumbers.MissingFile, "Nie znaleziono wideo!");
                 }
 
                 video.MediaId = await _jwPlayerService.UploadVideoAsync(video.Video);
