@@ -71,7 +71,7 @@ namespace PixBlocks_Addition.Domain.Entities
             {
                 throw new MyException(MyCodesNumbers.TooShortDescription, MyCodes.TooShortDescription);
             }
-            if (description.Length > 1000)
+            if (description.Length > 10000)
             {
                 throw new MyException(MyCodesNumbers.TooLongDescription, MyCodes.TooLongDescription);
             }
