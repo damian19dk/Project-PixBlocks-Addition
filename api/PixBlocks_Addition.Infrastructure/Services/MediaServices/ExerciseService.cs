@@ -24,8 +24,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IChangeMediaHandler<Exercise, Lesson> _changeMediaHandler;
         private readonly IMapper _mapper;
 
-        public ExerciseService(IExerciseRepository exerciseRepository, IVideoRepository videoRepository, 
-                               ILessonRepository lessonRepository, IImageHandler imageHandler, 
+        public ExerciseService(IExerciseRepository exerciseRepository, IVideoRepository videoRepository,
+                               ILessonRepository lessonRepository, IImageHandler imageHandler,
                                IImageRepository imageRepository, IAutoMapperConfig config,
                                IChangeMediaHandler<Exercise, Lesson> changeMediaHandler)
         {
@@ -65,7 +65,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task CreateAsync(MediaResource resource)
         {
             var lesson = await _lessonRepository.GetAsync(resource.ParentId);
-            if(lesson == null)
+            if (lesson == null)
             {
                 throw new MyException(MyCodesNumbers.LessonNotFound, $"Lesson {resource.ParentId} not found.");
             }
@@ -125,6 +125,20 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
+            var exercise = await _exerciseRepository.GetAsync(id);
+            if (exercise == null)
+            {
+                throw new MyException($"Nie znaleziono ćwiczenia o id {id}.");
+            }
+            if (exercise.ExerciseVideos!= null && exercise.ExerciseVideos.Count > 0)
+            {
+                exercise.ExerciseVideos.Clear();
+                await _exerciseRepository.UpdateAsync(exercise);
+            }
+            if (exercise.Tags != null && exercise.Tags.Count > 0)
+            {
+                await _exerciseRepository.RemoveAllTagsAsync(exercise);
+            }
             await _exerciseRepository.RemoveAsync(id);
         }
 
@@ -151,6 +165,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task UpdateAsync(ChangeMediaResource resource)
             => await _changeMediaHandler.ChangeAsync(resource, _exerciseRepository, _lessonRepository);
-        
+
     }
 }

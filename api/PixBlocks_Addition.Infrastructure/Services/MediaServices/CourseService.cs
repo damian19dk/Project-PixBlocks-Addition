@@ -40,7 +40,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
             if (video == null)
             {
-                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {video.MediaId}. Wpierw stwórz wideo.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {upload.MediaId}. Wpierw stwórz wideo.");
             }
 
             var course = await tryGetCourseAsync(upload.ParentId);
@@ -132,7 +132,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         }
 
         public async Task RemoveAsync(Guid id)
-            => await _courseRepository.RemoveAsync(id);
+        {
+            var course = await tryGetCourseAsync(id);
+            if(course.CourseVideos != null && course.CourseVideos.Count > 0)
+            {
+                course.CourseVideos.Clear();
+                await _courseRepository.UpdateAsync(course);
+            }
+            if (course.Tags != null && course.Tags.Count > 0)
+            {
+                await _courseRepository.RemoveAllTagsAsync(course);
+            }
+            await _courseRepository.RemoveAsync(id);
+        }
 
         public async Task RemoveAsync(string title)
             => await _courseRepository.RemoveAsync(title);
