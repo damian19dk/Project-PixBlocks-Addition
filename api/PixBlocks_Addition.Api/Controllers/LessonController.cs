@@ -47,6 +47,13 @@ namespace PixBlocks_Addition.Api.Controllers
             await _lessonService.RemoveVideoFromLessonAsync(lessonId, videoId);
         }
 
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete]
+        public async Task Remove(Guid lessonId)
+        {
+            await _lessonService.RemoveAsync(lessonId);
+        }
+
         [HttpGet]
         public async Task<LessonDto> Get(Guid id)
         {
