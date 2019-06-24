@@ -27,10 +27,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
                      .Include(c => c.Tags)
                      .Where(x => x.Title == name).ToListAsync();
 
-        public async Task<IEnumerable<Exercise>> GetAllAsync()
-            => await _entities.Exercises.Include(c => c.ExerciseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                     .Include(c => c.Tags).ToListAsync();
-
         public async Task<IEnumerable<Exercise>> GetAllAsync(int page, int count = 10)
             => await _entities.Exercises.Include(c => c.ExerciseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                     .Include(c => c.Tags).Skip((page - 1) * count).Take(count).ToListAsync();
