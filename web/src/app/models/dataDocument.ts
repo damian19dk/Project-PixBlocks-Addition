@@ -1,4 +1,4 @@
-export class Video {
+export class DataDocument {
     id: string;
     mediaId: string;
     category: string;
@@ -7,9 +7,9 @@ export class Video {
     description: string;
     picture: string;
     duration: number;
-    publishDate: number;
+    publishDate: string;
     language: string;
     tags: [
-      string
+        string
     ];
 }

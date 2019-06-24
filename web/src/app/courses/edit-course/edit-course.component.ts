@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
+import { CourseDocument } from 'src/app/models/courseDocument.model';
 import { CourseService } from 'src/app/services/course.service';
 import { LoadingService } from 'src/app/services/loading.service';
 
@@ -12,7 +12,7 @@ export class EditCourseComponent implements OnInit {
 
   page: number = 1;
 
-  courses: Course[];
+  courses: CourseDocument[];
   error: string;
 
   constructor(
@@ -27,7 +27,7 @@ export class EditCourseComponent implements OnInit {
     this.loadingService.load();
 
     this.courseService.getAllPaging(this.page).subscribe(
-      (data: Course[]) => {
+      (data: CourseDocument[]) => {
         this.courses = data;
         this.loadingService.unload();
         },

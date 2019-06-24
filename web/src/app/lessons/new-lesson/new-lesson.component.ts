@@ -6,7 +6,7 @@ import { TagService } from 'src/app/services/tag.service';
 import { CourseService } from 'src/app/services/course.service';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
-import { Course } from 'src/app/models/course.model';
+import { CourseDocument } from 'src/app/models/courseDocument.model';
 import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
@@ -96,14 +96,14 @@ export class NewLessonComponent implements OnInit {
     let formData = new FormData();
     
     this.lessonDto.parentId != null ? formData.append('parentId', this.lessonDto.parentId) : null;
-    this.lessonDto.mediaId != null ? formData.append('mediaId', this.lessonDto.mediaId) : null;
+    this.lessonDto.id != null ? formData.append('id', this.lessonDto.id) : null;
     this.lessonDto.premium != null ? formData.append('premium', String(this.lessonDto.premium)) : null;
     this.lessonDto.title != null ? formData.append('title', this.lessonDto.title) : null;
     this.lessonDto.description != null ? formData.append('description', this.lessonDto.description) : null;
     this.lessonDto.pictureUrl != null ? formData.append('pictureUrl', this.lessonDto.pictureUrl) : null;
     this.lessonDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.lessonDto.language != null ? formData.append('language', this.lessonDto.language) : null;
-    this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags.join(" ")) : null;
+    this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags) : null;
 
     this.lessonService.add(formData)
       .subscribe(
@@ -131,7 +131,7 @@ export class NewLessonComponent implements OnInit {
     );
 
 
-  formatter = (x: Course) =>
+  formatter = (x: CourseDocument) =>
     x.title;
 
   handleFileInput(files: FileList) {

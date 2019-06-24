@@ -70,14 +70,14 @@ export class AddVideoComponent implements OnInit {
     let formData = new FormData();
 
     this.videoDto.parentId != null ? formData.append('parentId', this.videoDto.parentId) : null;
-    this.videoDto.mediaId != null ? formData.append('mediaId', this.videoDto.mediaId) : null;
+    this.videoDto.id != null ? formData.append('id', this.videoDto.id) : null;
     this.videoDto.premium != null ? formData.append('premium', String(this.videoDto.premium)) : null;
     this.videoDto.title != null ? formData.append('title', this.videoDto.title) : null;
     this.videoDto.description != null ? formData.append('description', this.videoDto.description) : null;
     this.videoDto.pictureUrl != null ? formData.append('pictureUrl', this.videoDto.pictureUrl) : null;
     this.videoDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.videoDto.language != null ? formData.append('language', this.videoDto.language) : null;
-    this.videoDto.tags != null ? formData.append('tags', this.videoDto.tags.join(" ")) : null;
+    this.videoDto.tags != null ? formData.append('tags', this.videoDto.tags) : null;
 
 
     this.videoService.add(formData)

@@ -21,7 +21,7 @@
 
             <div class="row col-12 text-justify">
                 <div class="col-3 text-justify">
-                    <span><i class="fas fa-tags fa-2x"></i></span>
+                    <span placement="left" ngbTooltip="Tagi"><i class="fas fa-tags fa-2x"></i></span>
                     <ng-container>
                         <span *ngFor="let tag of tags" class="badge badge-dark">{{tag}}</span>
                     </ng-container>
@@ -30,14 +30,14 @@
 
             <div class="row col-12 text-justify">
                 <div class="col-3 text-justify">
-                    <span><i class="fas fa-clock fa-2x"></i></span>
+                    <span placement="left" ngbTooltip="Czas trwania"><i class="fas fa-clock fa-2x"></i></span>
                     <span class="font-weight-bold">{{video.duration | minuteSeconds}}</span>
                 </div>
             </div>
 
             <div class="row col-12 text-justify">
                 <div class="col-3 text-justify align-self-center">
-                    <span><i class="fas fa-language fa-2x"></i></span>
+                    <span placement="left" ngbTooltip="Język"><i class="fas fa-language fa-2x"></i></span>
                     <span
                         class="font-weight-bold">{{video.language == null ? 'Brak informacji' : video.language}}</span>
                 </div>

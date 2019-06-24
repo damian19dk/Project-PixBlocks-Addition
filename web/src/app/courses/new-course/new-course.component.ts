@@ -70,15 +70,17 @@ export class NewCourseComponent implements OnInit {
     let formData = new FormData();
 
     this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
-    this.courseDto.mediaId != null ? formData.append('mediaId', this.courseDto.mediaId) : null;
+    this.courseDto.id != null ? formData.append('id', this.courseDto.id) : null;
     this.courseDto.premium != null ? formData.append('premium', String(this.courseDto.premium)) : null;
     this.courseDto.title != null ? formData.append('title', this.courseDto.title) : null;
     this.courseDto.description != null ? formData.append('description', this.courseDto.description) : null;
     this.courseDto.pictureUrl != null ? formData.append('pictureUrl', this.courseDto.pictureUrl) : null;
     this.courseDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.courseDto.language != null ? formData.append('language', this.courseDto.language) : null;
-    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags.join(" ")) : null;
+    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags) : null;
 
+
+    console.log(CourseDto)
 
     this.courseService.add(formData)
       .subscribe(

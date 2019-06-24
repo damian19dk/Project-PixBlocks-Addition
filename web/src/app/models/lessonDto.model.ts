@@ -1,13 +1,4 @@
-export class LessonDto {
-    parentId: string;
-    mediaId: string;
-    premium: boolean;
-    title: string;
-    description: string;
-    pictureUrl: string;
-    image: any;
-    language: string;
-    tags: [
-        string
-    ];
+import { DataDto } from './dataDto';
+
+export class LessonDto extends DataDto {
 }

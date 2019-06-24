@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
+import { CourseDocument } from 'src/app/models/courseDocument.model';
 import { ImageService } from 'src/app/services/image.service';
 import { environment } from 'src/environments/environment.prod';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,7 @@ import { TagService } from 'src/app/services/tag.service';
 })
 export class CourseThumbnailComponent implements OnInit {
 
-  @Input() course: Course;
+  @Input() course: CourseDocument;
   image: any;
   error: string;
   
@@ -91,7 +91,7 @@ export class CourseThumbnailComponent implements OnInit {
     this.courseDto.pictureUrl != null ? formData.append('pictureUrl', this.courseDto.pictureUrl) : null;
     this.courseDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.courseDto.language != null ? formData.append('language', this.courseDto.language) : null;
-    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags.join(" ")) : null;
+    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags) : null;
 
 
     this.courseService.update(formData)
