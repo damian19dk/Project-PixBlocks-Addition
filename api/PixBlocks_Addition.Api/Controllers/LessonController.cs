@@ -49,9 +49,9 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpDelete]
-        public async Task Remove(Guid lessonId)
+        public async Task Remove(Guid Id)
         {
-            await _lessonService.RemoveAsync(lessonId);
+            await _lessonService.RemoveAsync(Id);
         }
 
         [HttpGet]
