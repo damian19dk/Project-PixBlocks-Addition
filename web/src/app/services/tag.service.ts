@@ -30,7 +30,7 @@ export class TagService {
   }
 
   toTagsList(tags: any) {
-    return tags.join().split(' ');
+    return tags.join().split(',');
   }
 
   toTagsString(tags: any) {

@@ -18,7 +18,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   search() {
-    this.courseService.findCourseByTitle(this.searchPhrase).pipe(
+    this.courseService.findByTitle(this.searchPhrase).pipe(
       debounceTime(400)
       ).subscribe(
       data => {

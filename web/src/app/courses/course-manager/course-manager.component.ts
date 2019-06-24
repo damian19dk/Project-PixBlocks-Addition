@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../services/course.service';
-import { Course } from '../../models/course.model';
+import { CourseDocument } from '../../models/courseDocument.model';
 import { LoadingService } from '../../services/loading.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class CourseManagerComponent implements OnInit {
 
-  course: Course;
+  course: CourseDocument;
   error: string;
   isNewCourseSelected: boolean;
 
@@ -24,9 +24,9 @@ export class CourseManagerComponent implements OnInit {
 
   getCourse() {
     this.loadingService.load();
-    this.courseService.getCourse("Sto twarzy grzybiarzy")
+    this.courseService.getOne("Sto twarzy grzybiarzy")
       .subscribe(
-        (data: Course) => {
+        (data: CourseDocument) => {
           this.course = data;
           this.loadingService.unload();
         },

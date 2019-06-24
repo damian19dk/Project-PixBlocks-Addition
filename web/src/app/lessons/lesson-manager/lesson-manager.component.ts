@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LessonService } from 'src/app/services/lesson.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import { Lesson } from 'src/app/models/lesson.model';
+import { LessonDocument } from 'src/app/models/lessonDocument.model';
 
 @Component({
   selector: 'app-lesson-manager',
@@ -10,7 +10,7 @@ import { Lesson } from 'src/app/models/lesson.model';
 })
 export class LessonManagerComponent implements OnInit {
 
-  lesson: Lesson;
+  lesson: LessonDocument;
   error: string;
   isNewLessonSelected: boolean;
 
@@ -24,9 +24,9 @@ export class LessonManagerComponent implements OnInit {
 
   getCourse() {
     this.loadingService.load();
-    this.lessonService.getLesson("Sto twarzy grzybiarzy")
+    this.lessonService.getOne("Sto twarzy grzybiarzy")
       .subscribe(
-        (data: Lesson) => {
+        (data: LessonDocument) => {
           this.lesson = data;
           this.loadingService.unload();
         },

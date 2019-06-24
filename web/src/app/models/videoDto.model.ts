@@ -1,13 +1,6 @@
-export class Video {
-    parentId: string;
+import { DataDto } from './dataDto';
+
+export class VideoDto extends DataDto {
     mediaId: string;
-    premium: boolean;
-    title: string;
-    description: string;
-    pictureUrl: string;
-    image: any;
-    language: string;
-    tags: [
-        string
-    ];
+    video: any;
 }

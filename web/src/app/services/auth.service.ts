@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoadingService } from './loading.service';
-import { retry } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthService {
 
   private isTokenRefreshing: boolean = false;
 
@@ -48,18 +47,6 @@ export class AuthenticationService {
 
   logout() {
     this.loadingService.load();
-
-    // this.cancelToken()
-    //   .subscribe(
-    //     data => {
-    //       this.clearUserData();
-    //       this.loadingService.unload();
-    //     },
-    //     error => {
-    //       this.clearUserData();
-    //       this.loadingService.unload();
-    //     }
-    //   );
     this.clearUserData();
     this.loadingService.unload();
   }
@@ -93,7 +80,7 @@ export class AuthenticationService {
   isTokenExpired() {
     return Date.now() > (parseInt(localStorage.getItem("TokenExpires")) * 1000);
   }
-
+  
   clearUserData() {
     localStorage.removeItem("Token");
     localStorage.removeItem("TokenRefresh");

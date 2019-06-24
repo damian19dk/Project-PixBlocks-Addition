@@ -5,9 +5,9 @@ import { LessonService } from 'src/app/services/lesson.service';
 import { TagService } from 'src/app/services/tag.service';
 import { CourseService } from 'src/app/services/course.service';
 import { Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
-import { Course } from 'src/app/models/course.model';
-import { LoadingService } from 'src/app/services/loading.service';
+import { debounceTime } from 'rxjs/operators';
+import { CourseDocument } from 'src/app/models/courseDocument.model';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-lesson',
@@ -33,8 +33,7 @@ export class NewLessonComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private lessonService: LessonService,
     private tagService: TagService,
-    private courseService: CourseService,
-    private loadingService: LoadingService) { }
+    private courseService: CourseService) { }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
@@ -57,28 +56,10 @@ export class NewLessonComponent implements OnInit {
       pictureUrl: [null],
       image: [null]
     });
-
-    this.getCourses();
-
   }
 
 
   get f() { return this.newLessonForm.controls; }
-
-  getCourses() {
-    this.loadingService.load();
-
-    this.courseService.getCourses().subscribe(
-      (data: []) => {
-        this.courses = data;
-        this.loadingService.unload();
-      },
-      error => {
-        this.error = error;
-        this.loadingService.unload();
-      }
-    );
-  }
 
   createNewLesson() {
     this.submitted = true;
@@ -96,16 +77,16 @@ export class NewLessonComponent implements OnInit {
     let formData = new FormData();
     
     this.lessonDto.parentId != null ? formData.append('parentId', this.lessonDto.parentId) : null;
-    this.lessonDto.mediaId != null ? formData.append('mediaId', this.lessonDto.mediaId) : null;
+    this.lessonDto.id != null ? formData.append('id', this.lessonDto.id) : null;
     this.lessonDto.premium != null ? formData.append('premium', String(this.lessonDto.premium)) : null;
     this.lessonDto.title != null ? formData.append('title', this.lessonDto.title) : null;
     this.lessonDto.description != null ? formData.append('description', this.lessonDto.description) : null;
     this.lessonDto.pictureUrl != null ? formData.append('pictureUrl', this.lessonDto.pictureUrl) : null;
     this.lessonDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.lessonDto.language != null ? formData.append('language', this.lessonDto.language) : null;
-    this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags.join(" ")) : null;
+    this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags) : null;
 
-    this.lessonService.addLesson(formData)
+    this.lessonService.add(formData)
       .subscribe(
         data => {
           this.sent = true;
@@ -118,20 +99,14 @@ export class NewLessonComponent implements OnInit {
         });
   }
 
-  searchCourse = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(400),
-      map(term => term === '' ? []
-        : 
-        this.courses
-          .filter(course => course != null)
-          .filter(course => course.title != null)
-          .filter(course => course.title.toLowerCase()
-            .indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  searchCourse = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(300),
+      switchMap((searchText) => this.courseService.findByTitle(searchText))
     );
+  }
 
-
-  formatter = (x: Course) =>
+  formatter = (x: CourseDocument) =>
     x.title;
 
   handleFileInput(files: FileList) {

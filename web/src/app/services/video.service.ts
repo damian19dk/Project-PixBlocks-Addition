@@ -3,13 +3,16 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Video } from '../models/videoJWPlayer.model';
 import { Observable } from 'rxjs';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VideoService {
+export class VideoService extends DataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) {
+    super("Video", http);
+  }
 
   getHostedPlaylist(id: string) {
     let headers = new HttpHeaders()
@@ -27,19 +30,5 @@ export class VideoService {
 
   addHostedVideo() {
 
-  }
-
-  getVideos() {
-    let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
-    
-    return this.http.get<Video[]>(environment.baseUrl + "/api/Video/all", { headers });
-  }
-
-  getVideo(id: string): Observable<Video> {
-    let headers = new HttpHeaders()
-      .set("Content-Type", "application/json");
-
-    return this.http.get<Video>(environment.baseUrl + "/api/Video/video?id=" + id, { headers });
   }
 }
