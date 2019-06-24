@@ -124,4 +124,18 @@ export class CourseThumbnailComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
 
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    if(this.fileToUpload.size > 0) {
+      this.fileUploadMessage = 'Gotowy do wysłania';
+    }
+    else {
+      this.fileUploadMessage = 'Wybierz plik';
+    } 
+  }
+
+  imitateFileInput() {
+    document.getElementById('image').click();
+  }
+
 }

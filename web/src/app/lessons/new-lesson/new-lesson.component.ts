@@ -5,9 +5,9 @@ import { LessonService } from 'src/app/services/lesson.service';
 import { TagService } from 'src/app/services/tag.service';
 import { CourseService } from 'src/app/services/course.service';
 import { Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { CourseDocument } from 'src/app/models/courseDocument.model';
-import { LoadingService } from 'src/app/services/loading.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-lesson',
@@ -33,8 +33,7 @@ export class NewLessonComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private lessonService: LessonService,
     private tagService: TagService,
-    private courseService: CourseService,
-    private loadingService: LoadingService) { }
+    private courseService: CourseService) { }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
@@ -57,28 +56,10 @@ export class NewLessonComponent implements OnInit {
       pictureUrl: [null],
       image: [null]
     });
-
-    this.getCourses();
-
   }
 
 
   get f() { return this.newLessonForm.controls; }
-
-  getCourses() {
-    this.loadingService.load();
-
-    this.courseService.getAll().subscribe(
-      (data: []) => {
-        this.courses = data;
-        this.loadingService.unload();
-      },
-      error => {
-        this.error = error;
-        this.loadingService.unload();
-      }
-    );
-  }
 
   createNewLesson() {
     this.submitted = true;
@@ -118,18 +99,12 @@ export class NewLessonComponent implements OnInit {
         });
   }
 
-  searchCourse = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(400),
-      map(term => term === '' ? []
-        : 
-        this.courses
-          .filter(course => course != null)
-          .filter(course => course.title != null)
-          .filter(course => course.title.toLowerCase()
-            .indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  searchCourse = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200),
+      switchMap((searchText) => this.courseService.findByTitle(searchText))
     );
-
+  }
 
   formatter = (x: CourseDocument) =>
     x.title;

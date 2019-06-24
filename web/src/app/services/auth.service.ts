@@ -47,18 +47,6 @@ export class AuthService {
 
   logout() {
     this.loadingService.load();
-
-    // this.cancelToken()
-    //   .subscribe(
-    //     data => {
-    //       this.clearUserData();
-    //       this.loadingService.unload();
-    //     },
-    //     error => {
-    //       this.clearUserData();
-    //       this.loadingService.unload();
-    //     }
-    //   );
     this.clearUserData();
     this.loadingService.unload();
   }
