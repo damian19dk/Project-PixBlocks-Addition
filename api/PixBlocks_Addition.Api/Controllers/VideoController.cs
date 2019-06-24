@@ -56,12 +56,6 @@ namespace PixBlocks_Addition.Api.Controllers
             => await _videoService.GetAllByTagsAsync(tags);
 
         [HttpGet("all")]
-        public async Task<IEnumerable<VideoDto>> GetAll()
-        {
-            return await _videoService.GetAllAsync();
-        }
-
-        [HttpGet("allPaging")]
         public async Task<IEnumerable<VideoDto>> GetAll(int page, int count = 10)
         {
             return await _videoService.GetAllAsync(page, count);

@@ -98,12 +98,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<LessonDto>> GetAllByTagsAsync(IEnumerable<string> tags)
             => _mapper.Map<IEnumerable<LessonDto>>(await _lessonRepository.GetAllByTagsAsync(tags));
 
-        public async Task<IEnumerable<LessonDto>> GetAllAsync()
-        {
-            var result = await _lessonRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<LessonDto>>(result);
-        }
-
         public async Task<IEnumerable<LessonDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _lessonRepository.GetAllAsync(page, count);
