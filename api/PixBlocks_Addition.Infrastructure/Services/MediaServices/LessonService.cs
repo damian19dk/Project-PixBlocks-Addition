@@ -124,6 +124,20 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
+            var lesson = await _lessonRepository.GetAsync(id);
+            if(lesson==null)
+            {
+                throw new MyException($"Nie znaleziono lekcji o id {id}.");
+            }
+            if (lesson.LessonVideos != null && lesson.LessonVideos.Count > 0)
+            {
+                lesson.LessonVideos.Clear();
+                await _lessonRepository.UpdateAsync(lesson);
+            }
+            if (lesson.Tags != null && lesson.Tags.Count > 0)
+            {
+                await _lessonRepository.RemoveAllTagsAsync(lesson);
+            }
             await _lessonRepository.RemoveAsync(id);
         }
 
