@@ -42,4 +42,9 @@ export class VideoService {
 
     return this.http.get<Video>(environment.baseUrl + "/api/Video/video?id=" + id, { headers });
   }
+
+  addVideo(videoDto: any) {
+    let headers = new HttpHeaders()
+    return this.http.post<any>(environment.baseUrl + "/api/Video/create", { videoDto } ,{ headers });
+  }
 }

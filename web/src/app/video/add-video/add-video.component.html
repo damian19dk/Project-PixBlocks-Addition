@@ -1,34 +1,58 @@
 <div class="container">
+
+
+
   <div class="row film-row">
     <h2 class="display-4">Dodaj film</h2>
   </div>
   <div class="row">
     <div class="col-6">
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Tytuł</label>
-        <div class="col-sm-10 input-group">
-          <input type="text" class="form-control" id="title" formControlName="title" placeholder="Wpisz tytuł">
-        </div>
+
+      <div *ngIf="sent && error" class="alert alert-danger">
+        {{error}}
+      </div>
+      <div *ngIf="sent && !error" class="alert alert-success">
+        Kurs dodano pomyślnie
       </div>
 
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Opis</label>
-        <div class="col-sm-10 input-group">
-          <textarea class="form-control" id="description" formControlName="description"
-            placeholder="Wpisz opis"></textarea>
+      <form [formGroup]="newVideoForm" (ngSubmit)="createNewVideo()">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Tytuł</label>
+          <div class="col-sm-10 input-group">
+            <input type="text" class="form-control" formControlName="title" placeholder="Wpisz tytuł">
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+              <div *ngIf="f.title.errors.required">Pole jest puste</div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="form-group row justify-content-end">
-        <div>
-          <button type="submit" class="btn btn-success">
-            <div>Dodaj film</div>
-          </button>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Opis</label>
+          <div class="col-sm-10 input-group">
+            <textarea class="form-control" id="description" formControlName="description"
+              placeholder="Wpisz opis"></textarea>
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+              <div *ngIf="f.description.errors.required">Pole jest puste</div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="form-group row justify-content-end">
+          <div>
+            <button type="submit" [disabled]="loading" class="btn btn-success">
+              <div *ngIf="!loading">Dodaj film</div>
+              <div *ngIf="loading">
+                <span class="spinner-border spinner-border-sm align-self-center"></span>
+                Ładowanie..</div>
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="col-6">
-      <img class="img-fluid" src="assets/svg/undraw_media_player_ylg8(1).svg">
+      <img class="img-fluid" src="assets/svg/undraw_media_player_ylg8.svg">
     </div>
   </div>
 

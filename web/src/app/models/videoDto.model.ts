@@ -1,4 +1,4 @@
-export class Video {
+export class VideoDto {
     parentId: string;
     mediaId: string;
     premium: boolean;
