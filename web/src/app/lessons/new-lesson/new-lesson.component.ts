@@ -101,7 +101,7 @@ export class NewLessonComponent implements OnInit {
 
   searchCourse = (text$: Observable<string>) => {
     return text$.pipe(
-      debounceTime(200),
+      debounceTime(300),
       switchMap((searchText) => this.courseService.findByTitle(searchText))
     );
   }
