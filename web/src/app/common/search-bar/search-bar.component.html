@@ -1,4 +1,10 @@
+<ng-template #rt let-r="result" let-t="term">
+  <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
+  <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
+</ng-template>
+
 <form class="form-inline">
-  <input (onchange)="search()" class="form-control mr-sm" type="search" placeholder="Szukaj..." aria-label="Search">
+  <input type="text" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt"
+    placeholder="Wyszukaj kurs" />
   <button class="btn"><i class="fas fa-search"></i></button>
 </form>

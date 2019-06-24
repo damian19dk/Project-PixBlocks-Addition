@@ -44,12 +44,13 @@ export class AddVideoComponent implements OnInit {
       parentId: [null],
       mediaId: [null],
       title: [null, Validators.required],
-      description: [null, Validators.required],
+      description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
       premium: [false],
       tags: [null],
       language: ['Polski'],
       pictureUrl: [null],
-      image: [null]
+      image: [null],
+      video: [null]
     });
   }
 

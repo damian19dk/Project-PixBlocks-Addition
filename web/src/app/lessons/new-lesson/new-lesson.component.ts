@@ -48,7 +48,7 @@ export class NewLessonComponent implements OnInit {
 
     this.newLessonForm = this.formBuilder.group({
       title: [null, Validators.required],
-      description: [null, Validators.required],
+      description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
       premium: [false],
       tags: [null],
       language: ['Polski'],

@@ -31,6 +31,8 @@
 
         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
           <div *ngIf="f.description.errors.required">Pole jest puste</div>
+          <div *ngIf="f.description.errors.minlength">Opis musi mieć minimum 3 znaki</div>
+          <div *ngIf="f.description.errors.maxlength">Opis może mieć maksymalnie 10000 znaków</div>
         </div>
       </div>
 

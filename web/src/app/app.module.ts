@@ -37,6 +37,7 @@ import { LessonService } from './services/lesson.service';
 import { CourseThumbnailComponent } from './courses/course-thumbnail/course-thumbnail.component';
 import { SearchBarComponent } from './common/search-bar/search-bar.component';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized-interceptor';
+import { ProfileComponent } from './user/profile/profile.component';
 
 
 const routes: Routes = [
@@ -80,7 +81,8 @@ const routes: Routes = [
     NewLessonComponent,
     EditLessonComponent,
     CourseThumbnailComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,7 @@ export class EditCourseComponent implements OnInit {
   getCourses() {
     this.loadingService.load();
 
-    this.courseService.getAllPaging(this.page).subscribe(
+    this.courseService.getAll(this.page).subscribe(
       (data: CourseDocument[]) => {
         this.courses = data;
         this.loadingService.unload();
