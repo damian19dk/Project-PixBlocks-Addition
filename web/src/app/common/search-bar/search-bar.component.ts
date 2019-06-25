@@ -3,6 +3,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { CourseDocument } from './../../models/courseDocument.model';
 import { Observable } from 'rxjs';
 import { VideoService } from 'src/app/services/video.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
@@ -11,11 +12,18 @@ import { VideoService } from 'src/app/services/video.service';
 })
 export class SearchBarComponent implements OnInit {
 
-  @Input() searchPhrase: string;
+  searchVideoForm: FormGroup;
 
-  constructor(private videoService: VideoService) { }
+  constructor(private formBuilder: FormBuilder,
+    private videoService: VideoService) { }
 
   ngOnInit() {
+    this.searchVideoForm = this.formBuilder.group({
+      searchPhrase: [null]
+    });
+  }
+
+  searchVideo() {
     
   }
 

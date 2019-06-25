@@ -1,10 +1,13 @@
-<ng-template #rt let-r="result" let-t="term">
-  <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
-  <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
-</ng-template>
+<div>
+  <ng-template #rt let-r="result" let-t="term">
+    <ngb-highlight class="mr-2" [result]="r.title" [term]="t" routerLink="/show_video/{{video.mediaId}}">
+    </ngb-highlight>
+    <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
+  </ng-template>
 
-<form class="form-inline">
-  <input type="text" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt"
-    placeholder="Wyszukaj film" />
-  <button class="btn"><i class="fas fa-search"></i></button>
-</form>
+  <form class="form-inline" [formGroup]="searchVideoForm" (ngSubmit)="searchVideo()">
+    <input formControlName="searchPhrase" type="text" [ngbTypeahead]="search" [inputFormatter]="formatter"
+      [resultTemplate]="rt" placeholder="Wyszukaj film" />
+    <button class="btn"><i class="fas fa-search"></i></button>
+  </form>
+</div>
