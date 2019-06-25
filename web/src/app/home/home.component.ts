@@ -11,7 +11,7 @@ import { VideoDocument } from '../models/videoDocument.model';
 })
 export class HomeComponent implements OnInit {
 
-  count: number = this.getCount();
+  count: number;
   page: number = 1;
 
   videos: VideoDocument[];
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getVideos();
+    this.getCount();
   }
 
   isLogged() {
@@ -50,7 +51,14 @@ export class HomeComponent implements OnInit {
   }
 
   getCount() {
-    return this.videoService.count();
+    return this.videoService.count().subscribe(
+      data => {
+        this.count = parseInt(data);
+      },
+      error => {
+
+      }
+    );
   }
 
 }

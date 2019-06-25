@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Video } from '../../models/videoJWPlayer.model';
+import { HostedVideoDocument } from '../../models/hostedVideoDocument.model';
 
 @Component({
   selector: 'app-video-thumbnail',
@@ -8,7 +8,7 @@ import { Video } from '../../models/videoJWPlayer.model';
 })
 export class VideoThumbnailComponent implements OnInit {
 
-  @Input() video: Video;
+  @Input() video: HostedVideoDocument;
 
   constructor() { }
 

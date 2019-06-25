@@ -30,6 +30,9 @@ export class TagService {
   }
 
   toTagsList(tags: any) {
+    if(tags == null) {
+      return ['brak'];
+    }
     return tags.join().split(',');
   }
 

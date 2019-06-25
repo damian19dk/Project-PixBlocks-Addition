@@ -11,6 +11,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 export class EditCourseComponent implements OnInit {
 
   page: number = 1;
+  count: number;
 
   courses: CourseDocument[];
   error: string;
@@ -21,6 +22,7 @@ export class EditCourseComponent implements OnInit {
 
   ngOnInit() {
     this.getCourses();
+    this.getCount();
   }
 
   getCourses() {
@@ -34,6 +36,17 @@ export class EditCourseComponent implements OnInit {
       error => {
         this.error = error;
         this.loadingService.unload();
+      }
+    );
+  }
+
+  getCount() {
+    return this.courseService.count().subscribe(
+      data => {
+        this.count = parseInt(data);
+      },
+      error => {
+
       }
     );
   }

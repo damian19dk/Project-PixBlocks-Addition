@@ -41,15 +41,6 @@ export class DataService {
   }
 
   count() {
-    let count = 0;
-    this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/count`).subscribe(
-      data => {
-        count = data;
-      },
-      error => {
-
-      }
-    );
-    return count;
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/count`);    
   }
 }

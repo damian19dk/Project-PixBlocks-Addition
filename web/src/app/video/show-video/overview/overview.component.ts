@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Video } from 'src/app/models/videoJWPlayer.model';
+import { HostedVideoDocument } from 'src/app/models/hostedVideoDocument.model';
 
 @Component({
   selector: 'app-overview',
@@ -7,7 +7,7 @@ import { Video } from 'src/app/models/videoJWPlayer.model';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-  @Input() video: Video;
+  @Input() video: HostedVideoDocument;
   tags: string[];
   error: string;
 
