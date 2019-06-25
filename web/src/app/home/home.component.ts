@@ -35,6 +35,10 @@ export class HomeComponent implements OnInit {
     return this.authenticationService.getLogin();
   }
 
+  getUserRole() {
+    return this.authenticationService.getUserRole();
+  }
+
   getVideos() {
     this.loadingService.load();
 

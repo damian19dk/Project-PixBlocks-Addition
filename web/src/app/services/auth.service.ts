@@ -66,11 +66,15 @@ export class AuthService {
   }
 
   getLogin() {
-    return localStorage.getItem("Login");
+    return localStorage.getItem("UserLogin");
   }
 
   getToken() {
     return localStorage.getItem("Token");
+  }
+
+  getUserRole() {
+    return localStorage.getItem("UserRole");
   }
 
   getExpirationTime() {
@@ -85,14 +89,16 @@ export class AuthService {
     localStorage.removeItem("Token");
     localStorage.removeItem("TokenRefresh");
     localStorage.removeItem("TokenExpires");
-    localStorage.removeItem("Login");
+    localStorage.removeItem("UserLogin");
+    localStorage.removeItem("UserRole");
   }
 
-  setUserData(token: string, tokenRefresh: string, tokenExpires: string, login: string) {
+  setUserData(token: string, tokenRefresh: string, tokenExpires: string, login: string, roleId: string) {
     localStorage.setItem("Token", token);
     localStorage.setItem("TokenRefresh", tokenRefresh);
     localStorage.setItem("TokenExpires", tokenExpires);
-    localStorage.setItem("Login", login);
+    localStorage.setItem("UserLogin", login);
+    localStorage.setItem("UserRole", roleId);
   }
 
 }

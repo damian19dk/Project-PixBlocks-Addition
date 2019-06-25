@@ -46,7 +46,7 @@ export class RegistrationComponent implements OnInit {
 
     this.loading = true;
 
-    this.authenticationService.register(this.f.username.value, this.f.email.value, this.f.password.value, 2)
+    this.authenticationService.register(this.f.username.value, this.f.email.value, this.f.password.value, 1)
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
