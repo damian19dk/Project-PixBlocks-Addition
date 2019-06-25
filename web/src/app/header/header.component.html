@@ -11,16 +11,16 @@
     </button>
 
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
-      
-      
+
+
       <div class="main-navbar">
 
         <div *ngIf="!isLogged()">
           <ul class="navbar-nav">
-            <button routerLink="/register" class="btn btn-outline-primary"
+            <button i18n routerLink="/register" class="btn btn-outline-primary"
               (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit">Zarejestruj</button>
-            <button routerLink="/login" class="btn btn-outline-primary"
-              (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit">Zaloguj</button>
+            <button i18n routerLink="/login" class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed"
+              type="submit">Zaloguj</button>
           </ul>
         </div>
 
@@ -28,34 +28,33 @@
           <div *ngIf="getUserRole() == '2'">
             <ul class="navbar-nav">
               <app-search-bar></app-search-bar>
-              <button class="btn btn-outline-primary"
-                (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
+              <button i18n class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
                 routerLink="/settings">Ustawienia</button>
-              <button class="btn btn-outline-primary"
-                (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/add_video">Dodaj
+              <button i18n class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
+                routerLink="/add_video">Dodaj
                 wideo</button>
-              <button class="btn btn-outline-primary"
-                (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/course_editor">Zarządzaj
+              <button i18n class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
+                routerLink="/course_editor">Zarządzaj
                 kursami</button>
-              <button class="btn btn-outline-primary"
-                (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/lesson_editor">Zarządzaj
+              <button i18n class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
+                routerLink="/lesson_editor">Zarządzaj
                 lekcjami</button>
-              <button class="btn btn-outline-primary"
-                (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/profile">Mój profil</button>
-              <button class="btn btn-outline-primary"
-                (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" (click)="logout()">Wyloguj</button>
+              <button i18n class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
+                routerLink="/profile">Mój profil</button>
+              <button i18n class="btn btn-outline-primary" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
+                (click)="logout()">Wyloguj</button>
             </ul>
           </div>
 
           <div *ngIf="getUserRole() == '1'">
             <ul class="navbar-nav">
               <app-search-bar class="my-2 my-sm-0"></app-search-bar>
-              <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right"
+              <button i18n class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right"
                 (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit"
                 routerLink="/settings">Ustawienia</button>
-              <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right"
+              <button i18n class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right"
                 (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/profile">Mój profil</button>
-              <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right"
+              <button i18n class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right"
                 (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" (click)="logout()">Wyloguj</button>
             </ul>
           </div>

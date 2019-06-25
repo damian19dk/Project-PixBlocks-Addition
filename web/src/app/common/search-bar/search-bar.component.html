@@ -9,7 +9,7 @@
   </ng-template>
 
   <form [formGroup]="searchVideoForm">
-    <input class="form-control empty" formControlName="searchPhrase" type="text" [ngbTypeahead]="search"
+    <input i18n-placeholder class="form-control empty" formControlName="searchPhrase" type="text" [ngbTypeahead]="search"
       [inputFormatter]="formatter" [resultTemplate]="rt" placeholder="&#xF002; Szukaj filmu" />
   </form>
 </div>
