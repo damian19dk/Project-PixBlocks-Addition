@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  selector: 'app-change-email',
+  templateUrl: './change-email.component.html',
+  styleUrls: ['./change-email.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangeEmailComponent implements OnInit {
 
-  changePasswordForm: FormGroup;
+  changeEmailForm: FormGroup;
 
   constructor(private modalService: NgbModal,
     private formBuilder: FormBuilder,
@@ -19,20 +19,19 @@ export class ChangePasswordComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
-    this.changePasswordForm = this.formBuilder.group({
-      oldPassword: [null],
-      newPassword: [null]
+    this.changeEmailForm = this.formBuilder.group({
+      email: [null]
     });
   }
 
   changePassword() {
-    if (this.changePasswordForm.invalid) {
+    if (this.changeEmailForm.invalid) {
       return;
     }
 
     let login = this.authService.getLogin();
 
-    return this.userService.changePassword(login, this.changePasswordForm.value.newPassword, this.changePasswordForm.value.oldPassword).subscribe(
+    return this.userService.changeEmail(login, this.changeEmailForm.value.email).subscribe(
       data => {
 
       },

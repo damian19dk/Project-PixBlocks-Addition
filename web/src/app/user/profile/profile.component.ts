@@ -40,22 +40,4 @@ export class ProfileComponent implements OnInit {
     }
     return roleName;
   }
-
-  changePassword(user: any) {
-    return this.userService.changePassword(user.login, user.newPassword, user.oldPassword).subscribe(
-      data => {
-
-      },
-      error => {
-
-      }
-    );
-  }
-
-  changeEmail() {
-    
-  }
-
-
-
 }

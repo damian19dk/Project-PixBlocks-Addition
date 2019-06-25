@@ -39,6 +39,7 @@ import { SearchBarComponent } from './common/search-bar/search-bar.component';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized-interceptor';
 import { ProfileComponent } from './user/profile/profile.component';
 import { ChangePasswordComponent } from './user/profile/change-password/change-password.component';
+import { ChangeEmailComponent } from './user/profile/change-email/change-email.component';
 
 
 const routes: Routes = [
@@ -84,7 +85,8 @@ const routes: Routes = [
     CourseThumbnailComponent,
     SearchBarComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ChangeEmailComponent
   ],
   imports: [
     BrowserModule,
