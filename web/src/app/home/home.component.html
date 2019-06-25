@@ -8,12 +8,15 @@
             <div class="col-6 text-justify align-self-center">
                 <span class="font-weight-bold" style="color:#000000">Pix</span><span class="font-weight-bold"
                     style="color:#0d90fc">Blocks</span> to aplikacja, która sprawi, że nauczysz się solidnych podstaw
-                programowania w krótkim czasie. Przygotowane przez specjalistów kursy kompleksowo wprowadzą Cię w Świat Kodu. 
-                Odkrywaj i rozwiązuj algorytmiczne problemy! Wykwalifikowani dydaktycy krok po kroku wytłumaczą Ci, jak skonstruować i napisać własny program. 
-                Pod koniec każdej lekcji będziesz mógł rozwiązać quiz, który pozwoli Ci usystematyzować zdobytą wiedzę. 
-                Wiemy, że początki bywają trudne, dlatego w każdej chwili możesz do nas napisać, a my na pewno postaramy się pomóc. 
-                Nie zwlekaj, zacznij przygodę z <span class="font-weight-bold" style="color:#000000">Pix</span><span class="font-weight-bold"
-                style="color:#0d90fc">Blocks</span> już dziś!
+                programowania w krótkim czasie. Przygotowane przez specjalistów kursy kompleksowo wprowadzą Cię w Świat
+                Kodu.
+                Odkrywaj i rozwiązuj algorytmiczne problemy! Wykwalifikowani dydaktycy krok po kroku wytłumaczą Ci, jak
+                skonstruować i napisać własny program.
+                Pod koniec każdej lekcji będziesz mógł rozwiązać quiz, który pozwoli Ci usystematyzować zdobytą wiedzę.
+                Wiemy, że początki bywają trudne, dlatego w każdej chwili możesz do nas napisać, a my na pewno postaramy
+                się pomóc.
+                Nie zwlekaj, zacznij przygodę z <span class="font-weight-bold" style="color:#000000">Pix</span><span
+                    class="font-weight-bold" style="color:#0d90fc">Blocks</span> już dziś!
             </div>
             <div class="col-6">
                 <img width="100%" height="100%" src="assets/svg/undraw_solution_mindset_34bi.svg">
@@ -26,16 +29,19 @@
             </div>
             <div class="col-6 text-justify align-self-center">
                 <span class="font-weight-bold" style="color:#000000">Pix</span><span class="font-weight-bold"
-                    style="color:#0d90fc">Blocks</span> to interaktywna platforma do nauki programowania, przeznaczona dla najmłodszych, 
-                    a także uczniów szkół podstawowych i średnich. 
-                    Każdy znajdzie materiały odpowiadające jego potrzebom. 
-                    Jesteś rodzicem i chcesz łagodnie wprowadzić swoje dziecko w świat programowania? 
-                    Świetnie! Specjalnie przygotowane kursy pokażą, jak miło i przyjemnie można nauczyć się podstaw programowania. 
-                    Niedługo idziesz do liceum, a programowanie to dla Ciebie czarna magia? 
-                    Z nami szybko opanujesz podstawy i ani przez chwilę nie będziesz się nudził!  
-                    Nie marzysz o pracy programisty, ale ciekawi Cię jak działa program komputerowy, jak wygląda kod i co to jest algorytm?
-                    W naszych kursach odpowiemy na te wszystkie pytania. Dołącz do <span class="font-weight-bold" style="color:#000000">Pix</span><span class="font-weight-bold"
-                    style="color:#0d90fc">Blocks</span>!
+                    style="color:#0d90fc">Blocks</span> to interaktywna platforma do nauki programowania, przeznaczona
+                dla najmłodszych,
+                a także uczniów szkół podstawowych i średnich.
+                Każdy znajdzie materiały odpowiadające jego potrzebom.
+                Jesteś rodzicem i chcesz łagodnie wprowadzić swoje dziecko w świat programowania?
+                Świetnie! Specjalnie przygotowane kursy pokażą, jak miło i przyjemnie można nauczyć się podstaw
+                programowania.
+                Niedługo idziesz do liceum, a programowanie to dla Ciebie czarna magia?
+                Z nami szybko opanujesz podstawy i ani przez chwilę nie będziesz się nudził!
+                Nie marzysz o pracy programisty, ale ciekawi Cię jak działa program komputerowy, jak wygląda kod i co to
+                jest algorytm?
+                W naszych kursach odpowiemy na te wszystkie pytania. Dołącz do <span class="font-weight-bold"
+                    style="color:#000000">Pix</span><span class="font-weight-bold" style="color:#0d90fc">Blocks</span>!
             </div>
 
         </div>
@@ -55,6 +61,8 @@
                     <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
                     </app-video-thumbnail>
                 </div>
+                <ngb-pagination class="d-flex justify-content-center" [collectionSize]="count" [(page)]=page
+                    aria-label="Default pagination" (pageChange)="getVideos()"></ngb-pagination>
             </div>
         </div>
     </div>

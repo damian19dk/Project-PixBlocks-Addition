@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Video } from '../../models/videoJWPlayer.model';
+import { HostedVideoDocument } from '../../models/hostedVideoDocument.model';
 import { VideoService } from './../../services/video.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from './../../services/loading.service'
+import { VideoDocument } from 'src/app/models/videoDocument.model';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-show-video',
@@ -10,35 +12,50 @@ import { LoadingService } from './../../services/loading.service'
   styleUrls: ['./show-video.component.css']
 })
 export class ShowVideoComponent implements OnInit {
-  tags: any;
-  video: Video;
+  video: HostedVideoDocument = null;
+  videoDocument: VideoDocument = null;
   error: string;
 
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
-    private loadingService: LoadingService) { }
+    private loadingService: LoadingService,
+    private tagService: TagService) { }
 
   ngOnInit() {
     this.getVideo();
+    this.getHostedVideo();
   }
 
-  getVideo() {
+  getHostedVideo() {
     this.loadingService.load();
 
     const id = this.route.snapshot.paramMap.get('id');
     this.videoService.getHostedVideo(id).subscribe(
-      (data: Video) => {
+      (data: HostedVideoDocument) => {
         this.video = data;
-        this.tags = this.video.tags == null ? null : this.video.tags.split(' ');
-        this.tags = this.tags == [] ? ['brak'] : this.tags;
         this.loadingService.unload();
       },
       error => {
         this.error = error;
         this.loadingService.unload();
       });
+  }
 
+  getVideo() {
+    this.loadingService.load();
+
+    const mediaId = this.route.snapshot.paramMap.get('id');
+    this.videoService.getVideo(mediaId).subscribe(
+      (data: VideoDocument) => {
+        this.videoDocument = data;
+        this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      });
   }
 
 }

@@ -1,4 +1,4 @@
-export class Video {
+export class HostedVideoDocument {
     mediaId: string;
     description: string;
     pubDate: number;

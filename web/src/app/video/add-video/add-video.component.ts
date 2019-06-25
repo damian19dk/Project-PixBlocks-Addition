@@ -3,6 +3,10 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { TagService } from 'src/app/services/tag.service';
 import { VideoService } from 'src/app/services/video.service';
 import { VideoDto } from 'src/app/models/videoDto.model';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { LessonService } from 'src/app/services/lesson.service';
+import { LessonDocument } from 'src/app/models/lessonDocument.model';
 
 @Component({
   selector: 'app-add-video',
@@ -27,7 +31,8 @@ export class AddVideoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private videoService: VideoService,
-    private tagService: TagService) { }
+    private tagService: TagService,
+    private lessonService: LessonService) { }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
@@ -41,15 +46,16 @@ export class AddVideoComponent implements OnInit {
     this.error = null;
 
     this.newVideoForm = this.formBuilder.group({
-      parentId: [null],
+      parentId: [null, Validators.required],
       mediaId: [null],
       title: [null, Validators.required],
-      description: [null, Validators.required],
+      description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
       premium: [false],
       tags: [null],
       language: ['Polski'],
       pictureUrl: [null],
-      image: [null]
+      image: [null],
+      video: [null]
     });
   }
 
@@ -66,7 +72,10 @@ export class AddVideoComponent implements OnInit {
     this.loading = true;
 
     this.videoDto = this.newVideoForm.value;
-    this.videoDto.image = this.fileToUpload;
+    this.videoDto.parentId = this.newVideoForm.value.parentId.id;
+    this.videoDto.video = this.fileToUpload;
+
+    console.log(this.videoDto.parentId)
     let formData = new FormData();
 
     this.videoDto.parentId != null ? formData.append('parentId', this.videoDto.parentId) : null;
@@ -75,7 +84,7 @@ export class AddVideoComponent implements OnInit {
     this.videoDto.title != null ? formData.append('title', this.videoDto.title) : null;
     this.videoDto.description != null ? formData.append('description', this.videoDto.description) : null;
     this.videoDto.pictureUrl != null ? formData.append('pictureUrl', this.videoDto.pictureUrl) : null;
-    this.videoDto.image != null ? formData.append('image', this.fileToUpload) : null;
+    this.videoDto.video != null ? formData.append('video', this.fileToUpload) : null;
     this.videoDto.language != null ? formData.append('language', this.videoDto.language) : null;
     this.videoDto.tags != null ? formData.append('tags', this.videoDto.tags) : null;
 
@@ -94,6 +103,16 @@ export class AddVideoComponent implements OnInit {
         });
   }
 
+  searchLesson = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(300),
+      switchMap((searchText) => this.lessonService.findByTitle(searchText))
+    );
+  }
+
+  formatter = (x: LessonDocument) =>
+    x.title;
+
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     if(this.fileToUpload.size > 0) {
@@ -105,7 +124,8 @@ export class AddVideoComponent implements OnInit {
   }
 
   imitateFileInput() {
-    document.getElementById('image').click();
+    this.fileToUpload = null;
+    document.getElementById('video').click();
   }
 
 }

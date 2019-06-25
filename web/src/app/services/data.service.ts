@@ -19,18 +19,11 @@ export class DataService {
     return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/?id=` + id, { headers });
   }
 
-  getAll() {
+  getAll(page: number, count: number = 6) {
     let headers = new HttpHeaders()
     .set("Content-Type", "application/json");
 
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/all`, { headers });
-  }
-
-  getAllPaging(page: number, count: number = 6) {
-    let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
-
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/allPaging?page=` + page + "&count=" + count, { headers });
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/all?page=` + page + "&count=" + count, { headers });
   }
 
   add(dto: any) {
@@ -43,7 +36,11 @@ export class DataService {
     return this.http.put<any>(environment.baseUrl + `/api/${this.BASE_PATH}/change`, dto, { headers });
   }
 
-  remove() {
+  remove(id: string) {
+    return this.http.delete<any>(environment.baseUrl + `/api/${this.BASE_PATH}?Id=` + id);
+  }
 
+  count() {
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/count`);    
   }
 }

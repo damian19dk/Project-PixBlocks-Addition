@@ -1,20 +1,22 @@
-<div *ngIf="video" class="card mb-4 bg-white box-shadow">
+<div *ngIf="video">
+    <div class="card mb-4 bg-white box-shadow">
 
-    <div class="card-header text-center">
-        {{video.title}}
-    </div>
-
-    <div class="card-box card-link" routerLink="/show_video/{{video.mediaId}}">
-        <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-        <img class="card-img-top align-middle mx-auto d-block" src={{video.image}} alt="Tu miał być film" />
-    </div>
-
-    <div class="card-body">
-        <p class="card-text">{{video.description}}</p>
-
-        <div class="d-flex justify-content-between align-items-center">
-            <small>{{video.duration | minuteSeconds}}</small>
+        <div class="card-header text-center">
+            {{video.title}}
         </div>
-    </div>
 
+        <div class="card-box card-link" routerLink="/show_video/{{video.mediaId}}">
+            <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
+            <img class="card-img-top align-middle mx-auto d-block" src={{video.picture}} alt="Tu miał być film" />
+        </div>
+
+        <div class="card-body">
+            <p class="card-text">{{video.description}}</p>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <small>{{video.duration | minuteSeconds}}</small>
+            </div>
+        </div>
+
+    </div>
 </div>

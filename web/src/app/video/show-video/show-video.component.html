@@ -14,49 +14,38 @@
             </iframe>
         </div>
 
-        <div *ngIf="video" class="container">
+        <div *ngIf="videoDocument" class="container">
             <div class="row col-12 text-justify video-title">
-                <div class="col-3 text-justify">{{video.title}}</div>
+                <span placement="left" ngbTooltip="Tytuł" class="col-12 text-justify">{{videoDocument.title}}</span>
             </div>
 
             <div class="row col-12 text-justify">
-                <div class="col-3 text-justify">
+                <div class="col-12 text-justify">
                     <span placement="left" ngbTooltip="Tagi"><i class="fas fa-tags fa-2x"></i></span>
                     <ng-container>
-                        <span *ngFor="let tag of tags" class="badge badge-dark">{{tag}}</span>
+                        <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
                     </ng-container>
                 </div>
             </div>
 
             <div class="row col-12 text-justify">
-                <div class="col-3 text-justify">
+                <div class="col-12 text-justify">
                     <span placement="left" ngbTooltip="Czas trwania"><i class="fas fa-clock fa-2x"></i></span>
-                    <span class="font-weight-bold">{{video.duration | minuteSeconds}}</span>
+                    <span class="font-weight-bold">{{videoDocument.duration | minuteSeconds}}</span>
                 </div>
             </div>
 
             <div class="row col-12 text-justify">
-                <div class="col-3 text-justify align-self-center">
+                <div class="col-12 text-justify align-self-center">
                     <span placement="left" ngbTooltip="Język"><i class="fas fa-language fa-2x"></i></span>
                     <span
-                        class="font-weight-bold">{{video.language == null ? 'Brak informacji' : video.language}}</span>
+                        class="font-weight-bold">{{videoDocument.language == null ? 'Brak informacji' : videoDocument.language}}</span>
                 </div>
             </div>
 
             <div class="row col-12 text-justify border-top video-description">
-                <div class="col-12 text-justify">
-                    {{video.description != '' ? video.descripion : 'Po przejściu Hannibala przez Alpy i zreorganizowaniu wojsk,
-                    zagrożona została cała Italia.
-                    Senat rzymski w obliczu niebezpieczeństwa wysłał dwie armie konsularne,
-                    Publiusza Korneliusza Scypiona oraz Semproniusza Longusa,
-                    które jednak zostały pokonane nad rzeką Trebią w 218 roku p.n.e.
-                    Tym zwycięstwem Hannibal otworzył sobie drogę do środkowej Italii.
-                    Senat zaniepokojony przebiegiem wojny powołał dwóch nowych konsulów,
-                    Serwiusza Geminiusza i Flaminiusza. Starali się oni zagrodzić drogę armii punickiej przez Apeniny,
-                    lecz Hannibal zupełnie zaskoczył Rzymian przeprawiając się przez bagnistą dolinę rzeki Arno.
-                    Dzięki temu manewrowi zastawił pułapkę na armię konsula Flaminiusza nad Jeziorem Trazymeńskim,
-                    gdzie w 217 roku p.n.e. doszło do wielkiej bitwy.
-                    W jej wyniku zginęło 15.000 żołnierzy rzymskich i sam konsul.'}}
+                <div placement="left" ngbTooltip="Opis" class="col-12 text-justify">
+                    {{videoDocument.description}}
                 </div>
             </div>
         </div>

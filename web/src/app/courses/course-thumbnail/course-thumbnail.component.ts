@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CourseDocument } from 'src/app/models/courseDocument.model';
-import { ImageService } from 'src/app/services/image.service';
-import { environment } from 'src/environments/environment.prod';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CourseDocument } from 'src/app/models/courseDocument.model';
 import { CourseDto } from 'src/app/models/courseDto.model';
 import { CourseService } from 'src/app/services/course.service';
+import { ImageService } from 'src/app/services/image.service';
 import { TagService } from 'src/app/services/tag.service';
 
 @Component({
@@ -16,6 +15,7 @@ import { TagService } from 'src/app/services/tag.service';
 export class CourseThumbnailComponent implements OnInit {
 
   @Input() course: CourseDocument;
+  @Output() editCourseComponent: EventEmitter<any> = new EventEmitter<any>();
   image: any;
   error: string;
   
@@ -56,9 +56,8 @@ export class CourseThumbnailComponent implements OnInit {
     this.editCourseForm = this.formBuilder.group({
       parentId: [null],
       id: [this.course.id],
-      mediaId: [this.course.mediaId],
       title: [this.course.title, Validators.required],
-      description: [this.course.description, Validators.required],
+      description: [this.course.description, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
       premium: [this.course.premium],
       tags: [this.tagService.toTagsList(this.course.tags)],
       language: [this.course.language],
@@ -81,7 +80,6 @@ export class CourseThumbnailComponent implements OnInit {
     this.courseDto = this.editCourseForm.value;
     this.courseDto.image = this.fileToUpload;
     let formData = new FormData();
-    console.log(this.courseDto.pictureUrl)
 
     this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
     this.courseDto.id != null ? formData.append('id', this.courseDto.id) : null;
@@ -100,12 +98,28 @@ export class CourseThumbnailComponent implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
+          this.refreshOtherThumbnails();
         },
         error => {
           this.sent = true;
           this.error = error;
           this.loading = false;
         });
+  }
+
+  removeCourse() {
+    this.courseService.remove(this.course.id).subscribe(
+      data => {
+        this.refreshOtherThumbnails();
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
+  refreshOtherThumbnails() {
+    this.editCourseComponent.emit(null);
   }
 
 
@@ -115,9 +129,6 @@ export class CourseThumbnailComponent implements OnInit {
       this.course.picture = "https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png";
       return;
     }
-
-    picture = this.course.picture.substring(this.course.picture.indexOf('Image/') + 6);
-    this.course.picture = environment.baseUrl + "/api/Image/" + picture;
   }
 
   openVerticallyCentered(content) {

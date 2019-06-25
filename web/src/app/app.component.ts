@@ -17,7 +17,18 @@ export class MinuteSecondsPipe implements PipeTransform {
 
     transform(value: number): string {
        const minutes: number = Math.floor(value / 60);
-       return minutes + 'm ' + (value - minutes * 60) + 's';
+       const hours: number = Math.floor(value / 3600);
+
+       let secondsString = (value - minutes * 60) + "s";
+       let minutesString = "";
+       let hoursString = "";
+       if(hours > 0) {
+         hoursString = hours + "h ";
+       }
+       if(minutes > 0) {
+         minutesString = minutes + "m ";
+       }
+       return hoursString + minutesString + secondsString;
     }
 
 }
