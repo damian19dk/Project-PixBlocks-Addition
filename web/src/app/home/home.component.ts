@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../services/video.service';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
+import { VideoDocument } from '../models/videoDocument.model';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,9 @@ import { LoadingService } from '../services/loading.service';
 })
 export class HomeComponent implements OnInit {
 
-  videos: any;
+  page: number = 1;
+
+  videos: VideoDocument[];
   error: string;
 
   constructor(
@@ -19,9 +22,7 @@ export class HomeComponent implements OnInit {
     private authenticationService: AuthService) { }
 
   ngOnInit() {
-    if (this.authenticationService.isLogged()) {
       this.getVideos();
-    }
   }
 
   isLogged() {
@@ -35,9 +36,9 @@ export class HomeComponent implements OnInit {
   getVideos() {
     this.loadingService.load();
 
-    this.videoService.getHostedPlaylist("15GkO0Bz").subscribe(
+    this.videoService.getAll(this.page).subscribe(
       data => {
-        this.videos = data.playlist;
+        this.videos = data.filter((video) => {return video.status == "ready"});
         this.loadingService.unload();
       },
       error => {

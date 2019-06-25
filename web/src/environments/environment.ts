@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://pixblocksaddition.azurewebsites.net'
+  baseUrl: 'http://localhost:5000'
 };
 
 /*
