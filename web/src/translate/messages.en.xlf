@@ -496,7 +496,7 @@
       </trans-unit>
       <trans-unit id="e529eb09659b23a426028f010a73951e6977f17a" datatype="html">
         <source>Login może mieć maksymalnie 20 znaków</source>
-		<target>At least 20 characters long</target>
+		<target>Please shorten your username to 20 characters or fewer.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">19</context>
@@ -532,6 +532,7 @@
       </trans-unit>
       <trans-unit id="e9ebbb3b7b2057df0dba0f447f6e45e35c067c15" datatype="html">
         <source>Wpisz hasło</source>
+		<target>Type passowrd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">30</context>
@@ -543,6 +544,7 @@
       </trans-unit>
       <trans-unit id="8c2034b6004fefd4107fddb2e22f642b32a7351b" datatype="html">
         <source>Hasło może mieć maksymalnie 20 znaków</source>
+		<target>Please shorten your password to 20 characters or fewer.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">36</context>
@@ -554,6 +556,7 @@
       </trans-unit>
       <trans-unit id="1f5242820bf956bef79ca807b654a9575c43fa29" datatype="html">
         <source>Hasło nie może zawierać spacji</source>
+		<target>Password can't contain spaces"
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">37</context>
@@ -565,6 +568,7 @@
       </trans-unit>
       <trans-unit id="9dc094f7361eef687f28a171fa338b38570de902" datatype="html">
         <source>Zaloguj się</source>
+		<target>Sign in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">45</context>
@@ -573,6 +577,10 @@
       <trans-unit id="b244ceb70dc2744db3e49ce55a474dddb0099b72" datatype="html">
         <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
                         Ładowanie...</source>
+		<target>
+		<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+                       Loading...
+		</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">46</context>
@@ -584,6 +592,7 @@
       </trans-unit>
       <trans-unit id="4b1339073da1335263b3b3584a5c1ae0d8fbadfd" datatype="html">
         <source>Login musi mieć minimum 3 znaki</source>
+		<target>Username should be between 3 and 20 characters long</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">19</context>
@@ -591,6 +600,7 @@
       </trans-unit>
       <trans-unit id="91b96d7228b6e05c238fa4e39abfc17ad51a6eef" datatype="html">
         <source>Email:</source>
+		<target>Email:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">29</context>
@@ -598,6 +608,7 @@
       </trans-unit>
       <trans-unit id="ab8d7d349dd87fb98bfa95158e0998c764f34de8" datatype="html">
         <source>Wpisz adres email</source>
+		<target>Type Your email adress</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">33</context>
@@ -605,6 +616,7 @@
       </trans-unit>
       <trans-unit id="208218200559c6e2c4a08335f94b58c038cff714" datatype="html">
         <source>Niepoprawny adres e-mail</source>
+		<target>Incorrect email adress</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">37</context>
@@ -612,6 +624,7 @@
       </trans-unit>
       <trans-unit id="e5fcf7d9eb0d8f78c3d43d5701e812eedd298ee3" datatype="html">
         <source>Hasło musi mieć minimum 6 znaków</source>
+		<target>Password should be between 6 and 20 characters long</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">51</context>
@@ -619,6 +632,7 @@
       </trans-unit>
       <trans-unit id="12bab8326da8c0722c9b10b20f1d50919f881245" datatype="html">
         <source>Powtórz hasło:</source>
+		<target>Repeat password:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">59</context>
@@ -626,6 +640,7 @@
       </trans-unit>
       <trans-unit id="3a77ccd671d2ef4d8bf78eb860a51e0c56d319fa" datatype="html">
         <source>Powtórz hasło</source>
+		<target>Repeat password:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">64</context>
@@ -633,6 +648,7 @@
       </trans-unit>
       <trans-unit id="b70912ead51ecfa04cf36b75121469d81c5324e6" datatype="html">
         <source>Hasła różnią się</source>
+		<target>Passwords did not match</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">68</context>
@@ -640,6 +656,7 @@
       </trans-unit>
       <trans-unit id="11b4c58aede25e86dbe051883cfaf5c13974e849" datatype="html">
         <source>Zarejestruj się</source>
+		<target>Register</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/registration/registration.component.html</context>
           <context context-type="linenumber">75</context>
@@ -647,6 +664,7 @@
       </trans-unit>
       <trans-unit id="3e1629e64bde61c9308b7b2ef926f5b2019d259b" datatype="html">
         <source>Zgubiłeś się kolego?</source>
+		<target>Lost in the jungle?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/error-pages/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">4</context>
@@ -654,6 +672,7 @@
       </trans-unit>
       <trans-unit id="959dc04c7c9628f6ec95328171f86edeac8d408b" datatype="html">
         <source>Kliknij, by wrócić na stronę główną</source>
+		<target>Click to return to home page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/error-pages/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">5</context>
@@ -665,6 +684,7 @@
       </trans-unit>
       <trans-unit id="8aa4577203a1dbfb76c5e20e2604017361dd23e6" datatype="html">
         <source>401 NIE RUSZAJ SIĘ!</source>
+		<target>401.DO NOT MOVE!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/error-pages/unauthorized/unauthorized.component.html</context>
           <context context-type="linenumber">3</context>
@@ -673,6 +693,7 @@
       <trans-unit id="02fe6786d382b6ac543b5d4439a6f8f1d01b323b" datatype="html">
         <source>Kolego, to są baaaaardzo sekretne dane, a tak się składa, że Twoje uprawnienia to
       za mało.</source>
+	  <target>Bro, these informations are secret and Your current rights don't let You see this content.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/error-pages/unauthorized/unauthorized.component.html</context>
           <context context-type="linenumber">4</context>
@@ -680,6 +701,7 @@
       </trans-unit>
       <trans-unit id="63b47d056cba740a07c07740154d22cd2ab1bfb0" datatype="html">
         <source>Dodaj film</source>
+		<target>Add film</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">6</context>
