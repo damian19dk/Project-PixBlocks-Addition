@@ -9,11 +9,10 @@
   
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar">
-
-      <!-- <app-search-bar></app-search-bar> -->
       
       <div *ngIf="isLogged()">
         <ul class="navbar-nav ml-auto">
+          <app-search-bar class="my-2 my-sm-0"></app-search-bar>
           <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/settings">Ustawienia</button>
           <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/add_video">Dodaj wideo</button>
           <button class="btn btn-outline-primary my-2 my-sm-0 border-bottom border-right" (click)="isNavbarCollapsed = !isNavbarCollapsed" type="submit" routerLink="/course_editor">Zarządzaj kursami</button>

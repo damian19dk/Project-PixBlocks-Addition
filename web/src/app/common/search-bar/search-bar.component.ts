@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { debounceTime, switchMap } from 'rxjs/operators';
-import { CourseDocument } from './../../models/courseDocument.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { VideoService } from 'src/app/services/video.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { CourseDocument } from './../../models/courseDocument.model';
 
 @Component({
   selector: 'app-search-bar',
@@ -23,11 +23,7 @@ export class SearchBarComponent implements OnInit {
     });
   }
 
-  searchVideo() {
-    
-  }
-
-  search= (text$: Observable<string>) => {
+  search = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(300),
       switchMap((searchText) => this.videoService.findByTitle(searchText))
@@ -35,6 +31,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   formatter = (x: CourseDocument) =>
-  x.title;
+    x.title;
 
 }
