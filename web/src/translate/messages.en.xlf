@@ -864,6 +864,7 @@
       </trans-unit>
       <trans-unit id="7cc75a1915bf9ca24e7bd793f95dc84c669b362c" datatype="html">
         <source>Premium</source>
+		<target>Premium</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">64</context>
@@ -875,6 +876,7 @@
       </trans-unit>
       <trans-unit id="ccb97f0a9828fadf14388eb899443b52c12cfd9b" datatype="html">
         <source>Kategorie</source>
+		<target>Categories</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">73</context>
@@ -894,6 +896,7 @@
       </trans-unit>
       <trans-unit id="f725b4a81f1c4b88c9b1f577a93367a2933a86e8" datatype="html">
         <source>Obrazek</source>
+		<target>Picture</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">82</context>
@@ -913,6 +916,7 @@
       </trans-unit>
       <trans-unit id="6f8b15bf1775b7d978204be4687fdf87136c6cde" datatype="html">
         <source>Podaj adres obrazka</source>
+		<target>Write a picture adress</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">85</context>
@@ -932,6 +936,7 @@
       </trans-unit>
       <trans-unit id="8aabd6be86a1848672911b9a93855271a431f435" datatype="html">
         <source>Film</source>
+		<target>Film</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">90</context>
@@ -939,6 +944,7 @@
       </trans-unit>
       <trans-unit id="425cf57dd8df9d306a129790852003f67a8aa4de" datatype="html">
         <source>Lekcja</source>
+		<target>Lesson</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">104</context>
@@ -946,6 +952,7 @@
       </trans-unit>
       <trans-unit id="e681ee30434e4ad382dae1624519c3e385d9e5a5" datatype="html">
         <source>Wyszukaj lekcję</source>
+		<target>Search lesson</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">109</context>
@@ -953,6 +960,7 @@
       </trans-unit>
       <trans-unit id="f68b97c6df396d06a6daaa85ce97f84053b0076b" datatype="html">
         <source>Tytuł:</source>
+		<target>Title:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">3</context>
@@ -960,6 +968,7 @@
       </trans-unit>
       <trans-unit id="b7acbd4b6cceabde6a124310afeb732095994f7a" datatype="html">
         <source>Tagi:</source>
+		<target>Tags:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">10</context>
