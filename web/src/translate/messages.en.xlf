@@ -76,6 +76,7 @@
       </trans-unit>
       <trans-unit id="ngb.pagination.first" datatype="html">
         <source>««</source>
+		<target>««</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
           <context context-type="linenumber">2</context>
@@ -83,6 +84,7 @@
       </trans-unit>
       <trans-unit id="ngb.pagination.previous" datatype="html">
         <source>«</source>
+		<target>«</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
           <context context-type="linenumber">3</context>
@@ -90,6 +92,7 @@
       </trans-unit>
       <trans-unit id="ngb.pagination.next" datatype="html">
         <source>»</source>
+		<target>»</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
           <context context-type="linenumber">4</context>
@@ -97,6 +100,7 @@
       </trans-unit>
       <trans-unit id="ngb.pagination.last" datatype="html">
         <source>»»</source>
+		<target>»»</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
           <context context-type="linenumber">5</context>
@@ -136,6 +140,7 @@
       </trans-unit>
       <trans-unit id="ngb.progressbar.value" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</source>
+		<target><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.d.ts</context>
           <context context-type="linenumber">6</context>
@@ -556,7 +561,7 @@
       </trans-unit>
       <trans-unit id="1f5242820bf956bef79ca807b654a9575c43fa29" datatype="html">
         <source>Hasło nie może zawierać spacji</source>
-		<target>Password can't contain spaces"
+		<target>Password can't contain spaces"</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">37</context>
@@ -1209,6 +1214,7 @@
       </trans-unit>
       <trans-unit id="0aa98b0b09e7664a8ce9d0ffadee0b2277140e78" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>Edytuj</source>
+		<target><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>Edit</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">139</context>
