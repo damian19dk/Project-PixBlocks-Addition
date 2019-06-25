@@ -11,5 +11,6 @@ namespace PixBlocks_Addition.Domain.Repositories
         Task RemoveAsync(string name);
         Task RemoveAsync(Guid id);
         Task UpdateAsync(TEntity entity);
+        Task<int> CountAsync();
     }
 }

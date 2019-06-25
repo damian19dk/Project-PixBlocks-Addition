@@ -76,5 +76,11 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _lessonService.GetAllAsync(page, count);
         }
 
+        [HttpGet("count")]
+        public async Task<int> Count()
+        {
+            return await _lessonService.CountAsync();
+        }
+
     }
 }

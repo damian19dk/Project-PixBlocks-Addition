@@ -157,5 +157,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task UpdateAsync(ChangeMediaResource resource)
             => await _changeMediaHandler.ChangeAsync(resource, _videoRepository);
+
+        public async Task<int> CountAsync()
+        {
+            return await _videoRepository.CountAsync();
+        }
     }
 }

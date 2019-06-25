@@ -67,5 +67,11 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             await _videoService.RemoveAsync(id);
         }
+
+        [HttpGet("count")]
+        public async Task<int> Count()
+        {
+            return await _videoService.CountAsync();
+        }
     }
 }
