@@ -61,7 +61,7 @@
                     <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
                     </app-video-thumbnail>
                 </div>
-                <ngb-pagination class="d-flex justify-content-center" [collectionSize]=100 [(page)]=page
+                <ngb-pagination class="d-flex justify-content-center" [collectionSize]="count" [(page)]=page
                     aria-label="Default pagination" (pageChange)="getVideos()"></ngb-pagination>
             </div>
         </div>

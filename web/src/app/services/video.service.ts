@@ -14,6 +14,13 @@ export class VideoService extends DataService {
     super("Video", http);
   }
 
+  getVideo(mediaId: string) {
+    let headers = new HttpHeaders()
+      .set("Content-Type", "application/json");
+
+    return this.http.get<any>(environment.baseUrl + "/api/Video/mediaId=" + mediaId, { headers });
+  }
+
   getHostedPlaylist(id: string) {
     let headers = new HttpHeaders()
       .set("Content-Type", "application/json");

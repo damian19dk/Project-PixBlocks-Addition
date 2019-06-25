@@ -11,6 +11,7 @@ import { VideoDocument } from '../models/videoDocument.model';
 })
 export class HomeComponent implements OnInit {
 
+  count: number = this.getCount();
   page: number = 1;
 
   videos: VideoDocument[];
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
     private authenticationService: AuthService) { }
 
   ngOnInit() {
-      this.getVideos();
+    this.getVideos();
   }
 
   isLogged() {
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
 
     this.videoService.getAll(this.page).subscribe(
       data => {
-        this.videos = data.filter((video) => {return video.status == "ready"});
+        this.videos = data.filter((video) => { return video.status == "ready" });
         this.loadingService.unload();
       },
       error => {
@@ -46,6 +47,10 @@ export class HomeComponent implements OnInit {
         this.loadingService.unload();
       }
     );
+  }
+
+  getCount() {
+    return this.videoService.count();
   }
 
 }
