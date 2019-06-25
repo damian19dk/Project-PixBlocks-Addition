@@ -396,6 +396,7 @@
       </trans-unit>
       <trans-unit id="d15be822bde22940c548dc070098caf9768a079d" datatype="html">
         <source>PARTNERZY</source>
+		<target>PARTNERS</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/footer/footer.component.html</context>
           <context context-type="linenumber">30</context>
@@ -403,6 +404,7 @@
       </trans-unit>
       <trans-unit id="2774f66aa65606553ce71104684610e14638d0f2" datatype="html">
         <source>Nazwa użytkownika:</source>
+		<target>Username</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">11</context>
@@ -414,6 +416,7 @@
       </trans-unit>
       <trans-unit id="f41a0cbe519bceba19573b3739ec81a6fc8fe3c6" datatype="html">
         <source>Wpisz nazwę użytkownika</source>
+		<target>Type username</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">15</context>
@@ -425,6 +428,7 @@
       </trans-unit>
       <trans-unit id="9f6eee8875b9dc799611524586be571c51928b0b" datatype="html">
         <source>Pole jest puste</source>
+		<target>Field is empty</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">18</context>
@@ -492,6 +496,7 @@
       </trans-unit>
       <trans-unit id="e529eb09659b23a426028f010a73951e6977f17a" datatype="html">
         <source>Login może mieć maksymalnie 20 znaków</source>
+		<target>At least 20 characters long</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">19</context>
@@ -503,6 +508,7 @@
       </trans-unit>
       <trans-unit id="f4f3186d354f9d3c2fc0b0bb56380a31b5b32f36" datatype="html">
         <source>Login nie może zawierać spacji</source>
+		<target>Username can't contain spaces</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">20</context>
@@ -514,6 +520,7 @@
       </trans-unit>
       <trans-unit id="9ec547111b0b8badd95afb9ceece00b7feb0c550" datatype="html">
         <source>Hasło:</source>
+		<target>Password:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/login/login.component.html</context>
           <context context-type="linenumber">26</context>
