@@ -24,7 +24,7 @@ export class ChangeEmailComponent implements OnInit {
     });
   }
 
-  changePassword() {
+  changeEmail() {
     if (this.changeEmailForm.invalid) {
       return;
     }

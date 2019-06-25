@@ -1,9 +1,100 @@
+<ng-template #changeEmailModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Zmień adres email</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body input-group container">
+
+    <div *ngIf="error" class="alert alert-danger col-12">
+      {{error}}
+    </div>
+
+    <div *ngIf="sent && !error" class="alert alert-success col-12">
+      Adres email zmieniono pomyślnie
+    </div>
+
+    <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail()" class="col-12">
+
+      <div class="form-group row">
+        <label for="new email" class="col-sm-2 col-form-label">Nowy adres email</label>
+        <div class="col-sm-10">
+          <input formControlName="email" type="text" class="form-control" placeholder="Podaj nowy email">
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-end">
+        <button [disabled]="loading" type="submit" class="btn btn-success" (click)="changeEmail()">
+          <div *ngIf="!loading">Zmień</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm align-self-center"></span>
+            Ładowanie..</div>
+        </button>
+        <button type="button" [disabled]="loading" class="btn btn-danger" (click)="modal.close('Close click')">
+          Anuluj
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+<ng-template #changePasswordModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Zmień hasło</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body input-group container">
+
+    <div *ngIf="error" class="alert alert-danger col-12">
+      {{error}}
+    </div>
+
+    <div *ngIf="sent && !error" class="alert alert-success col-12">
+      Hasło zmieniono pomyślnie
+    </div>
+
+    <form [formGroup]="changeEmailForm" (ngSubmit)="changePassword()" class="col-12">
+
+      <div class="form-group row">
+        <label for="old password" class="col-sm-2 col-form-label">Stare hasło</label>
+        <div class="col-sm-10">
+          <input formControlName="oldPassword" type="text" class="form-control" placeholder="Podaj stare hasło">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="new password" class="col-sm-2 col-form-label">Nowe hasło</label>
+        <div class="col-sm-10">
+          <input formControlName="newPassword" type="text" class="form-control" placeholder="Podaj nowe hasło">
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-end">
+        <button [disabled]="loading" type="submit" class="btn btn-success" (click)="changePassword()">
+          <div *ngIf="!loading">Zmień</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm align-self-center"></span>
+            Ładowanie..</div>
+        </button>
+        <button type="button" [disabled]="loading" class="btn btn-danger" (click)="modal.close('Close click')">
+          Anuluj
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
 <div class="container">
   <div class="row col-12">
     <div class="col-6">
       <img width="100%" height="100%" src="assets/svg/undraw_profile_pic_ic5t.svg">
     </div>
     <div *ngIf="userDocument" class="col-6">
+
       <div class="row">
         <h2>Login: {{userDocument.login}}</h2>
       </div>
@@ -15,8 +106,8 @@
       </div>
 
       <div class="d-flex justify-space-between">
-        <button class="btn btn-primary" (onClick)="changePassword()">Zapomniałem hasła</button>
-        <button class="btn btn-primary" (onClick)="changeEmail()">Zmień email</button>
+        <button class="btn btn-primary" (onclick)="openModal(changePasswordModal)">Zapomniałem hasła</button>
+        <button class="btn btn-primary" (onclick)="openModal(changeEmailModal)">Zmień email</button>
       </div>
     </div>
 

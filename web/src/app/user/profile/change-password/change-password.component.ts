@@ -13,8 +13,7 @@ export class ChangePasswordComponent implements OnInit {
 
   changePasswordForm: FormGroup;
 
-  constructor(private modalService: NgbModal,
-    private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService) { }
 
