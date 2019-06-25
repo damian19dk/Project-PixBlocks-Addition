@@ -43,19 +43,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
                 if (videoFromDatabase != null)
                 {
-                    throw new MyException(MyCodesNumbers.SameVideo, $"Video with mediaId: {video.MediaId} already exists.");
+                    throw new MyException(MyCodesNumbers.SameVideo, $"Wideo o id: {video.MediaId} istnieje!");
                 }
                 var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
                 if(response == null)
                 {
-                    throw new MyException($"Video with mediaId: {video.MediaId} not found.");
+                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o id:{video.MediaId}!");
                 }
             }
             else
             {
                 if(video.Video == null)
                 {
-                    throw new MyException(MyCodesNumbers.MissingFile, "Video file is missing.");
+                    throw new MyException(MyCodesNumbers.MissingFile, "Nie znaleziono wideo!");
                 }
 
                 video.MediaId = await _jwPlayerService.UploadVideoAsync(video.Video);
@@ -110,12 +110,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
             => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAllByTagsAsync(tags));
 
-        public async Task<IEnumerable<VideoDto>> GetAllAsync()
-        {
-            var result = await _videoRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<Video>, IEnumerable<VideoDto>>(result);
-        }
-
         public async Task<IEnumerable<VideoDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _videoRepository.GetAllAsync(page, count);
@@ -163,5 +157,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task UpdateAsync(ChangeMediaResource resource)
             => await _changeMediaHandler.ChangeAsync(resource, _videoRepository);
+
+        public async Task<int> CountAsync()
+        {
+            return await _videoRepository.CountAsync();
+        }
     }
 }

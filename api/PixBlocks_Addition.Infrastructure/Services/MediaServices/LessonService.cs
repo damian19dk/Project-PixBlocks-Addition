@@ -88,7 +88,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var sameVideo = lesson.LessonVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if(sameVideo != null)
             {
-                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideo);
+                throw new MyException(MyCodesNumbers.SameVideoInLesson, MyCodes.SameVideoInLesson);
             }
 
             lesson.LessonVideos.Add(new LessonVideo(lesson.Id, video));
@@ -97,12 +97,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task<IEnumerable<LessonDto>> GetAllByTagsAsync(IEnumerable<string> tags)
             => _mapper.Map<IEnumerable<LessonDto>>(await _lessonRepository.GetAllByTagsAsync(tags));
-
-        public async Task<IEnumerable<LessonDto>> GetAllAsync()
-        {
-            var result = await _lessonRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<LessonDto>>(result);
-        }
 
         public async Task<IEnumerable<LessonDto>> GetAllAsync(int page, int count = 10)
         {
@@ -127,7 +121,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var lesson = await _lessonRepository.GetAsync(id);
             if(lesson==null)
             {
-                throw new MyException($"Nie znaleziono lekcji o id {id}.");
+                throw new MyException(MyCodesNumbers.LessonNotFound, $"Nie znaleziono lekcji o id {id}.");
             }
             if (lesson.LessonVideos != null && lesson.LessonVideos.Count > 0)
             {
@@ -164,5 +158,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task UpdateAsync(ChangeMediaResource resource)
             => await _changeMediaHandler.ChangeAsync(resource, _lessonRepository, _courseRepository);
+
+        public async Task<int> CountAsync()
+        {
+            return await _lessonRepository.CountAsync();
+        }
     }
 }

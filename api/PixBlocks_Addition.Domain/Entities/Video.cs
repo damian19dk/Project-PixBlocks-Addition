@@ -23,7 +23,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(status))
             {
-                throw new MyException($"Invalid status name {status}.");
+                throw new MyException(MyCodesNumbers.WrongUserStatus, $"Niepoprawna nazwa status: {status}.");
             }
             Status = status;
         }

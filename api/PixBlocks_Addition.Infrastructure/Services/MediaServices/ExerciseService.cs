@@ -55,7 +55,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var sameVideo = exercise.ExerciseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideoInExercise);
+                throw new MyException(MyCodesNumbers.SameVideoInExercise, MyCodes.SameVideoInExercise);
             }
 
             exercise.ExerciseVideos.Add(new ExerciseVideo(exercise.Id, video));
@@ -99,12 +99,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<ExerciseDto>> GetAllByTagsAsync(IEnumerable<string> tags)
             => _mapper.Map<IEnumerable<ExerciseDto>>(await _exerciseRepository.GetAllByTagsAsync(tags));
 
-        public async Task<IEnumerable<ExerciseDto>> GetAllAsync()
-        {
-            var result = await _exerciseRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<ExerciseDto>>(result);
-        }
-
         public async Task<IEnumerable<ExerciseDto>> GetAllAsync(int page, int count = 10)
         {
             var result = await _exerciseRepository.GetAllAsync(page, count);
@@ -128,7 +122,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var exercise = await _exerciseRepository.GetAsync(id);
             if (exercise == null)
             {
-                throw new MyException($"Nie znaleziono ćwiczenia o id {id}.");
+                throw new MyException(MyCodes.ExerciseNotFound, $"Nie znaleziono ćwiczenia o id {id}.");
             }
             if (exercise.ExerciseVideos!= null && exercise.ExerciseVideos.Count > 0)
             {
@@ -166,5 +160,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task UpdateAsync(ChangeMediaResource resource)
             => await _changeMediaHandler.ChangeAsync(resource, _exerciseRepository, _lessonRepository);
 
+        public async Task<int> CountAsync()
+        {
+            return await _exerciseRepository.CountAsync();
+        }
     }
 }

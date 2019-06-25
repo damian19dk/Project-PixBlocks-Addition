@@ -22,34 +22,45 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string UniqueEmail => "1012";
         public static string UniqueLogin => "1013";
         //kody z 2*** dotyczą treści
-        public static string TooShortCourseName => "2000";
+        public static string TooShortDescription => "2000";
         public static string TooLongDescription => "2001";
-        public static string SameVideo => "2002";
-        public static string LessonNotFound => "2003";
-        public static string VideoNotFound => "2004";
-        public static string ExerciseNotFound => "2005";
-        public static string CourseNotFound => "2006";
-        public static string WrongFormatOfPhoto => "2007";
-        public static string ImageNotFound => "2008";
-        public static string SameTitleCourse => "2009";
-        public static string SameTitleExercise => "2010";
-        public static string SameTitleLesson => "2011";
-        public static string SameTitleMedia => "2012";
-        public static string MediaNotFound => "2013";
+        public static string SameVideoInLesson => "2002";
+        public static string SameVideoInCourse => "2003";
+        public static string SameVideoInExercise => "2004";
+        public static string LessonNotFound => "2005";
+        public static string VideoNotFound => "2006";
+        public static string ExerciseNotFound => "2007";
+        public static string CourseNotFound => "2008";
+        public static string WrongFormatOfPhoto => "2009";
+        public static string ImageNotFound => "2010";
+        public static string SameTitleCourse => "2011";
+        public static string SameTitleExercise => "2012";
+        public static string SameTitleLesson => "2013";
+        public static string SameTitleMedia => "2014";
+        public static string MediaNotFound => "2015";
+        public static string TooShortTitle => "2016";
+        public static string TooLongTitle => "2017";
+        public static string EmptyTitle => "2018";
+        public static string InvalidPictureSrc => "2019";
+        public static string InvalidDescription => "2020";
+        public static string InvalidTitle => "2021";
+        public static string SameVideo => "2022";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";
         public static string RefreshAToken => "3002";
         public static string RefreshToken => "3003";
+        public static string RefreshTokenAllready => "3004";
         //JWPlayer
         public static string CouldNotUploadVideo => "4000";
         //Resources
         public static string MissingFile => "5000";
         //Domain
-        public static string InvalidTitle => "6001";
-        public static string InvalidDescription => "6002";
-        public static string InvalidPictureSrc => "6003";
-        public static string InvalidDuration => "6004";
-        public static string InvalidLanguage => "6005";
+        public static string InvalidDuration => "6000";
+        public static string InvalidLanguage => "6001";
+        public static string TooShortLanguage => "6002";
+        public static string TooLongLanguage => "6003";
+        public static string EmptyLanguage => "6004";
+        public static string CouldntLoad => "6005";
     }
 }

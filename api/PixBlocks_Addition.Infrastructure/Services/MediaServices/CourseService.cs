@@ -48,7 +48,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
             if (sameVideo != null)
             {
-                throw new MyException(MyCodesNumbers.SameVideo, MyCodes.SameVideoInCourse);
+                throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
             }
 
             course.CourseVideos.Add(new CourseVideo(course.Id, video));
@@ -59,7 +59,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             if(resource.Title==null)
             {
-                throw new MyException(MyCodesNumbers.InvalidTitle, "Tytuł nie może być pusty!");
+                throw new MyException(MyCodesNumbers.InvalidTitle, MyCodes.EmptyTitle);
             }
             var c = await _courseRepository.GetAsync(resource.Title);
             if (c.Count() > 0)
@@ -94,12 +94,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task<IEnumerable<CourseDto>> GetAllByTagsAsync(IEnumerable<string> tags)
             => _mapper.Map<IEnumerable<CourseDto>>(await _courseRepository.GetAllByTagsAsync(tags));
-
-        public async Task<IEnumerable<CourseDto>> GetAllAsync()
-        {
-            var result = await _courseRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
-        }
 
         public async Task<IEnumerable<CourseDto>> GetAllAsync(int page, int count = 10)
         {
@@ -177,6 +171,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                         await _imageRepository.RemoveAsync(id);
                 }
             }
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _courseRepository.CountAsync();
         }
     }
 }

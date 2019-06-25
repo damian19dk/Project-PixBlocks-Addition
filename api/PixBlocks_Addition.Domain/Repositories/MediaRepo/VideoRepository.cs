@@ -26,9 +26,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<IEnumerable<Video>> GetAllByTagsAsync(IEnumerable<string> tags)
             => await _entities.Videos.Where(c => c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
 
-        public async Task<IEnumerable<Video>> GetAllAsync()
-            => await _entities.Videos.Include(p => p.Tags).ToListAsync();
-
         public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10) 
             => await _entities.Videos.Include(p => p.Tags).Skip((page - 1) * count).Take(count).ToListAsync();
 

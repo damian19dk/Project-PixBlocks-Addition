@@ -15,9 +15,9 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string WrongUserStatus => "Niewłasciwy status użytkownika!"; //1007
         public static string WrongCharactersInPassword => "Niedozwolone znaki w haśle!"; //1008
         public static string WrongCharactersInLogin => "Niedozwolone znaki w loginie!"; //1009
-        public static string ImageNotFound => "Nie znaleziono zdjęcia!";
-        public static string TooShortCourseName => "Za krótka nazwa kursu!"; //2000
-        public static string TooLongDescription => "Za długi opis!"; //2001
+        public static string ImageNotFound => "Nie znaleziono zdjęcia!";//2010
+        public static string TooLongDescription => "Opis nie może mieć wiecej niż 10000 znaków!"; //2001
+        public static string TooShortDescription => "Opis nie może mieć mniej niż 3 znaki!";//2000
         public static string SamePassword => "Nowe hasło musi być różne od starego!"; //1010
         public static string SameEmail => "Nowy e-mail musi być różny od starego!"; //1011
         public static string UniqueEmail => "Taki e-mail istnije już w bazie!"; //1012
@@ -27,13 +27,21 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string UserNotFoundJWT => "User not found!"; //3001
         public static string RefreshAToken => "Refresh token was already revoked!"; //3002
         public static string RefreshToken => "Refresh token was revoked!"; //3003
-        public static string SameVideo => "The lesson already has the same video!"; //2002
+        public static string SameVideoInLesson => "The lesson already has the same video!"; //2002
         public static string LessonNotFound => "Nie znalezniono lekcji!"; //2003
         public static string VideoNotFound => "Nie znaleziono wideo!"; //2004
         public static string ExerciseNotFound => "Nie znaleziono ćwiczenia!"; //2005
-        public static string CourseNotFound => "Nie znaleziono kursu!";
-        public static string SameVideoInCourse => "Kurs posiada już takie wideo!";
-        public static string SameVideoInExercise => "Ćwiczenie posiada już takie wideo!";
-
+        public static string CourseNotFound => "Nie znaleziono kursu!"; //2006
+        public static string SameVideoInCourse => "Kurs posiada już takie wideo!";//2002
+        public static string SameVideoInExercise => "Ćwiczenie posiada już takie wideo!";//2002
+        public static string EmptyLanguageTitle => "Język nie może być pusty!";//6004
+        public static string WrongCharactersInLanguage => "Język zawiera niepoprawne znaki!";//6001
+        public static string TooShortLanguage => "Język musi mieć co najmniej 2 znaki!";//6002
+        public static string TooLongLanguage => "Język nie może mieć więcej niż 60 znaków!";//6003
+        public static string InvalidDuration => "Czas trwania nie może być ujemny!";//6000
+        public static string InvalidPicSource => "Źródło zdjęcia musi być URL lub id!";//2019
+        public static string EmptyTitle => "Tytuł nie może być pusty!";//2018
+        public static string TooShortTitle => "Tytuł musi zawierać co najmniej 3 znaki!";//2016
+        public static string TooLongTitle => "Tytuł nie może zawierać więcej niż 250 znaków!";//2017
     }
 }

@@ -13,6 +13,7 @@ namespace PixBlocks_Addition.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -45,9 +46,9 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpDelete]
-        public async Task Remove(Guid courseId)
+        public async Task Remove(Guid Id)
         {
-            await _courseService.RemoveAsync(courseId);
+            await _courseService.RemoveAsync(Id);
         }
 
         [HttpGet("title")]
@@ -72,15 +73,15 @@ namespace PixBlocks_Addition.Api.Controllers
             => await _courseService.GetAllByTagsAsync(tags);
 
         [HttpGet("all")]
-        public async Task<IEnumerable<CourseDto>> GetAll()
-        {
-            return await _courseService.GetAllAsync();
-        }
-
-        [HttpGet("allPaging")]
         public async Task<IEnumerable<CourseDto>> GetAll(int page, int count = 10)
         {
             return await _courseService.GetAllAsync(page, count);
+        }
+
+        [HttpGet("count")]
+        public async Task<int> Count()
+        {
+            return await _courseService.CountAsync();
         }
 
     }
