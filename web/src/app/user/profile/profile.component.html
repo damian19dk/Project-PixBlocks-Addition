@@ -1,3 +1,24 @@
-<p>
-  profile works!
-</p>
+<div class="container">
+  <div class="row col-12">
+    <div class="col-6">
+      <img width="100%" height="100%" src="assets/svg/undraw_profile_pic_ic5t.svg">
+    </div>
+    <div *ngIf="userDocument" class="col-6">
+      <div class="row">
+        <h2>Login: {{userDocument.login}}</h2>
+      </div>
+      <div class="row">
+        <h2>Adres email: {{userDocument.email}}</h2>
+      </div>
+      <div class="row">
+        <h2>Rola systemowa: {{userDocument.roleId}}</h2>
+      </div>
+
+      <div class="d-flex justify-space-between">
+        <button class="btn btn-primary" (onClick)="changePassword()">Zapomniałem hasła</button>
+        <button class="btn btn-primary" (onClick)="changeEmail()">Zmień email</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -50,7 +50,7 @@ const routes: Routes = [
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'show_video/:id', component: ShowVideoComponent },
   { path: 'settings', component: FunctionalityNotPreparedComponent },
-  { path: 'profile', component: FunctionalityNotPreparedComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
