@@ -8,7 +8,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="signIn()">
 
             <div class="form-group col-sm-12">
-                <label>Nazwa użytkownika:</label>
+                <label i18n >Nazwa użytkownika:</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                     <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username"

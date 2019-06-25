@@ -25,7 +25,7 @@
 
 
             <div class="form-group row">
-                <label for="title" class="col-sm-2 col-form-label">Tytuł</label>
+                <label i18n for="title" class="col-sm-2 col-form-label">Tytuł</label>
                 <div class="col-sm-10 input-group">
                     <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control"
                         id="title" i18n-placeholder formControlName="title" placeholder="Wpisz tytuł">
@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="description" class="col-sm-2 col-form-label">Opis</label>
+                <label i18n for="description" class="col-sm-2 col-form-label">Opis</label>
                 <div class="col-sm-10 input-group">
                     <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
                         id="description" i18n-placeholder formControlName="description" placeholder="Wpisz opis"></textarea>
@@ -112,7 +112,7 @@
                         <span i18n class="spinner-border spinner-border-sm align-self-center"></span>
                         Ładowanie..</div>
                 </button>
-                <button type="button" [disabled]="loading" class="btn btn-danger" (click)="modal.close('Close click')">
+                <button i18n type="button" [disabled]="loading" class="btn btn-danger" (click)="modal.close('Close click')">
                     Zamknij
                 </button>
             </div>
@@ -136,7 +136,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <small>{{course.duration | minuteSeconds}}</small>
-            <button type="button" class="btn btn-sm btn-outline-primary" (click)="openVerticallyCentered(editModal)"><i
+            <button i18n type="button" class="btn btn-sm btn-outline-primary" (click)="openVerticallyCentered(editModal)"><i
                     class="fas fa-edit"></i>Edytuj</button>
         </div>
     </div>
