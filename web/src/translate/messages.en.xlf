@@ -175,6 +175,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
         <source>Increment minutes</source>
+		<target>Increment minutes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">29</context>
@@ -182,6 +183,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.MM" datatype="html">
         <source>MM</source>
+		<target>MM</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">32</context>
@@ -189,6 +191,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.minutes" datatype="html">
         <source>Minutes</source>
+		<target>Minutes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">34</context>
@@ -196,6 +199,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
         <source>Decrement minutes</source>
+		<target>Decrement minutes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">40</context>
@@ -203,6 +207,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
         <source>Increment seconds</source>
+		<target>Increment seconds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">49</context>
@@ -210,6 +215,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.SS" datatype="html">
         <source>SS</source>
+		<target>SS</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">52</context>
@@ -217,6 +223,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.seconds" datatype="html">
         <source>Seconds</source>
+		<target>Seconds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">54</context>
@@ -224,6 +231,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
         <source>Decrement seconds</source>
+		<target>Decrement seconds</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">60</context>
@@ -231,6 +239,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
         <source>PM</source>
+		<target>PM</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">68</context>
@@ -238,6 +247,7 @@
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
         <source>AM</source>
+		<target>AM</target>
         <context-group purpose="location">
           <context context-type="sourcefile">../node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
           <context context-type="linenumber">69</context>
@@ -245,6 +255,7 @@
       </trans-unit>
       <trans-unit id="a6f217d593174382c7ceeb343943734e1f0352ab" datatype="html">
         <source>Ustawienia</source>
+		<target>Settings</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">17</context>
@@ -252,6 +263,7 @@
       </trans-unit>
       <trans-unit id="cd0de8cfd2a4151b0069b1dfd20ce55d50066fa5" datatype="html">
         <source>Dodaj wideo</source>
+		<target>Add video</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">18</context>
@@ -259,6 +271,7 @@
       </trans-unit>
       <trans-unit id="d2af08df623f8b229d13a3317d18e3992d3d3fd2" datatype="html">
         <source>Zarządzaj kursami</source>
+		<target>Manage courses</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">19</context>
@@ -266,6 +279,7 @@
       </trans-unit>
       <trans-unit id="f19fb6e5c5d06513764b3dd9c19d07614967bd75" datatype="html">
         <source>Zarządzaj lekcjami</source>
+		<target>Manage lessons</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">20</context>
@@ -273,6 +287,7 @@
       </trans-unit>
       <trans-unit id="f1b2901e68ef7d292ee3452f040cc6e6b0619494" datatype="html">
         <source>Mój profil</source>
+		<target>My profile</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">21</context>
@@ -280,6 +295,7 @@
       </trans-unit>
       <trans-unit id="cf6c87790a7f92efe990849398e0ddbff748fa06" datatype="html">
         <source>Wyloguj</source>
+		<target>Sign out</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">22</context>
@@ -287,6 +303,7 @@
       </trans-unit>
       <trans-unit id="f76a4e5b7161f0397b17f8be7c7c9f3c319be21b" datatype="html">
         <source>Zarejestruj</source>
+		<target>Register</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">28</context>
@@ -294,6 +311,7 @@
       </trans-unit>
       <trans-unit id="40e5695cd77fc4ad77f181f5a7797baae179fc21" datatype="html">
         <source>Zaloguj</source>
+		<target>Sign in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
           <context context-type="linenumber">29</context>
@@ -303,6 +321,7 @@
         <source>
         Programowanie dla każdego!
     </source>
+	<target>Teach yourself to code!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.html</context>
           <context context-type="linenumber">2</context>
@@ -320,6 +339,11 @@
                 się pomóc.
                 Nie zwlekaj, zacznij przygodę z <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>Pix<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span" equiv-text="&lt;span&gt;"/>Blocks<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> już dziś!
             </source>
+			<target>
+			<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>Pix<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span" equiv-text="&lt;span&gt;"/>Blocks<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+			is a platfrom for learnig experience. Explore and solve new problems every day. Our specialists, step by step, will teach You how to become a professional typer. After every lesson, You will check Your knowledge by solving various types of
+			exercises. It is not so easy to overcome difficulties, but we know how to make it simple. Join us now!
+			</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.html</context>
           <context context-type="linenumber">8</context>
@@ -340,6 +364,11 @@
                 jest algorytm?
                 W naszych kursach odpowiemy na te wszystkie pytania. Dołącz do <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>Pix<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span" equiv-text="&lt;span&gt;"/>Blocks<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>!
             </source>
+			<target>
+			<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>Pix<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span" equiv-text="&lt;span&gt;"/>Blocks<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+			is a platform dedicated to children, teens and everyone who wants to learn how to type. Do You want to teach Your children programming fundamentals? Or maybe You are a fresher in high school and everybody execpt You knows how to type a simple program? 
+			Whatever the reason, You are at the right place! Don't hesitate, start today!
+			</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.html</context>
           <context context-type="linenumber">30</context>
@@ -349,6 +378,9 @@
         <source>
             Witaj <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{getLogin()}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, zobacz, co nowego ostatnio dodaliśmy:
         </source>
+		<target>
+		 Hello <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{getLogin()}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, look, what we've recenty added:
+		</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.html</context>
           <context context-type="linenumber">52</context>
@@ -356,6 +388,7 @@
       </trans-unit>
       <trans-unit id="25b0ea87368dd4e6b1a27d954ab8a3c5016eb0c3" datatype="html">
         <source>KONTAKT</source>
+		<target>CONTACT</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/footer/footer.component.html</context>
           <context context-type="linenumber">24</context>
