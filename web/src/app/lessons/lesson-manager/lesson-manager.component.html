@@ -1,15 +1,15 @@
 <div class="container">
     <div class="row">
-      <h2 class="display-4">Edytor lekcji</h2>
+      <h2 i18n class="display-4">Edytor lekcji</h2>
     </div>
   
   
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <button class="nav-link btn" [ngClass]="isNewLessonSelected ? 'active' : ''" (click)="changeToNewLesson()">Nowa lekcja</button>
+        <button i18n class="nav-link btn" [ngClass]="isNewLessonSelected ? 'active' : ''" (click)="changeToNewLesson()">Nowa lekcja</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link btn" [ngClass]="!isNewLessonSelected ? 'active' : ''" (click)="changeToEditLesson()">Edycja</button>
+        <button i18n class="nav-link btn" [ngClass]="!isNewLessonSelected ? 'active' : ''" (click)="changeToEditLesson()">Edycja</button>
       </li>
     </ul>
   
