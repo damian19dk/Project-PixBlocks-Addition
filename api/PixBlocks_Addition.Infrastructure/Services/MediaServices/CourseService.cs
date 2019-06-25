@@ -172,5 +172,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 }
             }
         }
+
+        public async Task<int> CountAsync()
+        {
+            return await _courseRepository.CountAsync();
+        }
     }
 }
