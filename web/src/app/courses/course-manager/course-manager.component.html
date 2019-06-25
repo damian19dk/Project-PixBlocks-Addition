@@ -6,11 +6,11 @@
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <button class="nav-link btn btn-white" [ngClass]="isNewCourseSelected ? 'active' : ''" (click)="changeToNewCourse()">Nowy
+      <button i18n class="nav-link btn btn-white" [ngClass]="isNewCourseSelected ? 'active' : ''" (click)="changeToNewCourse()">Nowy
         kurs</button>
     </li>
     <li class="nav-item">
-      <button class="nav-link btn btn-white" [ngClass]="!isNewCourseSelected ? 'active' : ''"
+      <button i18n class="nav-link btn btn-white" [ngClass]="!isNewCourseSelected ? 'active' : ''"
         (click)="changeToEditCourse()">Edycja</button>
     </li>
   </ul>
