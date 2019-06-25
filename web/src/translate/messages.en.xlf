@@ -1055,6 +1055,7 @@
         <source>
     Kurs dodano pomyślnie
   </source>
+  <target>Course added successfully</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/new-course/new-course.component.html</context>
           <context context-type="linenumber">6</context>
@@ -1062,6 +1063,7 @@
       </trans-unit>
       <trans-unit id="1ab44ffe8ea7d30655fa28f54217f119ebf8d776" datatype="html">
         <source>Zdjęcie</source>
+		<target>Photo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/new-course/new-course.component.html</context>
           <context context-type="linenumber">81</context>
@@ -1077,6 +1079,7 @@
       </trans-unit>
       <trans-unit id="822cf307db1bd965e757ad876e3784d57ab572ff" datatype="html">
         <source>Dodaj kurs</source>
+		<target>Add course</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/new-course/new-course.component.html</context>
           <context context-type="linenumber">91</context>
@@ -1084,6 +1087,7 @@
       </trans-unit>
       <trans-unit id="93c21e36917aeb192a5b9ff3e951eaf71425eb3d" datatype="html">
         <source>Funkcja niedostępna</source>
+		<target>Function not available</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/error-pages/functionality-not-prepared/functionality-not-prepared.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1091,6 +1095,7 @@
       </trans-unit>
       <trans-unit id="e1f1f87481595e8dab7b1a138ba636963ddad704" datatype="html">
         <source>Skontaktuj się z administratorem serwisu w celu uzyskania informacji.</source>
+		<target>Please contact with administrators to get an information</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/error-pages/functionality-not-prepared/functionality-not-prepared.component.html</context>
           <context context-type="linenumber">4</context>
@@ -1098,6 +1103,7 @@
       </trans-unit>
       <trans-unit id="82b7802fe6c31f8ffd5d233ebd6a27a74192daef" datatype="html">
         <source>Edytor lekcji</source>
+		<target>Lesson editor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/lesson-manager/lesson-manager.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1105,6 +1111,7 @@
       </trans-unit>
       <trans-unit id="867baa7947f233f88706ff8a1af8e34dc9f90b31" datatype="html">
         <source>Nowa lekcja</source>
+		<target>New lesson</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/lesson-manager/lesson-manager.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1114,6 +1121,7 @@
         <source>
     Lekcja została dodana pomyślnie
   </source>
+  <target>Lesson successfully added</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/new-lesson/new-lesson.component.html</context>
           <context context-type="linenumber">6</context>
@@ -1121,6 +1129,7 @@
       </trans-unit>
       <trans-unit id="00e37bed04cac309457f7b0e9e80b81afb73e76d" datatype="html">
         <source>Kurs</source>
+		<target>Course</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/new-lesson/new-lesson.component.html</context>
           <context context-type="linenumber">98</context>
@@ -1128,6 +1137,7 @@
       </trans-unit>
       <trans-unit id="fa4264c8128039fa1bdc7bcc623970a884742877" datatype="html">
         <source>Wyszukaj kurs</source>
+		<target>Search course</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/new-lesson/new-lesson.component.html</context>
           <context context-type="linenumber">103</context>
