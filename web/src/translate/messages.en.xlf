@@ -976,6 +976,7 @@
       </trans-unit>
       <trans-unit id="bea71bb0dc72bafa09c8d55f80d9208b9d900f93" datatype="html">
         <source>Szczegóły:</source>
+		<target>Details:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">17</context>
@@ -983,6 +984,7 @@
       </trans-unit>
       <trans-unit id="1085a0ac2e3c6aae51517ec31bbdb4f66bf08e78" datatype="html">
         <source>Czas trwania: <x id="INTERPOLATION" equiv-text="{{video.duration | minuteSeconds}}"/></source>
+		<target>Time duration: <x id="INTERPOLATION" equiv-text="{{video.duration | minuteSeconds}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">19</context>
@@ -990,6 +992,7 @@
       </trans-unit>
       <trans-unit id="90980e90cfa2258470b46eec80944e3aa7c39ebc" datatype="html">
         <source>Język: <x id="INTERPOLATION" equiv-text="{{video.language}}"/></source>
+		<target>Language: <x id="INTERPOLATION" equiv-text="{{video.language}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">20</context>
@@ -997,6 +1000,7 @@
       </trans-unit>
       <trans-unit id="c415adb9ae4bf8bc9234af65b5859de6939174a7" datatype="html">
         <source>Napisy: brak</source>
+		<target>Languages: none</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">21</context>
@@ -1004,6 +1008,7 @@
       </trans-unit>
       <trans-unit id="7b72a42bd832cb8e01aaded8d628252f90299732" datatype="html">
         <source>Opis:</source>
+		<target>Description:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/overview/overview.component.html</context>
           <context context-type="linenumber">26</context>
@@ -1011,6 +1016,7 @@
       </trans-unit>
       <trans-unit id="ea7de827a210ad27887d3c7d4b0088d20be657c7" datatype="html">
         <source>Nie zadano jeszcze żadnych pytań!</source>
+		<target>No questions yet!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/show-video/questions/questions.component.html</context>
           <context context-type="linenumber">1</context>
@@ -1018,6 +1024,7 @@
       </trans-unit>
       <trans-unit id="64767ce3e618cd2e14c6e011cc7211572939ff72" datatype="html">
         <source>Edytor kursów</source>
+		<target>Course editor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-manager/course-manager.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1026,6 +1033,7 @@
       <trans-unit id="e612ac3f80c1011d69797445adcec5a939a9f40b" datatype="html">
         <source>Nowy
         kurs</source>
+		<target>New course</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-manager/course-manager.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1033,6 +1041,7 @@
       </trans-unit>
       <trans-unit id="a389af13c1af98c216db1809f14699b7d24ce517" datatype="html">
         <source>Edycja</source>
+		<target>Edition</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-manager/course-manager.component.html</context>
           <context context-type="linenumber">14</context>
