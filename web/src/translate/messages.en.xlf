@@ -1145,6 +1145,7 @@
       </trans-unit>
       <trans-unit id="31967eea6a95ba859e55ba34417b07ccec00b2c3" datatype="html">
         <source>Dodaj lekcję</source>
+		<target>Add lesson</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/new-lesson/new-lesson.component.html</context>
           <context context-type="linenumber">114</context>
@@ -1153,6 +1154,8 @@
       <trans-unit id="4ef4bd9607185435d1ac5df1ee746b04afa3406d" datatype="html">
         <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
             Ładowanie..</source>
+			<target><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+            Loading..</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/lessons/new-lesson/new-lesson.component.html</context>
           <context context-type="linenumber">115</context>
@@ -1160,6 +1163,7 @@
       </trans-unit>
       <trans-unit id="d09b2259743119a9dd69657b29d5794d2bb46f19" datatype="html">
         <source>Edytuj kurs</source>
+		<target>Edit course</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1169,6 +1173,7 @@
         <source>
             Kurs zaktualizowano pomyślnie
         </source>
+		<target>Course updated successfully</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1178,6 +1183,7 @@
         <source>
                     Usuń
                 </source>
+				<target>Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">106</context>
@@ -1185,6 +1191,7 @@
       </trans-unit>
       <trans-unit id="ae0f838908d726d3154b06a70dd9200aa53e41df" datatype="html">
         <source>Zapisz</source>
+		<target>Save</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">110</context>
@@ -1194,6 +1201,7 @@
         <source>
                     Zamknij
                 </source>
+				<target>Close</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">115</context>
@@ -1208,6 +1216,7 @@
       </trans-unit>
       <trans-unit id="c24827e5a21836d50e35d6629defbf4ffeb544b9" datatype="html">
         <source>Wyszukaj film</source>
+		<target>Search film</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">8</context>
