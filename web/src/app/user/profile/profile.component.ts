@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserDocument } from 'src/app/models/userDocument.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,8 @@ export class ProfileComponent implements OnInit {
 
   userDocument: UserDocument;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private userService: UserService) { }
 
   ngOnInit() {
     this.getUser();
@@ -20,12 +22,34 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.userDocument = new UserDocument();
     this.userDocument.login = this.authService.getLogin();
-    this.userDocument.email = "example@mail.com";
-    this.userDocument.roleId = parseInt(this.authService.getUserRole());
+    this.userDocument.email = this.authService.getEmail();
+    this.userDocument.roleId = this.convertRoleIdToRoleName(this.authService.getUserRole());
   }
 
-  changePassword() {
+  convertRoleIdToRoleName(id: string) {
+    let roleName = "";
+    switch(parseInt(id)) {
+      case 1:
+        roleName = "Użytkownik"
+      break;
+      case 2:
+        roleName = "Administrator";
+      break;
+      default:
+      break;
+    }
+    return roleName;
+  }
 
+  changePassword(user: any) {
+    return this.userService.changePassword(user.login, user.newPassword, user.oldPassword).subscribe(
+      data => {
+
+      },
+      error => {
+
+      }
+    );
   }
 
   changeEmail() {
