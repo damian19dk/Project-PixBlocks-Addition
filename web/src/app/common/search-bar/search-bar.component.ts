@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { CourseService } from 'src/app/services/course.service';
 import { CourseDocument } from './../../models/courseDocument.model';
 import { Observable } from 'rxjs';
+import { VideoService } from 'src/app/services/video.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -13,7 +13,7 @@ export class SearchBarComponent implements OnInit {
 
   @Input() searchPhrase: string;
 
-  constructor(private courseService: CourseService) { }
+  constructor(private videoService: VideoService) { }
 
   ngOnInit() {
     
@@ -22,7 +22,7 @@ export class SearchBarComponent implements OnInit {
   search= (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(300),
-      switchMap((searchText) => this.courseService.findByTitle(searchText))
+      switchMap((searchText) => this.videoService.findByTitle(searchText))
     );
   }
 
