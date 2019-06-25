@@ -715,6 +715,7 @@
         <source>
         Film dodano pomyślnie
       </source>
+	  <target>Film added successfully</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">14</context>
@@ -722,6 +723,7 @@
       </trans-unit>
       <trans-unit id="ac521db431d1e9ecfd46864c47bf7e3c44b32fcb" datatype="html">
         <source>Tytuł</source>
+		<target>Title</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">21</context>
@@ -741,6 +743,7 @@
       </trans-unit>
       <trans-unit id="55b6d5042fa47f6f2c6464983a84c29a04af7240" datatype="html">
         <source>Wpisz tytuł</source>
+		<target>Write a title</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">24</context>
@@ -760,6 +763,7 @@
       </trans-unit>
       <trans-unit id="5455d39ab6db2ca9a1317ea68a6a8f3cf7eeb779" datatype="html">
         <source>Opis</source>
+		<target>Description</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">36</context>
@@ -779,6 +783,7 @@
       </trans-unit>
       <trans-unit id="603179e5ab0ceaad7329d616240e403ae408e3ad" datatype="html">
         <source>Wpisz opis</source>
+		<target>Write a description</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">39</context>
@@ -798,6 +803,7 @@
       </trans-unit>
       <trans-unit id="41d72a105fe153bbfe2c2ed5a9863d4076a3dce7" datatype="html">
         <source>Opis musi mieć minimum 3 znaki</source>
+		<target>Description should be between 3 and 10000 characters long</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">43</context>
@@ -817,6 +823,8 @@
       </trans-unit>
       <trans-unit id="17c5ced9995443936b3f4e74546b1b88e52b325e" datatype="html">
         <source>Opis może mieć maksymalnie 10000 znaków</source>
+		<target>Please shorten Your description to 10000 characters or fewer.</target>
+		<target></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">44</context>
@@ -836,6 +844,7 @@
       </trans-unit>
       <trans-unit id="0943d21a8cfc4943f7d2ad82036e7b1f6f15a8d6" datatype="html">
         <source>Język</source>
+		<target>Language</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
           <context context-type="linenumber">52</context>
