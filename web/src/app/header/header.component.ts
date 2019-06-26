@@ -34,4 +34,9 @@ export class HeaderComponent implements OnInit {
   getLogin() {
     return this.authenticationService.getLogin();
   }
+
+  getUserRole() {
+    return this.authenticationService.getUserRole();
+  }
+
 }

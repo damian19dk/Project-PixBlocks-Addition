@@ -38,6 +38,9 @@ import { CourseThumbnailComponent } from './courses/course-thumbnail/course-thum
 import { SearchBarComponent } from './common/search-bar/search-bar.component';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized-interceptor';
 import { ProfileComponent } from './user/profile/profile.component';
+import { ChangePasswordComponent } from './user/profile/change-password/change-password.component';
+import { ChangeEmailComponent } from './user/profile/change-email/change-email.component';
+import { LessonThumbnailComponent } from './lessons/lesson-thumbnail/lesson-thumbnail.component';
 
 
 const routes: Routes = [
@@ -50,7 +53,7 @@ const routes: Routes = [
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'show_video/:id', component: ShowVideoComponent },
   { path: 'settings', component: FunctionalityNotPreparedComponent },
-  { path: 'profile', component: FunctionalityNotPreparedComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -82,7 +85,10 @@ const routes: Routes = [
     EditLessonComponent,
     CourseThumbnailComponent,
     SearchBarComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent,
+    ChangeEmailComponent,
+    LessonThumbnailComponent
   ],
   imports: [
     BrowserModule,

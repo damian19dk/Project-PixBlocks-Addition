@@ -29,6 +29,7 @@ export class NewLessonComponent implements OnInit {
 
   courses: any[];
   fileToUpload: File = null;
+  fileUploadMessage: string;
 
   constructor(private formBuilder: FormBuilder,
     private lessonService: LessonService,
@@ -109,9 +110,16 @@ export class NewLessonComponent implements OnInit {
   formatter = (x: CourseDocument) =>
     x.title;
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-  }
+
+    handleFileInput(files: FileList) {
+      this.fileToUpload = files.item(0);
+      if(this.fileToUpload.size > 0) {
+          this.fileUploadMessage = 'Gotowy do wysłania';
+      }
+      else {
+          this.fileUploadMessage = 'Wybierz plik';
+      } 
+    }
 
   imitateFileInput() {
     document.getElementById('image').click();

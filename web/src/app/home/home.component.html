@@ -48,13 +48,16 @@
 
     </div>
 
-    <div *ngIf="isLogged()" class="row alert alert-info">
-        <div i18n class="col h-40 p-3">
-            Witaj <b>{{getLogin()}}</b>, zobacz, co nowego ostatnio dodaliśmy:
-        </div>
-    </div>
-
     <div *ngIf="isLogged()">
+
+        <div class="row alert alert-info">
+            <div *ngIf="isLogged()" class="row alert alert-info">
+                <div i18n class="col h-40 p-3">
+                    Witaj <b>{{getLogin()}}</b>, zobacz, co nowego ostatnio dodaliśmy:
+                </div>
+            </div>
+        </div>
+
         <div *ngIf="videos">
             <div class="container">
                 <div class="row">

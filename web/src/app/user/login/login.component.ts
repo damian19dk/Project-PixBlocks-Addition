@@ -46,9 +46,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           localStorage.setItem("Token", data.accessToken);
-          localStorage.setItem("Login", this.f.username.value);
+          localStorage.setItem("UserLogin", this.f.username.value);
           localStorage.setItem("TokenRefresh", data.refreshToken);
-          localStorage.setItem("TokenExpires", data.expires);                 
+          localStorage.setItem("TokenExpires", data.expires);    
+          localStorage.setItem("UserRole", data.roleId);
+          localStorage.setItem("UserEmail", data.email);          
           this.router.navigate([this.returnUrl]);
         },
         error => {

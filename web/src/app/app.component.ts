@@ -46,6 +46,8 @@ export class AppComponent {
 
   constructor(@Inject(LOCALE_ID) protected localeId: string,
     private loadingService: LoadingService) {
+      console.log(localeId)
+      localStorage.setItem("LocaleId", localeId);
   }
 
   isLoading() {
