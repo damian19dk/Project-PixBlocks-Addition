@@ -228,29 +228,19 @@
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="f76a4e5b7161f0397b17f8be7c7c9f3c319be21b" datatype="html">
-        <source>Zarejestruj</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="40e5695cd77fc4ad77f181f5a7797baae179fc21" datatype="html">
-        <source>Zaloguj</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="0943d21a8cfc4943f7d2ad82036e7b1f6f15a8d6" datatype="html">
         <source>Język</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/header/header.component.html</context>
+          <context context-type="linenumber">74</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/video/add-video/add-video.component.html</context>
@@ -269,15 +259,29 @@
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="f76a4e5b7161f0397b17f8be7c7c9f3c319be21b" datatype="html">
+        <source>Zarejestruj</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/header/header.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="40e5695cd77fc4ad77f181f5a7797baae179fc21" datatype="html">
+        <source>Zaloguj</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/header/header.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="a6f217d593174382c7ceeb343943734e1f0352ab" datatype="html">
         <source>Ustawienia</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">53</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="310d48d485b1d4c60898daa9c88f69ad922d5a78" datatype="html">
@@ -285,7 +289,7 @@
                 wideo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9e8f3abbe1a29c2f16b91db212cd1ae5baa6119c" datatype="html">
@@ -293,7 +297,7 @@
                 kursami</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="88f826304bba4d4c1f2f2bfa2f197565ae3884a6" datatype="html">
@@ -301,29 +305,29 @@
                 lekcjami</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f1b2901e68ef7d292ee3452f040cc6e6b0619494" datatype="html">
         <source>Mój profil</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="cf6c87790a7f92efe990849398e0ddbff748fa06" datatype="html">
         <source>Wyloguj</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/header/header.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bec7b87475355d169f87e6d0e2fc286cab34c823" datatype="html">
@@ -482,6 +486,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/courses/course-thumbnail/course-thumbnail.component.html</context>
           <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/lessons/lesson-thumbnail/lesson-thumbnail.component.html</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e529eb09659b23a426028f010a73951e6977f17a" datatype="html">
@@ -1044,6 +1052,10 @@
           <context context-type="sourcefile">app/lessons/new-lesson/new-lesson.component.html</context>
           <context context-type="linenumber">98</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/lessons/lesson-thumbnail/lesson-thumbnail.component.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="fa4264c8128039fa1bdc7bcc623970a884742877" datatype="html">
         <source>Wyszukaj kurs</source>
@@ -1149,15 +1161,15 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="482719d07cb8b6e5a63ba6b4f5317d6f7e2a72b0" datatype="html">
-        <source>Zmień email</source>
+      <trans-unit id="ae859bb6896361ac93574c898b0cf397d7802bf8" datatype="html">
+        <source>Zapomniałem hasła</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/profile/change-password/change-password.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="ae859bb6896361ac93574c898b0cf397d7802bf8" datatype="html">
-        <source>Zapomniałem hasła</source>
+      <trans-unit id="482719d07cb8b6e5a63ba6b4f5317d6f7e2a72b0" datatype="html">
+        <source>Zmień email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/user/profile/change-email/change-email.component.html</context>
           <context context-type="linenumber">43</context>

@@ -45,6 +45,7 @@ export class ChangeEmailComponent implements OnInit {
 
     return this.userService.changeEmail(login, this.changeEmailForm.value.email).subscribe(
       data => {
+        localStorage.setItem("UserEmail", this.changeEmailForm.value.email);
         this.sent = true;
         this.error = null;
         this.loading = false;
