@@ -1,3 +1,6 @@
-<p>
-  edit-lesson works!
-</p>
+<div class="container d-flex flex-row justify-content-center flex-wrap">
+  <app-lesson-thumbnail class="p-2" *ngFor="let lesson of lessons" [lesson]=lesson (editLessonComponent)="getLessons($event)">
+  </app-lesson-thumbnail>
+</div>
+<ngb-pagination class="d-flex justify-content-center" [collectionSize]=count [(page)]=page aria-label="Default pagination"
+  (pageChange)="getLessons()"></ngb-pagination>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-change-password',
@@ -13,7 +13,8 @@ export class ChangePasswordComponent implements OnInit {
 
   changePasswordForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private modalService: NgbModal,
+    private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService) { }
 
@@ -39,6 +40,10 @@ export class ChangePasswordComponent implements OnInit {
 
       }
     );
+  }
+
+  openModal(content) {
+    this.modalService.open(content, { centered: true });
   }
 
 }

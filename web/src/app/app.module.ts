@@ -40,6 +40,7 @@ import { UnauthorizedInterceptor } from './interceptors/unauthorized-interceptor
 import { ProfileComponent } from './user/profile/profile.component';
 import { ChangePasswordComponent } from './user/profile/change-password/change-password.component';
 import { ChangeEmailComponent } from './user/profile/change-email/change-email.component';
+import { LessonThumbnailComponent } from './lessons/lesson-thumbnail/lesson-thumbnail.component';
 
 
 const routes: Routes = [
@@ -86,7 +87,8 @@ const routes: Routes = [
     SearchBarComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    ChangeEmailComponent
+    ChangeEmailComponent,
+    LessonThumbnailComponent
   ],
   imports: [
     BrowserModule,

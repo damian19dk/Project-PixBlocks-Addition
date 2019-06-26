@@ -266,7 +266,7 @@
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="cd0de8cfd2a4151b0069b1dfd20ce55d50066fa5" datatype="html">
+      <trans-unit id="310d48d485b1d4c60898daa9c88f69ad922d5a78" datatype="html">
         <source>Dodaj wideo</source>
 		<target>Add video</target>
         <context-group purpose="location">
@@ -274,7 +274,7 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="d2af08df623f8b229d13a3317d18e3992d3d3fd2" datatype="html">
+      <trans-unit id="9e8f3abbe1a29c2f16b91db212cd1ae5baa6119c" datatype="html">
         <source>Zarządzaj kursami</source>
 		<target>Manage courses</target>
         <context-group purpose="location">
@@ -282,7 +282,7 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="f19fb6e5c5d06513764b3dd9c19d07614967bd75" datatype="html">
+      <trans-unit id="88f826304bba4d4c1f2f2bfa2f197565ae3884a6" datatype="html">
         <source>Zarządzaj lekcjami</source>
 		<target>Manage lessons</target>
         <context-group purpose="location">
@@ -379,7 +379,7 @@
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="cfcd21fe533b9380abe7a50ffb4a6d215ee19190" datatype="html">
+      <trans-unit id="5016d91aa16d745f316885cc093e75636892f9c3" datatype="html">
         <source>
             Witaj <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/><x id="INTERPOLATION" equiv-text="{{getLogin()}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, zobacz, co nowego ostatnio dodaliśmy:
         </source>
@@ -1226,6 +1226,66 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="84c05e8c87a64176f3b22876d74042c064e734f6" datatype="html">
+        <source> Szukaj filmu</source>
+        <target> Search video</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/common/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="94c06563fc1bb8253896a5fc47492baf8c2ab2d4" datatype="html">
+        <source>
+        <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Login: <x id="INTERPOLATION" equiv-text="{{userDocument.login}}"/><x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+      </source>
+              <target>
+        <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Login: <x id="INTERPOLATION" equiv-text="{{userDocument.login}}"/><x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/profile/profile.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1d91df7b81ebd71bc146c9422524d77bd9c0074b" datatype="html">
+        <source>
+        <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Adres email: <x id="INTERPOLATION" equiv-text="{{userDocument.email}}"/><x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+      </source>
+       <target>
+        <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Email address: <x id="INTERPOLATION" equiv-text="{{userDocument.email}}"/><x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/profile/profile.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bb16159ba9d5bddcccf8abf148f505742ced3501" datatype="html">
+        <source>
+        <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Rola systemowa: <x id="INTERPOLATION" equiv-text="{{userDocument.roleId}}"/><x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+      </source>
+              <target>
+        <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>System role: <x id="INTERPOLATION" equiv-text="{{userDocument.roleId}}"/><x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/profile/profile.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="482719d07cb8b6e5a63ba6b4f5317d6f7e2a72b0" datatype="html">
+        <source>Zmień email</source>
+        <target>Change email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/profile/change-password/change-password.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ae859bb6896361ac93574c898b0cf397d7802bf8" datatype="html">
+        <source>Zapomniałem hasła</source>
+        <target>Forgot password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/user/profile/change-email/change-email.component.html</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
     </body>

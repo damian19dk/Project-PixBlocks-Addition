@@ -11,6 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ChangeEmailComponent implements OnInit {
 
+  error: string;
+  loading: boolean;
+  submitted: boolean;
+  sent: boolean;
+
   changeEmailForm: FormGroup;
 
   constructor(private modalService: NgbModal,
@@ -24,21 +29,36 @@ export class ChangeEmailComponent implements OnInit {
     });
   }
 
+  get f() { return this.changeEmailForm.controls; }
+
+
   changeEmail() {
+    this.submitted = true;
+
     if (this.changeEmailForm.invalid) {
       return;
     }
+
+    this.loading = true;
 
     let login = this.authService.getLogin();
 
     return this.userService.changeEmail(login, this.changeEmailForm.value.email).subscribe(
       data => {
-
+        this.sent = true;
+        this.error = null;
+        this.loading = false;
       },
       error => {
-
+        this.sent = true;
+        this.error = error;
+        this.loading = false;
       }
     );
+  }
+
+  openModal(content) {
+    this.modalService.open(content, { centered: true });
   }
 
 }

@@ -11,11 +11,11 @@ export class UserService {
 
   changePassword(login: string, newPassword: string, oldPassword: string) {
     let headers = new HttpHeaders();
-    return this.http.put<any>(environment.baseUrl + "/api/User/passwordChange", { login, newPassword, oldPassword }, { headers });
+    return this.http.put<any>(environment.baseUrl + "/api/User/passwordChange?login=" + login + "&newPassword=" + newPassword + "&oldPassword=" + oldPassword, { }, { headers });
   }
 
   changeEmail(login: string, email: string) {
     let headers = new HttpHeaders();
-    return this.http.put<any>(environment.baseUrl + "/api/User/emailChange", { login, email }, { headers });
+    return this.http.put<any>(environment.baseUrl + "/api/User/emailChange?login=" + login + "&email=" + email, { }, { headers });
   }
 }
