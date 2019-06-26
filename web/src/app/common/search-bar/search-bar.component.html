@@ -1,5 +1,5 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 <div class="d-flex align-self-center">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <ng-template #rt let-r="result" let-t="term">
     <div placement="right" ngbTooltip="{{r.description}}" routerLink="/show_video/{{r.mediaId}}">
       <ngb-highlight class="mr-2" [result]="r.title" [term]="t">
@@ -8,8 +8,8 @@
     </div>
   </ng-template>
 
-  <form [formGroup]="searchVideoForm">
-    <input i18n-placeholder class="form-control empty" formControlName="searchPhrase" type="text" [ngbTypeahead]="search"
-      [inputFormatter]="formatter" [resultTemplate]="rt" placeholder="&#xF002; Szukaj filmu" />
+  <form [formGroup]="searchVideoForm" class="d-inline-flex align-self-center">
+    <input i18n-placeholder class="form-control empty d-inline-flex align-self-center" formControlName="searchPhrase" type="text"
+      [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt" placeholder="&#xF002; Szukaj filmu" />
   </form>
 </div>
