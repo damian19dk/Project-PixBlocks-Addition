@@ -13,7 +13,6 @@ namespace PixBlocks_Addition.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -72,6 +71,7 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<IEnumerable<CourseDto>> GetAll(params string[] tags)
             => await _courseService.GetAllByTagsAsync(tags);
 
+        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<IEnumerable<CourseDto>> GetAll(int page, int count = 10)
         {

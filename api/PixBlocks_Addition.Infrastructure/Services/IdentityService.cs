@@ -68,7 +68,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             else
                 token = refreshToken.Token;
-            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token, RoleId = user.RoleId};
+            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token, RoleId = user.RoleId, Email = user.Email };
 
             return jwtDto;
         }
@@ -108,6 +108,28 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             token.Revoke();
             await _refreshTokens.UpdateAsync();
+        }
+        public async Task ChangeEmail(string login, string email)
+        {
+            var user = await _userRepository.GetAsync(login);
+            var unemail = await _userRepository.IsEmailUnique(email);
+
+            if (user.Email == email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
+
+            user.SetEmail(email);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
+        public async Task ChangePassword(string login, string newPassword, string oldPassword)
+        {
+            var user = await _userRepository.GetAsync(login);
+            if (newPassword == oldPassword) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
+
+            user.SetPassword(newPassword, _encrypter);
+
+            await _userRepository.UpdateAsync(user);
         }
     }
 }

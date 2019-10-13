@@ -8,7 +8,7 @@ using PixBlocks_Addition.Infrastructure.Services;
 namespace PixBlocks_Addition.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class IdentityController : ControllerBase
     {
@@ -53,7 +53,17 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             await _identityService.Register(register.Login, register.Password, register.E_mail, register.RoleId);
         }
-        
-       
+        [HttpPut("passwordChange")]
+        public async Task ChangePassword(string login, string newPassword, string oldPassword)
+        {
+            await _identityService.ChangePassword(login, newPassword, oldPassword);
+        }
+
+        [HttpPut("emailChange")]
+        public async Task ChangeEmail(string login, string email)
+        {
+            await _identityService.ChangeEmail(login, email);
+        }
+
     }
 }
