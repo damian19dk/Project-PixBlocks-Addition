@@ -19,14 +19,14 @@ export class MinuteSecondsPipe implements PipeTransform {
        const minutes: number = Math.floor(value / 60);
        const hours: number = Math.floor(value / 3600);
 
-       let secondsString = (value - minutes * 60) + "s";
-       let minutesString = "";
-       let hoursString = "";
-       if(hours > 0) {
-         hoursString = hours + "h ";
+       const secondsString = (value - minutes * 60) + 's';
+       let minutesString = '';
+       let hoursString = '';
+       if (hours > 0) {
+         hoursString = hours + 'h ';
        }
-       if(minutes > 0) {
-         minutesString = minutes + "m ";
+       if (minutes > 0) {
+         minutesString = minutes + 'm ';
        }
        return hoursString + minutesString + secondsString;
     }
@@ -45,7 +45,7 @@ export class AppComponent {
   ];
 
   constructor(@Inject(LOCALE_ID) protected localeId: string,
-    private loadingService: LoadingService) {
+              private loadingService: LoadingService) {
   }
 
   isLoading() {
