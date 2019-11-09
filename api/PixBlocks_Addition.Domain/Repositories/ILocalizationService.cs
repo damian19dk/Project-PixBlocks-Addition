@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PixBlocks_Addition.Infrastructure.Services
+namespace PixBlocks_Addition.Domain.Repositories
 {
     public interface ILocalizationService
     {
-        IReadOnlyList<string> supportedLanguages { get; }
-        string GetCurrentLanguage();
+        IReadOnlyList<string> SupportedLanguages { get; }
+        string Language { get; }
     }
 }

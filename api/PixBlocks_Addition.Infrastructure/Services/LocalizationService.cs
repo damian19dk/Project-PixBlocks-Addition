@@ -5,25 +5,34 @@ using System.Text;
 using System.Linq;
 using PixBlocks_Addition.Infrastructure.Settings;
 using Microsoft.Extensions.Options;
+using PixBlocks_Addition.Domain.Repositories;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
     public class LocalizationService : ILocalizationService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public IReadOnlyList<string> supportedLanguages { get; }
+        public IReadOnlyList<string> SupportedLanguages { get; }
+        public string Language { get; }
 
         public LocalizationService(IHttpContextAccessor httpContextAccessor, IOptions<LanguageOptions> options)
         {
             _httpContextAccessor = httpContextAccessor;
-            supportedLanguages = options.Value.Languages.AsReadOnly();
+            SupportedLanguages = options.Value.Languages.AsReadOnly();
+            Language = getCurrentLanguage().ToLowerInvariant();
         }
 
-        public string GetCurrentLanguage()
-            => getLanguages().FirstOrDefault(x => supportedLanguages.Contains(x.ToLowerInvariant()));
-
         public bool IsSupportedLanguage() 
-            => getLanguages().Any(x => supportedLanguages.Contains(x));
+            => SupportedLanguages.Contains(Language);
+
+
+        private string getCurrentLanguage()
+        {
+            if (getLanguages().Any(lang => SupportedLanguages.Contains(lang.ToLowerInvariant())))
+                return getLanguages().FirstOrDefault(lang => SupportedLanguages.Contains(lang.ToLowerInvariant()));
+            else
+                return getLanguages().FirstOrDefault();
+        }
 
         private string[] getLanguages() 
             => _httpContextAccessor.HttpContext.Request.Headers["Accept-Language"].ToString()
