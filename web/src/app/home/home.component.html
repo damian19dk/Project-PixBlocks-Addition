@@ -57,12 +57,13 @@
     <div *ngIf="isLogged()">
         <div *ngIf="videos">
             <div class="container">
-                <div class="row">
-                    <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
-                    </app-video-thumbnail>
+                <div class="row-6">
+                    <app-course-thumbnail *ngFor="let course of courses" [course]=course class="col-md-4"></app-course-thumbnail>
+                <!--   <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
+                    </app-video-thumbnail> --> 
                 </div>
                 <ngb-pagination class="d-flex justify-content-center" [collectionSize]="count" [(page)]=page
-                    aria-label="Default pagination" (pageChange)="getVideos()"></ngb-pagination>
+                    aria-label="Default pagination" (pageChange)="getCourses()"></ngb-pagination>
             </div>
         </div>
     </div>

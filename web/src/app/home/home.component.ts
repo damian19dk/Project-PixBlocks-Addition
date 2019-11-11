@@ -3,6 +3,8 @@ import { VideoService } from '../services/video.service';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../services/loading.service';
 import { VideoDocument } from '../models/videoDocument.model';
+import { CourseDocument } from '../models/courseDocument.model';
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +18,10 @@ export class HomeComponent implements OnInit {
 
   videos: VideoDocument[];
   error: string;
+  courses: CourseDocument[];
 
   constructor(
+    private courseService: CourseService,
     private videoService: VideoService,
     private loadingService: LoadingService,
     private authenticationService: AuthService) { }
@@ -25,6 +29,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getVideos();
     this.getCount();
+    this.getCourses();
   }
 
   isLogged() {
@@ -43,6 +48,20 @@ export class HomeComponent implements OnInit {
         this.videos = data.filter((video) => { return video.status == "ready" });
         this.loadingService.unload();
       },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
+  }
+  getCourses() {
+    this.loadingService.load();
+
+    this.courseService.getAll(this.page).subscribe(
+      (data: CourseDocument[]) => {
+        this.courses = data;
+        this.loadingService.unload();
+        },
       error => {
         this.error = error;
         this.loadingService.unload();
