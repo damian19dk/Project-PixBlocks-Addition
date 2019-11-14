@@ -120,17 +120,17 @@
         </form>
     </div>
 </ng-template>
-
+src={{course.picture}} alt="Tu miał być kurs" />
 -->
 <div *ngIf="course" class="card mb-4 bg-white box-shadow">
 
     <div class="card-header text-center">
         {{course.title}}
     </div>
-
-    <div class="card-box card-link">
+    <div class="card-box card-link" routerLink="/show_course/{{course.id}}">
         <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-        <img class="card-img-top align-middle mx-auto d-block" src={{course.picture}} alt="Tu miał być kurs" />
+        <img class="card-img-top align-middle mx-auto d-block" />
+        
     </div>
 
     <div class="card-body">

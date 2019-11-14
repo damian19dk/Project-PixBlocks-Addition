@@ -1,1 +1,17 @@
-<p class="text-center">Tu będzie spis treści</p>
+
+<li *ngFor="let course of courses"> {{ course.title }} </li>
+<div class="row-4">
+        <app-course-thumbnail *ngFor="let course of courses" [course]=course class="col-md-4"></app-course-thumbnail>
+    <!--   <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">                   </app-video-thumbnail> -->
+    </div>
+
+<p class="text-center">Tu będzie spis treści </p>
+<div class="container">
+    <small>sdaasffs</small>
+    <small> {{ course.title}}</small>
+</div>
+
+<div *ngIf="course">
+    <li> {{ course.title }} </li>
+    <li> DNA SUGI</li>
+</div>

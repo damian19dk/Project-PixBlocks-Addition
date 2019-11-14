@@ -49,8 +49,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'show_video/:id', component: ShowVideoComponent },
+  { path: 'show_course/:id', component: CoursesComponent},
   { path: 'settings', component: FunctionalityNotPreparedComponent },
   { path: 'profile', component: FunctionalityNotPreparedComponent },
+  {path: 'browse_video', component: VideoBrowseComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 
