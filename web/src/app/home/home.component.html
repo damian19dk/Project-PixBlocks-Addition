@@ -47,7 +47,8 @@
         </div>
 
     </div>
-
+</div>
+<div class="container-fluid svvg">
     <div *ngIf="isLogged()" class="row alert alert-info">
         <div i18n class="col h-40 p-3">
             Witaj <b>{{getLogin()}}</b>, zobacz, co nowego ostatnio dodaliśmy:
@@ -55,9 +56,10 @@
     </div>
 
     <div *ngIf="isLogged()">
-        <div *ngIf="videos">
+        <div *ngIf="videos" class="container-fluid">
             <div class="container">
                 <div class="row-4">
+                     
                     <app-course-thumbnail *ngFor="let course of courses" [course]=course class="col-md-4"></app-course-thumbnail>
                 <!--   <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">                   </app-video-thumbnail> -->
                 </div>
@@ -71,5 +73,4 @@
         <div class="col h-40 p-3">
         </div>
     </div>
-
 </div>

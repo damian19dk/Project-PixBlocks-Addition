@@ -16,3 +16,12 @@
 .font-weight-bold {
     font-size: 20px;
 }
+.svvg {
+   background-image: url('/assets/svg/undraw_preferences_uuo2.svg');
+ /*  no-repeat center center fixed; */
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  
+}
