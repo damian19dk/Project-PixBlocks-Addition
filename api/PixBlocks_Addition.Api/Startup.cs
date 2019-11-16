@@ -44,6 +44,7 @@ namespace PixBlocks_Addition.Api
             services.AddCors();
 
             services.Configure<HostOptions>(Configuration.GetSection("host"));
+            services.Configure<LanguageOptions>(Configuration.GetSection("Languages"));
 
             var sqlSection = Configuration.GetSection("sql");
             services.Configure<SqlSettings>(sqlSection);
@@ -107,6 +108,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IExerciseService, ExerciseService>();
+            services.AddScoped<ILocalizationService, LocalizationService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
