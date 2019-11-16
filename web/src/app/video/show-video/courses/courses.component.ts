@@ -136,7 +136,7 @@ export class CoursesComponent implements OnInit {
         this.loadingService.unload();
       }
     );
-  }
+  }/*
   getHostedCourse() {
     this.loadingService.load();
 
@@ -164,6 +164,6 @@ export class CoursesComponent implements OnInit {
         this.error = error;
         this.loadingService.unload();
       });
-  }
+  }*/
 
 }
