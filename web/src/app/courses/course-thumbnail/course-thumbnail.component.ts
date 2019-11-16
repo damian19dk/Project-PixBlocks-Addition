@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CourseDocument } from 'src/app/models/courseDocument.model';
-import { CourseDto } from 'src/app/models/courseDto.model';
-import { CourseService } from 'src/app/services/course.service';
-import { ImageService } from 'src/app/services/image.service';
-import { TagService } from 'src/app/services/tag.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CourseDocument} from 'src/app/models/courseDocument.model';
+import {CourseDto} from 'src/app/models/courseDto.model';
+import {CourseService} from 'src/app/services/course.service';
+import {ImageService} from 'src/app/services/image.service';
+import {TagService} from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-course-thumbnail',
@@ -30,14 +30,15 @@ export class CourseThumbnailComponent implements OnInit {
   tagsSettings = {};
 
   fileToUpload: File = null;
-  fileUploadMessage: string = 'Wybierz plik';
+  fileUploadMessage = 'Wybierz plik';
 
 
   constructor(public imageService: ImageService,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    private courseService: CourseService,
-    private tagService: TagService) { }
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder,
+              private courseService: CourseService,
+              private tagService: TagService) {
+  }
 
 
   ngOnInit() {
@@ -66,7 +67,9 @@ export class CourseThumbnailComponent implements OnInit {
     });
   }
 
-  get f() { return this.editCourseForm.controls; }
+  get f() {
+    return this.editCourseForm.controls;
+  }
 
   editCourse() {
     this.submitted = true;
@@ -79,7 +82,7 @@ export class CourseThumbnailComponent implements OnInit {
 
     this.courseDto = this.editCourseForm.value;
     this.courseDto.image = this.fileToUpload;
-    let formData = new FormData();
+    const formData = new FormData();
 
     this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
     this.courseDto.id != null ? formData.append('id', this.courseDto.id) : null;
@@ -124,23 +127,22 @@ export class CourseThumbnailComponent implements OnInit {
 
 
   private getPicture() {
-    let picture = null;
+    const picture = null;
     if (this.course.picture == null) {
-      this.course.picture = "https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png";
+      this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
       return;
     }
   }
 
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, {centered: true});
   }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     if (this.fileToUpload.size > 0) {
       this.fileUploadMessage = 'Gotowy do wysłania';
-    }
-    else {
+    } else {
       this.fileUploadMessage = 'Wybierz plik';
     }
   }

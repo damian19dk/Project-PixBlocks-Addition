@@ -1,5 +1,5 @@
 <div>
-  <ng-template #changeEmailModal let-modal>
+  <ng-template #modal let-modal>
     <div class="modal-header">
       <h4 i18n class="modal-title">Zmień adres email</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -11,17 +11,16 @@
       <div *ngIf="error" class="alert alert-danger col-12">
         {{error}}
       </div>
-
       <div i18n *ngIf="sent && !error" class="alert alert-success col-12">
         Adres email zmieniono pomyślnie
       </div>
 
-      <form [formGroup]="changeEmailForm" (ngSubmit)="changeEmail()" class="col-12">
+      <form [formGroup]="form" (ngSubmit)="changeEmail()" class="col-12">
 
         <div class="form-group row">
-          <label i18n for="new email" class="col-sm-2 col-form-label">Nowy adres email</label>
-          <div class="col-sm-10">
-            <input formControlName="email" type="text" class="form-control" i18n-placeholder placeholder="Podaj nowy email">
+          <label i18n for="email" class="col-sm-2 col-form-label">Nowy adres email</label>
+          <div class="col-sm-10 align-self-center">
+            <input formControlName="email" required type="text" class="form-control" i18n-placeholder placeholder="Podaj nowy email">
           </div>
         </div>
 
@@ -33,12 +32,13 @@
               Ładowanie..</div>
           </button>
           <button i18n type="button" [disabled]="loading" class="btn btn-danger" (click)="modal.close('Close click')">
-            Anuluj
+            Zamknij
           </button>
         </div>
+
       </form>
     </div>
   </ng-template>
 
-  <button i18n class="btn btn-primary ml-0 mr-2" (click)="openModal(changeEmailModal)">Zmień email</button>
+  <button i18n class="btn btn-primary ml-0 mr-2" (click)="openModal(modal)">Zmień email</button>
 </div>

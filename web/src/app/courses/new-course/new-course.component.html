@@ -7,27 +7,27 @@
     Kurs dodano pomyślnie
   </div>
 
-  <form [formGroup]="newCourseForm" (ngSubmit)="createNewCourse()">
+  <form [formGroup]="form" (ngSubmit)="createNewCourse()">
+
     <div class="form-group row">
       <label i18n for="title" class="col-sm-2 col-form-label">Tytuł</label>
       <div class="col-sm-10 input-group">
         <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control" id="title"
-          formControlName="title" placeholder="Wpisz tytuł" i18n-placeholder>
+               formControlName="title" placeholder="Wpisz tytuł" i18n-placeholder>
 
         <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
           <div i18n *ngIf="f.title.errors.required">Pole jest puste</div>
         </div>
 
       </div>
-
-
     </div>
 
     <div class="form-group row">
       <label i18n for="description" class="col-sm-2 col-form-label">Opis</label>
       <div class="col-sm-10 input-group">
-        <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control" id="description" i18n-placeholder
-          formControlName="description" placeholder="Wpisz opis"></textarea>
+        <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control" id="description"
+                  i18n-placeholder
+                  formControlName="description" placeholder="Wpisz opis"></textarea>
 
         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
           <div i18n *ngIf="f.description.errors.required">Pole jest puste</div>
@@ -35,8 +35,6 @@
           <div i18n *ngIf="f.description.errors.maxlength">Opis może mieć maksymalnie 10000 znaków</div>
         </div>
       </div>
-
-
     </div>
 
     <div class="form-group row" ngbRadioGroup name="language" formControlName="language">
@@ -64,7 +62,7 @@
       <label i18n for="tags" class="col-sm-2 col-form-label">Kategorie</label>
       <div class="col-sm-10">
         <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz kategorie'" [data]="tagsList"
-          [settings]="tagsSettings">
+                                 [settings]="tagsSettings">
         </ng-multiselect-dropdown>
       </div>
     </div>
@@ -73,31 +71,26 @@
       <label i18n for="picture" class="col-sm-2 col-form-label">Obrazek</label>
       <div class="col-sm-10">
         <input formControlName="pictureUrl" type="text" class="form-control" id="picture" i18n-placeholder
-          placeholder="Podaj adres obrazka">
+               placeholder="Podaj adres obrazka">
       </div>
     </div>
 
     <div class="form-group row">
       <label i18n for="image" class="col-sm-2 col-form-label">Zdjęcie</label>
       <div class="col-sm-10">
-        <label class="file-label" (click)="imitateFileInput()">{{fileUploadMessage}}</label>
-        <input (change)="handleFileInput($event.target.files)" type="file" class="form-control" id="image" hidden>
+        <input type="file"/>
+        <button type="submit" [disabled]="f.image.errors" (change)="onFileChange($event)">Submit</button>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-sm-10">
-        <button type="submit" [disabled]="loading" class="btn btn-success">
-          <div i18n *ngIf="!loading">Dodaj kurs</div>
-          <div *ngIf="loading">
-            <span i18n class="spinner-border spinner-border-sm align-self-center"></span>
-            Ładowanie..</div>
+        <button color="primary" mat-raised-button [class.spinner]="loading" [disabled]="loading">
+          Dodaj kurs
         </button>
       </div>
     </div>
   </form>
-
-
 
 
 </div>

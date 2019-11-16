@@ -8,9 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isNavbarCollapsed = true;
-  public isCollapsed = false;
-  @Input() languageList;
+  isNavCollapsed = true;
+  @Input() languages;
   private returnUrl: string;
 
   constructor(
@@ -19,7 +18,7 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthService) { }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   logout() {
@@ -34,9 +33,4 @@ export class HeaderComponent implements OnInit {
   getLogin() {
     return this.authenticationService.getLogin();
   }
-
-  getUserRole() {
-    return this.authenticationService.getUserRole();
-  }
-
 }

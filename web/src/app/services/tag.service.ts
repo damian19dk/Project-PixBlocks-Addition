@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class TagService {
 
-  private allTags: string[];
-  private tagSettingsForMultiselect: any;
+  private readonly allTags: string[];
+  private readonly tagSettingsForMultiselect: any;
 
   constructor() {
-    this.allTags = ["Haskell", "Java", "Ruby", "Python", "Kotlet schabowy", "WebDevelop", "Systemy operacyjne", "JavaScript"].sort(); // zamockowane dane
+    this.allTags = ['Haskell', 'Java', 'Ruby', 'Python', 'Kotlet schabowy', 'WebDevelop', 'Systemy operacyjne', 'JavaScript'].sort(); // zamockowane dane
     this.tagSettingsForMultiselect = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',
@@ -30,7 +30,7 @@ export class TagService {
   }
 
   toTagsList(tags: any) {
-    if(tags == null) {
+    if (tags == null) {
       return ['brak'];
     }
     return tags.join().split(',');

@@ -16,7 +16,7 @@ export class ChangeEmailComponent implements OnInit {
   submitted: boolean;
   sent: boolean;
 
-  changeEmailForm: FormGroup;
+  form: FormGroup;
 
   constructor(private modalService: NgbModal,
     private formBuilder: FormBuilder,
@@ -24,18 +24,18 @@ export class ChangeEmailComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit() {
-    this.changeEmailForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       email: [null]
     });
   }
 
-  get f() { return this.changeEmailForm.controls; }
+  get f() { return this.form.controls; }
 
 
   changeEmail() {
     this.submitted = true;
 
-    if (this.changeEmailForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
@@ -43,9 +43,9 @@ export class ChangeEmailComponent implements OnInit {
 
     let login = this.authService.getLogin();
 
-    return this.userService.changeEmail(login, this.changeEmailForm.value.email).subscribe(
+    return this.userService.changeEmail(login, this.form.value.email).subscribe(
       data => {
-        localStorage.setItem("UserEmail", this.changeEmailForm.value.email);
+        localStorage.setItem("UserEmail", this.form.value.email);
         this.sent = true;
         this.error = null;
         this.loading = false;

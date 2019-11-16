@@ -10,9 +10,9 @@ export class ImageService {
   constructor(private http: HttpClient) { }
 
   getImage(id: string) {
-    let headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json');
 
-    return this.http.get<any>(environment.baseUrl + "/api/Image/" + id, { headers });
+    return this.http.get<any>(environment.baseUrl + '/api/Image/' + id, { headers });
   }
 }

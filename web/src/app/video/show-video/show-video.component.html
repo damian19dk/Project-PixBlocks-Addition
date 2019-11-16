@@ -5,7 +5,6 @@
     </div>
 
     <div *ngIf="!error">
-
         <div class="embed-responsive embed-responsive-21by9 " id="video-field">
             <iframe class="embed-responsive-item justify-content-md-center" id="video" allowfullscreen="allowfullscreen"
                 mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
@@ -31,7 +30,7 @@
             <div class="row col-12 text-justify">
                 <div class="col-12 text-justify">
                     <span placement="left" ngbTooltip="Czas trwania"><i class="fas fa-clock fa-2x"></i></span>
-                    <span class="font-weight-bold">{{videoDocument.duration | minuteSeconds}}</span>
+                    <span class="font-weight-bold">{{videoDocument.duration | date:'H:mm:ss':'UTC'}}</span>
                 </div>
             </div>
 

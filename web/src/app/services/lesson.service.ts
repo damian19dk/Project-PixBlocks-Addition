@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class LessonService extends DataService {
 
   constructor(protected http: HttpClient) {
-    super("Lesson", http);
+    super('Lesson', http);
   }
 
 }

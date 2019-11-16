@@ -14,9 +14,9 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
 
   constructor(private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    private userService: UserService,
-    private authService: AuthService) { }
+              private formBuilder: FormBuilder,
+              private userService: UserService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.changePasswordForm = this.formBuilder.group({
@@ -30,7 +30,7 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
 
-    let login = this.authService.getLogin();
+    const login = this.authService.getLogin();
 
     return this.userService.changePassword(login, this.changePasswordForm.value.newPassword, this.changePasswordForm.value.oldPassword).subscribe(
       data => {

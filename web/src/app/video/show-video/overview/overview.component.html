@@ -16,7 +16,7 @@
   <div class="row text-justify border-top">
     <div i18n class="col-3 text-justify">Szczegóły:</div>
     <div class="col-6 text-justify">
-      <p i18n class="row">Czas trwania: {{video.duration | minuteSeconds}}</p>
+      <p i18n class="row">Czas trwania: {{video.duration * 1000 | date:'H:mm:ss':'UTC'}}</p>
       <p i18n class="row">Język: {{video.language}}</p>
       <p i18n class="row">Napisy: brak</p>
     </div>

@@ -11,11 +11,10 @@ import { TagService } from 'src/app/services/tag.service';
 })
 export class NewCourseComponent implements OnInit {
 
-  newCourseForm: FormGroup;
+  form: FormGroup;
   loading: boolean;
   submitted: boolean;
   sent: boolean;
-  returnUrl: string;
   courseDto: CourseDto;
   error: string;
 
@@ -23,11 +22,11 @@ export class NewCourseComponent implements OnInit {
   tagsSettings = {};
 
   fileToUpload: File = null;
-  fileUploadMessage: string = 'Wybierz plik';
+  fileUploadMessage = 'Wybierz plik';
 
   constructor(private formBuilder: FormBuilder,
-    private courseService: CourseService,
-    private tagService: TagService) { }
+              private courseService: CourseService,
+              private tagService: TagService) { }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
@@ -40,7 +39,7 @@ export class NewCourseComponent implements OnInit {
     this.loading = false;
     this.error = null;
 
-    this.newCourseForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       parentId: [null],
       title: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
@@ -52,34 +51,20 @@ export class NewCourseComponent implements OnInit {
     });
   }
 
-
-  get f() { return this.newCourseForm.controls; }
+  get f() { return this.form.controls; }
 
   createNewCourse() {
     this.submitted = true;
 
-    if (this.newCourseForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
 
-    this.courseDto = this.newCourseForm.value;
+    this.courseDto = this.form.value;
     this.courseDto.image = this.fileToUpload;
-    let formData = new FormData();
-
-    this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
-    this.courseDto.id != null ? formData.append('id', this.courseDto.id) : null;
-    this.courseDto.premium != null ? formData.append('premium', String(this.courseDto.premium)) : null;
-    this.courseDto.title != null ? formData.append('title', this.courseDto.title) : null;
-    this.courseDto.description != null ? formData.append('description', this.courseDto.description) : null;
-    this.courseDto.pictureUrl != null ? formData.append('pictureUrl', this.courseDto.pictureUrl) : null;
-    this.courseDto.image != null ? formData.append('image', this.fileToUpload) : null;
-    this.courseDto.language != null ? formData.append('language', this.courseDto.language) : null;
-    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags) : null;
-
-
-    console.log(CourseDto)
+    const formData = this.courseDto.toFormData();
 
     this.courseService.add(formData)
       .subscribe(
@@ -95,18 +80,18 @@ export class NewCourseComponent implements OnInit {
         });
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    if (this.fileToUpload.size > 0) {
-      this.fileUploadMessage = 'Gotowy do wysłania';
-    }
-    else {
-      this.fileUploadMessage = 'Wybierz plik';
+  onFileChange(event) {
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.form.patchValue({
+          file: reader.result
+        });
+      };
     }
   }
-
-  imitateFileInput() {
-    document.getElementById('image').click();
-  }
-
 }
