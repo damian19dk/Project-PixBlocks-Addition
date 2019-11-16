@@ -12,29 +12,37 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
     public class VideoRepository : GenericRepository<Video>, IVideoRepository
     {
         private readonly PixBlocksContext _entities;
-        public VideoRepository(PixBlocksContext entities) : base(entities)
+        private readonly ILocalizationService _localizer;
+        public string ContextLanguage { get; }
+
+        public VideoRepository(PixBlocksContext entities, ILocalizationService localizer) : base(entities)
         {
             _entities = entities;
+            _localizer = localizer;
+            ContextLanguage = localizer.Language;
         }
 
         public async Task<Video> GetAsync(Guid id)
             => await _entities.Videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<Video>> GetAsync(string title)
-            => await _entities.Videos.Include(c => c.Tags).Where(x => x.Title.Contains(title)).ToListAsync();
+            => await _entities.Videos.Include(c => c.Tags)
+                     .Where(x => x.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && x.Title.Contains(title)).ToListAsync();
 
         public async Task<IEnumerable<Video>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => await _entities.Videos.Where(c => c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+            => await _entities.Videos.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
 
-        public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10) 
-            => await _entities.Videos.Include(p => p.Tags).Skip((page - 1) * count).Take(count).ToListAsync();
+        public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10)
+            => await _entities.Videos.Include(p => p.Tags)
+                     .Where(v => v.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
+                     .Skip((page - 1) * count).Take(count).ToListAsync();
 
         public async Task<Video> GetByMediaAsync(string mediaId)
             => await _entities.Videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.MediaId == mediaId);
 
         public object Clone()
         {
-            return new VideoRepository((PixBlocksContext)_entities.Clone());
+            return new VideoRepository((PixBlocksContext)_entities.Clone(), _localizer);
         }
     }
 }

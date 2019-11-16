@@ -22,10 +22,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IVideoRepository _videoRepository;
         private readonly IChangeMediaHandler<Course, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
+        private readonly ILocalizationService _localizer;
 
         public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository,
             IChangeMediaHandler<Course, Course> changeMediaHandler, IImageRepository imageRepository,
-            IImageHandler imageHandler, IAutoMapperConfig config)
+            IImageHandler imageHandler, IAutoMapperConfig config, ILocalizationService localizer)
         {
             _changeMediaHandler = changeMediaHandler;
             _imageHandler = imageHandler;
@@ -33,6 +34,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _mapper = config.Mapper;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
+            _localizer = localizer;
         }
 
         public async Task AddVideoAsync(UploadResource upload)

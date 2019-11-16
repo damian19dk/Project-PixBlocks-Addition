@@ -7,6 +7,7 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
 {
     public interface IMediaRepository<T> where T: class
     {
+        string ContextLanguage { get; }
         Task<T> GetAsync(Guid id);
         Task<IEnumerable<T>> GetAsync(string title);
         Task<IEnumerable<T>> GetAllByTagsAsync(IEnumerable<string> tags);

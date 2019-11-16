@@ -25,7 +25,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         public BaseControllerTest()
         {
             var webBuilder = new WebHostBuilder()
-                .ConfigureAppConfiguration((a, c) => { c.AddJsonFile("appsettings.json"); })
+                .ConfigureAppConfiguration((a, c) => { c.AddJsonFile("appsettings.json"); c.AddJsonFile("languages.json"); })
                 .UseStartup<Startup>();
             server = new TestServer(webBuilder);
             httpClient = server.CreateClient();
@@ -38,10 +38,14 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             courseData.Add("Premium", "false");
             courseData.Add("Title", "Title1");
             courseData.Add("Description", "Some description.");
-            courseData.Add("Language", "English");
+            courseData.Add("Language", "en");
             courseData.Add("Tags", "tag3");
 
             await sendMultiPartAsync("api/course/create", "POST", courseData);
+
+            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+
             var response = await httpClient.GetAsync("api/course/all");
             var responseString = await response.Content.ReadAsStringAsync();
             var courses = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(responseString);
@@ -68,7 +72,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 
             foreach (var p in parameters)
             {
-                if(p.Value != null)
+                if (p.Value != null)
                     multipartContent.Add(new StringContent(p.Value), p.Key);
                 else
                     multipartContent.Add(new StringContent(string.Empty), p.Key);
@@ -99,12 +103,13 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 request.Headers.ExpectContinue = true;
                 request.Headers.Add("Connection", "Keep-Alive");
+                request.Headers.Add("Accept-Language", "en");
                 request.Content = multipartContent;
                 var response = await httpClient.SendAsync(request);
 
                 Assert.IsTrue(response.EnsureSuccessStatusCode().IsSuccessStatusCode);
             }
         }
-        
+
     }
 }

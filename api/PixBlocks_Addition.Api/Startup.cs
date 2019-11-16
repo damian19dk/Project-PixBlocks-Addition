@@ -20,6 +20,8 @@ using Newtonsoft.Json;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using PixBlocks_Addition.Infrastructure.Services.MediaServices;
 using PixBlocks_Addition.Infrastructure.Mappers;
+using System.Collections.Generic;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace PixBlocks_Addition.Api
 {
@@ -42,6 +44,7 @@ namespace PixBlocks_Addition.Api
             services.AddCors();
 
             services.Configure<HostOptions>(Configuration.GetSection("host"));
+            services.Configure<LanguageOptions>(Configuration.GetSection("Languages"));
 
             var sqlSection = Configuration.GetSection("sql");
             services.Configure<SqlSettings>(sqlSection);
@@ -105,6 +108,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IExerciseService, ExerciseService>();
+            services.AddScoped<ILocalizationService, LocalizationService>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
@@ -118,6 +122,20 @@ namespace PixBlocks_Addition.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "PixBlocks Addition", Version = "v1" });
+
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }},
+                };
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization. Aby się zalogować wklej token. Przykład: \" Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(security);
             });
         }
 
@@ -144,6 +162,9 @@ namespace PixBlocks_Addition.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "PixBlocks Addition V1");
+
+                c.DocumentTitle = "Title Documentation";
+                c.DocExpansion(DocExpansion.None);
             });
 
 

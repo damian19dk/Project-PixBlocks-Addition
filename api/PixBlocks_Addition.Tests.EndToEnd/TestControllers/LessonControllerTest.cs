@@ -26,10 +26,13 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             parameters.Add("Title", "LessonTitle1");
             parameters.Add("Description", "Description lesson.");
             parameters.Add("Premium", "false");
-            parameters.Add("Language", "English");
+            parameters.Add("Language", "en");
             parameters.Add("ParentId", CourseDto.Id.ToString());
 
             sendMultiPartAsync("api/lesson/create", "POST", parameters).Wait();
+
+            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
 
             var response = await httpClient.GetAsync("api/lesson/title?title=LessonTitle1");
             var responseString = await response.Content.ReadAsStringAsync();
@@ -64,6 +67,10 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var parameters = expectedLesson.GetProperties();
 
             await sendMultiPartAsync(address, "PUT", parameters);
+
+            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+
             var response = await httpClient.GetAsync($"api/lesson?id={LessonDto.Id}");
             var responseString = await response.Content.ReadAsStringAsync();
             var lesson = JsonConvert.DeserializeObject<LessonDto>(responseString);

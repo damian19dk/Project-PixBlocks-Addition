@@ -19,6 +19,10 @@ namespace PixBlocks_Addition.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) => 
+                {
+                    config.AddJsonFile("languages.json", optional: false, reloadOnChange: true);
+                })
                 .UseStartup<Startup>();
     }
 }
