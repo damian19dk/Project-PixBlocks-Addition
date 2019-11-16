@@ -128,7 +128,7 @@ namespace PixBlocks_Addition.Api
 
                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Description = "JWT Authorization. Aby się zalogować wklej token. Przykład: \" Bearer {token}\"",
                     Name = "Authorization",
                     In = "header",
                     Type = "apiKey"
