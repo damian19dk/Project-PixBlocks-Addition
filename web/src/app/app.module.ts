@@ -49,6 +49,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {HomeForLoggedComponent} from './home-for-logged/home-for-logged.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -106,7 +107,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       }
     }),
     MatToolbarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule
   ],
   exports: [
     HasRoleDirective

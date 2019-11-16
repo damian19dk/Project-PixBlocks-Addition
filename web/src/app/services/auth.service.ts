@@ -41,6 +41,15 @@ export class AuthService {
     this.roleUpdates$.next(roleUpdate);
   }
 
+  removeAllRolesFromUser() {
+    const roleUpdate: any[] = this.roleUpdates$.getValue();
+    roleUpdate.forEach((item, index) => {
+      roleUpdate.splice(index, 1);
+    });
+    this.roleUpdates$.next(roleUpdate);
+    this.roleUpdates$.next(['anonymous']);
+  }
+
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('Token');
     return !this.jwtHelper.isTokenExpired(token);
@@ -123,7 +132,7 @@ export class AuthService {
     localStorage.removeItem('UserLogin');
     localStorage.removeItem('UserRole');
     localStorage.removeItem('UserEmail');
-    this.removeRolesFromUser('admin');
+    this.removeAllRolesFromUser();
   }
 
   convertToRoleName(roleId: number) {
