@@ -107,6 +107,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<ILocalizationService, LocalizationService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();

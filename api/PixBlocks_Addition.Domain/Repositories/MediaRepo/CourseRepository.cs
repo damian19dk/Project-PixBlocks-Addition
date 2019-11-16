@@ -31,21 +31,21 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
                      .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                      .Include(c => c.Category)
                      .Include(c => c.Tags)
-                     .Where(c => c.Language == ContextLanguage && c.Title.Contains(name)).ToListAsync();
+                     .Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && c.Title.Contains(name)).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllByTagsAsync(IEnumerable<string> tags)
             => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                      .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                      .Include(c => c.Category)
                      .Include(c => c.Tags)
-                     .Where(c => c.Language == ContextLanguage && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+                     .Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10)
             => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
                      .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                      .Include(c => c.Category)
                      .Include(c => c.Tags)
-                     .Where(c => c.Language == ContextLanguage)
+                     .Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
                      .Skip((page - 1) * count).Take(count).ToListAsync();
     }
 }

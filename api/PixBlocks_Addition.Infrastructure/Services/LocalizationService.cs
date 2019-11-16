@@ -19,11 +19,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             _httpContextAccessor = httpContextAccessor;
             SupportedLanguages = options.Value.Languages.AsReadOnly();
-            Language = getCurrentLanguage().ToLowerInvariant();
+            var headerLanguage = getCurrentLanguage().ToLowerInvariant();
+            Language = IsSupportedLanguage(headerLanguage) ? headerLanguage : "en";
         }
 
-        public bool IsSupportedLanguage() 
-            => SupportedLanguages.Contains(Language);
+        public bool IsSupportedLanguage(string language)
+            => SupportedLanguages.Contains(language);
 
 
         private string getCurrentLanguage()
@@ -34,7 +35,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 return getLanguages().FirstOrDefault();
         }
 
-        private string[] getLanguages() 
+        private string[] getLanguages()
             => _httpContextAccessor.HttpContext.Request.Headers["Accept-Language"].ToString()
                .Split(',', '-');
     }

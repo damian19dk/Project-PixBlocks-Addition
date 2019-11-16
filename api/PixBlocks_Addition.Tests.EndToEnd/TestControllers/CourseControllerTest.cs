@@ -53,7 +53,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var address = "api/course/create";
             var expectedTitle = "łąkIng Ded";
             var expectedPremium = true;
-            var expectedLanguage = "PL";
+            var expectedLanguage = "pl";
             var expectedDescription = "Some expected description.";
             var expectedTags = "nauka jazdy,gumy,rtęć,inne";
             var parameters = new Dictionary<string, string>();
@@ -64,6 +64,10 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             parameters.Add("Tags", expectedTags);
 
             await sendMultiPartAsync(address, "POST", parameters);
+
+            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "pl");
+
             var response = await httpClient.GetAsync($"api/course/title?title={expectedTitle}");
             var responseString = await response.Content.ReadAsStringAsync();
             var course = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(responseString).Single();

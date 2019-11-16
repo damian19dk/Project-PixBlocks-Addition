@@ -27,14 +27,14 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
 
         public async Task<IEnumerable<Video>> GetAsync(string title)
             => await _entities.Videos.Include(c => c.Tags)
-                     .Where(x => x.Language == ContextLanguage &&  x.Title == title).ToListAsync();
+                     .Where(x => x.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && x.Title.Contains(title)).ToListAsync();
 
         public async Task<IEnumerable<Video>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => await _entities.Videos.Where(c => c.Language == ContextLanguage && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+            => await _entities.Videos.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
 
-        public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10) 
+        public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10)
             => await _entities.Videos.Include(p => p.Tags)
-                     .Where(v => v.Language == ContextLanguage)
+                     .Where(v => v.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
                      .Skip((page - 1) * count).Take(count).ToListAsync();
 
         public async Task<Video> GetByMediaAsync(string mediaId)
