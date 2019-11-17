@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from './../../services/loading.service'
 import { VideoDocument } from 'src/app/models/videoDocument.model';
 import { TagService } from 'src/app/services/tag.service';
+import { CourseDocument } from 'src/app/models/courseDocument.model';
+import { CourseService } from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-show-video',

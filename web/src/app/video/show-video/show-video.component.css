@@ -52,6 +52,10 @@
   overflow-y: scroll;
 }
 .border-top {
- padding-top: 2rem;
- padding-bottom: 2rem;
+ padding-top: 1rem;
 }
+/*
+.list-group-item {
+  border-color: #0d90fc;
+  border: 2px solid;
+}*/
