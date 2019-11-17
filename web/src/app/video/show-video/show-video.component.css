@@ -51,3 +51,7 @@
   height: 80%;
   overflow-y: scroll;
 }
+.border-top {
+ padding-top: 2rem;
+ padding-bottom: 2rem;
+}

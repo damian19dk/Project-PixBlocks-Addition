@@ -62,7 +62,7 @@
         <div class="row">
           <div *ngIf="videoDocument" class="col-7">
             <div class="row">
-              <div class="col-8">
+              <div class="col-9">
                     <div class="embed-responsive embed-responsive-16by9 " id="video-field">
                             <iframe class="embed-responsive-item justify-content-md-center" id="video" allowfullscreen="allowfullscreen"
                                 mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
@@ -73,18 +73,21 @@
                 <!--<img src="assets/img/psy.jpg" class="img-fluid img-thumbnail"> -->
                 <button class="btn">Start</button>
               </div>
-              <div class="col-4">
-                <b>Czas do ukończenia:</b>
+              <div class="col-3 extrainfo">
+             <!--  <b>Czas do ukończenia:</b>
                 <br>
-                40 minut
+                40 minut --> 
+                <br>
+                <span placement="left" ngbTooltip="Tytuł" class="col-12 text-justify">{{videoDocument.title}}</span>
+                <br>
+                <span placement="left" *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
+                <br>
+                <span placement="left" class="font-weight-bold">{{videoDocument.duration | date:'H:mm:ss':'UTC'}}</span>
+                
               </div>
             </div>
-            <div >
-                            <div class="row col-12 text-justify video-title">
-                                <span placement="left" ngbTooltip="Tytuł" class="col-12 text-justify">{{videoDocument.title}}</span>
-                            </div>
-                
-                            <div class="row col-12 text-justify">
+            <div class="row">
+                            <div class="col-3 text-justify">
                                 <div class="col-12 text-justify">
                                     <span placement="left" ngbTooltip="Tagi"><i class="fas fa-tags fa-2x"></i></span>
                                     <ng-container>
@@ -93,22 +96,22 @@
                                 </div>
                             </div>
                 
-                            <div class="row col-12 text-justify">
+                            <div class="col-3 text-justify">
                                 <div class="col-12 text-justify">
                                     <span placement="left" ngbTooltip="Czas trwania"><i class="fas fa-clock fa-2x"></i></span>
                                     <span class="font-weight-bold">{{videoDocument.duration | date:'H:mm:ss':'UTC'}}</span>
                                 </div>
                             </div>
                 
-                            <div class="row col-12 text-justify">
+                            <div class="col-3 text-justify">
                                 <div class="col-12 text-justify align-self-center">
                                     <span placement="left" ngbTooltip="Język"><i class="fas fa-language fa-2x"></i></span>
                                     <span
                                         class="font-weight-bold">{{videoDocument.language == null ? 'Brak informacji' : videoDocument.language}}</span>
                                 </div>
                             </div>
-                
-                            <div class="row col-12 text-justify border-top video-description">
+                            <br>
+                            <div class="row col-10 text-justify border-top video-description">
                                 <div placement="left" ngbTooltip="Opis" class="text-justify">
                                     {{videoDocument.description}}
                                 </div>
@@ -116,8 +119,9 @@
             </div>
           </div>
           <div class="col">
+                <h4 div class="header2">Spis treści</h4>
             <div class="scroll list-group">
-              <h4 div class="header2">Spis treści</h4>
+              
               
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                       <div class="d-flex w-100 justify-content-between">
@@ -142,11 +146,12 @@
                           </a>
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                       <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
+                        <h5 class="mb-1">Psy</h5>
                         <small class="text-muted">3 days ago</small>
                       </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                      <small class="text-muted">Donec id elit non mi porta.</small>
+                      <p class="mb-1">Akcja filmu rozpoczyna się w 1990 roku, kiedy wieloletni funkcjonariusz
+                            Służby Bezpieczeństwa, Franz Maurer, zostaje przeniesiony do policji kryminalnej.</p>
+                      <small class="text-muted">2h</small>
                     </a>
                      
            <!--  Akcja filmu rozpoczyna się w 1990 roku, kiedy wieloletni funkcjonariusz
