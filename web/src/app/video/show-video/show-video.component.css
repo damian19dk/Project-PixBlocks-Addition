@@ -73,3 +73,6 @@ background-repeat: repeat-x;
   display: flex;
   justify-content: center;
 }
+.extrainfo {
+  padding-left: 10%;
+}
