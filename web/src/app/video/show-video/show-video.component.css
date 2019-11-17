@@ -31,6 +31,7 @@
 */
 * {
   font-family: 'Poppins', sans-serif;
+
   /*  background: linear-gradient(#ffffff 50%, rgba(255,255,255,0) 0) 0 0,
 radial-gradient(circle closest-side, #FFFFFF 53%, rgba(255,255,255,0) 0) 0 0,
 radial-gradient(circle closest-side, #FFFFFF 50%, rgba(255,255,255,0) 0) 55px 0 #0d90fc;
@@ -66,5 +67,9 @@ background-repeat: repeat-x;
   border: 2px solid;
 }*/
 .justify-content-center {
-  padding-top: 2rem;
+  padding-top: 5px;
+}
+.col-5 {
+  display: flex;
+  justify-content: center;
 }
