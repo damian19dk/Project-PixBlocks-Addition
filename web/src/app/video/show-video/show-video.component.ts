@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HostedVideoDocument } from '../../models/hostedVideoDocument.model';
 import { VideoService } from './../../services/video.service';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingService } from './../../services/loading.service'
+import { LoadingService } from './../../services/loading.service';
 import { VideoDocument } from 'src/app/models/videoDocument.model';
 import { TagService } from 'src/app/services/tag.service';
 import { CourseDocument } from 'src/app/models/courseDocument.model';
