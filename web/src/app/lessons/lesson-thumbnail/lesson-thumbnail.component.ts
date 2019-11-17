@@ -6,7 +6,7 @@ import { TagService } from 'src/app/services/tag.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageService } from 'src/app/services/image.service';
 import { LessonDocument } from 'src/app/models/lessonDocument.model';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import {debounceTime, filter, switchMap} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CourseService } from 'src/app/services/course.service';
 import { CourseDocument } from 'src/app/models/courseDocument.model';
@@ -34,15 +34,15 @@ export class LessonThumbnailComponent implements OnInit {
   tagsSettings = {};
 
   fileToUpload: File = null;
-  fileUploadMessage: string = 'Wybierz plik';
+  fileUploadMessage = 'Wybierz plik';
 
 
   constructor(public imageService: ImageService,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    private lessonService: LessonService,
-    private tagService: TagService,
-    private courseService: CourseService) { }
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder,
+              private lessonService: LessonService,
+              private tagService: TagService,
+              private courseService: CourseService) { }
 
 
   ngOnInit() {
@@ -85,7 +85,7 @@ export class LessonThumbnailComponent implements OnInit {
     this.lessonDto = this.editLessonForm.value;
     this.lessonDto.image = this.fileToUpload;
     this.lessonDto.parentId = this.editLessonForm.value.parentId.id;
-    let formData = new FormData();
+    const formData = new FormData();
 
     this.lessonDto.parentId != null ? formData.append('parentId', this.lessonDto.parentId) : null;
     this.lessonDto.id != null ? formData.append('id', this.lessonDto.id) : null;
@@ -96,7 +96,6 @@ export class LessonThumbnailComponent implements OnInit {
     this.lessonDto.image != null ? formData.append('image', this.fileToUpload) : null;
     this.lessonDto.language != null ? formData.append('language', this.lessonDto.language) : null;
     this.lessonDto.tags != null ? formData.append('tags', this.lessonDto.tags) : null;
-
 
     this.lessonService.update(formData)
       .subscribe(
@@ -130,9 +129,9 @@ export class LessonThumbnailComponent implements OnInit {
 
 
   private getPicture() {
-    let picture = null;
+    const picture = null;
     if (this.lesson.picture == null) {
-      this.lesson.picture = "https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png";
+      this.lesson.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
       return;
     }
   }
@@ -144,6 +143,7 @@ export class LessonThumbnailComponent implements OnInit {
   searchCourse = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(300),
+      filter(text => text !== ''),
       switchMap((searchText) => this.courseService.findByTitle(searchText))
     );
   }
@@ -153,12 +153,7 @@ export class LessonThumbnailComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    if (this.fileToUpload.size > 0) {
-      this.fileUploadMessage = 'Gotowy do wysłania';
-    }
-    else {
-      this.fileUploadMessage = 'Wybierz plik';
-    }
+    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   imitateFileInput() {

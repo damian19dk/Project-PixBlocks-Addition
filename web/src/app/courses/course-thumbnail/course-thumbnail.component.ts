@@ -23,7 +23,6 @@ export class CourseThumbnailComponent implements OnInit {
   loading: boolean;
   submitted: boolean;
   sent: boolean;
-  returnUrl: string;
   courseDto: CourseDto;
 
   tagsList = [];
@@ -127,7 +126,6 @@ export class CourseThumbnailComponent implements OnInit {
 
 
   private getPicture() {
-    const picture = null;
     if (this.course.picture == null) {
       this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
       return;
@@ -140,11 +138,7 @@ export class CourseThumbnailComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    if (this.fileToUpload.size > 0) {
-      this.fileUploadMessage = 'Gotowy do wysłania';
-    } else {
-      this.fileUploadMessage = 'Wybierz plik';
-    }
+    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   imitateFileInput() {

@@ -12,28 +12,28 @@
       <ul class="navbar-nav">
           <app-search-bar *appHasRole="['user', 'admin']"></app-search-bar>
           <app-select-languages [languages]="languages"></app-select-languages>
-          <button *appHasRole="['admin']" i18n mat-button (click)="isNavCollapsed = true"
+          <button *appHasRole="['admin']" i18n mat-raised-button (click)="isNavCollapsed = true"
                   routerLink="/videos">Dodaj wideo
           </button>
-          <button *appHasRole="['admin']" i18n mat-button (click)="isNavCollapsed = true"
+          <button *appHasRole="['admin']" i18n mat-raised-button (click)="isNavCollapsed = true"
                   routerLink="/courses">Zarządzaj kursami
           </button>
-          <button *appHasRole="['admin']" i18n mat-button (click)="isNavCollapsed = true"
+          <button *appHasRole="['admin']" i18n mat-raised-button (click)="isNavCollapsed = true"
                   routerLink="/lessons">Zarządzaj lekcjami
           </button>
-          <button *appHasRole="['user', 'admin']" i18n mat-button (click)="isNavCollapsed = true"
+          <button *appHasRole="['user', 'admin']" i18n mat-raised-button (click)="isNavCollapsed = true"
                   routerLink="/profile">Mój profil
           </button>
-          <button *appHasRole="['user','admin']" i18n mat-button (click)="isNavCollapsed = true"
+          <button *appHasRole="['user','admin']" i18n mat-raised-button (click)="isNavCollapsed = true"
                   routerLink="/settings">Ustawienia
           </button>
-          <button *appHasRole="['user', 'admin']" i18n mat-button (click)="isNavCollapsed = true"
+          <button *appHasRole="['user', 'admin']" i18n mat-raised-button (click)="isNavCollapsed = true"
                   (click)="logout()">Wyloguj
           </button>
-          <button *appHasRole="['anonymous']" i18n routerLink="/register" mat-button (click)="isNavCollapsed = true">
+          <button *appHasRole="['anonymous']" i18n routerLink="/register" mat-raised-button (click)="isNavCollapsed = true">
             Zarejestruj
           </button>
-          <button *appHasRole="['anonymous']" i18n routerLink="/login" mat-button (click)="isNavCollapsed = true">
+          <button *appHasRole="['anonymous']" i18n routerLink="/login" mat-raised-button (click)="isNavCollapsed = true">
             Zaloguj
           </button>
       </ul>

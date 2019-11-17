@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CourseService } from 'src/app/services/course.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CourseDto } from 'src/app/models/courseDto.model';
-import { TagService } from 'src/app/services/tag.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CourseService} from 'src/app/services/course.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CourseDto} from 'src/app/models/courseDto.model';
+import {TagService} from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-new-course',
@@ -10,6 +10,9 @@ import { TagService } from 'src/app/services/tag.service';
   styleUrls: ['./new-course.component.css']
 })
 export class NewCourseComponent implements OnInit {
+
+  @ViewChild('labelImport', null)
+  labelImport: ElementRef;
 
   form: FormGroup;
   loading: boolean;
@@ -22,11 +25,12 @@ export class NewCourseComponent implements OnInit {
   tagsSettings = {};
 
   fileToUpload: File = null;
-  fileUploadMessage = 'Wybierz plik';
+  fileUploadMessage: string;
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
-              private tagService: TagService) { }
+              private tagService: TagService) {
+  }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
@@ -51,9 +55,12 @@ export class NewCourseComponent implements OnInit {
     });
   }
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 
-  createNewCourse() {
+  create() {
+
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -62,9 +69,14 @@ export class NewCourseComponent implements OnInit {
 
     this.loading = true;
 
-    this.courseDto = this.form.value;
+    this.courseDto.of(this.form);
     this.courseDto.image = this.fileToUpload;
+    this.courseDto.tags = this.tagService.toTagsString(this.form.value.tags.map(e => e.text));
+
     const formData = this.courseDto.toFormData();
+
+    console.log(this.courseDto);
+
 
     this.courseService.add(formData)
       .subscribe(
@@ -80,18 +92,12 @@ export class NewCourseComponent implements OnInit {
         });
   }
 
-  onFileChange(event) {
-    const reader = new FileReader();
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
+  }
 
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.form.patchValue({
-          file: reader.result
-        });
-      };
-    }
+  imitateFileInput() {
+    document.getElementById('image').click();
   }
 }
