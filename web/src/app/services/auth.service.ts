@@ -11,8 +11,9 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class AuthService {
   roles$ = new ReplaySubject<string[]>(1);
-  roleUpdates$ = new BehaviorSubject(['anonymous']);
+  // tslint:disable-next-line:radix
   roleNames = ['user', 'admin'];
+  roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
 
   private isTokenRefreshing = false;
 
@@ -20,6 +21,7 @@ export class AuthService {
     private http: HttpClient,
     private loadingService: LoadingService,
     private jwtHelper: JwtHelperService) {
+
     this.roleUpdates$
       .pipe(scan((acc, next) => next, []))
       .subscribe(this.roles$);
@@ -27,18 +29,21 @@ export class AuthService {
     setInterval(() => this.autoRefresh(), 24000); // 30000ms = 5min
   }
 
-  addRolesToUser(roles: Array<string>) {
-    this.roleUpdates$.next(roles);
+  // tslint:disable-next-line:variable-name
+  register(login: string, e_mail: string, password: string, roleId: number) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/register', {
+      login,
+      e_mail,
+      password,
+      roleId
+    }, {headers});
   }
 
-  removeRolesFromUser(role: string) {
-    const roleUpdate: any[] = this.roleUpdates$.getValue();
-    roleUpdate.forEach((item, index) => {
-      if (item === role) {
-        roleUpdate.splice(index, 1);
-      }
-    });
-    this.roleUpdates$.next(roleUpdate);
+  addRolesToUser(roles: Array<string>) {
+    this.roleUpdates$.next(roles);
   }
 
   removeAllRolesFromUser() {
@@ -69,16 +74,9 @@ export class AuthService {
     }
   }
 
-  register(login: string, e_mail: string, password: string, roleId: number) {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
-
-    return this.http.post<any>(environment.baseUrl + '/api/Identity/register', {
-      login,
-      e_mail,
-      password,
-      roleId
-    }, {headers});
+  private getUserRoleName(): string {
+    // tslint:disable-next-line:radix
+    return this.getUserRole() == null ? 'anonymous' : this.convertToRoleName(parseInt(this.getUserRole()));
   }
 
   login(login: string, password: string) {
@@ -90,9 +88,6 @@ export class AuthService {
   logout() {
     this.loadingService.load();
     this.clearUserData();
-    console.log(this.roles$);
-    console.log(this.roleNames);
-    console.log(this.roleUpdates$);
     this.loadingService.unload();
   }
 
