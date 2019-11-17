@@ -31,6 +31,12 @@
 */
 * {
   font-family: 'Poppins', sans-serif;
+  /*  background: linear-gradient(#ffffff 50%, rgba(255,255,255,0) 0) 0 0,
+radial-gradient(circle closest-side, #FFFFFF 53%, rgba(255,255,255,0) 0) 0 0,
+radial-gradient(circle closest-side, #FFFFFF 50%, rgba(255,255,255,0) 0) 55px 0 #0d90fc;
+background-size: 110px 200px;
+background-repeat: repeat-x; 
+  background-image: url('/assets/img/white-waves.png'); */
 }
 .header {
   font-family: 'Oswald', sans-serif;
@@ -59,3 +65,6 @@
   border-color: #0d90fc;
   border: 2px solid;
 }*/
+.justify-content-center {
+  padding-top: 2rem;
+}

@@ -17,16 +17,21 @@ export class ShowVideoComponent implements OnInit {
   video: HostedVideoDocument = null;
   videoDocument: VideoDocument = null;
   error: string;
+  videos: VideoDocument[];
+  courses: CourseDocument[];
+  page: number = 1;
 
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
     private loadingService: LoadingService,
+    private courseService: CourseService,
     private tagService: TagService) { }
 
   ngOnInit() {
     this.getVideo();
     this.getHostedVideo();
+    this.getCourses();
   }
 
   getHostedVideo() {
@@ -58,6 +63,21 @@ export class ShowVideoComponent implements OnInit {
         this.error = error;
         this.loadingService.unload();
       });
+  }
+
+  getCourses() {
+    this.loadingService.load();
+
+    this.courseService.getAll(this.page).subscribe(
+      (data: CourseDocument[]) => {
+        this.courses = data;
+        this.loadingService.unload();
+        },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
   }
 
 }
