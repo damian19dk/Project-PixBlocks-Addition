@@ -8,3 +8,13 @@
   padding: 6px 12px;
   cursor: pointer;
 }
+
+.languages {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.languagesButton {
+  margin: 5px;
+}

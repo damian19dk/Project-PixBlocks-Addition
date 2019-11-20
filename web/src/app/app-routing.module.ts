@@ -4,7 +4,6 @@ import {LoginComponent} from './user/login/login.component';
 import {RegistrationComponent} from './user/registration/registration.component';
 import {AddVideoComponent} from './video/add-video/add-video.component';
 import {CourseManagerComponent} from './courses/course-manager/course-manager.component';
-import {LessonManagerComponent} from './lessons/lesson-manager/lesson-manager.component';
 import {HomeComponent} from './home/home.component';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent, data: {animation: 'register'}},
   {path: 'videos', component: AddVideoComponent, data: {animation: 'videos'}, canActivate: [AuthGuard]},
   {path: 'courses', component: CourseManagerComponent, data: {animation: 'courses'}, canActivate: [AuthGuard]},
-  {path: 'lessons', component: LessonManagerComponent, data: {animation: 'lessons'}, canActivate: [AuthGuard]},
   {path: '', component: HomeComponent, data: {animation: ''}},
   {path: 'home', component: HomeForLoggedComponent, data: {animation: 'home'}, canActivate: [AuthGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent, data: {animation: 'unauthorized'}},

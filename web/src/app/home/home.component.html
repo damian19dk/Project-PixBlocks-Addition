@@ -58,8 +58,8 @@
 
     <div class="container" *ngIf="videos">
       <div class="row">
-        <app-video-thumbnail *ngFor="let video of videos" [video]=video class="col-md-4">
-        </app-video-thumbnail>
+        <app-course-thumbnail *ngFor="let video of videos" [course]=video class="col-md-4">
+        </app-course-thumbnail>
       </div>
       <ngb-pagination class="d-flex justify-content-center" [collectionSize]="count" [(page)]=page
                       aria-label="Default pagination" (pageChange)="getVideos()"></ngb-pagination>

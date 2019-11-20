@@ -1,6 +1,5 @@
 .container {
     font-family: 'Oswald', sans-serif;
-    margin-top: 10px;
 }
 .file-label {
     border: 1px solid #ccc;
@@ -15,4 +14,14 @@
     border-bottom: solid;
     margin-right: 50%;
     margin-bottom: 15px;
+}
+
+.languages {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.languagesButton {
+  margin: 5px;
 }

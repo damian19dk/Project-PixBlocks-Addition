@@ -19,7 +19,7 @@ export class ShowVideoComponent implements OnInit {
   error: string;
   videos: VideoDocument[];
   courses: CourseDocument[];
-  page: number = 1;
+  page = 1;
 
   constructor(
     private route: ActivatedRoute,

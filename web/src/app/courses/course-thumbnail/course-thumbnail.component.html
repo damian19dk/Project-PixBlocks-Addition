@@ -120,48 +120,25 @@
     </div>
 </ng-template>
 
-<!--
-<div *ngIf="course" class="card mb-4 bg-white box-shadow">
-
-    <div class="card-header text-center">
-        {{course.title}}
-    </div>
-
-    <div class="card-box">
-        <img class="card-img-top align-middle mx-auto d-block" src={{course.picture}} alt="Tu miał być kurs" />
-    </div>
-
-    <div class="card-body">
-        <p class="card-text">{{course.description}}</p>
-
-        <div class="d-flex justify-content-between align-items-center">
-            <small>{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-            <button i18n type="button" class="btn btn-sm btn-outline-primary" (click)="openVerticallyCentered(editModal)"><i
-                    class="fas fa-edit"></i>Edytuj</button>
-        </div>
-    </div>
-
-</div>
--->
 <div *ngIf="course" style="height: 13rem; width: 16rem;" class="card mb-1 bg-white box-shadow">
 
         <div class="card-header text-center">
             {{course.title}}
         </div>
-       <!-- <div class="card-box card-link" routerLink="/show_course/{{course.id}}">
+       <div class="card-box card-link" routerLink="/show_course/{{course.id}}">
             <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-            <img class="card-img-top align-middle mx-auto d-block" /> 
-            
-        </div>-->
-    
+            <img class="card-img-top align-middle mx-auto d-block" />
+
+        </div>
+
         <div class="card-body">
             <p class="card-text">{{course.description}}</p>
-    
+
             <div class="d-flex justify-content-between align-items-end">
-               <!-- <small>{{course.duration | minuteSeconds}}</small>
+              <small>{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
                 <button i18n type="button" class="btn btn-sm btn-outline-primary" (click)="openVerticallyCentered(editModal)"><i
                         class="fas fa-edit"></i>Edytuj</button> -->
             </div>
         </div>
-    
+
     </div>

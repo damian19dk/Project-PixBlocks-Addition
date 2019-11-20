@@ -49,7 +49,7 @@
 }
 
 /deep/ router-outlet ~ * {
-  position: absolute;
+  position: static;
   width: 100%;
   height: 97%;
 }

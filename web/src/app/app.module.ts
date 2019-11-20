@@ -28,18 +28,13 @@ import {LoadingService} from './services/loading.service';
 import {EditCourseComponent} from './courses/edit-course/edit-course.component';
 import {FunctionalityNotPreparedComponent} from './error-pages/functionality-not-prepared/functionality-not-prepared.component';
 import {CourseService} from './services/course.service';
-import {LessonManagerComponent} from './lessons/lesson-manager/lesson-manager.component';
-import {NewLessonComponent} from './lessons/new-lesson/new-lesson.component';
-import {EditLessonComponent} from './lessons/edit-lesson/edit-lesson.component';
 import {HeadersInterceptor} from './interceptors/headers-interceptor';
-import {LessonService} from './services/lesson.service';
 import {CourseThumbnailComponent} from './courses/course-thumbnail/course-thumbnail.component';
 import {SearchBarComponent} from './common/search-bar/search-bar.component';
 import {UnauthorizedInterceptor} from './interceptors/unauthorized-interceptor';
 import {ProfileComponent} from './user/profile/profile.component';
 import {ChangePasswordComponent} from './user/profile/change-password/change-password.component';
 import {ChangeEmailComponent} from './user/profile/change-email/change-email.component';
-import {LessonThumbnailComponent} from './lessons/lesson-thumbnail/lesson-thumbnail.component';
 import {MatButtonModule} from '@angular/material/button';
 import {HasRoleDirective} from './user/HasRoleDirective';
 import {SelectLanguagesComponent} from './common/select-languages/select-languages.component';
@@ -49,7 +44,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {HomeForLoggedComponent} from './home-for-logged/home-for-logged.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -74,15 +70,11 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     NewCourseComponent,
     EditCourseComponent,
     FunctionalityNotPreparedComponent,
-    LessonManagerComponent,
-    NewLessonComponent,
-    EditLessonComponent,
     CourseThumbnailComponent,
     SearchBarComponent,
     ProfileComponent,
     ChangePasswordComponent,
     ChangeEmailComponent,
-    LessonThumbnailComponent,
     HasRoleDirective,
     SelectLanguagesComponent,
     HomeForLoggedComponent
@@ -108,7 +100,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     }),
     MatToolbarModule,
     MatChipsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ],
   exports: [
     HasRoleDirective
@@ -118,7 +111,6 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     AuthService,
     VideoService,
     CourseService,
-    LessonService,
     LoadingService,
     {
       provide: HTTP_INTERCEPTORS,

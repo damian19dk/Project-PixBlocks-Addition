@@ -1,8 +1,6 @@
-import { DataDocument } from './dataDocument';
-import { VideoDocument } from './videoDocument.model';
-import { LessonDocument } from './lessonDocument.model';
+import {DataDocument} from './dataDocument';
+import {VideoDocument} from './videoDocument.model';
 
 export class CourseDocument extends DataDocument {
-    courseVideos: VideoDocument[];
-    lessons: LessonDocument[];
+  courseVideos: Array<VideoDocument>;
 }
