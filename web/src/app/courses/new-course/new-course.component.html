@@ -43,11 +43,8 @@
           <label i18n for="language" class="col-sm-2 col-form-label">Język</label>
           <div class="col-sm-8 input-group">
             <mat-radio-group class="languages" color="primary" formControlName="language">
-              <mat-radio-button class="languagesButton" value="pl">
-                Polski
-              </mat-radio-button>
-              <mat-radio-button class="languagesButton" value="en">
-                Angielski
+              <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
+                {{language.label}}
               </mat-radio-button>
             </mat-radio-group>
           </div>

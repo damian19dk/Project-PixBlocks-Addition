@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { CourseDocument } from 'src/app/models/courseDocument.model';
-import { CourseService } from 'src/app/services/course.service';
-import { LoadingService } from 'src/app/services/loading.service';
+import {Component, OnInit} from '@angular/core';
+import {CourseDocument} from '../../models/courseDocument.model';
+import {CourseService} from '../../services/course.service';
+import {LoadingService} from '../../services/loading.service';
 
 @Component({
-  selector: 'app-edit-course',
-  templateUrl: './edit-course.component.html',
-  styleUrls: ['./edit-course.component.css']
+  selector: 'app-courses-view',
+  templateUrl: './courses-view.component.html',
+  styleUrls: ['./courses-view.component.css']
 })
-export class EditCourseComponent implements OnInit {
+export class CoursesViewComponent implements OnInit {
 
-  page: number = 1;
+  page = 1;
   count: number;
 
-  courses: CourseDocument[];
+  courses: Array<CourseDocument>;
   error: string;
 
   constructor(
     private courseService: CourseService,
-    private loadingService: LoadingService) { }
+    private loadingService: LoadingService) {
+  }
 
   ngOnInit() {
     this.getCourses();
@@ -29,10 +30,10 @@ export class EditCourseComponent implements OnInit {
     this.loadingService.load();
 
     this.courseService.getAll(this.page).subscribe(
-      (data: CourseDocument[]) => {
+      (data: Array<CourseDocument>) => {
         this.courses = data;
         this.loadingService.unload();
-        },
+      },
       error => {
         this.error = error;
         this.loadingService.unload();
@@ -50,5 +51,5 @@ export class EditCourseComponent implements OnInit {
       }
     );
   }
-
 }
+

@@ -4,6 +4,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {CourseDto} from 'src/app/models/courseDto.model';
 import {TagService} from 'src/app/services/tag.service';
 import {Form} from '../../models/form';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-new-course',
@@ -17,13 +18,15 @@ export class NewCourseComponent extends Form implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
-              private tagService: TagService) {
+              private tagService: TagService,
+              private languageService: LanguageService) {
     super();
   }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
+    this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new CourseDto();
 
@@ -53,9 +56,10 @@ export class NewCourseComponent extends Form implements OnInit {
 
     this.loading = true;
 
-    this.dataDto.of(this.form);
+    this.dataDto.from(this.form);
     this.dataDto.image = this.fileToUpload;
-    this.dataDto.tags = this.tagService.toTagsString(this.form.value.tags.map(e => e.text));
+    const tags = this.form.value.tags;
+    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
 
     const formData = this.dataDto.toFormData();
 

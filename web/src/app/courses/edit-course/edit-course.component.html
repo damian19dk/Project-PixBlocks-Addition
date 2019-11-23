@@ -1,6 +1,0 @@
-<div class="container d-flex flex-row justify-content-center flex-wrap">
-  <app-course-thumbnail class="p-2" *ngFor="let course of courses" [course]=course (editCourseComponent)="getCourses($event)">
-  </app-course-thumbnail>
-</div>
-<ngb-pagination class="d-flex justify-content-center" [collectionSize]=count [(page)]=page aria-label="Default pagination"
-  (pageChange)="getCourses()"></ngb-pagination>

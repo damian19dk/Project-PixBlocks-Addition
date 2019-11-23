@@ -14,8 +14,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PageNotFoundComponent} from './error-pages/page-not-found/page-not-found.component';
 import {AuthService} from './services/auth.service';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
-import {AddVideoComponent} from './video/add-video/add-video.component';
-import {VideoBrowseComponent} from './video/video-browse/video-browse.component';
+import {NewVideoComponent} from './video/new-video/new-video.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
 import {VideoThumbnailComponent} from './video/video-thumbnail/video-thumbnail.component';
 import {VideoService} from './services/video.service';
@@ -25,7 +24,6 @@ import {CoursesComponent} from './video/show-video/courses/courses.component';
 import {CourseManagerComponent} from './courses/course-manager/course-manager.component';
 import {NewCourseComponent} from './courses/new-course/new-course.component';
 import {LoadingService} from './services/loading.service';
-import {EditCourseComponent} from './courses/edit-course/edit-course.component';
 import {FunctionalityNotPreparedComponent} from './error-pages/functionality-not-prepared/functionality-not-prepared.component';
 import {CourseService} from './services/course.service';
 import {HeadersInterceptor} from './interceptors/headers-interceptor';
@@ -46,6 +44,11 @@ import {MatChipsModule} from '@angular/material/chips';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {CoursesViewComponent} from './courses/courses-view/courses-view.component';
+import {VideosViewComponent} from './video/videos-view/videos-view.component';
+import {VideoManagerComponent} from './video/video-manager/video-manager.component';
 
 
 @NgModule({
@@ -58,8 +61,7 @@ import {MatRadioModule} from '@angular/material/radio';
     RegistrationComponent,
     PageNotFoundComponent,
     UnauthorizedComponent,
-    AddVideoComponent,
-    VideoBrowseComponent,
+    NewVideoComponent,
     ShowVideoComponent,
     VideoThumbnailComponent,
     SafePipe,
@@ -68,7 +70,6 @@ import {MatRadioModule} from '@angular/material/radio';
     CoursesComponent,
     CourseManagerComponent,
     NewCourseComponent,
-    EditCourseComponent,
     FunctionalityNotPreparedComponent,
     CourseThumbnailComponent,
     SearchBarComponent,
@@ -77,7 +78,10 @@ import {MatRadioModule} from '@angular/material/radio';
     ChangeEmailComponent,
     HasRoleDirective,
     SelectLanguagesComponent,
-    HomeForLoggedComponent
+    HomeForLoggedComponent,
+    CoursesViewComponent,
+    VideosViewComponent,
+    VideoManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +105,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatToolbarModule,
     MatChipsModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   exports: [
     HasRoleDirective
