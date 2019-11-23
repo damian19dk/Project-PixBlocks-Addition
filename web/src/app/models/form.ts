@@ -1,9 +1,9 @@
 import {FormGroup} from '@angular/forms';
-import {DataDto} from './dataDto';
+import {Language} from '../services/language.service';
 
 export class Form {
   form: FormGroup;
-  dataDto: DataDto;
+  dataDto: any;
 
   loading: boolean;
   submitted: boolean;
@@ -12,6 +12,7 @@ export class Form {
 
   tagsList = [];
   tagsSettings = {};
+  languages: Array<Language>;
 
   fileToUpload: File = null;
   fileUploadMessage: string;
@@ -19,5 +20,4 @@ export class Form {
   get f() {
     return this.form.controls;
   }
-
 }

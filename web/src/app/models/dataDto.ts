@@ -11,7 +11,7 @@ export class DataDto {
   language: string;
   tags: string;
 
-  toFormData() {
+  toFormData(): FormData {
     const formData = new FormData();
     this.parentId !== null ? formData.append('parentId', this.parentId) : null;
     this.id !== null ? formData.append('id', this.id) : null;
@@ -25,7 +25,7 @@ export class DataDto {
     return formData;
   }
 
-  of(form: FormGroup) {
+  from(form: FormGroup): void {
     this.parentId = form.value.parentId;
     this.id = form.value.id;
     this.premium = form.value.premium;
