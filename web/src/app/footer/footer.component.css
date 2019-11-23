@@ -15,22 +15,38 @@
   color: #ffffff;
   background-color: #3c5a99;
   border-radius: 50%;
+  transition: transform .1s ease-out;
+}
+
+.btn-fb:hover {
+  transform: scale(1.2, 1.2);
 }
 
 .btn-yt {
   color: #ffffff;
   background-color: #FF0000;
   border-radius: 50%;
+  transition: transform .1s ease-out;
+}
+
+.btn-yt:hover {
+  transform: scale(1.2, 1.2);
 }
 
 .btn-li {
   color: #ffffff;
   background-color: #0077B5;
+  transition: transform .1s ease-out;
+}
+
+.btn-li:hover {
+  transform: scale(1.2, 1.2);
 }
 
 .fab {
   margin-top: 1px;
 }
+
 
 .btns {
   margin-top: 0;
