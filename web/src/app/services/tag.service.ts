@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class TagService {
     return tags.join().split(',');
   }
 
-  toTagsString(tags: any) {
-    return tags.join();
+  toTagsString(tags: Array<string>) {
+    return tags === null ? null : tags.join();
   }
 }

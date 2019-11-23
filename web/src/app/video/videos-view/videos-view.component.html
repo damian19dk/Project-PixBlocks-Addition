@@ -1,0 +1,8 @@
+<div class="container d-flex flex-row justify-content-center flex-wrap">
+  <app-video-thumbnail (editVideoComponent)="getVideos()" *ngFor="let video of videos" [video]=video class="p-2">
+  </app-video-thumbnail>
+</div>
+<ngb-pagination (pageChange)="getVideos()" [(page)]=page [collectionSize]=count
+                aria-label="Default pagination"
+                class="d-flex justify-content-center">
+</ngb-pagination>

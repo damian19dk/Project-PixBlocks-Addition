@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {TagService} from 'src/app/services/tag.service';
 import {VideoService} from 'src/app/services/video.service';
 import {VideoDto} from 'src/app/models/videoDto.model';
@@ -7,38 +7,30 @@ import {debounceTime, filter, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {CourseService} from '../../services/course.service';
 import {CourseDocument} from '../../models/courseDocument.model';
+import {LanguageService} from '../../services/language.service';
+import {Form} from "../../models/form";
 
 @Component({
-  selector: 'app-add-video',
-  templateUrl: './add-video.component.html',
-  styleUrls: ['./add-video.component.css']
+  selector: 'app-new-video',
+  templateUrl: './new-video.component.html',
+  styleUrls: ['./new-video.component.css']
 })
-export class AddVideoComponent implements OnInit {
-
-  form: FormGroup;
-  loading: boolean;
-  submitted: boolean;
-  sent: boolean;
-  videoDto: VideoDto;
-  error: string;
-
-  tagsList = [];
-  tagsSettings = {};
-
-  fileToUpload: File = null;
-  fileUploadMessage = 'Wybierz plik';
+export class NewVideoComponent extends Form implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
               private tagService: TagService,
+              private languageServce: LanguageService,
               private courseService: CourseService) {
+    super();
   }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
+    this.languages = this.languageServce.getAllLanguages();
 
-    this.videoDto = new VideoDto();
+    this.dataDto = new VideoDto();
 
     this.sent = false;
     this.submitted = false;
@@ -59,11 +51,6 @@ export class AddVideoComponent implements OnInit {
     });
   }
 
-
-  get f() {
-    return this.form.controls;
-  }
-
   create() {
     this.submitted = true;
 
@@ -73,11 +60,13 @@ export class AddVideoComponent implements OnInit {
 
     this.loading = true;
 
-    this.videoDto.of(this.form);
-    this.videoDto.parentId = this.form.value.parentId.id;
-    this.videoDto.video = this.fileToUpload;
-
-    const formData = this.videoDto.toFormData();
+    this.dataDto.from(this.form);
+    this.dataDto.parentId = this.form.value.parentId.id;
+    this.dataDto.video = this.fileToUpload;
+    const tags = this.form.value.tags;
+    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
+    const formData = this.dataDto.toFormData();
+    console.log(this.dataDto);
 
     this.videoService.add(formData)
       .subscribe(
