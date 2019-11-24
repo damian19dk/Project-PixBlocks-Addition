@@ -7,6 +7,5 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
     public class CourseDto: MediaDto
     {
         public ICollection<VideoDto> CourseVideos { get; set; }
-        public ICollection<LessonDto> Lessons { get; set; }
     }
 }
