@@ -124,10 +124,8 @@
   <div class="card-header text-center">
     {{course.title}}
   </div>
-  <div class="card-box card-link" routerLink="/show_course/{{course.id}}">
-    <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-    <img alt="" class="card-img-top align-middle mx-auto d-block"/>
-  </div>
+  <img alt="" class="card-img-top align-middle mx-auto d-block" routerLink="/show_course/{{course.id}}"
+       src="{{course.picture}}"/>
 
   <div class="card-body">
     <p class="card-text">{{course.description}}</p>
@@ -136,6 +134,9 @@
       <small>{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
       <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
         <i class="fas fa-edit"></i>Edytuj
+      </button>
+      <button (click)="remove()" class="btn btn-sm btn-outline-danger" i18n type="button">
+        <i class="far fa-trash-alt"></i>Usuń
       </button>
     </div>
   </div>

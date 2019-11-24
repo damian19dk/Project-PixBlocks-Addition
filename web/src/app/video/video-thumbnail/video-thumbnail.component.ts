@@ -7,7 +7,7 @@ import {TagService} from '../../services/tag.service';
 import {LanguageService} from '../../services/language.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CourseDto} from '../../models/courseDto.model';
-import {FormModal} from "../../models/formModal";
+import {FormModal} from '../../models/formModal';
 
 @Component({
   selector: 'app-video-thumbnail',

@@ -4,8 +4,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class TagService {
-
-  private readonly allTags: string[];
+  private readonly allTags: Array<string>;
   private readonly tagSettingsForMultiselect: any;
 
   constructor() {
@@ -18,7 +17,6 @@ export class TagService {
       allowSearchFilter: true,
       searchPlaceholderText: 'Szukaj...'
     };
-
   }
 
   getTags() {
@@ -30,8 +28,8 @@ export class TagService {
   }
 
   toTagsList(tags: any) {
-    if (tags == null) {
-      return ['brak'];
+    if (tags === null || tags.length === 0) {
+      return null;
     }
     return tags.join().split(',');
   }

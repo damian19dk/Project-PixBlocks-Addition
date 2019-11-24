@@ -24,7 +24,8 @@
   height: 100%;
   display: block;
   transition: transform .4s, opacity .4s;
-  opacity: 0.85
+  opacity: 0.85;
+  cursor: pointer;
 }
 
 .card:hover .card-img-top {

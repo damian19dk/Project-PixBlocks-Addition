@@ -11,7 +11,6 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class AuthService {
   roles$ = new ReplaySubject<string[]>(1);
-  // tslint:disable-next-line:radix
   roleNames = ['user', 'admin'];
   roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
 
@@ -26,7 +25,7 @@ export class AuthService {
       .pipe(scan((acc, next) => next, []))
       .subscribe(this.roles$);
 
-    setInterval(() => this.autoRefresh(), 24000); // 30000ms = 5min
+    setInterval(() => this.autoRefresh(), 10000); // 30000ms = 5min
   }
 
   // tslint:disable-next-line:variable-name

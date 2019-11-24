@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 import {CourseService} from '../../services/course.service';
 import {CourseDocument} from '../../models/courseDocument.model';
 import {LanguageService} from '../../services/language.service';
-import {Form} from "../../models/form";
+import {Form} from '../../models/form';
 
 @Component({
   selector: 'app-new-video',
