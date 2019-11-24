@@ -72,6 +72,8 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
     this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
     const formData = this.dataDto.toFormData();
 
+    console.log(this.dataDto);
+
     this.courseService.update(formData)
       .subscribe(
         data => {
@@ -117,6 +119,4 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
   imitateFileInput() {
     document.getElementById('image').click();
   }
-
-
 }
