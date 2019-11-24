@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PixBlocks_Addition.Api;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
+using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 .UseStartup<Startup>();
             server = new TestServer(webBuilder);
             httpClient = server.CreateClient();
+            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthorizationHeader.Admin);
             Init().Wait();
         }
 
@@ -42,9 +46,6 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             courseData.Add("Tags", "tag3");
 
             await sendMultiPartAsync("api/course/create", "POST", courseData);
-
-            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
 
             var response = await httpClient.GetAsync("api/course/all");
             var responseString = await response.Content.ReadAsStringAsync();
@@ -103,7 +104,6 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 request.Headers.ExpectContinue = true;
                 request.Headers.Add("Connection", "Keep-Alive");
-                request.Headers.Add("Accept-Language", "en");
                 request.Content = multipartContent;
                 var response = await httpClient.SendAsync(request);
 

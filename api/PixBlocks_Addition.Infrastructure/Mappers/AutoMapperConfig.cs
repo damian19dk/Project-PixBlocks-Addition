@@ -29,13 +29,7 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
                 cfg.CreateMap<Media, MediaDto>().ForMember(x => x.Picture,
                     opt => opt.ConvertUsing(new PictureUrlConverter(_settings)));
                 cfg.CreateMap<CourseVideo, VideoDto>().ConvertUsing(x => Mapper.Map<VideoDto>(x.Video));
-                cfg.CreateMap<LessonVideo, VideoDto>().ConvertUsing(x => Mapper.Map<VideoDto>(x.Video));
-                cfg.CreateMap<ExerciseVideo, VideoDto>().ConvertUsing(x => Mapper.Map<VideoDto>(x.Video));
                 cfg.CreateMap<Course, CourseDto>().ForMember(x => x.Picture,
-                    opt => opt.ConvertUsing(new PictureUrlConverter(_settings)));
-                cfg.CreateMap<Lesson, LessonDto>().ForMember(x => x.Picture,
-                    opt => opt.ConvertUsing(new PictureUrlConverter(_settings)));
-                cfg.CreateMap<Exercise, ExerciseDto>().ForMember(x => x.Picture,
                     opt => opt.ConvertUsing(new PictureUrlConverter(_settings)));
             })
             .CreateMapper();
