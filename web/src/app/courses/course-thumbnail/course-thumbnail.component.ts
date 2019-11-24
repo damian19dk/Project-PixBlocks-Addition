@@ -18,7 +18,6 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
   @Output() editVideoComponent: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
@@ -104,11 +103,8 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
     this.editVideoComponent.emit(null);
   }
 
-  private getPicture() {
-    if (this.course.picture == null) {
-      this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
-      return;
-    }
+  imitateImageInput() {
+    document.getElementById('image').click();
   }
 
   handleFileInput(files: FileList) {
@@ -116,7 +112,10 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
     this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
-  imitateFileInput() {
-    document.getElementById('image').click();
+  private getPicture() {
+    if (this.course.picture === null) {
+      this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
+      return;
+    }
   }
 }

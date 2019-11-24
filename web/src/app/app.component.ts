@@ -15,6 +15,13 @@ export class SafePipe implements PipeTransform {
   }
 }
 
+@Pipe({name: 'shortText'})
+export class ShortTextPipe implements PipeTransform {
+  transform(text: string): string {
+    return text.length > 75 ? text.substring(0, 72) + '...' : text;
+  }
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

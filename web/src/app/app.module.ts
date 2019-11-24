@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent, SafePipe} from './app.component';
+import {AppComponent, SafePipe, ShortTextPipe} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {HomeComponent} from './home/home.component';
 import {FooterComponent} from './footer/footer.component';
@@ -64,6 +64,7 @@ import {VideoManagerComponent} from './video/video-manager/video-manager.compone
     NewVideoComponent,
     ShowVideoComponent,
     VideoThumbnailComponent,
+    ShortTextPipe,
     SafePipe,
     OverviewComponent,
     QuestionsComponent,
