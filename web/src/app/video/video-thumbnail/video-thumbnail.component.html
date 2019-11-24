@@ -1,5 +1,5 @@
 <div *ngIf="video">
-  <div class="card mb-4 bg-white box-shadow">
+  <div [ngClass]="video.status === 'processing' ? 'bg-warning' : 'bg-white'" class="card mb-4 box-shadow">
 
     <div class="card-header text-center">
       {{video.title}}
@@ -7,11 +7,11 @@
 
     <div class="card-box card-link" routerLink="/videos/{{video.mediaId}}">
       <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-      <img class="card-img-top align-middle mx-auto d-block" src={{video.picture}} alt="Tu miał być film"/>
+      <img alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block" src={{video.picture}}/>
     </div>
 
     <div class="card-body">
-      <p class="card-text">{{video.description}}</p>
+      <p class="card-text">{{video.description | shortText}}</p>
 
       <div class="d-flex justify-content-between align-items-center">
         <small>{{video.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
