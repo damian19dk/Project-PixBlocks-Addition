@@ -18,7 +18,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         {
             _courses = entities.Courses
                         .Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                        .Include(c => c.Lessons).ThenInclude(x => x.Tags)
                         .Include(c => c.Category)
                         .Include(c => c.Tags);
             ContextLanguage = localizer.Language;

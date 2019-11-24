@@ -8,7 +8,6 @@ namespace PixBlocks_Addition.Domain.Entities
     public class Course: Media
     {
         public ICollection<CourseVideo> CourseVideos { get; protected set; } = new HashSet<CourseVideo>();
-        public ICollection<Lesson> Lessons { get; protected set; } = new HashSet<Lesson>();
 
         public Course(bool premium, string title, string description, string picture,
             string lang, long duration=0, IEnumerable<Tag> tags = null) 
