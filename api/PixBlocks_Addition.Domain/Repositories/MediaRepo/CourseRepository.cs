@@ -11,41 +11,31 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
 {
     public class CourseRepository : GenericRepository<Course>, ICourseRepository
     {
-        private readonly PixBlocksContext _entities;
+        private readonly IQueryable<Course> _courses;
         public string ContextLanguage { get; }
 
         public CourseRepository(PixBlocksContext entities, ILocalizationService localizer) : base(entities)
         {
-            _entities = entities;
+            _courses = entities.Courses
+                        .Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
+                        .Include(c => c.Category)
+                        .Include(c => c.Tags);
             ContextLanguage = localizer.Language;
         }
 
         public async Task<Course> GetAsync(Guid id)
-            => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
-                     .Include(c => c.Category)
-                     .Include(c => c.Tags).SingleOrDefaultAsync(x => x.Id == id);
+            => await _courses.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<Course>> GetAsync(string name)
-            => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
-                     .Include(c => c.Category)
-                     .Include(c => c.Tags)
-                     .Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && c.Title.Contains(name)).ToListAsync();
+            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) 
+                                    && c.Title.Contains(name)).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
-                     .Include(c => c.Category)
-                     .Include(c => c.Tags)
-                     .Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) 
+                                    && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10)
-            => await _entities.Courses.Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                     .Include(c => c.Lessons).ThenInclude(x => x.Tags)
-                     .Include(c => c.Category)
-                     .Include(c => c.Tags)
-                     .Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
+            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
                      .Skip((page - 1) * count).Take(count).ToListAsync();
     }
 }

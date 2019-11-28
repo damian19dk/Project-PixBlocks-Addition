@@ -21,8 +21,6 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<Video> Videos { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Exercise> Exercises { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
@@ -31,13 +29,7 @@ namespace PixBlocks_Addition.Domain.Contexts
         {
             modelBuilder.Entity<Video>().ToTable("Videos");
             modelBuilder.Entity<Tag>().ToTable("Tags");
-            var course = modelBuilder.Entity<Course>();
-            course.ToTable("Courses").HasMany(c => c.Lessons).WithOne(l => l.Course);
-            course.HasMany(c => c.CourseVideos);
-            var lesson = modelBuilder.Entity<Lesson>();
-            lesson.ToTable("Lessons").HasMany(l => l.Exercises).WithOne(e => e.Lesson);
-            lesson.HasMany(l => l.LessonVideos);
-            modelBuilder.Entity<Exercise>().ToTable("Exercises").HasMany(e => e.ExerciseVideos);
+            modelBuilder.Entity<Course>().ToTable("Courses").HasMany(c => c.CourseVideos);
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<History>().ToTable("History");

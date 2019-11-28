@@ -32,7 +32,6 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 MediaId = CourseDto.MediaId,
                 Duration = CourseDto.Duration,
                 CourseVideos = CourseDto.CourseVideos,
-                Lessons = CourseDto.Lessons,
                 Picture = CourseDto.Picture,
                 PublishDate = CourseDto.PublishDate,
                 Tags = CourseDto.Tags

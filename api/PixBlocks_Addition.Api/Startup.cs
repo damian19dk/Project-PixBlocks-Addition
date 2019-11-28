@@ -99,15 +99,11 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
-            services.AddScoped<ILessonRepository, LessonRepository>();
-            services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
             services.AddScoped(typeof(IChangeMediaHandler<,>), typeof(ChangeMediaHandler<,>));
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ICourseService, CourseService>();
-            services.AddScoped<ILessonService, LessonService>();
-            services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<ILocalizationService, LocalizationService>();
             services.AddScoped<IUserService, UserService>();
 
