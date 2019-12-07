@@ -27,17 +27,17 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<FileResult> GetImage(Guid id)
+        public async Task<FileResult> GetResource(Guid id)
         {
-            var image = await _resourceService.GetAsync(id);
-            return base.File(image.Image, image.ContentType);
+            var resource = await _resourceService.GetAsync(id);
+            return base.File(resource.File, resource.ContentType);
         }
 
         [HttpPost]
         public async Task Upload()
         {
-            var image = getResource();
-            await _resourceService.UploadAsync(image);
+            var resource = getResource();
+            await _resourceService.UploadAsync(resource);
         }
 
         [HttpDelete("{id}")]
