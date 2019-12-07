@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
-    public interface IImageRepository
+    public interface IResourceRepository
     {
-        Task AddAsync(CustomImage image);
-        Task<CustomImage> GetAsync(Guid id);
-        Task UpdateAsync(CustomImage image);
+        Task AddAsync(CustomResource resource);
+        Task<CustomResource> GetAsync(Guid id);
+        Task UpdateAsync(CustomResource resource);
         Task RemoveAsync(Guid id);
     }
 }
