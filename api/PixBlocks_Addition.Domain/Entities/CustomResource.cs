@@ -40,7 +40,7 @@ namespace PixBlocks_Addition.Domain.Entities
 
         static CustomResource()
         {
-            ContentTypes = new List<string>() { "image/jpg", "image/jpeg", "image/png", "image/bmp" };
+            ContentTypes = new List<string>() { "image/jpg", "image/jpeg", "image/png", "image/bmp", "application/pdf" };
         }
     }
 }
