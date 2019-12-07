@@ -19,7 +19,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         public string Picture { get; protected set; }
-        public ICollection<string> Resources { get; protected set; }
+        public ICollection<string> Resources { get; protected set; } = new HashSet<string>();
         public long Duration { get; protected set; }
         public DateTime PublishDate { get; protected set; }
         public string Language { get; protected set; }
