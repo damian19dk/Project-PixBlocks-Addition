@@ -77,6 +77,28 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 await mediaRepository.RemoveAllTagsAsync(entity);
             }
 
+            if(!string.IsNullOrEmpty(resource.Resources))
+            {
+                var resources = resource.Resources.Split(';');
+                //remove resources
+                foreach(var res in entity.Resources)
+                {
+                    if(!resources.Contains(res))
+                    {
+                        entity.Resources.Remove(res);
+                        await tryRemoveResourceFromDb(res);
+                    }
+                }
+                //add resources
+                foreach(var res in resources)
+                {
+                    if(!entity.Resources.Contains(res))
+                    {
+                        entity.Resources.Add(res);
+                    }
+                }
+            }
+
             //Add picture from url
             if (resource.PictureUrl != null)
             {
