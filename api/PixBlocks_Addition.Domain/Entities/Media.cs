@@ -7,9 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    /// <summary>
-    /// Nie wiadomo czy bedzie potrzebna wszystko zalezy od hostingu filmow implemetuje na zapas
-    /// </summary>
     public abstract class Media
     {
         private static readonly Regex regex_url = new Regex(@"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$");
