@@ -2,17 +2,15 @@
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
-    public interface IImageService
+    public interface IResourceService
     {
-        Task UploadAsync(IFormFile image);
+        Task UploadAsync(IFormFile resource);
         Task<ImageDto> GetAsync(Guid id);
-        Task ChangeAsync(ChangeImageResource image);
+        Task ChangeAsync(ChangeResource resource);
         Task RemoveAsync(Guid id);
     }
 }
