@@ -17,15 +17,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public class VideoService : IVideoService
     {
-        private readonly IImageHandler _imageHandler;
-        private readonly IImageRepository _imageRepository;
+        private readonly IResourceHandler _imageHandler;
+        private readonly IResourceRepository _imageRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
-                            IImageHandler imageHandler, IImageRepository imageRepository,
+                            IResourceHandler imageHandler, IResourceRepository imageRepository,
                             IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
         {
             _changeMediaHandler = changeMediaHandler;

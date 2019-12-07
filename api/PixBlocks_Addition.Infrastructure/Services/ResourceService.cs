@@ -13,12 +13,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
 {
     public class ResourceService : IResourceService
     {
-        private readonly IImageHandler _imageHandler;
+        private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
 
-        public ResourceService(IImageHandler imageHandler, IResourceRepository resourceRepository)
+        public ResourceService(IResourceHandler resourceHandler, IResourceRepository resourceRepository)
         {
-            _imageHandler = imageHandler;
+            _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
         }
 
@@ -26,16 +26,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var currentResource = await getAsync(resource.Id);
 
-            var newResource = await _imageHandler.CreateAsync(resource.ResourceFile);
+            var newResource = await _resourceHandler.CreateAsync(resource.ResourceFile);
 
             currentResource.SetFile(newResource.ContentType, newResource.File);
             await _resourceRepository.UpdateAsync(currentResource);
         }
 
-        public async Task<ImageDto> GetAsync(Guid id)
+        public async Task<ResourceDto> GetAsync(Guid id)
         {
             var resource = await getAsync(id);
-            return _imageHandler.Convert(resource);
+            return _resourceHandler.Convert(resource);
         }
 
         public async Task RemoveAsync(Guid id)
@@ -46,7 +46,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task UploadAsync(IFormFile file)
         {
-            var resource = await _imageHandler.CreateAsync(file);
+            var resource = await _resourceHandler.CreateAsync(file);
             await _resourceRepository.AddAsync(resource);
         }
 

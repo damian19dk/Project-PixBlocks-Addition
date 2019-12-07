@@ -17,16 +17,16 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
-        private readonly IImageHandler _imageHandler;
-        private readonly IImageRepository _imageRepository;
+        private readonly IResourceHandler _imageHandler;
+        private readonly IResourceRepository _imageRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IChangeMediaHandler<Course, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
         private readonly ILocalizationService _localizer;
 
         public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository,
-            IChangeMediaHandler<Course, Course> changeMediaHandler, IImageRepository imageRepository,
-            IImageHandler imageHandler, IAutoMapperConfig config, ILocalizationService localizer)
+            IChangeMediaHandler<Course, Course> changeMediaHandler, IResourceRepository imageRepository,
+            IResourceHandler imageHandler, IAutoMapperConfig config, ILocalizationService localizer)
         {
             _changeMediaHandler = changeMediaHandler;
             _imageHandler = imageHandler;

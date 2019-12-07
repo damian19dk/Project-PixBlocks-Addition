@@ -9,7 +9,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
     public interface IResourceService
     {
         Task UploadAsync(IFormFile resource);
-        Task<ImageDto> GetAsync(Guid id);
+        Task<ResourceDto> GetAsync(Guid id);
         Task ChangeAsync(ChangeResource resource);
         Task RemoveAsync(Guid id);
     }

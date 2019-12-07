@@ -13,13 +13,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public class ChangeMediaHandler<TEntity, TParent>: IChangeMediaHandler<TEntity, TParent> where TEntity : Media where TParent: Media
     {
-        private readonly IImageHandler _imageHandler;
-        private readonly IImageRepository _imageRepository;
+        private readonly IResourceHandler _resourceHandler;
+        private readonly IResourceRepository _resourceRepository;
 
-        public ChangeMediaHandler(IImageHandler imageHandler, IImageRepository imageRepository)
+        public ChangeMediaHandler(IResourceHandler resourceHandler, IResourceRepository resourceRepository)
         {
-            _imageHandler = imageHandler;
-            _imageRepository = imageRepository;
+            _resourceHandler = resourceHandler;
+            _resourceRepository = resourceRepository;
         }
 
         public async Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TParent> parentRepository = null)
@@ -80,32 +80,32 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             //Add picture from url
             if (resource.PictureUrl != null)
             {
-                await tryRemoveImageFromDb(entity.Picture);
+                await tryRemoveResourceFromDb(entity.Picture);
                 entity.SetPicture(resource.PictureUrl);
             }
             //Add picture to database
             if (resource.Image != null)
             {
-                await tryRemoveImageFromDb(entity.Picture);
-                var img = await _imageHandler.CreateAsync(resource.Image);
-                await _imageRepository.AddAsync(img);
+                await tryRemoveResourceFromDb(entity.Picture);
+                var img = await _resourceHandler.CreateAsync(resource.Image);
+                await _resourceRepository.AddAsync(img);
                 entity.SetPicture(img.Id.ToString());
             }
 
             await mediaRepository.UpdateAsync(entity);
         }
 
-        private async Task tryRemoveImageFromDb(string coursePicture)
+        private async Task tryRemoveResourceFromDb(string resource)
         {
             //Remove picture from database
-            if (!string.IsNullOrWhiteSpace(coursePicture))
+            if (!string.IsNullOrWhiteSpace(resource))
             {
                 Guid id;
-                if (Guid.TryParse(coursePicture, out id))
+                if (Guid.TryParse(resource, out id))
                 {
-                    var imageFromDb = await _imageRepository.GetAsync(id);
-                    if (imageFromDb != null)
-                        await _imageRepository.RemoveAsync(id);
+                    var resourceFromDb = await _resourceRepository.GetAsync(id);
+                    if (resourceFromDb != null)
+                        await _resourceRepository.RemoveAsync(id);
                 }
             }
         }
