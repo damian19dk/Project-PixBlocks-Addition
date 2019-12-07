@@ -34,6 +34,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 CourseVideos = CourseDto.CourseVideos,
                 Picture = CourseDto.Picture,
                 PublishDate = CourseDto.PublishDate,
+                Resources = new HashSet<string>(),
                 Tags = CourseDto.Tags
             };
             var tags = string.Join(',', CourseDto.Tags);
