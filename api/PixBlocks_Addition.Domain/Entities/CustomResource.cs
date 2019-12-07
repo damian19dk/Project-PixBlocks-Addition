@@ -7,38 +7,38 @@ using System.Text;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    public class CustomImage
+    public class CustomResource
     {
         public Guid Id { get; protected set; }
         public string ContentType { get; protected set; }
-        public string Image { get; protected set; }
+        public string File { get; protected set; }
 
-        public CustomImage(string contentType, string base64Image)
+        public CustomResource(string contentType, string base64Image)
         {
             Id = Guid.NewGuid();
-            SetImage(contentType, base64Image);
+            SetFile(contentType, base64Image);
         }
 
-        protected CustomImage()
+        protected CustomResource()
         {
         }
 
-        public void SetImage(string contentType, string base64Image)
+        public void SetFile(string contentType, string base64Resource)
         {
-            if(!CustomImage.ContentTypes.Contains(contentType))
+            if(!CustomResource.ContentTypes.Contains(contentType))
             {
                 throw new MyException(MyCodesNumbers.WrongFormatOfPhoto, $"Niewspierany typ pliku: {contentType}.");
             }
             ContentType = contentType;
-            Image = base64Image;
+            File = base64Resource;
         }
 
-        public static CustomImage Create(string contentType, string base64Image)
-            => new CustomImage(contentType, base64Image);
+        public static CustomResource Create(string contentType, string base64Resource)
+            => new CustomResource(contentType, base64Resource);
 
         public static IReadOnlyCollection<string> ContentTypes { get; }
 
-        static CustomImage()
+        static CustomResource()
         {
             ContentTypes = new List<string>() { "image/jpg", "image/jpeg", "image/png", "image/bmp" };
         }
