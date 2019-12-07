@@ -93,15 +93,15 @@ namespace PixBlocks_Addition.Api
                 return new JwtHandler(handlerOptions);
             });
             services.AddSingleton<IEncrypter, Encrypter>();
-            services.AddSingleton<IImageHandler, ImageHandler>();
+            services.AddSingleton<IResourceHandler, ResourceHandler>();
             services.AddSingleton<IJWPlayerAuthHandler, JWPlayerAuthHandler>();
 
-            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
 
             services.AddScoped(typeof(IChangeMediaHandler<,>), typeof(ChangeMediaHandler<,>));
-            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILocalizationService, LocalizationService>();

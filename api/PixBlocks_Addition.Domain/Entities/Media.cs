@@ -7,9 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    /// <summary>
-    /// Nie wiadomo czy bedzie potrzebna wszystko zalezy od hostingu filmow implemetuje na zapas
-    /// </summary>
     public abstract class Media
     {
         private static readonly Regex regex_url = new Regex(@"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$");
@@ -22,6 +19,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public string Title { get; protected set; }
         public string Description { get; protected set; }
         public string Picture { get; protected set; }
+        public ICollection<string> Resources { get; protected set; } = new HashSet<string>();
         public long Duration { get; protected set; }
         public DateTime PublishDate { get; protected set; }
         public string Language { get; protected set; }
@@ -30,7 +28,7 @@ namespace PixBlocks_Addition.Domain.Entities
         protected Media() { }
 
         public Media(string mediaId, bool premium, string title, string description, string picture, long duration,
-            string lang, IEnumerable<Tag> tags = null)
+            string lang, IEnumerable<string> resources = null, IEnumerable<Tag> tags = null)
         {
             Id = Guid.NewGuid();
             MediaId = mediaId;
@@ -40,6 +38,10 @@ namespace PixBlocks_Addition.Domain.Entities
             SetPicture(picture);
             SetDuration(duration);
             SetLanguage(lang);
+
+            if (resources != null)
+                foreach (string resource in resources)
+                    Resources.Add(resource);
 
             if (tags != null)
                 foreach (Tag tag in tags)

@@ -15,6 +15,7 @@ namespace PixBlocks_Addition.Infrastructure.ResourceModels
         public string Description { get; set; }
         public string PictureUrl { get; set; }
         public IFormFile Image { get; set; }
+        public IFormFileCollection Resources { get; set; }
         public string Language { get; set; }
         public string Tags { get; set; }
     }

@@ -9,28 +9,28 @@ using PixBlocks_Addition.Infrastructure.DTOs;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
-    public class ImageHandler : IImageHandler
+    public class ResourceHandler : IResourceHandler
     {
-        public ImageHandler()
+        public ResourceHandler()
         {
 
         }
 
-        public ImageDto Convert(CustomImage image)
+        public ResourceDto Convert(CustomResource resource)
         {
-            var dto = new ImageDto();
-            dto.ContentType = image.ContentType;
-            dto.Image = System.Convert.FromBase64String(image.Image);
+            var dto = new ResourceDto();
+            dto.ContentType = resource.ContentType;
+            dto.File = System.Convert.FromBase64String(resource.File);
             return dto;
         }
 
-        public async Task<CustomImage> CreateAsync(IFormFile image)
+        public async Task<CustomResource> CreateAsync(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())
             {
-                await image.CopyToAsync(memoryStream);
+                await file.CopyToAsync(memoryStream);
                 var base64 = System.Convert.ToBase64String(memoryStream.ToArray());
-                return CustomImage.Create(image.ContentType, base64);
+                return CustomResource.Create(file.ContentType, base64);
             }
         }
     }

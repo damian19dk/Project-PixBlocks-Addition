@@ -17,21 +17,21 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public class VideoService : IVideoService
     {
-        private readonly IImageHandler _imageHandler;
-        private readonly IImageRepository _imageRepository;
+        private readonly IResourceHandler _resourceHandler;
+        private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
-                            IImageHandler imageHandler, IImageRepository imageRepository,
+                            IResourceHandler resourceHandler, IResourceRepository resourceRepository,
                             IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
         {
             _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
-            _imageHandler = imageHandler;
-            _imageRepository = imageRepository;
+            _resourceHandler = resourceHandler;
+            _resourceRepository = resourceRepository;
             _videoRepository = videoRepository;
             _jwPlayerService = jwPlayerService;
         }
@@ -61,10 +61,21 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 video.MediaId = await _jwPlayerService.UploadVideoAsync(video.Video);
             }
 
+            HashSet<string> resources = new HashSet<string>();
+            if (video.Resources != null)
+            {
+                foreach (var file in video.Resources)
+                {
+                    var res = await _resourceHandler.CreateAsync(file);
+                    await _resourceRepository.AddAsync(res);
+                    resources.Add(res.Id.ToString());
+                }
+            }
+
             if (video.Image != null)
             {
-                var img = await _imageHandler.CreateAsync(video.Image);
-                await _imageRepository.AddAsync(img);
+                var img = await _resourceHandler.CreateAsync(video.Image);
+                await _resourceRepository.AddAsync(img);
                 video.PictureUrl = img.Id.ToString();
             }
 
@@ -79,7 +90,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             var vid = new Video(video.MediaId, video.Premium, video.Title, video.Description, picture,
-                                0, video.Language, tags);
+                                0, video.Language, resources, tags);
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
             setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());

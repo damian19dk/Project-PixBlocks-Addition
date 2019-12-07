@@ -8,36 +8,36 @@ using PixBlocks_Addition.Domain.Entities;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
-    public class ImageRepository: IImageRepository
+    public class ResourceRepository: IResourceRepository
     {
         private readonly PixBlocksContext _entities;
 
-        public ImageRepository(PixBlocksContext context)
+        public ResourceRepository(PixBlocksContext context)
         {
             _entities = context;
         }
 
-        public async Task AddAsync(CustomImage image)
+        public async Task AddAsync(CustomResource resource)
         {
-            await _entities.Images.AddAsync(image);
+            await _entities.Resources.AddAsync(resource);
             await _entities.SaveChangesAsync();
         }
 
-        public async Task<CustomImage> GetAsync(Guid id)
+        public async Task<CustomResource> GetAsync(Guid id)
         {
-            return await _entities.Images.SingleOrDefaultAsync(x => x.Id == id);
+            return await _entities.Resources.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task RemoveAsync(Guid id)
         {
-            var image = await GetAsync(id);
-            _entities.Images.Remove(image);
+            var resource = await GetAsync(id);
+            _entities.Resources.Remove(resource);
             await _entities.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(CustomImage image)
+        public async Task UpdateAsync(CustomResource resource)
         {
-            _entities.Images.Update(image);
+            _entities.Resources.Update(resource);
             await _entities.SaveChangesAsync();
         }
     }

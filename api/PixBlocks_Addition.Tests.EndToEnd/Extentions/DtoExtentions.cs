@@ -8,7 +8,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.Extentions
 {
     public static class DtoExtentions
     {
-        private static string[] arrayProperties = { "Tags" };
+        private static string[] arrayProperties = { "Tags", "Resources" };
         private static string[] useToStringForProperties = { "Id", "Premium", "PublishDate", "Duration" };
         private static string[] noMapProperties = { "Courses", "Lessons", "Exercises", "Videos",
                                                     "CourseVideos", "LessonVideos", "ExerciseVideos", "PublishDate"};

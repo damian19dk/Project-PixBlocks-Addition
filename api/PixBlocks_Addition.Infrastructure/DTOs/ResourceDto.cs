@@ -4,9 +4,9 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.DTOs
 {
-    public class ImageDto
+    public class ResourceDto
     {
         public string ContentType { get; set; }
-        public byte[] Image { get; set; }
+        public byte[] File { get; set; }
     }
 }

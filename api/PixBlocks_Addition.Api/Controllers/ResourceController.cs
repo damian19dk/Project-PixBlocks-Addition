@@ -16,51 +16,51 @@ namespace PixBlocks_Addition.Api.Controllers
     [Route("api/[controller]")]
     [Authorize(Roles = "Administrator")]
     [ApiController]
-    public class ImageController : ControllerBase
+    public class ResourceController : ControllerBase
     {
-        private readonly IImageService _imageService;
+        private readonly IResourceService _resourceService;
 
-        public ImageController(IImageService imageService)
+        public ResourceController(IResourceService resourceService)
         {
-            _imageService = imageService;
+            _resourceService = resourceService;
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<FileResult> GetImage(Guid id)
+        public async Task<FileResult> GetResource(Guid id)
         {
-            var image = await _imageService.GetAsync(id);
-            return base.File(image.Image, image.ContentType);
+            var resource = await _resourceService.GetAsync(id);
+            return base.File(resource.File, resource.ContentType);
         }
 
         [HttpPost]
         public async Task Upload()
         {
-            var image = getImage();
-            await _imageService.UploadAsync(image);
+            var resource = getResource();
+            await _resourceService.UploadAsync(resource);
         }
 
         [HttpDelete("{id}")]
         public async Task Remove(Guid id)
         {
-            await _imageService.RemoveAsync(id);
+            await _resourceService.RemoveAsync(id);
         }
 
         [HttpPost("{id}")]
         public async Task Change(Guid id)
         {
-            var image = getImage();
-            await _imageService.ChangeAsync(new ChangeImageResource() { Id = id, ImageFile = image });
+            var resource = getResource();
+            await _resourceService.ChangeAsync(new ChangeResource() { Id = id, ResourceFile = resource });
         }
 
-        private IFormFile getImage()
+        private IFormFile getResource()
         {
-            var image = Request.Form.Files.FirstOrDefault();
-            if (image == null)
+            var resource = Request.Form.Files.FirstOrDefault();
+            if (resource == null)
             {
                 throw new MyException(MyCodesNumbers.ImageNotFound, MyCodes.ImageNotFound);
             }
-            return image;
+            return resource;
         }
     }
 }

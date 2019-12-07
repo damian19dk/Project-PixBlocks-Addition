@@ -23,14 +23,17 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Tag, string>().ConvertUsing(x => x.Name);
-                cfg.CreateMap<Video, VideoDto>().ForMember(x=>x.Picture,
-                    opt=>opt.ConvertUsing(new PictureUrlConverter(_settings)));
+                cfg.CreateMap<Video, VideoDto>()
+                    .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
+                    .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
                 cfg.CreateMap<Category, CategoryDto>();
-                cfg.CreateMap<Media, MediaDto>().ForMember(x => x.Picture,
-                    opt => opt.ConvertUsing(new PictureUrlConverter(_settings)));
+                cfg.CreateMap<Media, MediaDto>()
+                    .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
+                    .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
                 cfg.CreateMap<CourseVideo, VideoDto>().ConvertUsing(x => Mapper.Map<VideoDto>(x.Video));
-                cfg.CreateMap<Course, CourseDto>().ForMember(x => x.Picture,
-                    opt => opt.ConvertUsing(new PictureUrlConverter(_settings)));
+                cfg.CreateMap<Course, CourseDto>()
+                    .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
+                    .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
             })
             .CreateMapper();
     }

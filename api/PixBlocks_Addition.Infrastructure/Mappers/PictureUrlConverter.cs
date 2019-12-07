@@ -26,9 +26,9 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
             else
             {
                 if (_settings.HostName.EndsWith('/'))
-                    return _settings.HostName + _settings.PictureEndpoint + '/' + sourceMember;
+                    return _settings.HostName + _settings.ResourceEndpoint + '/' + sourceMember;
                 else
-                    return _settings.HostName + '/' + _settings.PictureEndpoint + '/' + sourceMember;
+                    return _settings.HostName + '/' + _settings.ResourceEndpoint + '/' + sourceMember;
             }
         }
     }
