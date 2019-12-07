@@ -17,8 +17,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
-        private readonly IResourceHandler _imageHandler;
-        private readonly IResourceRepository _imageRepository;
+        private readonly IResourceHandler _resourceHandler;
+        private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IChangeMediaHandler<Course, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
@@ -29,8 +29,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             IResourceHandler imageHandler, IAutoMapperConfig config, ILocalizationService localizer)
         {
             _changeMediaHandler = changeMediaHandler;
-            _imageHandler = imageHandler;
-            _imageRepository = imageRepository;
+            _resourceHandler = imageHandler;
+            _resourceRepository = imageRepository;
             _mapper = config.Mapper;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
@@ -77,15 +77,26 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     tags.Add(new Tag(tag));
             }
 
+            HashSet<string> resources = new HashSet<string>();
+            if(resource.Resources != null)
+            {
+                foreach(var file in resource.Resources)
+                {
+                    var res = await _resourceHandler.CreateAsync(file);
+                    await _resourceRepository.AddAsync(res);
+                    resources.Add(res.Id.ToString());
+                }
+            }
+
             if (resource.Image != null)
             {
-                var img = await _imageHandler.CreateAsync(resource.Image);
-                await _imageRepository.AddAsync(img);
+                var img = await _resourceHandler.CreateAsync(resource.Image);
+                await _resourceRepository.AddAsync(img);
                 resource.PictureUrl = img.Id.ToString();
             }
 
             var course = new Course(resource.Premium, resource.Title, resource.Description,
-                                    resource.PictureUrl, resource.Language, 0, tags);
+                                    resource.PictureUrl, resource.Language, 0, resources, tags);
             await _courseRepository.AddAsync(course);
         }
 
@@ -168,9 +179,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 Guid id;
                 if (Guid.TryParse(coursePicture, out id))
                 {
-                    var imageFromDb = await _imageRepository.GetAsync(id);
+                    var imageFromDb = await _resourceRepository.GetAsync(id);
                     if (imageFromDb != null)
-                        await _imageRepository.RemoveAsync(id);
+                        await _resourceRepository.RemoveAsync(id);
                 }
             }
         }

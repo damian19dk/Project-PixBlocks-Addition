@@ -77,25 +77,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 await mediaRepository.RemoveAllTagsAsync(entity);
             }
 
-            if(!string.IsNullOrEmpty(resource.Resources))
+            if(resource.Resources != null)
             {
-                var resources = resource.Resources.Split(';');
                 //remove resources
                 foreach(var res in entity.Resources)
                 {
-                    if(!resources.Contains(res))
-                    {
-                        entity.Resources.Remove(res);
-                        await tryRemoveResourceFromDb(res);
-                    }
+                    await tryRemoveResourceFromDb(res);
                 }
                 //add resources
-                foreach(var res in resources)
+                foreach(var file in resource.Resources)
                 {
-                    if(!entity.Resources.Contains(res))
-                    {
-                        entity.Resources.Add(res);
-                    }
+                    var res = await _resourceHandler.CreateAsync(file);
+                    await _resourceRepository.AddAsync(res);
+                    entity.Resources.Add(res.Id.ToString());
                 }
             }
 
