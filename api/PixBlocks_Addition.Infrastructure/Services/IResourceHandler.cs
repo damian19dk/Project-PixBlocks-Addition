@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
-    public interface IImageHandler
+    public interface IResourceHandler
     {
-        Task<CustomImage> CreateAsync(IFormFile image);
-        ImageDto Convert(CustomImage image);
+        Task<CustomResource> CreateAsync(IFormFile file);
+        ResourceDto Convert(CustomResource resource);
     }
 }
