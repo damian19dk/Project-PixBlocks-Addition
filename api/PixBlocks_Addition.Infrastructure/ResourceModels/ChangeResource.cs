@@ -5,9 +5,9 @@ using System.Text;
 
 namespace PixBlocks_Addition.Infrastructure.ResourceModels
 {
-    public class ChangeImageResource
+    public class ChangeResource
     {
         public Guid Id { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile ResourceFile { get; set; }
     }
 }
