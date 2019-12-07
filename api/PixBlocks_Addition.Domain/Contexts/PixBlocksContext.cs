@@ -16,7 +16,7 @@ namespace PixBlocks_Addition.Domain.Contexts
             _settings = sqlSettings;
         }
 
-        public DbSet<CustomImage> Images { get; set; }
+        public DbSet<CustomResource> Resources { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Course> Courses { get; set; }
