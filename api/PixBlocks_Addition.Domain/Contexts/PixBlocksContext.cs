@@ -28,8 +28,12 @@ namespace PixBlocks_Addition.Domain.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Video>().ToTable("Videos");
+            modelBuilder.Entity<Video>().Property(e=>e.Resources)
+                                        .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
             modelBuilder.Entity<Tag>().ToTable("Tags");
             modelBuilder.Entity<Course>().ToTable("Courses").HasMany(c => c.CourseVideos);
+            modelBuilder.Entity<Course>().Property(e => e.Resources)
+                                         .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<History>().ToTable("History");
