@@ -1,43 +1,35 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CourseDocument } from 'src/app/models/courseDocument.model';
-import { CourseDto } from 'src/app/models/courseDto.model';
-import { CourseService } from 'src/app/services/course.service';
-import { ImageService } from 'src/app/services/image.service';
-import { TagService } from 'src/app/services/tag.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CourseDocument} from 'src/app/models/courseDocument.model';
+import {CourseDto} from 'src/app/models/courseDto.model';
+import {CourseService} from 'src/app/services/course.service';
+import {TagService} from 'src/app/services/tag.service';
+import {LanguageService} from '../../services/language.service';
+import {LoadingService} from '../../services/loading.service';
+import {FormModal} from '../../models/formModal';
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-course-thumbnail',
   templateUrl: './course-thumbnail.component.html',
   styleUrls: ['./course-thumbnail.component.css']
 })
-export class CourseThumbnailComponent implements OnInit {
+export class CourseThumbnailComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
   @Output() editCourseComponent: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
-  error: string;
+  picture: string;
 
-  editCourseForm: FormGroup;
-  loading: boolean;
-  submitted: boolean;
-  sent: boolean;
-  returnUrl: string;
-  courseDto: CourseDto;
-
-  tagsList = [];
-  tagsSettings = {};
-
-  fileToUpload: File = null;
-  fileUploadMessage: string = 'Wybierz plik';
-
-
-  constructor(public imageService: ImageService,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    private courseService: CourseService,
-    private tagService: TagService) { }
+  constructor(private formBuilder: FormBuilder,
+              private courseService: CourseService,
+              private loadingService: LoadingService,
+              private tagService: TagService,
+              private languageService: LanguageService,
+              public imageService: ImageService,
+              protected modalService: NgbModal) {
+    super(modalService);
+  }
 
 
   ngOnInit() {
@@ -45,15 +37,16 @@ export class CourseThumbnailComponent implements OnInit {
 
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
+    this.languages = this.languageService.getAllLanguages();
 
-    this.courseDto = new CourseDto();
+    this.dataDto = new CourseDto();
 
     this.sent = false;
     this.submitted = false;
     this.loading = false;
     this.error = null;
 
-    this.editCourseForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       parentId: [null],
       id: [this.course.id],
       title: [this.course.title, Validators.required],
@@ -66,31 +59,22 @@ export class CourseThumbnailComponent implements OnInit {
     });
   }
 
-  get f() { return this.editCourseForm.controls; }
-
-  editCourse() {
+  edit() {
     this.submitted = true;
 
-    if (this.editCourseForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
 
-    this.courseDto = this.editCourseForm.value;
-    this.courseDto.image = this.fileToUpload;
-    let formData = new FormData();
+    this.dataDto.from(this.form);
+    this.dataDto.image = this.fileToUpload;
+    const tags = this.form.value.tags;
+    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
+    const formData = this.dataDto.toFormData();
 
-    this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
-    this.courseDto.id != null ? formData.append('id', this.courseDto.id) : null;
-    this.courseDto.premium != null ? formData.append('premium', String(this.courseDto.premium)) : null;
-    this.courseDto.title != null ? formData.append('title', this.courseDto.title) : null;
-    this.courseDto.description != null ? formData.append('description', this.courseDto.description) : null;
-    this.courseDto.pictureUrl != null ? formData.append('pictureUrl', this.courseDto.pictureUrl) : null;
-    this.courseDto.image != null ? formData.append('image', this.fileToUpload) : null;
-    this.courseDto.language != null ? formData.append('language', this.courseDto.language) : null;
-    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags) : null;
-
+    console.log(this.dataDto);
 
     this.courseService.update(formData)
       .subscribe(
@@ -107,7 +91,7 @@ export class CourseThumbnailComponent implements OnInit {
         });
   }
 
-  removeCourse() {
+  remove() {
     this.courseService.remove(this.course.id).subscribe(
       data => {
         this.refreshOtherThumbnails();
@@ -122,31 +106,18 @@ export class CourseThumbnailComponent implements OnInit {
     this.editCourseComponent.emit(null);
   }
 
-
-  private getPicture() {
-    let picture = null;
-    if (this.course.picture == null) {
-      this.course.picture = "https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png";
-      return;
-    }
-  }
-
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
+  imitateImageInput() {
+    document.getElementById('image').click();
   }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    if (this.fileToUpload.size > 0) {
-      this.fileUploadMessage = 'Gotowy do wysłania';
-    }
-    else {
-      this.fileUploadMessage = 'Wybierz plik';
-    }
+    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
-  imitateFileInput() {
-    document.getElementById('image').click();
+  private getPicture() {
+    if (this.course.picture === null) {
+      this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
+    }
   }
-
 }

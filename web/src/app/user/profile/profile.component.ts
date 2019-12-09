@@ -21,18 +21,18 @@ export class ProfileComponent implements OnInit {
     this.userDocument = new UserDocument();
     this.userDocument.login = this.authService.getLogin();
     this.userDocument.email = this.authService.getEmail();
-    this.userDocument.roleId = this.convertRoleIdToRoleName(this.authService.getUserRole());
+    this.userDocument.roleName = this.convertRoleIdToRoleName(this.authService.getUserRole());
   }
 
   convertRoleIdToRoleName(id: string) {
-    let roleName = "";
-    switch(parseInt(id)) {
+    let roleName = '';
+    switch (parseInt(id)) {
       case 1:
-        roleName = "Użytkownik"
-      break;
+        roleName = 'Użytkownik';
+        break;
       case 2:
-        roleName = "Administrator";
-      break;
+        roleName = 'Administrator';
+        break;
       default:
       break;
     }

@@ -1,46 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MustMatch } from './must-match.validator';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MustMatch} from './must-match.validator';
 
-@Component({ templateUrl: 'registration.component.html' })
+@Component({templateUrl: 'registration.component.html'})
 export class RegistrationComponent implements OnInit {
 
-  registrationForm: FormGroup;
+  form: FormGroup;
   loading: boolean;
   submitted: boolean;
   returnUrl: string;
   error: string;
 
   constructor(private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthService) { }
+              private route: ActivatedRoute,
+              private router: Router,
+              private authenticationService: AuthService) {
+  }
 
   ngOnInit() {
     this.submitted = false;
     this.loading = false;
 
-    this.registrationForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
       confirmPassword: ['', Validators.required]
     }, {
-        validator: MustMatch('password', 'confirmPassword')
-      });
+      validator: MustMatch('password', 'confirmPassword')
+    });
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'login';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'login';
   }
 
-  get f() { return this.registrationForm.controls; }
+  get f() {
+    return this.form.controls;
+  }
 
 
   signUp() {
     this.submitted = true;
 
-    if (this.registrationForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
@@ -57,8 +60,6 @@ export class RegistrationComponent implements OnInit {
         }
       );
   }
-
-
 
 
 }

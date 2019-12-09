@@ -1,48 +1,89 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { LoadingService } from './loading.service';
-
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {LoadingService} from './loading.service';
+import {BehaviorSubject, ReplaySubject} from 'rxjs';
+import {scan} from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  roles$ = new ReplaySubject<string[]>(1);
+  roleNames = ['user', 'admin'];
+  roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
 
-  private isTokenRefreshing: boolean = false;
+  private isTokenRefreshing = false;
 
   constructor(
     private http: HttpClient,
-    private loadingService: LoadingService) {
-    setInterval(() => this.autoRefresh(), 24000) // 30000ms = 5min
+    private loadingService: LoadingService,
+    private jwtHelper: JwtHelperService) {
+
+    this.roleUpdates$
+      .pipe(scan((acc, next) => next, []))
+      .subscribe(this.roles$);
+
+    setInterval(() => this.autoRefresh(), 1000); // 30000ms = 5min
+  }
+
+  // tslint:disable-next-line:variable-name
+  register(login: string, e_mail: string, password: string, roleId: number) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/register', {
+      login,
+      e_mail,
+      password,
+      roleId
+    }, {headers});
+  }
+
+  addRolesToUser(roles: Array<string>) {
+    this.roleUpdates$.next(roles);
+  }
+
+  removeAllRolesFromUser() {
+    const roleUpdate: any[] = this.roleUpdates$.getValue();
+    roleUpdate.forEach((item, index) => {
+      roleUpdate.splice(index, 1);
+    });
+    this.roleUpdates$.next(roleUpdate);
+    this.roleUpdates$.next(['anonymous']);
+  }
+
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('Token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   autoRefresh() {
-    if (!this.isTokenRefreshing && this.isLogged() && this.isTokenExpired()) {
+    console.log(this.jwtHelper.getTokenExpirationDate(localStorage.getItem('Token')));
+    console.log(this.jwtHelper.isTokenExpired(localStorage.getItem('Token')));
+    if (!this.isTokenRefreshing && !this.isAuthenticated()) {
       this.isTokenRefreshing = true;
       this.refreshToken().subscribe(
         data => {
-          localStorage.setItem("Token", data.accessToken);
-          localStorage.setItem("TokenRefresh", data.refreshToken);
-          localStorage.setItem("TokenExpires", data.expires);
+          localStorage.setItem('Token', data.accessToken);
+          localStorage.setItem('TokenRefresh', data.refreshToken);
+          localStorage.setItem('TokenExpires', data.expires);
           this.isTokenRefreshing = false;
         }
-      )
+      );
     }
   }
 
-  register(login: string, e_mail: string, password: string, roleId: number) {
-    let headers = new HttpHeaders()
-      .set("Content-Type", "application/json");
-
-    return this.http.post<any>(environment.baseUrl + "/api/Identity/register", { login, e_mail, password, roleId }, { headers });
+  private getUserRoleName(): string {
+    // tslint:disable-next-line:radix
+    return this.getUserRole() == null ? 'anonymous' : this.convertToRoleName(parseInt(this.getUserRole()));
   }
 
   login(login: string, password: string) {
-    let headers = new HttpHeaders()
-      .set("Content-Type", "application/json");
-
-    return this.http.post<any>(environment.baseUrl + "/api/Identity/login", { login, password }, { headers });
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/login', {login, password}, {headers});
   }
 
   logout() {
@@ -52,59 +93,45 @@ export class AuthService {
   }
 
   cancelToken() {
-    return this.http.post<any>(environment.baseUrl + "/api/Identity/cancel", {});
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/cancel', {});
   }
 
   refreshToken() {
-    return this.http.post<any>(environment.baseUrl + "/api/Identity/refresh?token=" + localStorage.getItem("TokenRefresh"), {});
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/refresh?token=' + localStorage.getItem('TokenRefresh'), {});
   }
-
 
 
   isLogged() {
-    return localStorage.getItem("Token") != undefined;
+    return localStorage.getItem('Token') !== undefined;
   }
 
   getLogin() {
-    return localStorage.getItem("UserLogin");
+    return localStorage.getItem('UserLogin');
   }
 
   getToken() {
-    return localStorage.getItem("Token");
+    return localStorage.getItem('Token');
   }
 
   getUserRole() {
-    return localStorage.getItem("UserRole");
+    return localStorage.getItem('UserRole');
   }
 
   getEmail() {
-    return localStorage.getItem("UserEmail");
+    return localStorage.getItem('UserEmail');
   }
 
-  getExpirationTime() {
-    return localStorage.getItem("TokenExpires") == undefined ? 5000 : (parseInt(localStorage.getItem("TokenExpires")) - Date.now());
-  }
-
-  isTokenExpired() {
-    return Date.now() > (parseInt(localStorage.getItem("TokenExpires")) * 1000);
-  }
-  
   clearUserData() {
-    localStorage.removeItem("Token");
-    localStorage.removeItem("TokenRefresh");
-    localStorage.removeItem("TokenExpires");
-    localStorage.removeItem("UserLogin");
-    localStorage.removeItem("UserRole");
-    localStorage.removeItem("UserEmail");
+    localStorage.removeItem('Token');
+    localStorage.removeItem('TokenRefresh');
+    localStorage.removeItem('TokenExpires');
+    localStorage.removeItem('UserLogin');
+    localStorage.removeItem('UserRole');
+    localStorage.removeItem('UserEmail');
+    this.removeAllRolesFromUser();
   }
 
-  setUserData(token: string, tokenRefresh: string, tokenExpires: string, login: string, roleId: string, email: string) {
-    localStorage.setItem("Token", token);
-    localStorage.setItem("TokenRefresh", tokenRefresh);
-    localStorage.setItem("TokenExpires", tokenExpires);
-    localStorage.setItem("UserLogin", login);
-    localStorage.setItem("UserRole", roleId);
-    localStorage.setItem("UserEmail", email);
+  convertToRoleName(roleId: number) {
+    return this.roleNames[roleId - 1];
   }
-
 }

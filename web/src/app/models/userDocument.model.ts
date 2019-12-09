@@ -1,5 +1,5 @@
 export class UserDocument {
-    login: string;
-    email: string;
-    roleId: string;
+  login: string;
+  email: string;
+  roleName: string;
 }

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HostedVideoDocument } from '../../models/hostedVideoDocument.model';
-import { VideoService } from './../../services/video.service';
-import { ActivatedRoute } from '@angular/router';
-import { LoadingService } from './../../services/loading.service'
-import { VideoDocument } from 'src/app/models/videoDocument.model';
-import { TagService } from 'src/app/services/tag.service';
+import {Component, OnInit} from '@angular/core';
+import {HostedVideoDocument} from '../../models/hostedVideoDocument.model';
+import {VideoService} from '../../services/video.service';
+import {ActivatedRoute} from '@angular/router';
+import {LoadingService} from '../../services/loading.service';
+import {VideoDocument} from 'src/app/models/videoDocument.model';
+import {TagService} from 'src/app/services/tag.service';
+import {CourseDocument} from 'src/app/models/courseDocument.model';
+import {CourseService} from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-show-video',
@@ -15,16 +17,22 @@ export class ShowVideoComponent implements OnInit {
   video: HostedVideoDocument = null;
   videoDocument: VideoDocument = null;
   error: string;
+  videos: Array<VideoDocument>;
+  courses: Array<CourseDocument>;
+  page = 1;
 
   constructor(
     private route: ActivatedRoute,
     private videoService: VideoService,
     private loadingService: LoadingService,
-    private tagService: TagService) { }
+    private courseService: CourseService,
+    private tagService: TagService) {
+  }
 
   ngOnInit() {
     this.getVideo();
     this.getHostedVideo();
+    this.getCourses();
   }
 
   getHostedVideo() {
@@ -56,6 +64,21 @@ export class ShowVideoComponent implements OnInit {
         this.error = error;
         this.loadingService.unload();
       });
+  }
+
+  getCourses() {
+    this.loadingService.load();
+
+    this.courseService.getAll(this.page).subscribe(
+      (data: Array<CourseDocument>) => {
+        this.courses = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
   }
 
 }

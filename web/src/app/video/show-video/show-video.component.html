@@ -1,55 +1,108 @@
-<div *ngIf="video">
+<div *ngIf="video" class="container-fluid">
+  <div *ngIf="error" class="alert alert-danger">
+    {{error}}
+  </div>
+  <h1 class="header">Tytuł kursu</h1>
+  <h5 class="header"> {{ video.title }}</h5>
+  <div class="row">
+    <div *ngIf="videoDocument" class="col-7">
 
-    <div *ngIf="error" class="alert alert-danger">
-        {{error}}
-    </div>
-
-    <div *ngIf="!error">
-
-        <div class="embed-responsive embed-responsive-21by9 " id="video-field">
-            <iframe class="embed-responsive-item justify-content-md-center" id="video" allowfullscreen="allowfullscreen"
-                mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen"
-                oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"
-                [src]="video.link | safe">
+      <div class="row">
+        <div class="col-10">
+          <div class="embed-responsive embed-responsive-16by9 " id="video-field">
+            <iframe [src]="video.link | safe" allowfullscreen="allowfullscreen"
+                    class="embed-responsive-item justify-content-md-center"
+                    id="video" mozallowfullscreen="mozallowfullscreen"
+                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
+                    webkitallowfullscreen="webkitallowfullscreen">
             </iframe>
+          </div>
+          <button class="btn">Start</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3 text-justify extrainfo">
+          <div class="col-12 text-justify">
+            <span ngbTooltip="Tagi" placement="left"><i class="fas fa-tags fa-2x"></i></span>
+            <ng-container>
+              <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
+            </ng-container>
+          </div>
         </div>
 
-        <div *ngIf="videoDocument" class="container">
-            <div class="row col-12 text-justify video-title">
-                <span placement="left" ngbTooltip="Tytuł" class="col-12 text-justify">{{videoDocument.title}}</span>
-            </div>
-
-            <div class="row col-12 text-justify">
-                <div class="col-12 text-justify">
-                    <span placement="left" ngbTooltip="Tagi"><i class="fas fa-tags fa-2x"></i></span>
-                    <ng-container>
-                        <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
-                    </ng-container>
-                </div>
-            </div>
-
-            <div class="row col-12 text-justify">
-                <div class="col-12 text-justify">
-                    <span placement="left" ngbTooltip="Czas trwania"><i class="fas fa-clock fa-2x"></i></span>
-                    <span class="font-weight-bold">{{videoDocument.duration | minuteSeconds}}</span>
-                </div>
-            </div>
-
-            <div class="row col-12 text-justify">
-                <div class="col-12 text-justify align-self-center">
-                    <span placement="left" ngbTooltip="Język"><i class="fas fa-language fa-2x"></i></span>
-                    <span
-                        class="font-weight-bold">{{videoDocument.language == null ? 'Brak informacji' : videoDocument.language}}</span>
-                </div>
-            </div>
-
-            <div class="row col-12 text-justify border-top video-description">
-                <div placement="left" ngbTooltip="Opis" class="col-12 text-justify">
-                    {{videoDocument.description}}
-                </div>
-            </div>
+        <div class="col-3 text-justify extrainfo">
+          <div class="col-12 text-justify">
+            <span ngbTooltip="Czas trwania" placement="left"><i class="fas fa-clock fa-2x"></i></span>
+            <span class="font-weight-bold">{{videoDocument.duration | date:'H:mm:ss':'UTC'}}</span>
+          </div>
         </div>
+
+        <div class="col-3 text-justify extrainfo">
+          <div class="col-12 text-justify align-self-center">
+            <span ngbTooltip="Język" placement="left"><i class="fas fa-language fa-2x"></i></span>
+            <span class="font-weight-bold">
+              {{videoDocument.language == null ? 'Brak informacji' : videoDocument.language}}
+            </span>
+          </div>
+        </div>
+        <br>
+        <div class="row col-10 text-justify border-top video-description">
+          <div class="text-justify" ngbTooltip="Opis" placement="left">
+            {{videoDocument.description}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h4 class="header2">Spis treści</h4>
+
+      <div class="scroll list-group">
+        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Tytuł</h5>
+          </div>
+          <p class="mb-1">Krótki opis filmu</p>
+          <small> 15 min</small>
+        </a>
+
+        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Tytuł2</h5>
+          </div>
+          <p class="mb-1">Krótki opis filmu</p>
+          <small> 15 min</small>
+        </a>
+
+        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Tytuł3</h5>
+          </div>
+          <p class="mb-1">Krótki opis filmu</p>
+          <small> 15 min</small>
+        </a>
+
+        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Psy</h5>
+          </div>
+          <p class="mb-1">Akcja filmu rozpoczyna się w 1990 roku, kiedy wieloletni funkcjonariusz
+            Służby Bezpieczeństwa, Franz Maurer, zostaje przeniesiony do policji kryminalnej.</p>
+          <small class="text-muted">2h</small>
+        </a>
+      </div>
+
 
     </div>
+  </div>
+
+
+  <div class="row justify-content-center">
+    <h3 class="header">Zobacz też:</h3>
+  </div>
+  <ul class="nav justify-content-center">
+    <app-courses-view></app-courses-view>
+  </ul>
+
 
 </div>

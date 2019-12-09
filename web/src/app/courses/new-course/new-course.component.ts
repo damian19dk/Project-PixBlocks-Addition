@@ -1,85 +1,70 @@
-import { Component, OnInit } from '@angular/core';
-import { CourseService } from 'src/app/services/course.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CourseDto } from 'src/app/models/courseDto.model';
-import { TagService } from 'src/app/services/tag.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CourseService} from 'src/app/services/course.service';
+import {FormBuilder, Validators} from '@angular/forms';
+import {CourseDto} from 'src/app/models/courseDto.model';
+import {TagService} from 'src/app/services/tag.service';
+import {Form} from '../../models/form';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-new-course',
   templateUrl: './new-course.component.html',
   styleUrls: ['./new-course.component.css']
 })
-export class NewCourseComponent implements OnInit {
+export class NewCourseComponent extends Form implements OnInit {
 
-  newCourseForm: FormGroup;
-  loading: boolean;
-  submitted: boolean;
-  sent: boolean;
-  returnUrl: string;
-  courseDto: CourseDto;
-  error: string;
-
-  tagsList = [];
-  tagsSettings = {};
-
-  fileToUpload: File = null;
-  fileUploadMessage: string = 'Wybierz plik';
+  @ViewChild('labelImport', null)
+  labelImport: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
-    private courseService: CourseService,
-    private tagService: TagService) { }
+              private courseService: CourseService,
+              private tagService: TagService,
+              private languageService: LanguageService) {
+    super();
+  }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
+    this.languages = this.languageService.getAllLanguages();
 
-    this.courseDto = new CourseDto();
+    this.dataDto = new CourseDto();
 
     this.sent = false;
     this.submitted = false;
     this.loading = false;
     this.error = null;
 
-    this.newCourseForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       parentId: [null],
       title: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
       premium: [false],
       tags: [null],
-      language: ['Polski'],
+      language: ['pl'],
       pictureUrl: [null],
       image: [null]
     });
   }
 
-
-  get f() { return this.newCourseForm.controls; }
-
-  createNewCourse() {
+  create() {
     this.submitted = true;
 
-    if (this.newCourseForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
 
-    this.courseDto = this.newCourseForm.value;
-    this.courseDto.image = this.fileToUpload;
-    let formData = new FormData();
+    this.dataDto.from(this.form);
+    this.dataDto.image = this.fileToUpload;
+    const tags = this.form.value.tags;
+    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
 
-    this.courseDto.parentId != null ? formData.append('parentId', this.courseDto.parentId) : null;
-    this.courseDto.id != null ? formData.append('id', this.courseDto.id) : null;
-    this.courseDto.premium != null ? formData.append('premium', String(this.courseDto.premium)) : null;
-    this.courseDto.title != null ? formData.append('title', this.courseDto.title) : null;
-    this.courseDto.description != null ? formData.append('description', this.courseDto.description) : null;
-    this.courseDto.pictureUrl != null ? formData.append('pictureUrl', this.courseDto.pictureUrl) : null;
-    this.courseDto.image != null ? formData.append('image', this.fileToUpload) : null;
-    this.courseDto.language != null ? formData.append('language', this.courseDto.language) : null;
-    this.courseDto.tags != null ? formData.append('tags', this.courseDto.tags) : null;
+    const formData = this.dataDto.toFormData();
 
+    console.log(this.dataDto);
 
-    console.log(CourseDto)
 
     this.courseService.add(formData)
       .subscribe(
@@ -97,16 +82,10 @@ export class NewCourseComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    if (this.fileToUpload.size > 0) {
-      this.fileUploadMessage = 'Gotowy do wysłania';
-    }
-    else {
-      this.fileUploadMessage = 'Wybierz plik';
-    }
+    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   imitateFileInput() {
     document.getElementById('image').click();
   }
-
 }

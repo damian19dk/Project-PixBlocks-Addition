@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+
+      <div *ngIf="sent && error" class="alert alert-danger">
+        {{error}}
+      </div>
+      <div i18n *ngIf="sent && !error" class="alert alert-success">
+        Film dodano pomyślnie
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="create()">
+
+        <div class="form-group row">
+          <label i18n for="title" class="col-sm-2 col-form-label">Tytuł</label>
+          <div class="col-sm-10 input-group">
+            <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control" id="title"
+                   formControlName="title" i18n-placeholder placeholder="Wpisz tytuł">
+
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+              <div i18n *ngIf="f.title.errors.required">Pole jest puste</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label i18n for="description" class="col-sm-2 col-form-label">Opis</label>
+          <div class="col-sm-10 input-group">
+            <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
+                      id="description" formControlName="description" i18n-placeholder
+                      placeholder="Wpisz opis"></textarea>
+
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+              <div i18n *ngIf="f.description.errors.required">Pole jest puste</div>
+              <div i18n *ngIf="f.description.errors.minlength">Opis musi mieć minimum 3 znaki</div>
+              <div i18n *ngIf="f.description.errors.maxlength">Opis może mieć maksymalnie 10000 znaków</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label i18n for="language" class="col-sm-2 col-form-label">Język</label>
+          <div class="col-sm-8 input-group">
+            <mat-radio-group class="languages" color="primary" formControlName="language">
+              <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
+                {{language.label}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label i18n for="premium" class="col-sm-2">Premium</label>
+          <div class="col-sm-8 justify-content-start mx-1">
+            <mat-checkbox color="primary" id="premium" formControlName="premium"></mat-checkbox>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label i18n for="tags" class="col-sm-2 col-form-label">Tagi</label>
+          <div class="col-sm-10">
+            <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz tagi'" [data]="tagsList"
+                                     [settings]="tagsSettings">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label i18n for="picture" class="col-sm-2 col-form-label">Obrazek</label>
+          <div class="col-sm-10">
+            <input formControlName="pictureUrl" type="text" class="form-control" id="picture" i18n-placeholder
+                   placeholder="Podaj adres obrazka">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="video" i18n>Film</label>
+          <div class="col-sm-10">
+            <label (click)="imitateFileInput()"
+                   class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
+            <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                   class="form-control"
+                   hidden id="video" type="file">
+          </div>
+        </div>
+
+        <ng-template #rt let-r="result" let-t="term">
+          <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
+          <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
+        </ng-template>
+
+
+        <div class="form-group row">
+          <label i18n for="parentId" class="col-sm-2 col-form-label">Kurs</label>
+          <div class="col-sm-10 input-group">
+
+            <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" type="text"
+                   class="form-control" [ngbTypeahead]="searchCourse" [inputFormatter]="formatter" [resultTemplate]="rt"
+                   i18n-placeholder
+                   placeholder="Wyszukaj kurs"/>
+
+            <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
+              <div i18n *ngIf="f.parentId.errors.required">Pole jest puste</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group row justify-content-end">
+          <div>
+            <button mat-raised-button color="primary" [class.spinner]="loading" [disabled]="loading">
+              Dodaj film
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-6">
+      <img class="img-fluid" src="assets/svg/undraw_media_player_ylg8.svg">
+    </div>
+
+  </div>
+</div>

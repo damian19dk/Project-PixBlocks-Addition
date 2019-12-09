@@ -1,24 +1,21 @@
 <div class="container">
-  <div class="row">
+  <div class="row title">
     <h2 i18n class="display-4">Edytor kursów</h2>
   </div>
 
-
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <button i18n class="nav-link btn btn-white" [ngClass]="isNewCourseSelected ? 'active' : ''" (click)="changeToNewCourse()">Nowy
-        kurs</button>
+      <button i18n class="nav-link btn btn-white" [ngClass]="isNewCourseSelected ? 'active' : ''"
+              (click)="changeToNewCourse()">Nowy kurs
+      </button>
     </li>
     <li class="nav-item">
       <button i18n class="nav-link btn btn-white" [ngClass]="!isNewCourseSelected ? 'active' : ''"
-        (click)="changeToEditCourse()">Edycja</button>
+              (click)="changeToCoursesView()">Edycja
+      </button>
     </li>
   </ul>
 
-  <app-new-course *ngIf="isNewCourseSelected">
-  </app-new-course>
-
-  <app-edit-course *ngIf="!isNewCourseSelected">
-  </app-edit-course>
-
+  <app-new-course *ngIf="isNewCourseSelected"></app-new-course>
+  <app-courses-view *ngIf="!isNewCourseSelected"></app-courses-view>
 </div>

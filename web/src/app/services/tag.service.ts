@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
-
-  private allTags: string[];
-  private tagSettingsForMultiselect: any;
+  private readonly allTags: Array<string>;
+  private readonly tagSettingsForMultiselect: any;
 
   constructor() {
-    this.allTags = ["Haskell", "Java", "Ruby", "Python", "Kotlet schabowy", "WebDevelop", "Systemy operacyjne", "JavaScript"].sort(); // zamockowane dane
+    this.allTags = ['Haskell', 'Java', 'Ruby', 'Python', 'Kotlet schabowy', 'WebDevelop', 'Systemy operacyjne', 'JavaScript'].sort(); // zamockowane dane
     this.tagSettingsForMultiselect = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',
@@ -18,7 +17,6 @@ export class TagService {
       allowSearchFilter: true,
       searchPlaceholderText: 'Szukaj...'
     };
-
   }
 
   getTags() {
@@ -30,13 +28,13 @@ export class TagService {
   }
 
   toTagsList(tags: any) {
-    if(tags == null) {
-      return ['brak'];
+    if (tags === null || tags.length === 0) {
+      return null;
     }
     return tags.join().split(',');
   }
 
-  toTagsString(tags: any) {
-    return tags.join();
+  toTagsString(tags: Array<string>) {
+    return tags === null ? null : tags.join();
   }
 }

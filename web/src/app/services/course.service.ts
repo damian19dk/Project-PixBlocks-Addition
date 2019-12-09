@@ -8,6 +8,6 @@ import { DataService } from './data.service';
 export class CourseService extends DataService {
 
   constructor(protected http: HttpClient) {
-    super("Course", http);
+    super('Course', http);
   }
 }
