@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VideoDocument} from '../../models/videoDocument.model';
 import {FormBuilder, Validators} from '@angular/forms';
-import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
 import {TagService} from '../../services/tag.service';
 import {LanguageService} from '../../services/language.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CourseDto} from '../../models/courseDto.model';
 import {FormModal} from '../../models/formModal';
+import {VideoService} from '../../services/video.service';
+import {VideoDto} from '../../models/videoDto.model';
 
 @Component({
   selector: 'app-video-thumbnail',
@@ -21,7 +21,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   image: any;
 
   constructor(private formBuilder: FormBuilder,
-              private courseService: CourseService,
+              private videoService: VideoService,
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
@@ -37,7 +37,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 
-    this.dataDto = new CourseDto();
+    this.dataDto = new VideoDto();
 
     this.sent = false;
     this.submitted = false;
@@ -45,7 +45,8 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.error = null;
 
     this.form = this.formBuilder.group({
-      parentId: [null],
+      parentId: [null, Validators.required],
+      mediaId: [null],
       id: [this.video.id],
       title: [this.video.title, Validators.required],
       description: [this.video.description, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
@@ -53,7 +54,8 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
       tags: [this.tagService.toTagsList(this.video.tags)],
       language: [this.video.language],
       pictureUrl: [this.video.picture],
-      image: [null]
+      image: [null],
+      video: [null]
     });
   }
 
@@ -72,7 +74,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
     const formData = this.dataDto.toFormData();
 
-    this.courseService.update(formData)
+    this.videoService.update(formData)
       .subscribe(
         data => {
           this.sent = true;
@@ -88,7 +90,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   }
 
   remove() {
-    this.courseService.remove(this.video.id).subscribe(
+    this.videoService.remove(this.video.id).subscribe(
       data => {
         this.refreshOtherThumbnails();
       },
@@ -108,6 +110,10 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   }
 
   imitateFileInput() {
+    document.getElementById('video').click();
+  }
+
+  imitateImageInput() {
     document.getElementById('image').click();
   }
 
@@ -117,5 +123,4 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
       return;
     }
   }
-
 }

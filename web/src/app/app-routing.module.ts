@@ -16,19 +16,19 @@ import {VideoManagerComponent} from './video/video-manager/video-manager.compone
 const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {animation: 'login'}},
   {path: 'register', component: RegistrationComponent, data: {animation: 'register'}},
-  {path: 'videos', component: VideoManagerComponent, data: {animation: 'videos'}, canActivate: [AuthGuard]},
-  {path: 'courses', component: CourseManagerComponent, data: {animation: 'courses'}, canActivate: [AuthGuard]},
+  {path: 'videos', component: VideoManagerComponent, data: {animation: 'videos'}},
+  {path: 'courses', component: CourseManagerComponent, data: {animation: 'courses'}},
   {path: '', component: HomeComponent, data: {animation: ''}},
-  {path: 'home', component: HomeForLoggedComponent, data: {animation: 'home'}, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeForLoggedComponent, data: {animation: 'home'}},
   {path: 'unauthorized', component: UnauthorizedComponent, data: {animation: 'unauthorized'}},
-  {path: 'videos/:id', component: ShowVideoComponent, data: {animation: 'videos/:id'}, canActivate: [AuthGuard]},
+  {path: 'videos/:id', component: ShowVideoComponent, data: {animation: 'videos/:id'}},
   {
     path: 'settings',
     component: FunctionalityNotPreparedComponent,
-    data: {animation: 'settings'},
-    canActivate: [AuthGuard]
+    data: {animation: 'settings'}
+    // canActivate: [AuthGuard]
   },
-  {path: 'profile', component: ProfileComponent, data: {animation: 'profile'}, canActivate: [AuthGuard]},
+  {path: 'profile', component: ProfileComponent, data: {animation: 'profile'}},
   {path: '**', component: PageNotFoundComponent}
 ];
 

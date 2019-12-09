@@ -8,6 +8,7 @@ import {TagService} from 'src/app/services/tag.service';
 import {LanguageService} from '../../services/language.service';
 import {LoadingService} from '../../services/loading.service';
 import {FormModal} from '../../models/formModal';
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-course-thumbnail',
@@ -17,13 +18,15 @@ import {FormModal} from '../../models/formModal';
 export class CourseThumbnailComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
-  @Output() editVideoComponent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() editCourseComponent: EventEmitter<any> = new EventEmitter<any>();
+  picture: string;
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
+              public imageService: ImageService,
               protected modalService: NgbModal) {
     super(modalService);
   }
@@ -100,7 +103,7 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
   }
 
   refreshOtherThumbnails() {
-    this.editVideoComponent.emit(null);
+    this.editCourseComponent.emit(null);
   }
 
   imitateImageInput() {
@@ -115,7 +118,6 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
   private getPicture() {
     if (this.course.picture === null) {
       this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
-      return;
     }
   }
 }

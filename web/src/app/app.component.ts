@@ -38,7 +38,7 @@ export class AppComponent {
               private languageService: LanguageService,
               private loadingService: LoadingService) {
     this.languages = this.languageService.getAllAppLanguages();
-    localStorage.setItem('LocaleId', localeId);
+    localStorage.setItem('Accept-Language', 'pl');
   }
 
   isLoading() {

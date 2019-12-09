@@ -25,7 +25,7 @@ export class AuthService {
       .pipe(scan((acc, next) => next, []))
       .subscribe(this.roles$);
 
-    setInterval(() => this.autoRefresh(), 10000); // 30000ms = 5min
+    setInterval(() => this.autoRefresh(), 1000); // 30000ms = 5min
   }
 
   // tslint:disable-next-line:variable-name
@@ -60,6 +60,8 @@ export class AuthService {
   }
 
   autoRefresh() {
+    console.log(this.jwtHelper.getTokenExpirationDate(localStorage.getItem('Token')));
+    console.log(this.jwtHelper.isTokenExpired(localStorage.getItem('Token')));
     if (!this.isTokenRefreshing && !this.isAuthenticated()) {
       this.isTokenRefreshing = true;
       this.refreshToken().subscribe(

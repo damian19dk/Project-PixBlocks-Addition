@@ -3,7 +3,7 @@
       aria-hidden="true"></i></button>
   <div ngbDropdownMenu>
     <div *ngFor="let language of languages" class="d-flex justify-content-center align-self-center languages">
-      <a href="/{{language.code}}/">
+      <a (click)="selectLanguage(language.code)" href="/{{language.code}}/">
         <button class="btn btn-outline-primary" NgbDropdownItem>{{language.label}}</button>
       </a>
     </div>

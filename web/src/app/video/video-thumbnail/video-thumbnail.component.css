@@ -53,10 +53,7 @@
 }
 
 .card-text {
-  padding-left: 3%;
-  padding-right: 3%;
-  padding-bottom: 2%;
-  padding-top: 2%;
+  padding: 2% 3%;
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: justify;
@@ -64,4 +61,21 @@
 
 .d-flex, .text-muted {
   padding-bottom: 0%
+}
+
+.languages {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.languagesButton {
+  margin: 5px;
+}
+
+.file-label {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
 }

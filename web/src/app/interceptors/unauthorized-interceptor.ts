@@ -8,26 +8,24 @@ import { LoadingService } from '../services/loading.service';
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
-
-    private returnUrl: string;
+    private readonly returnUrl: string;
 
     constructor(public route: ActivatedRoute,
-        public router: Router,
-        public authenticationService: AuthService,
-        public loadingService: LoadingService,
-        public http: HttpClient) {
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'unauthorized';
+                public router: Router,
+                public authenticationService: AuthService,
+                public loadingService: LoadingService,
+                public http: HttpClient) {
+        this.returnUrl = this.route.snapshot.queryParams.returnUrl || 'unauthorized';
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
         return next.handle(request).pipe(
             catchError(err => {
                 if (err.status === 401 || err.status === 403) {
                     this.loadingService.unload();
 
 
-                    if (request.url.includes("cancel")) {
-                        this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']);
+                    if (request.url.includes('cancel')) {
+                        this.router.navigate([this.route.snapshot.queryParams.returnUrl || '/']);
                     }
 
                     this.authenticationService.clearUserData();
