@@ -16,6 +16,8 @@ export class SelectLanguagesComponent implements OnInit {
 
   selectLanguage(language: string): void {
     localStorage.setItem('Accept-Language', language);
+    window.location.href = window.location.origin + '/' + language;
+    console.log(localStorage.getItem('Accept-Language'));
   }
 
 }
