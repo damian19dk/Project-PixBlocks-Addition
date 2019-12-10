@@ -2,13 +2,13 @@
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
-  <h1 class="header">Tytuł kursu</h1>
-  <h5 class="header"> {{ video.title }}</h5>
+  <h1 class="header padded-left">Tytuł kursu</h1>
+  <h5 class="header padded-left"> {{ video.title }}</h5>
   <div class="row">
     <div *ngIf="videoDocument" class="col-7">
 
       <div class="row">
-        <div class="col-10">
+        <div class="col-12">
           <div class="embed-responsive embed-responsive-16by9 " id="video-field">
             <iframe [src]="video.link | safe" allowfullscreen="allowfullscreen"
                     class="embed-responsive-item justify-content-md-center"
@@ -22,8 +22,8 @@
       </div>
 
       <div class="row">
-        <div class="col-3 text-justify extrainfo">
-          <div class="col-12 text-justify">
+        <div class="col-4 text-center padded-left">
+          <div class="col-12 text-center">
             <span ngbTooltip="Tagi" placement="left"><i class="fas fa-tags fa-2x"></i></span>
             <ng-container>
               <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
@@ -31,15 +31,15 @@
           </div>
         </div>
 
-        <div class="col-3 text-justify extrainfo">
-          <div class="col-12 text-justify">
+        <div class="col-4 text-center padded-left">
+          <div class="col-12 text-center">
             <span ngbTooltip="Czas trwania" placement="left"><i class="fas fa-clock fa-2x"></i></span>
-            <span class="font-weight-bold">{{videoDocument.duration | date:'H:mm:ss':'UTC'}}</span>
+            <span class="font-weight-bold">{{videoDocument.duration * 1000 | date:'H:mm:ss':'UTC'}}</span>
           </div>
         </div>
 
-        <div class="col-3 text-justify extrainfo">
-          <div class="col-12 text-justify align-self-center">
+        <div class="col-4 text-center padded-left">
+          <div class="col-12 center text-center">
             <span ngbTooltip="Język" placement="left"><i class="fas fa-language fa-2x"></i></span>
             <span class="font-weight-bold">
               {{videoDocument.language == null ? 'Brak informacji' : videoDocument.language}}
@@ -47,15 +47,18 @@
           </div>
         </div>
         <br>
-        <div class="row col-10 text-justify border-top video-description">
+        <div class="row col-12 text-justify border-top video-description">
           <div class="text-justify" ngbTooltip="Opis" placement="left">
             {{videoDocument.description}}
           </div>
         </div>
       </div>
+
     </div>
+
+
     <div class="col">
-      <h4 class="header2">Spis treści</h4>
+      <h4 class="header">Spis treści</h4>
 
       <div class="scroll list-group">
         <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
@@ -92,8 +95,9 @@
         </a>
       </div>
 
-
     </div>
+
+
   </div>
 
 
@@ -103,6 +107,5 @@
   <ul class="nav justify-content-center">
     <app-courses-view></app-courses-view>
   </ul>
-
 
 </div>

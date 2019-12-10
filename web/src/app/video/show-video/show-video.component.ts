@@ -43,6 +43,7 @@ export class ShowVideoComponent implements OnInit {
       (data: HostedVideoDocument) => {
         this.video = data;
         this.loadingService.unload();
+        console.log(this.video);
       },
       error => {
         this.error = error;
@@ -59,6 +60,7 @@ export class ShowVideoComponent implements OnInit {
         this.videoDocument = data;
         this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
         this.loadingService.unload();
+        console.log(this.videoDocument);
       },
       error => {
         this.error = error;
