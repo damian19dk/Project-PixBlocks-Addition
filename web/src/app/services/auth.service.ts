@@ -2,8 +2,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {LoadingService} from './loading.service';
-import {BehaviorSubject, ReplaySubject} from 'rxjs';
-import {scan} from 'rxjs/operators';
+import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
+import {scan, takeWhile} from 'rxjs/operators';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
@@ -11,8 +11,8 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class AuthService {
   roles$ = new ReplaySubject<string[]>(1);
-  roleUpdates$ = new BehaviorSubject(['anonymous']);
   roleNames = ['user', 'admin'];
+  roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
 
   private isTokenRefreshing = false;
 
@@ -20,28 +20,32 @@ export class AuthService {
     private http: HttpClient,
     private loadingService: LoadingService,
     private jwtHelper: JwtHelperService) {
+
     this.roleUpdates$
       .pipe(scan((acc, next) => next, []))
       .subscribe(this.roles$);
 
-    setInterval(() => this.autoRefresh(), 24000); // 30000ms = 5min
+    setInterval(() => this.autoRefresh(), 10000); // 30000ms = 5min
   }
 
-  addRolesToUser(roles: Array<string>) {
+  // tslint:disable-next-line:variable-name
+  register(login: string, e_mail: string, password: string, roleId: number): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/register', {
+      login,
+      e_mail,
+      password,
+      roleId
+    }, {headers});
+  }
+
+  addRolesToUser(roles: Array<string>): void {
     this.roleUpdates$.next(roles);
   }
 
-  removeRolesFromUser(role: string) {
-    const roleUpdate: any[] = this.roleUpdates$.getValue();
-    roleUpdate.forEach((item, index) => {
-      if (item === role) {
-        roleUpdate.splice(index, 1);
-      }
-    });
-    this.roleUpdates$.next(roleUpdate);
-  }
-
-  removeAllRolesFromUser() {
+  removeAllRolesFromUser(): void {
     const roleUpdate: any[] = this.roleUpdates$.getValue();
     roleUpdate.forEach((item, index) => {
       roleUpdate.splice(index, 1);
@@ -55,10 +59,10 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  autoRefresh() {
-    if (!this.isTokenRefreshing && !this.isAuthenticated()) {
+  autoRefresh(): void {
+    if (!this.isAuthenticated()) {
       this.isTokenRefreshing = true;
-      this.refreshToken().subscribe(
+      this.refreshToken().pipe(takeWhile(() => this.isTokenRefreshing)).subscribe(
         data => {
           localStorage.setItem('Token', data.accessToken);
           localStorage.setItem('TokenRefresh', data.refreshToken);
@@ -69,51 +73,41 @@ export class AuthService {
     }
   }
 
-  register(login: string, e_mail: string, password: string, roleId: number) {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
-
-    return this.http.post<any>(environment.baseUrl + '/api/Identity/register', {
-      login,
-      e_mail,
-      password,
-      roleId
-    }, {headers});
+  private getUserRoleName(): string {
+    // tslint:disable-next-line:radix
+    return this.getUserRole() == null ? 'anonymous' : this.convertToRoleName(parseInt(this.getUserRole()));
   }
 
-  login(login: string, password: string) {
+  login(login: string, password: string): Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
     return this.http.post<any>(environment.baseUrl + '/api/Identity/login', {login, password}, {headers});
   }
 
-  logout() {
+  logout(): void {
     this.loadingService.load();
     this.clearUserData();
-    console.log(this.roles$);
-    console.log(this.roleNames);
-    console.log(this.roleUpdates$);
     this.loadingService.unload();
   }
 
-  cancelToken() {
+  cancelToken(): Observable<any> {
     return this.http.post<any>(environment.baseUrl + '/api/Identity/cancel', {});
   }
 
-  refreshToken() {
+  refreshToken(): Observable<any> {
     return this.http.post<any>(environment.baseUrl + '/api/Identity/refresh?token=' + localStorage.getItem('TokenRefresh'), {});
   }
 
 
-  isLogged() {
+  isLogged(): boolean {
     return localStorage.getItem('Token') !== undefined;
   }
 
-  getLogin() {
+  getLogin(): string {
     return localStorage.getItem('UserLogin');
   }
 
-  getToken() {
+  getToken(): string {
     return localStorage.getItem('Token');
   }
 
@@ -121,11 +115,11 @@ export class AuthService {
     return localStorage.getItem('UserRole');
   }
 
-  getEmail() {
+  getEmail(): string {
     return localStorage.getItem('UserEmail');
   }
 
-  clearUserData() {
+  clearUserData(): void {
     localStorage.removeItem('Token');
     localStorage.removeItem('TokenRefresh');
     localStorage.removeItem('TokenExpires');
@@ -135,7 +129,7 @@ export class AuthService {
     this.removeAllRolesFromUser();
   }
 
-  convertToRoleName(roleId: number) {
+  convertToRoleName(roleId: number): string {
     return this.roleNames[roleId - 1];
   }
 }

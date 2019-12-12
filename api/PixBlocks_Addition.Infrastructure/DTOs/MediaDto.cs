@@ -12,6 +12,7 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
         public bool Premium { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public ICollection<string> Resources { get; set; }
         public string Picture { get; set; }
         public long Duration { get; set; }
         public DateTime PublishDate { get; set; }

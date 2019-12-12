@@ -2,20 +2,22 @@ import {animate, query, style, transition, trigger} from '@angular/animations';
 
 export const fadeAnimation =
   trigger('routeAnimations', [
-    transition('* => *', [
+    transition('* <=> *', [
       query(
         ':enter',
-        [style({ opacity: 0 })],
+        [style({
+          opacity: 0,
+          position: 'absolute'})],
         { optional: true }
       ),
       query(
         ':leave',
-        [style({ opacity: 1 }), animate('0.2s', style({ opacity: 0 }))],
+        [style({ opacity: 1, position: 'absolute' }), animate('0.25s', style({ opacity: 0 }))],
         { optional: true }
       ),
       query(
         ':enter',
-        [style({ opacity: 0 }), animate('0.2s', style({ opacity: 1 }))],
+        [style({ opacity: 0, position: 'absolute' }), animate('0.25s', style({ opacity: 1 }))],
         { optional: true }
       )
     ])

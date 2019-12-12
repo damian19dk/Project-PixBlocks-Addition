@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('UserRole', data.roleId);
           localStorage.setItem('UserEmail', data.email);
           this.router.navigate([this.returnUrl]);
-          console.log(this.authService.getEmail());
         },
         error => {
           this.error = error;

@@ -1,10 +1,20 @@
 .container {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .file-label {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.languages {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.languagesButton {
+  margin: 5px;
 }

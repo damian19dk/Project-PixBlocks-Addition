@@ -1,38 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { CourseService } from 'src/app/services/course.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CourseDto } from 'src/app/models/courseDto.model';
-import { TagService } from 'src/app/services/tag.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CourseService} from 'src/app/services/course.service';
+import {FormBuilder, Validators} from '@angular/forms';
+import {CourseDto} from 'src/app/models/courseDto.model';
+import {TagService} from 'src/app/services/tag.service';
+import {Form} from '../../models/form';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-new-course',
   templateUrl: './new-course.component.html',
   styleUrls: ['./new-course.component.css']
 })
-export class NewCourseComponent implements OnInit {
+export class NewCourseComponent extends Form implements OnInit {
 
-  form: FormGroup;
-  loading: boolean;
-  submitted: boolean;
-  sent: boolean;
-  courseDto: CourseDto;
-  error: string;
-
-  tagsList = [];
-  tagsSettings = {};
-
-  fileToUpload: File = null;
-  fileUploadMessage = 'Wybierz plik';
+  @ViewChild('labelImport', null)
+  labelImport: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
-              private tagService: TagService) { }
+              private tagService: TagService,
+              private languageService: LanguageService) {
+    super();
+  }
 
   ngOnInit() {
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
+    this.languages = this.languageService.getAllLanguages();
 
-    this.courseDto = new CourseDto();
+    this.dataDto = new CourseDto();
 
     this.sent = false;
     this.submitted = false;
@@ -45,15 +41,13 @@ export class NewCourseComponent implements OnInit {
       description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
       premium: [false],
       tags: [null],
-      language: ['Polski'],
+      language: ['pl'],
       pictureUrl: [null],
       image: [null]
     });
   }
 
-  get f() { return this.form.controls; }
-
-  createNewCourse() {
+  create() {
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -62,9 +56,15 @@ export class NewCourseComponent implements OnInit {
 
     this.loading = true;
 
-    this.courseDto = this.form.value;
-    this.courseDto.image = this.fileToUpload;
-    const formData = this.courseDto.toFormData();
+    this.dataDto.from(this.form);
+    this.dataDto.image = this.fileToUpload;
+    const tags = this.form.value.tags;
+    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
+
+    const formData = this.dataDto.toFormData();
+
+    console.log(this.dataDto);
+
 
     this.courseService.add(formData)
       .subscribe(
@@ -80,18 +80,12 @@ export class NewCourseComponent implements OnInit {
         });
   }
 
-  onFileChange(event) {
-    const reader = new FileReader();
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
+  }
 
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        this.form.patchValue({
-          file: reader.result
-        });
-      };
-    }
+  imitateFileInput() {
+    document.getElementById('image').click();
   }
 }

@@ -32,3 +32,8 @@
   animation: spinner .8s linear infinite;
 }
 
+.title {
+  border-bottom: solid;
+  margin-right: 50%;
+  margin-bottom: 15px;
+}

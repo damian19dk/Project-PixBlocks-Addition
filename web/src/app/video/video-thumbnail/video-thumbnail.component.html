@@ -1,20 +1,160 @@
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" i18n>Edytuj kurs</h4>
+    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body input-group container">
+
+    <div *ngIf="error" class="alert alert-danger col-12">
+      {{error}}
+    </div>
+
+    <div *ngIf="sent && !error" class="alert alert-success col-12" i18n>
+      Kurs zaktualizowano pomyślnie
+    </div>
+
+    <form (ngSubmit)="edit()" [formGroup]="form" class="col-12">
+
+      <div class="form-group row">
+        <div class="col-sm-10 input-group">
+          <input class="form-control" formControlName="id" hidden type="text">
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="title" i18n>Tytuł</label>
+        <div class="col-sm-10 input-group">
+          <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" class="form-control" formControlName="title"
+                 i18n-placeholder id="title" placeholder="Wpisz tytuł" type="text">
+
+          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required" i18n>Pole jest puste</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="description" i18n>Opis</label>
+        <div class="col-sm-10 input-group">
+                    <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
+                              formControlName="description" i18n-placeholder id="description"
+                              placeholder="Wpisz opis"></textarea>
+
+          <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required" i18n>Pole jest puste</div>
+            <div *ngIf="f.description.errors.minlength" i18n>Opis musi mieć minimum 3 znaki</div>
+            <div *ngIf="f.description.errors.maxlength" i18n>Opis może mieć maksymalnie 10000 znaków</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="language" i18n>Język</label>
+        <div class="col-sm-8 input-group">
+          <mat-radio-group class="languages" color="primary" formControlName="language">
+            <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
+              {{language.label}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2" for="premium" i18n>Premium</label>
+        <div class="col-sm-8 justify-content-start mx-1">
+          <mat-checkbox color="primary" formControlName="premium" id="premium"></mat-checkbox>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="tags" i18n>Tagi</label>
+        <div class="col-sm-10">
+          <ng-multiselect-dropdown [data]="tagsList" [placeholder]="'Wybierz tagi'"
+                                   [settings]="tagsSettings" formControlName="tags">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="picture" i18n>Obrazek</label>
+        <div class="col-sm-10">
+          <input class="form-control" formControlName="pictureUrl" i18n-placeholder id="picture"
+                 placeholder="Podaj adres obrazka"
+                 type="text">
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
+        <div class="col-sm-10">
+          <label (click)="imitateImageInput()"
+                 class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : image}"
+                 class="form-control"
+                 hidden id="image" type="file">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="video" i18n>Zdjęcie</label>
+        <div class="col-sm-10">
+          <label (click)="imitateFileInput()"
+                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="form-control"
+                 hidden id="video" type="file">
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-end">
+        <button (click)="remove(); modal.close('Deleted')" [disabled]="loading" class="btn btn-warning" i18n
+                type="submit">
+          Usuń
+        </button>
+        <button (click)="edit()" [disabled]="loading" class="btn btn-success" type="submit">
+          <div *ngIf="!loading" i18n>Zapisz</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm align-self-center" i18n></span>
+            Ładowanie..
+          </div>
+        </button>
+        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+          Zamknij
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
 <div *ngIf="video">
-  <div class="card mb-4 bg-white box-shadow">
+  <div [ngClass]="video.status === 'processing' ? 'bg-warning' : 'bg-white'" class="card mb-4 box-shadow">
 
     <div class="card-header text-center">
       {{video.title}}
     </div>
 
-    <div class="card-box card-link" routerLink="/show_video/{{video.mediaId}}">
+    <div class="card-box card-link" routerLink="/videos/{{video.mediaId}}">
       <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-      <img class="card-img-top align-middle mx-auto d-block" src={{video.picture}} alt="Tu miał być film"/>
+      <img alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block" src={{video.picture}}/>
     </div>
 
     <div class="card-body">
-      <p class="card-text">{{video.description}}</p>
+      <p class="card-text">{{video.description | shortText}}</p>
 
       <div class="d-flex justify-content-between align-items-center">
         <small>{{video.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
+        <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
+          <i class="fas fa-edit"></i>Edytuj
+        </button>
+        <button (click)="remove()" class="btn btn-sm btn-outline-danger" i18n type="button">
+          <i class="far fa-trash-alt"></i>Usuń
+        </button>
       </div>
     </div>
 

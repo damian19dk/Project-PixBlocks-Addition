@@ -1,6 +1,5 @@
 .wrapper {
   min-height: 95vh;
-  margin-bottom: 3%;
 }
 
 #cover-spin {
@@ -50,7 +49,6 @@
 }
 
 /deep/ router-outlet ~ * {
-  position: absolute;
   width: 100%;
-  height: 100%;
+  height: 97%;
 }

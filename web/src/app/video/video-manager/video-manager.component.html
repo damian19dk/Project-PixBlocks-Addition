@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row title">
+    <h2 class="display-4" i18n>Edytor filmów</h2>
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <button (click)="changeToNewVideo()" [ngClass]="isNewVideoSelected ? 'active' : ''" class="nav-link btn btn-white"
+              i18n>Nowy film
+      </button>
+    </li>
+    <li class="nav-item">
+      <button (click)="changeToVideosView()" [ngClass]="!isNewVideoSelected ? 'active' : ''"
+              class="nav-link btn btn-white"
+              i18n>Edycja
+      </button>
+    </li>
+  </ul>
+
+  <app-new-video *ngIf="isNewVideoSelected"></app-new-video>
+  <app-videos-view *ngIf="!isNewVideoSelected"></app-videos-view>
+</div>

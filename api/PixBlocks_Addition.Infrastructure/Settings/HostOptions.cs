@@ -7,6 +7,6 @@ namespace PixBlocks_Addition.Infrastructure.Settings
     public class HostOptions
     {
         public string HostName { get; set; }
-        public string PictureEndpoint { get; set; }
+        public string ResourceEndpoint { get; set; }
     }
 }
