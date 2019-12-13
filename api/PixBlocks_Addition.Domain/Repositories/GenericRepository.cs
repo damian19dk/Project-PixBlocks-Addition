@@ -65,6 +65,12 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(IEnumerable<TEntity> entities)
+        {
+            _entities.Set<TEntity>().UpdateRange(entities);
+            await _entities.SaveChangesAsync();
+        }
+
         public async Task<int> CountAsync()
         {
             return await _entities.Set<TEntity>().CountAsync();
