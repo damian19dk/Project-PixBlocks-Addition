@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,16 +28,16 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
             => await _courses.SingleOrDefaultAsync(x => x.Id == id);
 
         public async Task<IEnumerable<Course>> GetAsync(string name)
-            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) 
+            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase)
                                     && c.Title.Contains(name)).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase) 
+            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase)
                                     && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10)
-            => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
-                     .Skip((page - 1) * count).Take(count).ToListAsync();
+            => (await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
+                     .Skip((page - 1) * count).Take(count).OrderBy(x => x.Index).ToListAsync()).Select(x => { x.CourseVideos.Sort(p => p.Video.Index); return x; });
 
         public async Task<int> CountAsync()
             => await _courses.CountAsync(x => x.Language == ContextLanguage);

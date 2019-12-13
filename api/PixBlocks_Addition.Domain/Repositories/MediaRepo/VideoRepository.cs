@@ -37,7 +37,7 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
 
         public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10)
             => await _videos.Where(v => v.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
-                     .Skip((page - 1) * count).Take(count).ToListAsync();
+                     .Skip((page - 1) * count).Take(count).OrderBy(x=>x.Index).ToListAsync();
 
         public async Task<Video> GetByMediaAsync(string mediaId)
             => await _videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.MediaId == mediaId);
