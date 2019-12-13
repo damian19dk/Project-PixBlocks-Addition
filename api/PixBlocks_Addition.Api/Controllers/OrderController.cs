@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
@@ -11,6 +12,7 @@ namespace PixBlocks_Addition.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrator")]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -21,9 +23,9 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [HttpPost("courses")]
-        public async Task OrderCourses(IEnumerable<Guid> courses)
+        public async Task OrderCourses([FromBody]OrderCoursesResource courses)
         {
-            await _orderService.OrderCourses(courses);
+            await _orderService.OrderCourses(courses.Courses);
         }
 
         [HttpPost("videos")]
