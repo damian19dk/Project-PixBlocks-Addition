@@ -37,5 +37,8 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10)
             => await _courses.Where(c => c.Language.Equals(ContextLanguage, StringComparison.InvariantCultureIgnoreCase))
                      .Skip((page - 1) * count).Take(count).ToListAsync();
+
+        public async Task<int> CountAsync()
+            => await _courses.CountAsync(x => x.Language == ContextLanguage);
     }
 }

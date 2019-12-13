@@ -42,6 +42,9 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<Video> GetByMediaAsync(string mediaId)
             => await _videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.MediaId == mediaId);
 
+        public async Task<int> CountAsync()
+            => await _videos.CountAsync(x => x.Language == ContextLanguage);
+
         public object Clone()
         {
             return new VideoRepository((PixBlocksContext)_entities.Clone(), _localizer);
