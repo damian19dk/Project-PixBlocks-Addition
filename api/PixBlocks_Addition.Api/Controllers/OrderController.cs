@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Infrastructure.Services;
 
 namespace PixBlocks_Addition.Api.Controllers
@@ -26,9 +27,9 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [HttpPost("videos")]
-        public async Task OrderVideos(IEnumerable<Guid> videos, Guid courseId)
+        public async Task OrderVideos([FromBody]OrderVideosResource resource)
         {
-            await _orderService.OrderVideos(videos, courseId);
+            await _orderService.OrderVideos(resource.Videos, resource.CourseId);
         }
     }
 }
