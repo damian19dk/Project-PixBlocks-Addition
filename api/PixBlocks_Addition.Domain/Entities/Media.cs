@@ -13,6 +13,7 @@ namespace PixBlocks_Addition.Domain.Entities
         private static readonly Regex regex_language = new Regex("[A-Za-z]+");
 
         public Guid Id { get; protected set; }
+        public int Index { get; protected set; }
         public string MediaId { get; protected set; }
         public Category Category { get; protected set; }
         public bool Premium { get; protected set; }
@@ -31,6 +32,7 @@ namespace PixBlocks_Addition.Domain.Entities
             string lang, IEnumerable<string> resources = null, IEnumerable<Tag> tags = null)
         {
             Id = Guid.NewGuid();
+            Index = 0;
             MediaId = mediaId;
             SetPremium(premium);
             SetTitle(title);
@@ -114,6 +116,12 @@ namespace PixBlocks_Addition.Domain.Entities
                 throw new MyException(MyCodesNumbers.TooLongLanguage, MyCodes.TooLongLanguage);
             }
             Language = lang;
+        }
+        public void SetIndex(int index)
+        {
+            if (index < 0)
+                throw new MyException(MyCodesNumbers.InvalidIndex, "Index cannot be negative");
+            Index = index;
         }
     }
 }

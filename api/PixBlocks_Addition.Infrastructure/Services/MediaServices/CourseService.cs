@@ -59,14 +59,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task CreateAsync(MediaResource resource)
         {
-            if(resource.Title==null)
+            if (resource.Title == null)
             {
                 throw new MyException(MyCodesNumbers.InvalidTitle, MyCodes.EmptyTitle);
             }
-            var c = await _courseRepository.GetAsync(resource.Title);
-            if (c.Count() > 0)
+            var courses = await _courseRepository.GetAsync(resource.Title);
+            foreach (var c in courses)
             {
-                throw new MyException(MyCodesNumbers.SameTitleCourse, $"Kurs o tytule: {resource.Title} już istnieje.");
+                if (c.Title == resource.Title)
+                    throw new MyException(MyCodesNumbers.SameTitleCourse, $"Kurs o tytule: {resource.Title} już istnieje.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -78,9 +79,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             HashSet<string> resources = new HashSet<string>();
-            if(resource.Resources != null)
+            if (resource.Resources != null)
             {
-                foreach(var file in resource.Resources)
+                foreach (var file in resource.Resources)
                 {
                     var res = await _resourceHandler.CreateAsync(file);
                     await _resourceRepository.AddAsync(res);
@@ -123,7 +124,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<CourseDto>> GetAsync(string title)
         {
             var result = await _courseRepository.GetAsync(title);
-            return _mapper.Map<IEnumerable<Course>, IEnumerable <CourseDto >>(result);
+            return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
         }
 
         public async Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId)
@@ -141,7 +142,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveAsync(Guid id)
         {
             var course = await tryGetCourseAsync(id);
-            if(course.CourseVideos != null && course.CourseVideos.Count > 0)
+            if (course.CourseVideos != null && course.CourseVideos.Count > 0)
             {
                 course.CourseVideos.Clear();
                 await _courseRepository.UpdateAsync(course);

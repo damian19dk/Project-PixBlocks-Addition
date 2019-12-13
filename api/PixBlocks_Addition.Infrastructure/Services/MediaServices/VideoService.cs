@@ -20,11 +20,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
         private readonly IMapper _mapper;
 
-        public VideoService(IVideoRepository videoRepository, IJWPlayerService jwPlayerService, 
+        public VideoService(IVideoRepository videoRepository, ICourseRepository courseRepository, IJWPlayerService jwPlayerService, 
                             IResourceHandler resourceHandler, IResourceRepository resourceRepository,
                             IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
         {
@@ -33,18 +34,30 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
             _videoRepository = videoRepository;
+            _courseRepository = courseRepository;
             _jwPlayerService = jwPlayerService;
         }
 
         public async Task CreateAsync(CreateVideoResource video)
         {
+            if(video.ParentId == null)
+            {
+                throw new MyException(MyCodesNumbers.InvalidVideoParentId, "You have to provide valid course id");
+            }
+            var course = await _courseRepository.GetAsync(video.ParentId);
+            if(course == null)
+            {
+                throw new MyException(MyCodesNumbers.CourseNotFound, "The given course id does not exist");
+            }
+
             if (!string.IsNullOrEmpty(video.MediaId))
             {
-                var videoFromDatabase = await _videoRepository.GetByMediaAsync(video.MediaId);
-                if (videoFromDatabase != null)
+                var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == video.MediaId);
+                if (sameVideo != null)
                 {
-                    throw new MyException(MyCodesNumbers.SameVideo, $"Wideo o id: {video.MediaId} istnieje!");
+                    throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
                 }
+
                 var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
                 if(response == null)
                 {
@@ -91,8 +104,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
             var vid = new Video(video.MediaId, video.Premium, video.Title, video.Description, picture,
                                 0, video.Language, resources, tags);
+            
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
+
+            course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
+            await _courseRepository.UpdateAsync(course);
+
             setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
         }
 

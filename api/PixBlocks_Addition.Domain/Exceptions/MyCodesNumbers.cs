@@ -45,6 +45,8 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string InvalidDescription => "2020";
         public static string InvalidTitle => "2021";
         public static string SameVideo => "2022";
+        public static string InvalidVideoParentId => "2023";
+        public static string InvalidOrderData => "2024";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";
@@ -62,5 +64,6 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string TooLongLanguage => "6003";
         public static string EmptyLanguage => "6004";
         public static string CouldntLoad => "6005";
+        public static string InvalidIndex => "6006";
     }
 }
