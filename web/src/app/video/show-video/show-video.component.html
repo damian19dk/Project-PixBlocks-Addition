@@ -1,4 +1,4 @@
-<div *ngIf="video" class="container-fluid">
+ <div *ngIf="video" class="container-fluid">
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
@@ -104,8 +104,31 @@
   <div class="row justify-content-center">
     <h3 class="header">Zobacz też:</h3>
   </div>
+  <!--
   <ul class="nav justify-content-center">
     <app-courses-view></app-courses-view>
-  </ul>
+  </ul> -->
 
 </div>
+
+<!--
+<div class="scrolling-wrapper">
+  <div class="card"><app-courses-view></app-courses-view></div>
+</div> -->
+<!-- <section class="card2">
+  <div class="card-content">sth</div>
+  <div class="card-content">asdf</div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+  <div class="card-content"></div>
+</section> -->
+
+<section class="card2">
+ <app-courses-view></app-courses-view>
+
+</section> 
