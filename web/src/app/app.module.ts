@@ -92,9 +92,6 @@ import {VideoManagerComponent} from './video/video-manager/video-manager.compone
     MatButtonModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: function tokenGetter() {
-          return localStorage.getItem('Token');
-        },
         whitelistedDomains: ['localhost:4200'],
         blacklistedRoutes: []
       }

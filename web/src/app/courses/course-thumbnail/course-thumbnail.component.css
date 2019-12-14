@@ -6,8 +6,8 @@
 .card-box {
   display: inline-block;
   overflow: hidden;
-  height: auto;
   width: auto;
+  height: 150px;
 }
 
 .box-shadow {
@@ -35,8 +35,8 @@
 
 .card-text {
   padding: 2% 3%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: justify;
 }
 
