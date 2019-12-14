@@ -44,10 +44,8 @@ export class CoursesViewComponent implements OnInit {
   getCount() {
     return this.courseService.count().subscribe(
       data => {
+        // tslint:disable-next-line:radix
         this.count = parseInt(data);
-      },
-      error => {
-
       }
     );
   }

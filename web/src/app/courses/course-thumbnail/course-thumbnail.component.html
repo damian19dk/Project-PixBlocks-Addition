@@ -126,7 +126,8 @@
   </div>
 
   <div class="card-box">
-    <img alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block" src={{course.picture}} />
+    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block" src={{course.picture}} />
+    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block" src='assets/img/movie.jpg' />
   </div>
 
   <div class="card-body">
