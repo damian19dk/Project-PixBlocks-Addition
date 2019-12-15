@@ -1,0 +1,22 @@
+.card-content {
+  min-width: 200px;
+  margin: 1px;
+}
+
+.card2 {
+  display: flex;
+  min-width: 100%;
+  min-height: 200px;
+  overflow-x: auto;
+}
+
+.card2::-webkit-scrollbar {
+  display: marker;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

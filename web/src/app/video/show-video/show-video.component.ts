@@ -13,6 +13,7 @@ import {CourseService} from 'src/app/services/course.service';
   templateUrl: './show-video.component.html',
   styleUrls: ['./show-video.component.css']
 })
+
 export class ShowVideoComponent implements OnInit {
   courseDocument: CourseDocument;
   video: HostedVideoDocument = null;
