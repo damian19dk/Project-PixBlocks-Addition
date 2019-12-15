@@ -1,0 +1,13 @@
+<section class="card2">
+    <!--<div class="container d-flex flex-row justify-content-center flex-wrap "> -->
+      <app-course-thumbnail (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course class="p-2 card-content">
+      </app-course-thumbnail>
+    <!-- </div> -->
+    </section>
+    <!--
+    <ngb-pagination (pageChange)="getCourses()" [(page)]=page [collectionSize]=count
+                    aria-label="Default pagination"
+                    class="d-flex justify-content-center">
+    </ngb-pagination>
+    -->
+    
