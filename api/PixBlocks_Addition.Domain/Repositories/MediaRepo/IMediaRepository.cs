@@ -19,5 +19,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         Task RemoveAllTagsAsync(T entity);
         Task RemoveAsync(string name);
         Task UpdateAsync(T entity);
+        Task UpdateAsync(IEnumerable<T> entities);
     }
 }

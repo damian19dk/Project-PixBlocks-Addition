@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,12 @@ export class LoadingService {
   }
 
   load() {
-    setTimeout(() => {this.loading = true; }, 0);
-    setTimeout(() => {this.loading = false; }, 60000);
+    setTimeout(() => {
+      this.loading = true;
+    }, 0);
+    setTimeout(() => {
+      this.loading = false;
+    }, 30000);
   }
 
   unload() {

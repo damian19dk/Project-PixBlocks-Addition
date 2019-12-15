@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {AuthService} from '../services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +15,15 @@ export class HeaderComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthService) { }
+    private authenticationService: AuthService) {
+  }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+  }
+
+  afterClick(): void {
+    this.isNavCollapsed = true;
   }
 
   logout() {

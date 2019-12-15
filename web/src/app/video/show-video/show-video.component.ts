@@ -15,6 +15,7 @@ import {CourseService} from 'src/app/services/course.service';
 })
 
 export class ShowVideoComponent implements OnInit {
+  courseDocument: CourseDocument;
   video: HostedVideoDocument = null;
   videoDocument: VideoDocument = null;
   error: string;
@@ -31,20 +32,25 @@ export class ShowVideoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getVideo();
-    this.getHostedVideo();
     this.getCourses();
+
+    this.route.params.subscribe(
+      () => {
+        this.getCourse();
+        this.getVideo();
+        this.getHostedVideo();
+      }
+    );
   }
 
   getHostedVideo() {
     this.loadingService.load();
 
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('mediaId');
     this.videoService.getHostedVideo(id).subscribe(
       (data: HostedVideoDocument) => {
         this.video = data;
         this.loadingService.unload();
-        console.log(this.video);
       },
       error => {
         this.error = error;
@@ -55,13 +61,12 @@ export class ShowVideoComponent implements OnInit {
   getVideo() {
     this.loadingService.load();
 
-    const mediaId = this.route.snapshot.paramMap.get('id');
+    const mediaId = this.route.snapshot.paramMap.get('mediaId');
     this.videoService.getVideo(mediaId).subscribe(
       (data: VideoDocument) => {
         this.videoDocument = data;
         this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
         this.loadingService.unload();
-        console.log(this.videoDocument);
       },
       error => {
         this.error = error;
@@ -75,6 +80,22 @@ export class ShowVideoComponent implements OnInit {
     this.courseService.getAll(this.page).subscribe(
       (data: Array<CourseDocument>) => {
         this.courses = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.error = error;
+        this.loadingService.unload();
+      }
+    );
+  }
+
+  getCourse() {
+    this.loadingService.load();
+    const courseId = this.route.snapshot.paramMap.get('id');
+
+    this.courseService.getOne(courseId).subscribe(
+      (data: CourseDocument) => {
+        this.courseDocument = data;
         this.loadingService.unload();
       },
       error => {

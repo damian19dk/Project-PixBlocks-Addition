@@ -52,6 +52,10 @@
   cursor: pointer;
 }
 
+.card-not-allowed {
+  cursor: not-allowed;
+}
+
 .card-text {
   padding: 2% 3%;
   margin-top: 20px;

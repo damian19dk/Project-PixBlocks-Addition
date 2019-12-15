@@ -51,21 +51,15 @@
 
   </div>
 
-  <div *appHasRole="['user']">
+  <div *appHasRole="['user', 'admin']" class="container-fluid">
     <div *ngIf="isLogged()" class="row alert alert-info">
       Witaj <strong>{{getLogin()}}</strong>, zobacz, co nowego ostatnio dodaliśmy:
     </div>
-
-    <div class="container" *ngIf="videos">
-      <div class="row">
-        <app-course-thumbnail *ngFor="let video of videos" [course]=video class="col-md-4">
-        </app-course-thumbnail>
-      </div>
-      <ngb-pagination class="d-flex justify-content-center" [collectionSize]="count" [(page)]=page
-                      aria-label="Default pagination" (pageChange)="getVideos()"></ngb-pagination>
-    </div>
-
   </div>
 </div>
+
+
+
+
 
 
