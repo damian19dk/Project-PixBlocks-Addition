@@ -1,7 +1,9 @@
 <div class="d-flex align-self-center">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <ng-template #rt let-r="result" let-t="term">
-    <div ngbTooltip="{{r.description}}" placement="right" routerLink="/videos/{{r.mediaId}}">
+
+    <div *ngIf="r.courseVideos.length > 0" ngbTooltip="{{r.description}}" placement="right"
+         routerLink="/courses/{{r.id}}/videos/{{r.courseVideos[0].mediaId}}">
       <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
       <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{tag}}</span>
     </div>

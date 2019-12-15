@@ -44,10 +44,8 @@ export class VideosViewComponent implements OnInit {
   getCount() {
     return this.videoService.count().subscribe(
       data => {
+        // tslint:disable-next-line:radix
         this.count = parseInt(data);
-      },
-      error => {
-
       }
     );
   }
