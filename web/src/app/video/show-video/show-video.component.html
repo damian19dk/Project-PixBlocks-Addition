@@ -1,16 +1,15 @@
-  
-  <div *ngIf="video" class="container-fluid">
+<div *ngIf="video" class="container-fluid">
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
-  
+
   <h1 class="header padded-left">{{courseDocument.title}}</h1>
   <h5 class="header padded-left">{{videoDocument.title}}</h5>
-  
+
   <div class="row">
-     
+
     <div *ngIf="videoDocument" class="col-7">
-      
+
 
       <div class="row">
         <div class="col-12">
@@ -89,8 +88,7 @@
   </div>
 </div>
 <section class="card2">
- <app-courses-view></app-courses-view>
-
-</section> 
+  <app-courses-view></app-courses-view>
+</section>
 
 

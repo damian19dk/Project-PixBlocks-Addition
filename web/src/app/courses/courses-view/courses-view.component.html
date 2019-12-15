@@ -1,12 +1,4 @@
 <section class="card2">
-<!--<div class="container d-flex flex-row justify-content-center flex-wrap "> -->
-  <app-courses-browse (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course class="p-2 card-content">
+  <app-courses-browse *ngFor="let course of courses" [course]=course class="p-2 card-content">
   </app-courses-browse>
-<!-- </div> -->
 </section>
-<!--
-<ngb-pagination (pageChange)="getCourses()" [(page)]=page [collectionSize]=count
-                aria-label="Default pagination"
-                class="d-flex justify-content-center">
-</ngb-pagination>
--->
