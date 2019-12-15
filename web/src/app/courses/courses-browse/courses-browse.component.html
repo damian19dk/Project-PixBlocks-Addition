@@ -119,8 +119,9 @@
     </div>
   </ng-template>
   
-  <div *ngIf="course" class="card mb-4 bg-white box-shadow ">
-  
+  <div *ngIf="course.courseVideos.length > 0"
+    routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
+  <div *ngIf="course" class="card mb-4 bg-white box-shadow">
     <div class="card-header text-center">
       {{course.title}}
     </div>
@@ -131,17 +132,7 @@
   
     <div class="card-body">
       <p class="card-text">{{course.description | shortText}}</p>
-  <!--
-      <div class="d-flex justify-content-between align-items-center">
-        <small>{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-        <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
-          <i class="fas fa-edit"></i>Edytuj
-        </button>
-        <button (click)="remove()" class="btn btn-sm btn-outline-danger" i18n type="button">
-          <i class="far fa-trash-alt"></i>Usuń
-        </button>
-      </div> -->
     </div>
-  
+  </div>
   </div>
   
