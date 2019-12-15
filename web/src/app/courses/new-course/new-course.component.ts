@@ -63,9 +63,6 @@ export class NewCourseComponent extends Form implements OnInit {
 
     const formData = this.dataDto.toFormData();
 
-    console.log(this.dataDto);
-
-
     this.courseService.add(formData)
       .subscribe(
         data => {

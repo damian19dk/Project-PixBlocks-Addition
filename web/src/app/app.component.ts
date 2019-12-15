@@ -38,6 +38,9 @@ export class AppComponent {
               private languageService: LanguageService,
               private loadingService: LoadingService) {
     this.languages = this.languageService.getAllAppLanguages();
+    if (localStorage.getItem('Accept-Language') === null) {
+      localStorage.setItem('Accept-Language', window.navigator.language);
+    }
   }
 
   isLoading() {

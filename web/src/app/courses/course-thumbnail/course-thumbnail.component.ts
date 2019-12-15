@@ -8,7 +8,6 @@ import {TagService} from 'src/app/services/tag.service';
 import {LanguageService} from '../../services/language.service';
 import {LoadingService} from '../../services/loading.service';
 import {FormModal} from '../../models/formModal';
-import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-course-thumbnail',
@@ -26,15 +25,12 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
-              public imageService: ImageService,
               protected modalService: NgbModal) {
     super(modalService);
   }
 
 
   ngOnInit() {
-    this.getPicture();
-
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
@@ -74,8 +70,6 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
     this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
     const formData = this.dataDto.toFormData();
 
-    console.log(this.dataDto);
-
     this.courseService.update(formData)
       .subscribe(
         data => {
@@ -113,11 +107,5 @@ export class CourseThumbnailComponent extends FormModal implements OnInit {
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
-  }
-
-  private getPicture() {
-    if (this.course.picture === null) {
-      this.course.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
-    }
   }
 }

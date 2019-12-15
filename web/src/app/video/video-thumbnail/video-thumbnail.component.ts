@@ -31,8 +31,6 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
 
 
   ngOnInit() {
-    this.getPicture();
-
     this.tagsList = this.tagService.getTags();
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
@@ -45,7 +43,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.error = null;
 
     this.form = this.formBuilder.group({
-      parentId: [null, Validators.required],
+      parentId: [this.video.parentId, Validators.required],
       mediaId: [null],
       id: [this.video.id],
       title: [this.video.title, Validators.required],
@@ -76,7 +74,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
 
     this.videoService.update(formData)
       .subscribe(
-        data => {
+        () => {
           this.sent = true;
           this.error = null;
           this.loading = false;
@@ -91,7 +89,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
 
   remove() {
     this.videoService.remove(this.video.id).subscribe(
-      data => {
+      () => {
         this.refreshOtherThumbnails();
       },
       error => {
@@ -115,12 +113,5 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
 
   imitateImageInput() {
     document.getElementById('image').click();
-  }
-
-  private getPicture() {
-    if (this.video.picture == null) {
-      this.video.picture = 'https://mdrao.ca/wp-content/uploads/2018/03/DistanceEdCourse_ResitExam.png';
-      return;
-    }
   }
 }

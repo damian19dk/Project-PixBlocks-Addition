@@ -40,3 +40,7 @@
 .padded-left {
   padding-left: 10%;
 }
+
+.bg-video {
+  background: rgba(13, 144, 252, 0.5);;
+}

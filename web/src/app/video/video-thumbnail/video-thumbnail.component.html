@@ -101,10 +101,10 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="video" i18n>Zdjęcie</label>
+        <label class="col-sm-2 col-form-label" for="video" i18n>Film</label>
         <div class="col-sm-10">
           <label (click)="imitateFileInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
           <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
                  class="form-control"
                  hidden id="video" type="file">
@@ -139,9 +139,19 @@
       {{video.title}}
     </div>
 
-    <div class="card-box card-link" routerLink="/videos/{{video.mediaId}}">
+    <div *ngIf="video.status === 'ready'" class="card-box card-link"
+         routerLink="/courses/{{video.parentId}}/videos/{{video.mediaId}}">
       <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-      <img alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block" src={{video.picture}}/>
+      <img *ngIf="video.picture" alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block"
+           src={{video.picture}}/>
+      <img *ngIf="!video.picture" alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block"
+           src='assets/img/movie.jpg'/>
+    </div>
+
+    <div *ngIf="video.status === 'processing'" class="card-box card-not-allowed">
+      <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
+      <img alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block"
+           src='assets/img/movie.jpg'/>
     </div>
 
     <div class="card-body">
@@ -149,10 +159,12 @@
 
       <div class="d-flex justify-content-between align-items-center">
         <small>{{video.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-        <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
+        <button (click)="openModal(modal)" *ngIf="video.status === 'ready'" class="btn btn-sm btn-outline-primary" i18n
+                type="button">
           <i class="fas fa-edit"></i>Edytuj
         </button>
-        <button (click)="remove()" class="btn btn-sm btn-outline-danger" i18n type="button">
+        <button (click)="remove()" *ngIf="video.status === 'ready'" class="btn btn-sm btn-outline-danger" i18n
+                type="button">
           <i class="far fa-trash-alt"></i>Usuń
         </button>
       </div>

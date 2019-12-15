@@ -2,8 +2,8 @@
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
-  <h1 class="header padded-left">Tytuł kursu</h1>
-  <h5 class="header padded-left"> {{ video.title }}</h5>
+  <h1 class="header padded-left">{{courseDocument.title}}</h1>
+  <h5 class="header padded-left">{{videoDocument.title}}</h5>
   <div class="row">
     <div *ngIf="videoDocument" class="col-7">
 
@@ -61,40 +61,18 @@
       <h4 class="header">Spis treści</h4>
 
       <div class="scroll list-group">
-        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
+        <a *ngFor="let courseVideo of courseDocument.courseVideos"
+           [ngClass]="courseVideo.mediaId === videoDocument.mediaId ? 'bg-video' : null"
+           class="list-group-item list-group-item-action flex-column align-items-start"
+           routerLink="/courses/{{courseDocument.id}}/videos/{{courseVideo.mediaId}}">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Tytuł</h5>
+            <h5 class="mb-1">{{courseVideo.title}}</h5>
           </div>
-          <p class="mb-1">Krótki opis filmu</p>
-          <small> 15 min</small>
+          <p class="mb-1">{{courseVideo.description | shortText}}</p>
+          <small>{{courseVideo.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
         </a>
 
-        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Tytuł2</h5>
-          </div>
-          <p class="mb-1">Krótki opis filmu</p>
-          <small> 15 min</small>
-        </a>
-
-        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Tytuł3</h5>
-          </div>
-          <p class="mb-1">Krótki opis filmu</p>
-          <small> 15 min</small>
-        </a>
-
-        <a class="list-group-item list-group-item-action flex-column align-items-start" href="#">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Psy</h5>
-          </div>
-          <p class="mb-1">Akcja filmu rozpoczyna się w 1990 roku, kiedy wieloletni funkcjonariusz
-            Służby Bezpieczeństwa, Franz Maurer, zostaje przeniesiony do policji kryminalnej.</p>
-          <small class="text-muted">2h</small>
-        </a>
       </div>
-
     </div>
 
 
