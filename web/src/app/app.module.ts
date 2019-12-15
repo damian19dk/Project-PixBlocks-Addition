@@ -47,7 +47,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {CoursesViewComponent} from './courses/courses-view/courses-view.component';
 import {VideosViewComponent} from './video/videos-view/videos-view.component';
 import {VideoManagerComponent} from './video/video-manager/video-manager.component';
-
+import {CoursesBrowseComponent} from './courses/courses-browse/courses-browse.component';
+import { CoursesEditComponent } from './courses/courses-edit/courses-edit.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,9 @@ import {VideoManagerComponent} from './video/video-manager/video-manager.compone
     HomeForLoggedComponent,
     CoursesViewComponent,
     VideosViewComponent,
-    VideoManagerComponent
+    VideoManagerComponent,
+    CoursesBrowseComponent,
+    CoursesEditComponent
   ],
   imports: [
     BrowserModule,
