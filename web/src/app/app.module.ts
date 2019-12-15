@@ -18,7 +18,6 @@ import {NewVideoComponent} from './video/new-video/new-video.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
 import {VideoThumbnailComponent} from './video/video-thumbnail/video-thumbnail.component';
 import {VideoService} from './services/video.service';
-import {CoursesComponent} from './video/show-video/courses/courses.component';
 import {CourseManagerComponent} from './courses/course-manager/course-manager.component';
 import {NewCourseComponent} from './courses/new-course/new-course.component';
 import {LoadingService} from './services/loading.service';
@@ -64,7 +63,6 @@ import {VideoManagerComponent} from './video/video-manager/video-manager.compone
     VideoThumbnailComponent,
     ShortTextPipe,
     SafePipe,
-    CoursesComponent,
     CourseManagerComponent,
     NewCourseComponent,
     FunctionalityNotPreparedComponent,
