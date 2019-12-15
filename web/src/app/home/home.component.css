@@ -1,28 +1,20 @@
 #title {
-    font-size: 68px;
-    font-weight: 700;
-    letter-spacing: -2.3px;
-    color: #0d90fc;
-    margin-top: 10px;
-    margin-bottom: 20px;
+  font-size: 68px;
+  font-weight: 700;
+  letter-spacing: -2.3px;
+  color: #0d90fc;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .homepage-part {
-    margin-top: 20px;
+  margin-top: 20px;
 }
+
 .description {
-    font-size: 20px;
+  font-size: 20px;
 }
+
 .font-weight-bold {
-    font-size: 20px;
-}
-
-.svvg {
-   background-image: url('/assets/svg/undraw_preferences_uuo2.svg');
- /*  no-repeat center center fixed; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-
+  font-size: 20px;
 }

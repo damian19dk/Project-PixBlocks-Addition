@@ -14,25 +14,27 @@
       <ul class="navbar-nav">
         <app-search-bar *appHasRole="['user', 'admin']"></app-search-bar>
         <app-select-languages [languages]="languages"></app-select-languages>
-        <button (click)="isNavCollapsed = true" *appHasRole="['admin']" i18n mat-raised-button
+        <button (click)="afterClick()" *appHasRole="['admin']" color="primary" i18n mat-stroked-button
                 routerLink="/videos">Dodaj wideo
         </button>
-        <button (click)="isNavCollapsed = true" *appHasRole="['admin']" i18n mat-raised-button
+        <button (click)="afterClick()" *appHasRole="['admin']" color="primary" i18n mat-stroked-button
                 routerLink="/courses">Zarządzaj kursami
         </button>
-        <button (click)="isNavCollapsed = true" *appHasRole="['user', 'admin']" i18n mat-raised-button
+        <button (click)="afterClick()" *appHasRole="['user', 'admin']" color="primary" i18n mat-stroked-button
                 routerLink="/profile">Mój profil
         </button>
-        <button (click)="isNavCollapsed = true" *appHasRole="['user','admin']" i18n mat-raised-button
+        <button (click)="afterClick()" *appHasRole="['user','admin']" color="primary" i18n mat-stroked-button
                 routerLink="/settings">Ustawienia
         </button>
-        <button (click)="isNavCollapsed = true; logout()" *appHasRole="['user', 'admin']" i18n mat-raised-button>Wyloguj
+        <button (click)="afterClick(); logout()" *appHasRole="['user', 'admin']" color="primary" i18n
+                mat-stroked-button>Wyloguj
         </button>
-        <button (click)="isNavCollapsed = true" *appHasRole="['anonymous']" i18n mat-raised-button
+        <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary" i18n mat-stroked-button
                 routerLink="/register">
           Zarejestruj
         </button>
-        <button (click)="isNavCollapsed = true" *appHasRole="['anonymous']" i18n mat-raised-button routerLink="/login">
+        <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary" i18n mat-stroked-button
+                routerLink="/login">
           Zaloguj
         </button>
       </ul>
