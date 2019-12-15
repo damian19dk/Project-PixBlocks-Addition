@@ -40,38 +40,6 @@
 .padded-left {
   padding-left: 10%;
 }
-/*
-.scrolling-wrapper {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-  .card {
-    display: inline-block;
-  }
-
-.pseudo-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.card {
-  background-color:black;
-  min-width: 100%;
-  min-height: 200px;
-}
-.card {display: flex}
-
-.card--content {
-  background-color: #e74c3c;
-  min-width: 200px;
-  margin: 5px;
-}
-.card {
-  overflow-x: auto;
-}
-*/
 
 html,
 body {
