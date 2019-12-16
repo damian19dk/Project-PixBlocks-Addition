@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   autoRefresh(): void {
-    if (!this.isAuthenticated()) {
+    if (!this.isAuthenticated() && this.isLogged()) {
       this.isTokenRefreshing = true;
       this.refreshToken().pipe(takeWhile(() => this.isTokenRefreshing)).subscribe(
         data => {

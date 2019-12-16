@@ -3,9 +3,6 @@
     Programowanie dla każdego!
   </div>
 
-  <app-courses-edit></app-courses-edit>
-
-
   <div *ngIf="!isLogged()">
 
     <div class="row homepage-part">
@@ -58,7 +55,10 @@
   <div *appHasRole="['user', 'admin']" class="container-fluid">
     <div *ngIf="isLogged()" class="row alert alert-info">
       Witaj <strong>{{getLogin()}}</strong>, zobacz, co nowego ostatnio dodaliśmy:
+
     </div>
+
+    <app-courses-edit></app-courses-edit>
   </div>
 </div>
 

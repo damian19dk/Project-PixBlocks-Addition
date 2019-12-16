@@ -17,19 +17,9 @@ export class CoursesEditComponent implements OnInit {
   courses: Array<CourseDocument>;
   error: string;
 
-  movies: Array<string>;
-
   constructor(
     private courseService: CourseService,
     private loadingService: LoadingService) {
-    this.movies = [
-      'Martwica mózgu',
-      'Dzień Świra',
-      'Kanapka Boża',
-      'Andrzej Duda',
-      'Wybryk Natury',
-      'Lech Wałęsa - menda publiczna'
-    ];
   }
 
   ngOnInit() {
@@ -63,11 +53,11 @@ export class CoursesEditComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     console.log(event.previousIndex + ' ' + event.currentIndex);
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
   }
 
   entered(event: CdkDragEnter) {
-    moveItemInArray(this.movies, event.item.data, event.container.data);
+    moveItemInArray(this.courses, event.item.data, event.container.data);
   }
 }
 
