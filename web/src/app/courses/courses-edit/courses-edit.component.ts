@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CourseDocument} from '../../models/courseDocument.model';
 import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
+import {CdkDragDrop, CdkDragEnter, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-courses-edit',
@@ -16,9 +17,19 @@ export class CoursesEditComponent implements OnInit {
   courses: Array<CourseDocument>;
   error: string;
 
+  movies: Array<string>;
+
   constructor(
     private courseService: CourseService,
     private loadingService: LoadingService) {
+    this.movies = [
+      'Martwica mózgu',
+      'Dzień Świra',
+      'Kanapka Boża',
+      'Andrzej Duda',
+      'Wybryk Natury',
+      'Lech Wałęsa - menda publiczna'
+    ];
   }
 
   ngOnInit() {
@@ -44,12 +55,19 @@ export class CoursesEditComponent implements OnInit {
   getCount() {
     return this.courseService.count().subscribe(
       data => {
+        // tslint:disable-next-line:radix
         this.count = parseInt(data);
-      },
-      error => {
-
       }
     );
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event.previousIndex + ' ' + event.currentIndex);
+    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  }
+
+  entered(event: CdkDragEnter) {
+    moveItemInArray(this.movies, event.item.data, event.container.data);
   }
 }
 

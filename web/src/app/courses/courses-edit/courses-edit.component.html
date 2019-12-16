@@ -1,7 +1,29 @@
-<section class="card2">
-  <div class="container d-flex flex-row justify-content-center flex-wrap ">
-    <app-course-thumbnail (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course
-                          class="p-2 card-content">
-    </app-course-thumbnail>
+<section>
+  <div cdkDropListGroup class="example-list container d-flex flex-row justify-content-center flex-wrap">
+    <div *ngFor="let movie of movies; let i = index" [cdkDropListData]="i" cdkDropList
+         cdkDropListOrientation="horizontal">
+      <div (cdkDragEntered)="entered($event)" [cdkDragData]="i" cdkDrag
+           class="p-2 card-content example-box">
+        {{movie}}
+      </div>
+    </div>
   </div>
 </section>
+
+
+<!--<section>-->
+<!--  <div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)"-->
+<!--       class="example-list container d-flex flex-row justify-content-center">-->
+<!--    <app-course-thumbnail cdkDrag (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course-->
+<!--                          class="p-2 card-content example-box">-->
+<!--    </app-course-thumbnail>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!--<section>-->
+<!--  <div class="container d-flex flex-row justify-content-center flex-wrap ">-->
+<!--    <app-course-thumbnail (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course-->
+<!--                          class="p-2 card-content">-->
+<!--    </app-course-thumbnail>-->
+<!--  </div>-->
+<!--</section>-->

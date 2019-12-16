@@ -47,7 +47,8 @@ import {CoursesViewComponent} from './courses/courses-view/courses-view.componen
 import {VideosViewComponent} from './video/videos-view/videos-view.component';
 import {VideoManagerComponent} from './video/video-manager/video-manager.component';
 import {CoursesBrowseComponent} from './courses/courses-browse/courses-browse.component';
-import { CoursesEditComponent } from './courses/courses-edit/courses-edit.component';
+import {CoursesEditComponent} from './courses/courses-edit/courses-edit.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { CoursesEditComponent } from './courses/courses-edit/courses-edit.compon
     MatCheckboxModule,
     MatRadioModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ],
   exports: [
     HasRoleDirective

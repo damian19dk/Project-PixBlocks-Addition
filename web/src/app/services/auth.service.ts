@@ -98,9 +98,8 @@ export class AuthService {
     return this.http.post<any>(environment.baseUrl + '/api/Identity/refresh?token=' + localStorage.getItem('TokenRefresh'), {});
   }
 
-
   isLogged(): boolean {
-    return localStorage.getItem('Token') !== undefined;
+    return localStorage.getItem('Token') !== undefined && this.isAuthenticated();
   }
 
   getLogin(): string {
