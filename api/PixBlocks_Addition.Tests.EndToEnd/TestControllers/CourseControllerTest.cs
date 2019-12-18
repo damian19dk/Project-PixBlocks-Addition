@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
+using PixBlocks_Addition.Domain.Exceptions;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Tests.EndToEnd.Extentions;
+using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +17,20 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
     [TestFixture]
     public class CourseControllerTest : BaseControllerTest
     {
+        [Test]
+        public async Task create_course_with_same_title_should_fail()
+        {
+            var title = "Unique Title";
+            await createCourseAsync(title, "Some description", "pl", "false");
+
+            var response = await createCourseAsync(title, "My description", "pl", "false");
+            var responseMessage = await response.Content.ReadAsStringAsync();
+            var message = JsonConvert.DeserializeObject<ExceptionResponse>(responseMessage);
+
+            Assert.False(response.IsSuccessStatusCode);
+            Assert.IsTrue(message.Code == MyCodesNumbers.SameTitleCourse);
+        }
+
         [Test]
         public async Task change_course_data_should_change_correct_values()
         {
@@ -94,6 +111,17 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 }
             }
             return true;
+        }
+
+        private async Task<HttpResponseMessage> createCourseAsync(string title, string description, string language, string premium)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("Title", title);
+            parameters.Add("Description", description);
+            parameters.Add("Language", language);
+            parameters.Add("Premium", premium);
+
+            return await sendMultiPartWithResponseAsync("api/course/create", "POST", parameters);
         }
     }
 }
