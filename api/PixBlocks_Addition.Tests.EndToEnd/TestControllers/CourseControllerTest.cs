@@ -32,6 +32,17 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         }
 
         [Test]
+        public async Task create_course_with_same_title_but_different_language_should_pass()
+        {
+            var title = "Unique Title";
+            await createCourseAsync(title, "Some description", "pl", "false");
+
+            var response = await createCourseAsync(title, "My description", "en", "false");
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [Test]
         public async Task change_course_data_should_change_correct_values()
         {
             var address = "api/course/change";
