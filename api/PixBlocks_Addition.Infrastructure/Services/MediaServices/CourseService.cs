@@ -43,7 +43,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 throw new MyException(MyCodesNumbers.InvalidTitle, MyCodes.EmptyTitle);
             }
-            var courses = await _courseRepository.GetAsync(resource.Title);
+            var courses = await _courseRepository.GetAsync(resource.Title, resource.Language);
             foreach (var c in courses)
             {
                 if (c.Title == resource.Title)
@@ -103,7 +103,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task<IEnumerable<CourseDto>> GetAsync(string title)
         {
-            var result = await _courseRepository.GetAsync(title);
+            var result = await _courseRepository.GetAsync(title, _localizer.Language);
             return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
         }
 
@@ -169,7 +169,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task<int> CountAsync()
         {
-            return await _courseRepository.CountAsync();
+            return await _courseRepository.CountAsync(_localizer.Language);
         }
     }
 }

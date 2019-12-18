@@ -21,18 +21,20 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly ILocalizationService _localizer;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
         private readonly IMapper _mapper;
 
         public VideoService(IVideoRepository videoRepository, ICourseRepository courseRepository, IJWPlayerService jwPlayerService, 
-                            IResourceHandler resourceHandler, IResourceRepository resourceRepository,
+                            IResourceHandler resourceHandler, IResourceRepository resourceRepository, ILocalizationService localizer,
                             IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
         {
             _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
+            _localizer = localizer;
             _videoRepository = videoRepository;
             _courseRepository = courseRepository;
             _jwPlayerService = jwPlayerService;
@@ -137,11 +139,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAllByTagsAsync(tags));
+            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAllByTagsAsync(tags, _localizer.Language));
 
         public async Task<IEnumerable<VideoDto>> GetAllAsync(int page, int count = 10)
         {
-            var result = await _videoRepository.GetAllAsync(page, count);
+            var result = await _videoRepository.GetAllAsync(page, count, _localizer.Language);
             return _mapper.Map<IEnumerable<Video>, IEnumerable<VideoDto>>(result);
         }
 
@@ -158,7 +160,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         }
 
         public async Task<IEnumerable<VideoDto>> GetAsync(string title)
-            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAsync(title));
+            => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAsync(title, _localizer.Language));
 
         public async Task RemoveAsync(Guid id)
         {
@@ -183,7 +185,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task<int> CountAsync()
         {
-            return await _videoRepository.CountAsync();
+            return await _videoRepository.CountAsync(_localizer.Language);
         }
     }
 }
