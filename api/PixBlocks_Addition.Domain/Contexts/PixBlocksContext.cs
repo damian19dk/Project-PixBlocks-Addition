@@ -20,7 +20,7 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Tag> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
@@ -35,7 +35,7 @@ namespace PixBlocks_Addition.Domain.Contexts
             modelBuilder.Entity<Course>().Property(e => e.Resources)
                                          .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
             modelBuilder.Entity<User>().ToTable("User");
-            //modelBuilder.Entity<Tag>().ToTable("Category");
+            modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<History>().ToTable("History");
             modelBuilder.Entity<Role>().ToTable("Role");
 
