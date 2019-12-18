@@ -33,9 +33,9 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 IEnumerable<Media> sameTitle;
                 if (parentRepository == null)
-                    sameTitle = await mediaRepository.GetAsync(resource.Title);
+                    sameTitle = await mediaRepository.GetAsync(resource.Title, resource.Language);
                 else
-                    sameTitle = await parentRepository.GetAsync(resource.Title);
+                    sameTitle = await parentRepository.GetAsync(resource.Title, resource.Language);
 
                 if (sameTitle != null && sameTitle.Count() > 0)
                 {

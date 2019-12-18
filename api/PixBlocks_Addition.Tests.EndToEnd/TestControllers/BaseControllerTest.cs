@@ -63,7 +63,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        protected async Task sendMultiPartAsync(string address, string method, IDictionary<string, string> parameters,
+        protected async Task<HttpResponseMessage> sendMultiPartWithResponseAsync(string address, string method, IDictionary<string, string> parameters,
             Models.File image = null, Models.File video = null)
         {
             string boundary = "------------------------" + DateTime.Now.Ticks.ToString("x");
@@ -105,11 +105,15 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 request.Headers.ExpectContinue = true;
                 request.Headers.Add("Connection", "Keep-Alive");
                 request.Content = multipartContent;
-                var response = await httpClient.SendAsync(request);
-
-                Assert.IsTrue(response.EnsureSuccessStatusCode().IsSuccessStatusCode);
+                return await httpClient.SendAsync(request);
             }
         }
 
+        protected async Task sendMultiPartAsync(string address, string method, IDictionary<string, string> parameters,
+            Models.File image = null, Models.File video = null)
+        {
+            var response = await sendMultiPartWithResponseAsync(address, method, parameters, image, video);
+            Assert.IsTrue(response.EnsureSuccessStatusCode().IsSuccessStatusCode);
+        }
     }
 }
