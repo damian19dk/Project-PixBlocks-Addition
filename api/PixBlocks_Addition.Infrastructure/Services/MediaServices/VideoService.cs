@@ -102,7 +102,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     tags.Add(new Tag(tag));
             }
 
-            var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
+            var vid = new Video(video.MediaId, video.Premium, video.Title, video.Description, picture,
                                 0, video.Language, resources, tags);
             
             vid.SetStatus("processing");

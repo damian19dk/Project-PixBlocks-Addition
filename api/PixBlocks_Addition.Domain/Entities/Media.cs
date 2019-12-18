@@ -15,8 +15,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public Guid Id { get; protected set; }
         public int Index { get; protected set; }
         public string MediaId { get; protected set; }
-        public Guid ParentId { get; protected set; }
-        public Tag Category { get; protected set; }
+        public Category Category { get; protected set; }
         public bool Premium { get; protected set; }
         public string Title { get; protected set; }
         public string Description { get; protected set; }
@@ -35,30 +34,6 @@ namespace PixBlocks_Addition.Domain.Entities
             Id = Guid.NewGuid();
             Index = 0;
             MediaId = mediaId;
-            SetPremium(premium);
-            SetTitle(title);
-            SetDescription(description);
-            SetPicture(picture);
-            SetDuration(duration);
-            SetLanguage(lang);
-
-            if (resources != null)
-                foreach (string resource in resources)
-                    Resources.Add(resource);
-
-            if (tags != null)
-                foreach (Tag tag in tags)
-                    Tags.Add(tag);
-
-            PublishDate = DateTime.Now;
-        }
-
-        protected Media(string mediaId, Guid parentId, bool premium, string title, string description, string picture, long duration, string lang, IEnumerable<string> resources, IEnumerable<Tag> tags)
-        {
-            Id = Guid.NewGuid();
-            Index = 0;
-            MediaId = mediaId;
-            ParentId = parentId;
             SetPremium(premium);
             SetTitle(title);
             SetDescription(description);
