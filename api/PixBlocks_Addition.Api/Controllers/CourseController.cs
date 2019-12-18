@@ -30,13 +30,6 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost("video")]
-        public async Task AddVideo([FromBody]UploadResource upload)
-        {
-            await _courseService.AddVideoAsync(upload);
-        }
-
-        [Authorize(Roles = "Administrator")]
         [HttpDelete("video")]
         public async Task RemoveVideo(Guid courseId, Guid videoId)
         {

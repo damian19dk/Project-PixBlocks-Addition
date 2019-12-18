@@ -37,26 +37,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _localizer = localizer;
         }
 
-        public async Task AddVideoAsync(UploadResource upload)
-        {
-            var video = await _videoRepository.GetByMediaAsync(upload.MediaId);
-            if (video == null)
-            {
-                throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o MediaId: {upload.MediaId}. Wpierw stwórz wideo.");
-            }
-
-            var course = await tryGetCourseAsync(upload.ParentId);
-
-            var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == upload.MediaId);
-            if (sameVideo != null)
-            {
-                throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
-            }
-
-            course.CourseVideos.Add(new CourseVideo(course.Id, video));
-            await _courseRepository.UpdateAsync(course);
-        }
-
         public async Task CreateAsync(MediaResource resource)
         {
             if (resource.Title == null)

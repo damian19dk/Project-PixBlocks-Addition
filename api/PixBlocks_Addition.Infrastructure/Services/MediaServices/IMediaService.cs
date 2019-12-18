@@ -9,7 +9,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
     public interface IMediaService<TDto, TResource> where TDto: class where TResource: class
     {
         Task CreateAsync(TResource resource);
-        Task AddVideoAsync(UploadResource upload);
         Task UpdateAsync(ChangeMediaResource resource);
         Task<TDto> GetAsync(Guid id);
         Task<IEnumerable<TDto>> GetAsync(string title);
