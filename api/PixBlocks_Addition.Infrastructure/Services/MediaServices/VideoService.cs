@@ -160,12 +160,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task<IEnumerable<VideoDto>> GetAsync(string title)
             => _mapper.Map<IEnumerable<VideoDto>>(await _videoRepository.GetAsync(title));
 
-        public async Task<IEnumerable<VideoDto>> BrowseAsync(string title)
-        {
-            var videos = await _videoRepository.GetAsync(title);
-            return _mapper.Map<IEnumerable<VideoDto>>(videos);
-        }
-
         public async Task RemoveAsync(Guid id)
         {
             await _videoRepository.RemoveAsync(id);
