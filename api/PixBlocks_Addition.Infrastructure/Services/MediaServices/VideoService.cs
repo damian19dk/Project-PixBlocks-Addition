@@ -151,10 +151,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             return _mapper.Map<Video, VideoDto>(video);
         }
 
-        public async Task<VideoDto> GetByMediaIdAsync(string mediaId)
+        public async Task<IEnumerable<VideoDto>> GetByMediaIdAsync(string mediaId)
         {
             var video = await _videoRepository.GetByMediaAsync(mediaId);
-            return _mapper.Map<VideoDto>(video);
+            return _mapper.Map<IEnumerable<VideoDto>>(video);
         }
 
         public async Task<IEnumerable<VideoDto>> GetAsync(string title)

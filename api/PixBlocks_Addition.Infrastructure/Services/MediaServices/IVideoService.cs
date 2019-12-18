@@ -9,6 +9,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 {
     public interface IVideoService : IMediaService<VideoDto, CreateVideoResource>
     {
-        Task<VideoDto> GetByMediaIdAsync(string mediaId);
+        Task<IEnumerable<VideoDto>> GetByMediaIdAsync(string mediaId);
     }
 }

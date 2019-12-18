@@ -34,7 +34,7 @@ namespace PixBlocks_Addition.Api.Controllers
             => await _videoService.UpdateAsync(resource);
 
         [HttpGet("{mediaId}")]
-        public async Task<VideoDto> GetVideo(string mediaId)
+        public async Task<IEnumerable<VideoDto>> GetVideo(string mediaId)
         {
             return await _videoService.GetByMediaIdAsync(mediaId);
         }

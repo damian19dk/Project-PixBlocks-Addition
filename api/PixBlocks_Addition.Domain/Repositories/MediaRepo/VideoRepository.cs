@@ -50,8 +50,8 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
                                     .Skip((page - 1) * count).Take(count).OrderBy(x => x.Index).ToListAsync();
         }
 
-        public async Task<Video> GetByMediaAsync(string mediaId)
-            => await _videos.Include(c => c.Tags).SingleOrDefaultAsync(x => x.MediaId == mediaId);
+        public async Task<IEnumerable<Video>> GetByMediaAsync(string mediaId)
+            => await _videos.Include(c => c.Tags).Where(x => x.MediaId == mediaId).ToListAsync();
 
         public object Clone()
         {
