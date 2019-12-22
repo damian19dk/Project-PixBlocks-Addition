@@ -1,6 +1,7 @@
 <div class="container">
   <div i18n id="title">
-    Programowanie dla każdego!
+    <span style="color:#0d90fc">Programowanie</span> <br>
+    <span style="color:#000000">dla każdego!</span>
   </div>
 
   <div *ngIf="!isLogged()">
@@ -21,13 +22,15 @@
         class="font-weight-bold" style="color:#0d90fc">Blocks</span> już dziś!
       </div>
       <div class="col-6">
-        <img class="img-max" src="assets/svg/undraw_solution_mindset_34bi.svg" alt="">
+        <img alt="" class="img-max" ngbTooltip="Rozwiązywanie łamigłówek!" placement="right"
+             src="assets/svg/undraw_solution_mindset_34bi.svg">
       </div>
     </div>
 
     <div class="row homepage-part">
       <div class="col-6">
-        <img class="img-max" src="assets/svg/undraw_knowledge_g5gf.svg">
+        <img class="img-max" ngbTooltip="Jak wygląda programowanie?" placement="left"
+             src="assets/svg/undraw_knowledge_g5gf.svg">
       </div>
       <div i18n class="col-6 description">
         <span class="font-weight-bold" style="color:#000000">Pix</span><span class="font-weight-bold"
@@ -52,13 +55,12 @@
 
   </div>
 
-  <div *appHasRole="['user', 'admin']" class="container-fluid">
-    <div *ngIf="isLogged()" class="row alert alert-info">
+  <div *ngIf="isLogged()" class="container-fluid">
+    <div *appHasRole="['user', 'admin']" class="row alert alert-info">
       Witaj <strong>{{getLogin()}}</strong>, zobacz, co nowego ostatnio dodaliśmy:
-
     </div>
 
-    <app-courses-edit></app-courses-edit>
+    <app-courses-view-list-user></app-courses-view-list-user>
   </div>
 </div>
 

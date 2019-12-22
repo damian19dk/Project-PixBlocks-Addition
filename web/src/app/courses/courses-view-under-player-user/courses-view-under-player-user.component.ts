@@ -2,14 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {CourseDocument} from '../../models/courseDocument.model';
 import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
-import {CdkDragDrop, CdkDragEnter, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-courses-edit',
-  templateUrl: './courses-edit.component.html',
-  styleUrls: ['./courses-edit.component.css']
+  selector: 'app-courses-view',
+  templateUrl: './courses-view-under-player-user.component.html',
+  styleUrls: ['./courses-view-under-player-user.component.css']
 })
-export class CoursesEditComponent implements OnInit {
+export class CoursesViewUnderPlayerUserComponent implements OnInit {
 
   page = 1;
   count: number;
@@ -49,15 +48,6 @@ export class CoursesEditComponent implements OnInit {
         this.count = parseInt(data);
       }
     );
-  }
-
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(event.previousIndex + ' ' + event.currentIndex);
-    moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
-  }
-
-  entered(event: CdkDragEnter) {
-    moveItemInArray(this.courses, event.item.data, event.container.data);
   }
 }
 

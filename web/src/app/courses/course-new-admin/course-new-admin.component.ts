@@ -8,10 +8,10 @@ import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-new-course',
-  templateUrl: './new-course.component.html',
-  styleUrls: ['./new-course.component.css']
+  templateUrl: './course-new-admin.component.html',
+  styleUrls: ['./course-new-admin.component.css']
 })
-export class NewCourseComponent extends Form implements OnInit {
+export class CourseNewAdminComponent extends Form implements OnInit {
 
   @ViewChild('labelImport', null)
   labelImport: ElementRef;
