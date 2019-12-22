@@ -9,5 +9,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         Task ChangePassword(string login, string newPassword, string oldPassword);
         Task ChangeEmail(string login, string email);
+        Task SetPremium(string login);
+        Task TakePremium(string login);
     }
 }

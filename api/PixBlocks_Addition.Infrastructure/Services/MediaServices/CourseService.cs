@@ -76,7 +76,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 resource.PictureUrl = img.Id.ToString();
             }
 
-            var course = new Course(resource.Premium, resource.Title, resource.Description,
+            var course = new Course(resource.Premium, Guid.Empty, resource.Title, resource.Description,
                                     resource.PictureUrl, resource.Language, 0, resources, tags);
             await _courseRepository.AddAsync(course);
         }

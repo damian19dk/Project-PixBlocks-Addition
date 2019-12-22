@@ -41,5 +41,22 @@ namespace PixBlocks_Addition.Infrastructure.Services
             await _userRepository.UpdateAsync(user);
         }
 
+        public async Task SetPremium(string login)
+        {
+            var user = await _userRepository.GetAsync(login);
+
+            user.SetPremium(true);
+
+            await _userRepository.UpdateAsync(user);
+        }
+
+        public async Task TakePremium(string login)
+        {
+            var user = await _userRepository.GetAsync(login);
+
+            user.SetPremium(false);
+
+            await _userRepository.UpdateAsync(user);
+        }
     }
 }
