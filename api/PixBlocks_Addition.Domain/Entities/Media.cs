@@ -16,6 +16,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public int Index { get; protected set; }
         public string MediaId { get; protected set; }
         public Category Category { get; protected set; }
+        public Guid ParentId { get; protected set; }
         public bool Premium { get; protected set; }
         public string Title { get; protected set; }
         public string Description { get; protected set; }
@@ -28,12 +29,13 @@ namespace PixBlocks_Addition.Domain.Entities
 
         protected Media() { }
 
-        public Media(string mediaId, bool premium, string title, string description, string picture, long duration,
+        public Media(string mediaId, Guid parentId, bool premium, string title, string description, string picture, long duration,
             string lang, IEnumerable<string> resources = null, IEnumerable<Tag> tags = null)
         {
             Id = Guid.NewGuid();
             Index = 0;
             MediaId = mediaId;
+            ParentId = parentId;
             SetPremium(premium);
             SetTitle(title);
             SetDescription(description);
@@ -51,6 +53,7 @@ namespace PixBlocks_Addition.Domain.Entities
 
             PublishDate = DateTime.Now;
         }
+
 
         public void SetPremium(bool value) => Premium = value;
         public void SetTitle(string title)
