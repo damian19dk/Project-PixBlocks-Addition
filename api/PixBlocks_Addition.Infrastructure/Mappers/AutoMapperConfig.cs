@@ -34,6 +34,7 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
                 cfg.CreateMap<Course, CourseDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
                     .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
+                cfg.CreateMap<UserCourseHistory, UserCourseHistoryDto>();
             })
             .CreateMapper();
     }

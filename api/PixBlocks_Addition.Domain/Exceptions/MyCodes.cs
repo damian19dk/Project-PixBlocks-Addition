@@ -43,5 +43,9 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string EmptyTitle => "Tytuł nie może być pusty!";//2018
         public static string TooShortTitle => "Tytuł musi zawierać co najmniej 3 znaki!";//2016
         public static string TooLongTitle => "Tytuł nie może zawierać więcej niż 250 znaków!";//2017
+        public static string WrongUserId => "Nie ma użytkownika o takim Id!";//1014
+        public static string MissingUser => "Nie ma takie użytkownika!";//1015
+        public static string MissingCourse => "Nie ma takiego kursu!";//2025
+        public static string MissingHistory => "Brak historii użytkownika!";//1016
     }
 }

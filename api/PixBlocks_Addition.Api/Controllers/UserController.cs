@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace PixBlocks_Addition.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserCourseHistoryService _userCourseHistoryService;
 
         public UserController(IUserService userService)
         {
@@ -44,6 +46,37 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task TakePremium(string login)
         {
             await _userService.TakePremium(login);
+        }
+
+        [HttpDelete("deleteUserHistoryId")]
+        public async Task RemoveUserhistory(Guid userId)
+        {
+            await _userCourseHistoryService.RemoveAsync(userId);
+        }
+
+        [HttpDelete("deleteUserHistory")]
+        public async Task RemoveUserhistory(string login)
+        {
+            await _userCourseHistoryService.RemoveAsync(login);
+        }
+
+        [HttpPost("addCourseToHistoryId")]
+        public async Task AddCourseToHistory(Guid userId, Course course)
+        {
+            await _userCourseHistoryService.AddHistoryAsync(userId, course);
+        }
+
+
+        [HttpPost("getUserHistoryId")]
+        public async Task GetUserHistory(Guid userId)
+        {
+            await _userCourseHistoryService.GetAllAsync(userId);
+        }
+
+        [HttpPost("getUserHistory")]
+        public async Task GetUserHistory(string login)
+        {
+            await _userCourseHistoryService.GetAllAsync(login);
         }
     }
 }
