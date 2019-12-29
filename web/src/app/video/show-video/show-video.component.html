@@ -10,7 +10,6 @@
 
     <div *ngIf="videoDocument" class="col-7">
 
-
       <div class="row">
         <div class="col-12">
           <div class="embed-responsive embed-responsive-16by9 " id="video-field">
@@ -25,31 +24,41 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-4 text-center padded-left">
+      <div class="row justify-content-between">
+        <div class="col-4 justify-content-center">
           <div class="col-12 text-center">
             <span ngbTooltip="Tagi" placement="left"><i class="fas fa-tags fa-2x"></i></span>
+          </div>
+
+          <div class="col-12 text-center">
             <ng-container>
               <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
             </ng-container>
           </div>
         </div>
 
-        <div class="col-4 text-center padded-left">
+        <div class="col-4 justify-content-center">
           <div class="col-12 text-center">
             <span ngbTooltip="Czas trwania" placement="left"><i class="fas fa-clock fa-2x"></i></span>
+          </div>
+
+          <div class="col-12 text-center">
             <span class="font-weight-bold">{{videoDocument.duration * 1000 | date:'H:mm:ss':'UTC'}}</span>
           </div>
         </div>
 
-        <div class="col-4 text-center padded-left">
-          <div class="col-12 center text-center">
+        <div class="col-4 justify-content-center">
+          <div class="col-12 text-center">
             <span ngbTooltip="Język" placement="left"><i class="fas fa-language fa-2x"></i></span>
+          </div>
+
+          <div class="col-12 text-center">
             <span class="font-weight-bold">
               {{videoDocument.language == null ? 'Brak informacji' : videoDocument.language}}
             </span>
           </div>
         </div>
+
         <br>
         <div class="row col-12 text-justify border-top video-description">
           <div class="text-justify" ngbTooltip="Opis" placement="left">
@@ -78,8 +87,6 @@
 
       </div>
     </div>
-
-
   </div>
 
 
