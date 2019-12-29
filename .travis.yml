@@ -12,6 +12,8 @@ before_script:
 script:
   - npm run build-locale
 
+before_deploy:
+  - cd web
 deploy:
   provider: firebase
   on:
