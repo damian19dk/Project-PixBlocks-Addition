@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "10.17.0"
+dist: trusty
+sudo: required
+branches:
+  only:
+    - add-travis-ci
+before_script:
+  - npm install -g @angular/cli
+  - cd web; npm install
+script:
+  - ng lint
+  - ng build --prod --base-href https://github.com/damian19dk/Project-PixBlocks-Addition/web
