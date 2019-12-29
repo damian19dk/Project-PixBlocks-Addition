@@ -17,9 +17,10 @@ namespace PixBlocks_Addition.Api.Controllers
         private readonly IUserService _userService;
         private readonly IUserCourseHistoryService _userCourseHistoryService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IUserCourseHistoryService userCourseHistoryService)
         {
             _userService = userService;
+            _userCourseHistoryService = userCourseHistoryService;
         }
 
         [HttpPut("passwordChange")]

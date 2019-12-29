@@ -13,9 +13,11 @@ namespace PixBlocks_Addition.Domain.Repositories
     public class UserCourseHistoryRepository : IUserCourseHistoryRepository
     {
         private readonly PixBlocksContext _entities;
-        public UserCourseHistoryRepository(PixBlocksContext entities)
+        private readonly IUserRepository _userRepository;
+        public UserCourseHistoryRepository(PixBlocksContext entities, IUserRepository userRepository)
         {
             _entities = entities;
+            _userRepository = userRepository;
         }
 
         public async Task AddAsync(UserCourseHistory userCourse)
@@ -24,23 +26,25 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(Guid userId) => await _entities.UserCourseHistories.Where(x => x.UserId == userId).ToListAsync();
-        
+        public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(Guid userId)
+        {
+            return await _entities.UserCourseHistories.Where(x => x.UserId == userId).ToListAsync();
+        }
+
         public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(string login)
         {
-            var user = _entities.Users.SingleOrDefault(x => x.Login == login);
+            var user = await _userRepository.GetAsync(login);
             var userId = user.Id;
             return await _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
         }
 
         public async Task RemoveAsync(Guid userId)
         {
-            var histories = _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
-            var count = _entities.UserCourseHistories.Where(x => x.Id == userId).Count();
-            if (count <= 0) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
-            for(int i=0; i<count; i++)
+            var histories = await _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
+
+            foreach (UserCourseHistory history in histories)
             {
-                 _entities.UserCourseHistories.Remove(histories.Result[i]);
+                _entities.UserCourseHistories.Remove(history);
             }
 
             await _entities.SaveChangesAsync();
@@ -51,12 +55,11 @@ namespace PixBlocks_Addition.Domain.Repositories
             var user = _entities.Users.SingleOrDefault(x => x.Login == login);
             var userId = user.Id;
 
-            var histories = _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
-            var count = _entities.UserCourseHistories.Where(x => x.Id == userId).Count();
-            if (count <= 0) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
-            for (int i = 0; i < count; i++)
+            var histories = await _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
+
+            foreach(UserCourseHistory history in histories)
             {
-                _entities.UserCourseHistories.Remove(histories.Result[i]);
+                _entities.UserCourseHistories.Remove(history);
             }
 
             await _entities.SaveChangesAsync();

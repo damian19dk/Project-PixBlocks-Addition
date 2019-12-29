@@ -44,9 +44,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
             if (_userRepository.GetAsync(login) == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
             if (_courseRepository.GetAsync(course.Id) == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
 
-            var user = _userRepository.GetAsync(login);
-            var id = _userRepository.GetId(login).Result;
-            var userCourseHistory = new UserCourseHistory(id, course);
+            var user = await _userRepository.GetAsync(login);
+
+            var userCourseHistory = new UserCourseHistory(user.Id, course);
 
             await _userCourseHistoryRepository.AddAsync(userCourseHistory);
         }
