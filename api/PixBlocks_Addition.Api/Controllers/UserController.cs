@@ -66,6 +66,11 @@ namespace PixBlocks_Addition.Api.Controllers
             await _userCourseHistoryService.AddHistoryAsync(userId, course);
         }
 
+        [HttpPost("addCourseToHistory")]
+        public async Task AddCourseToHistory(string login, Course course)
+        {
+            await _userCourseHistoryService.AddHistoryAsync(login, course);
+        }
 
         [HttpPost("getUserHistoryId")]
         public async Task GetUserHistory(Guid userId)
