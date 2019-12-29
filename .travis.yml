@@ -11,3 +11,8 @@ before_script:
   - cd web; npm install
 script:
   - npm run build-locale
+
+deploy:
+  provider: firebase
+  token:
+    secure: "1//035hZCJk2aj0MCgYIARAAGAMSNwF-L9IrOMGKhLkBSFFxPzOwufQFQJ0oftYcOrcmYukL02xgobu_n4MeVUp5FcNuQPaRSQP5uiY"
