@@ -14,5 +14,7 @@ script:
 
 deploy:
   provider: firebase
+  on:
+    branch: add-travis-ci
   token:
     secure: "1//035hZCJk2aj0MCgYIARAAGAMSNwF-L9IrOMGKhLkBSFFxPzOwufQFQJ0oftYcOrcmYukL02xgobu_n4MeVUp5FcNuQPaRSQP5uiY"
