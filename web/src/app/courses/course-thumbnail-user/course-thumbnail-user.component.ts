@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseDocument} from 'src/app/models/courseDocument.model';
 
 @Component({
-  selector: 'app-courses-browse',
-  templateUrl: './courses-browse.component.html',
-  styleUrls: ['./courses-browse.component.css']
+  selector: 'app-course-thumbnail-user',
+  templateUrl: './course-thumbnail-user.component.html',
+  styleUrls: ['./course-thumbnail-user.component.css']
 })
-export class CoursesBrowseComponent implements OnInit {
+export class CourseThumbnailUserComponent implements OnInit {
 
   @Input() course: CourseDocument;
 

@@ -5,10 +5,10 @@ import {LoadingService} from '../../services/loading.service';
 
 @Component({
   selector: 'app-courses-view',
-  templateUrl: './courses-view.component.html',
-  styleUrls: ['./courses-view.component.css']
+  templateUrl: './courses-view-under-player-user.component.html',
+  styleUrls: ['./courses-view-under-player-user.component.css']
 })
-export class CoursesViewComponent implements OnInit {
+export class CoursesViewUnderPlayerUserComponent implements OnInit {
 
   page = 1;
   count: number;

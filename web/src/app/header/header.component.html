@@ -13,7 +13,6 @@
     <div class="main-navbar">
       <ul class="navbar-nav">
         <app-search-bar *appHasRole="['user', 'admin']"></app-search-bar>
-        <app-select-languages [languages]="languages"></app-select-languages>
         <button (click)="afterClick()" *appHasRole="['admin']" color="primary" i18n mat-stroked-button
                 routerLink="/videos">Dodaj wideo
         </button>
@@ -37,6 +36,7 @@
                 routerLink="/login">
           Zaloguj
         </button>
+        <app-select-languages [languages]="languages"></app-select-languages>
       </ul>
     </div>
   </div>

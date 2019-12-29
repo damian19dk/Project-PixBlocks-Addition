@@ -18,13 +18,13 @@ import {NewVideoComponent} from './video/new-video/new-video.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
 import {VideoThumbnailComponent} from './video/video-thumbnail/video-thumbnail.component';
 import {VideoService} from './services/video.service';
-import {CourseManagerComponent} from './courses/course-manager/course-manager.component';
-import {NewCourseComponent} from './courses/new-course/new-course.component';
+import {CourseManagerAdminComponent} from './courses/course-manager-admin/course-manager-admin.component';
+import {CourseNewAdminComponent} from './courses/course-new-admin/course-new-admin.component';
 import {LoadingService} from './services/loading.service';
 import {FunctionalityNotPreparedComponent} from './error-pages/functionality-not-prepared/functionality-not-prepared.component';
 import {CourseService} from './services/course.service';
 import {HeadersInterceptor} from './interceptors/headers-interceptor';
-import {CourseThumbnailComponent} from './courses/course-thumbnail/course-thumbnail.component';
+import {CourseThumbnailAdminComponent} from './courses/course-thumbnail-admin/course-thumbnail-admin.component';
 import {SearchBarComponent} from './common/search-bar/search-bar.component';
 import {UnauthorizedInterceptor} from './interceptors/unauthorized-interceptor';
 import {ProfileComponent} from './user/profile/profile.component';
@@ -43,11 +43,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import {CoursesViewComponent} from './courses/courses-view/courses-view.component';
+import {CoursesViewUnderPlayerUserComponent} from './courses/courses-view-under-player-user/courses-view-under-player-user.component';
 import {VideosViewComponent} from './video/videos-view/videos-view.component';
 import {VideoManagerComponent} from './video/video-manager/video-manager.component';
-import {CoursesBrowseComponent} from './courses/courses-browse/courses-browse.component';
-import { CoursesEditComponent } from './courses/courses-edit/courses-edit.component';
+import {CourseThumbnailUserComponent} from './courses/course-thumbnail-user/course-thumbnail-user.component';
+import {CoursesEditAdminComponent} from './courses/courses-edit-admin/courses-edit-admin.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {CoursesViewListUserComponent} from './courses/courses-view-list-user/courses-view-list-user.component';
+import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 
 @NgModule({
   declarations: [
@@ -64,10 +67,10 @@ import { CoursesEditComponent } from './courses/courses-edit/courses-edit.compon
     VideoThumbnailComponent,
     ShortTextPipe,
     SafePipe,
-    CourseManagerComponent,
-    NewCourseComponent,
+    CourseManagerAdminComponent,
+    CourseNewAdminComponent,
     FunctionalityNotPreparedComponent,
-    CourseThumbnailComponent,
+    CourseThumbnailAdminComponent,
     SearchBarComponent,
     ProfileComponent,
     ChangePasswordComponent,
@@ -75,11 +78,13 @@ import { CoursesEditComponent } from './courses/courses-edit/courses-edit.compon
     HasRoleDirective,
     SelectLanguagesComponent,
     HomeForLoggedComponent,
-    CoursesViewComponent,
+    CoursesViewUnderPlayerUserComponent,
     VideosViewComponent,
     VideoManagerComponent,
-    CoursesBrowseComponent,
-    CoursesEditComponent
+    CourseThumbnailUserComponent,
+    CoursesEditAdminComponent,
+    CoursesViewListUserComponent,
+    CourseListElementUserComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +107,8 @@ import { CoursesEditComponent } from './courses/courses-edit/courses-edit.compon
     MatCheckboxModule,
     MatRadioModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ],
   exports: [
     HasRoleDirective

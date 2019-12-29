@@ -10,11 +10,11 @@ import {LoadingService} from '../../services/loading.service';
 import {FormModal} from '../../models/formModal';
 
 @Component({
-  selector: 'app-course-thumbnail',
-  templateUrl: './course-thumbnail.component.html',
-  styleUrls: ['./course-thumbnail.component.css']
+  selector: 'app-course-thumbnail-admin',
+  templateUrl: './course-thumbnail-admin.component.html',
+  styleUrls: ['./course-thumbnail-admin.component.css']
 })
-export class CourseThumbnailComponent extends FormModal implements OnInit {
+export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
   @Output() editCourseComponent: EventEmitter<any> = new EventEmitter<any>();

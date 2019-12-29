@@ -28,7 +28,7 @@ export class TagService {
   }
 
   toTagsList(tags: any) {
-    if (tags === null || tags.length === 0) {
+    if (tags === undefined || tags === null || tags.length === 0) {
       return null;
     }
     return tags.join().split(',');

@@ -64,9 +64,10 @@ export class ShowVideoComponent implements OnInit {
     const mediaId = this.route.snapshot.paramMap.get('mediaId');
     this.videoService.getVideo(mediaId).subscribe(
       (data: VideoDocument) => {
-        this.videoDocument = data;
+        this.videoDocument = data[0]
         this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
         this.loadingService.unload();
+        console.log(this.videoDocument);
       },
       error => {
         this.error = error;

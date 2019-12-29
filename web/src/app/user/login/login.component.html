@@ -1,46 +1,48 @@
-<div class="container">
-  <div *ngIf="error" class="alert alert-danger">
-    {{error}}
+<div id="login">
+  <div class="container">
+    <div *ngIf="error" class="alert alert-danger">
+      {{error}}
+    </div>
+
+    <form (ngSubmit)="signIn()" [formGroup]="form">
+
+      <div class="form-group col-sm-4 mx-auto">
+        <label i18n>Nazwa użytkownika:</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-user"></i></span>
+          <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" class="form-control"
+                 formControlName="username" i18n-placeholder placeholder="Wpisz nazwę użytkownika" type="text">
+
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required" i18n>Pole jest puste</div>
+            <div *ngIf="f.username.errors.maxlength" i18n>Login może mieć maksymalnie 20 znaków</div>
+            <div *ngIf="f.username.errors.pattern" i18n>Login nie może zawierać spacji</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4 mx-auto">
+        <label i18n>Hasło:</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" class="form-control"
+                 formControlName="password" i18n-placeholder placeholder="Wpisz hasło" type="password">
+
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required" i18n>Pole jest puste</div>
+            <div *ngIf="f.password.errors.maxlength" i18n>Hasło może mieć maksymalnie 20 znaków</div>
+            <div *ngIf="f.password.errors.pattern" i18n>Hasło nie może zawierać spacji</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4 mx-auto">
+
+        <button [class.spinner]="loading" [disabled]="loading" color="primary" mat-raised-button>
+          Zaloguj się
+        </button>
+
+      </div>
+    </form>
   </div>
-
-  <form [formGroup]="form" (ngSubmit)="signIn()">
-
-    <div class="form-group col-sm-4 mx-auto">
-      <label i18n>Nazwa użytkownika:</label>
-      <div class="input-group">
-        <span class="input-group-text"><i class="fa fa-user"></i></span>
-        <input [ngClass]="{'is-invalid' : submitted && f.username.errors}" formControlName="username"
-               type="text" class="form-control" i18n-placeholder placeholder="Wpisz nazwę użytkownika">
-
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-          <div i18n *ngIf="f.username.errors.required">Pole jest puste</div>
-          <div i18n *ngIf="f.username.errors.maxlength">Login może mieć maksymalnie 20 znaków</div>
-          <div i18n *ngIf="f.username.errors.pattern">Login nie może zawierać spacji</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group col-sm-4 mx-auto">
-      <label i18n>Hasło:</label>
-      <div class="input-group">
-        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-        <input [ngClass]="{'is-invalid' : submitted && f.password.errors}" formControlName="password"
-               type="password" class="form-control" i18n-placeholder placeholder="Wpisz hasło">
-
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div i18n *ngIf="f.password.errors.required">Pole jest puste</div>
-          <div i18n *ngIf="f.password.errors.maxlength">Hasło może mieć maksymalnie 20 znaków</div>
-          <div i18n *ngIf="f.password.errors.pattern">Hasło nie może zawierać spacji</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group col-sm-4 mx-auto">
-
-      <button mat-raised-button color="primary" [class.spinner]="loading" [disabled]="loading">
-        Zaloguj się
-      </button>
-
-    </div>
-  </form>
 </div>

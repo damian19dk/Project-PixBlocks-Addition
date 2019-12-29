@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {CourseDocument} from '../../models/courseDocument.model';
 import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
+import {CourseDocument} from '../../models/courseDocument.model';
 
 @Component({
-  selector: 'app-courses-edit',
-  templateUrl: './courses-edit.component.html',
-  styleUrls: ['./courses-edit.component.css']
+  selector: 'app-courses-view-list-user',
+  templateUrl: './courses-view-list-user.component.html',
+  styleUrls: ['./courses-view-list-user.component.css']
 })
-export class CoursesEditComponent implements OnInit {
+export class CoursesViewListUserComponent implements OnInit {
 
   page = 1;
   count: number;
@@ -44,12 +44,9 @@ export class CoursesEditComponent implements OnInit {
   getCount() {
     return this.courseService.count().subscribe(
       data => {
+        // tslint:disable-next-line:radix
         this.count = parseInt(data);
-      },
-      error => {
-
       }
     );
   }
 }
-
