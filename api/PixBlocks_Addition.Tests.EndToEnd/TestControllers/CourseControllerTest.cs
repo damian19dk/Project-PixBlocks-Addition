@@ -123,6 +123,18 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             Assert.IsTrue(currentPolishCount == expectedPolishCount);
         }
 
+        [Test]
+        public async Task remove_course_should_pass()
+        {
+            var courseTitle = "Test course to remove";
+            var createResponse = await createCourseAsync(courseTitle, "test description", "pl", "false");
+            createResponse.EnsureSuccessStatusCode();
+
+            var course = (await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/title?title=" + courseTitle)).First();
+            var deleteResponse = await httpClient.DeleteAsync("api/course?id=" + course.Id);
+            deleteResponse.EnsureSuccessStatusCode();
+        }
+
         private bool checkCourseData(IDictionary<string, string> data, CourseDto course)
         {
             foreach (var p in data)
