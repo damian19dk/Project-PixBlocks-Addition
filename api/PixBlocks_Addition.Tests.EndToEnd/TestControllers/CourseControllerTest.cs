@@ -94,8 +94,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 
             await sendMultiPartAsync(address, "POST", parameters);
 
-            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "pl");
+            httpClient.SetLanguage("pl");
 
             var response = await httpClient.GetAsync($"api/course/title?title={expectedTitle}");
             var responseString = await response.Content.ReadAsStringAsync();
