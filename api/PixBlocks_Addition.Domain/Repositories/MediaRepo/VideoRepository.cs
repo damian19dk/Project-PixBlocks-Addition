@@ -61,9 +61,9 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<int> CountAsync(string language = "")
         {
             if (String.IsNullOrEmpty(language))
-                return await _videos.CountAsync(v => v.Language == language);
-            else
                 return await _videos.CountAsync();
+            else
+                return await _videos.CountAsync(v => v.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

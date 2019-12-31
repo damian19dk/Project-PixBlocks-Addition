@@ -63,7 +63,7 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
             if(String.IsNullOrEmpty(language))
                 return await _courses.CountAsync();
             else
-                return await _courses.CountAsync(x => x.Language == language);
+                return await _courses.CountAsync(x => x.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
