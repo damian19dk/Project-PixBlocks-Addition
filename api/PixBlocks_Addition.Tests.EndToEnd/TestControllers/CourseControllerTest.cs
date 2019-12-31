@@ -7,6 +7,7 @@ using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -101,6 +102,26 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var course = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(responseString).Single();
 
             Assert.IsTrue(checkCourseData(parameters, course));
+        }
+
+        [Test]
+        public async Task count_should_return_correct_value_for_all_languages()
+        {
+            httpClient.SetLanguage("en");
+
+            var englishCourses = await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/all?page=1&count=100");
+            var expectedEnglishCount = englishCourses.Count();
+            var currentEnglishCount = await httpClient.GetAsync<int>("api/course/count");
+
+            Assert.IsTrue(currentEnglishCount == expectedEnglishCount);
+
+            httpClient.SetLanguage("pl");
+
+            var polishCourses = await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/all?page=1&count=100");
+            var expectedPolishCount = polishCourses.Count();
+            var currentPolishCount = await httpClient.GetAsync<int>("api/course/count");
+
+            Assert.IsTrue(currentPolishCount == expectedPolishCount);
         }
 
         private bool checkCourseData(IDictionary<string, string> data, CourseDto course)
