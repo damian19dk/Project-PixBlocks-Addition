@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PixBlocks_Addition.Api;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
+using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 .UseStartup<Startup>();
             server = new TestServer(webBuilder);
             httpClient = server.CreateClient();
-            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+            httpClient.SetLanguage("en");
             httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthorizationHeader.Admin);
             Init().Wait();
         }
