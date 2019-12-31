@@ -87,11 +87,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => _mapper.Map<IEnumerable<CourseDto>>(await _courseRepository.GetAllByTagsAsync(tags));
+            => _mapper.Map<IEnumerable<CourseDto>>(await _courseRepository.GetAllByTagsAsync(tags, _localizer.Language));
 
         public async Task<IEnumerable<CourseDto>> GetAllAsync(int page, int count = 10)
         {
-            var result = await _courseRepository.GetAllAsync(page, count);
+            var result = await _courseRepository.GetAllAsync(page, count, _localizer.Language);
             return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
         }
 
