@@ -10,6 +10,8 @@ namespace PixBlocks_Addition.Domain.Entities
         public Guid UserId { get; protected set; }
         public Course Course { get; protected set; }
 
+
+
         public UserCourseHistory(Guid userId, Course course)
         {
             Id = Guid.NewGuid();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Entities;
-using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +14,12 @@ namespace PixBlocks_Addition.Domain.Repositories
     {
         private readonly PixBlocksContext _entities;
         private readonly IUserRepository _userRepository;
+        private readonly IQueryable<UserCourseHistory> _userCourseHistories;
+        private readonly ICourseRepository _courseRepository;
+
         public UserCourseHistoryRepository(PixBlocksContext entities, IUserRepository userRepository)
         {
+            _userCourseHistories = entities.UserCourseHistories.Include(c => c.Course);
             _entities = entities;
             _userRepository = userRepository;
         }
@@ -28,19 +32,21 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(Guid userId)
         {
-            return await _entities.UserCourseHistories.Where(x => x.UserId == userId).ToListAsync();
+            return await _userCourseHistories.Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(string login)
         {
             var user = await _userRepository.GetAsync(login);
             var userId = user.Id;
-            return await _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
+
+
+            return await _userCourseHistories.Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task RemoveAsync(Guid userId)
         {
-            var histories = await _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
+            var histories = await _userCourseHistories.Where(x => x.UserId == userId).ToListAsync();
 
             foreach (UserCourseHistory history in histories)
             {
@@ -55,7 +61,7 @@ namespace PixBlocks_Addition.Domain.Repositories
             var user = _entities.Users.SingleOrDefault(x => x.Login == login);
             var userId = user.Id;
 
-            var histories = await _entities.UserCourseHistories.Where(x => x.Id == userId).ToListAsync();
+            var histories = await _entities.UserCourseHistories.Where(x => x.UserId == userId).ToListAsync();
 
             foreach(UserCourseHistory history in histories)
             {

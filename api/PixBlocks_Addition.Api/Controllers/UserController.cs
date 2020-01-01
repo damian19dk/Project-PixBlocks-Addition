@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -62,27 +64,27 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [HttpPost("addCourseToHistoryId")]
-        public async Task AddCourseToHistory(Guid userId, Course course)
+        public async Task AddCourseToHistory(Guid userId, Guid courseId)
         {
-            await _userCourseHistoryService.AddHistoryAsync(userId, course);
+            await _userCourseHistoryService.AddHistoryAsync(userId, courseId);
         }
 
         [HttpPost("addCourseToHistory")]
-        public async Task AddCourseToHistory(string login, Course course)
+        public async Task AddCourseToHistory(string login, Guid courseId)
         {
-            await _userCourseHistoryService.AddHistoryAsync(login, course);
+            await _userCourseHistoryService.AddHistoryAsync(login, courseId);
         }
 
         [HttpPost("getUserHistoryId")]
-        public async Task GetUserHistory(Guid userId)
+        public async Task<IEnumerable<CourseDto>> GetUserHistory(Guid userId)
         {
-            await _userCourseHistoryService.GetAllAsync(userId);
+            return await _userCourseHistoryService.GetAllAsync(userId);
         }
 
         [HttpPost("getUserHistory")]
-        public async Task GetUserHistory(string login)
+        public async Task<IEnumerable<CourseDto>> GetUserHistory(string login)
         {
-            await _userCourseHistoryService.GetAllAsync(login);
+            return await _userCourseHistoryService.GetAllAsync(login);
         }
     }
 }
