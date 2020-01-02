@@ -24,6 +24,7 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<History> Histories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<CourseProgress> CoursesProgresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
