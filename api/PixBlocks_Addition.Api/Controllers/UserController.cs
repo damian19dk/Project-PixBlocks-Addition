@@ -75,13 +75,13 @@ namespace PixBlocks_Addition.Api.Controllers
             await _userCourseHistoryService.AddHistoryAsync(login, courseId);
         }
 
-        [HttpPost("getUserHistoryId")]
+        [HttpGet("getUserHistoryId")]
         public async Task<IEnumerable<CourseDto>> GetUserHistory(Guid userId)
         {
             return await _userCourseHistoryService.GetAllAsync(userId);
         }
 
-        [HttpPost("getUserHistory")]
+        [HttpGet("getUserHistory")]
         public async Task<IEnumerable<CourseDto>> GetUserHistory(string login)
         {
             return await _userCourseHistoryService.GetAllAsync(login);
