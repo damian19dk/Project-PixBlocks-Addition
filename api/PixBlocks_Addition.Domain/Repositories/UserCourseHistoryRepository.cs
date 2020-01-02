@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Entities;
-using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,6 @@ namespace PixBlocks_Addition.Domain.Repositories
         private readonly PixBlocksContext _entities;
         private readonly IUserRepository _userRepository;
         private readonly IQueryable<UserCourseHistory> _userCourseHistories;
-        private readonly ICourseRepository _courseRepository;
 
         public UserCourseHistoryRepository(PixBlocksContext entities, IUserRepository userRepository)
         {
