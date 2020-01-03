@@ -64,9 +64,8 @@ export class NewVideoComponent extends Form implements OnInit {
     this.dataDto.parentId = this.form.value.parentId.id;
     this.dataDto.video = this.fileToUpload;
     const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
+    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
-    console.log(this.dataDto);
 
     this.videoService.add(formData)
       .subscribe(

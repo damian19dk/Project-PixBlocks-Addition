@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "10.17.0"
+dist: trusty
+sudo: required
+branches:
+  only:
+    - add-travis-ci
+before_script:
+  - npm install -g @angular/cli
+  - cd web; npm install
+script:
+  - npm run build-locale
+
+before_deploy:
+  - cd web
+deploy:
+  provider: firebase
+  on:
+    branch: add-travis-ci
+  token:
+    secure: "1//035hZCJk2aj0MCgYIARAAGAMSNwF-L9IrOMGKhLkBSFFxPzOwufQFQJ0oftYcOrcmYukL02xgobu_n4MeVUp5FcNuQPaRSQP5uiY"

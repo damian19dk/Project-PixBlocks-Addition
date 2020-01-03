@@ -10,7 +10,9 @@
   </ng-template>
 
   <form [formGroup]="form" class="d-inline-flex align-self-center">
-    <input i18n-placeholder class="form-control empty d-inline-flex align-self-center" formControlName="searchPhrase" type="text"
-      [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt" placeholder="&#xF002; Szukaj kursu" />
+    <input i18n-placeholder class="form-control empty d-inline-flex align-self-center" formControlName="searchPhrase"
+           type="text"
+           [inputFormatter]="formatter" [ngbTypeahead]="search" [resultTemplate]="rt"
+           placeholder="&#xf02b; Szukaj kursu"/>
   </form>
 </div>
