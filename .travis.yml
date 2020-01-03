@@ -5,19 +5,11 @@ dist: trusty
 sudo: required
 branches:
   only:
-    - add-travis-ci
+    - fe-feature-128
 before_install:
   - npm install -g @angular/cli
   - cd web; npm install
 install:
   - npm run build-locale
-
-before_deploy:
-  - cd web
-deploy:
-  skip_cleanup: true
-  provider: firebase
-  on:
-    branch: fe-feature-128
-  token:
-    secure: "1//035hZCJk2aj0MCgYIARAAGAMSNwF-L9IrOMGKhLkBSFFxPzOwufQFQJ0oftYcOrcmYukL02xgobu_n4MeVUp5FcNuQPaRSQP5uiY"
+  - npm install -g firebase-tools
+  - firebase deploy --token "$FIREBASE_TOKEN"
