@@ -31,9 +31,19 @@
 <!--</section>-->
 
 <section>
-  <div class="container d-flex flex-row justify-content-center flex-wrap ">
-    <app-course-thumbnail-admin (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course
-                                class="p-2 card-content">
-    </app-course-thumbnail-admin>
+  <div (cdkDropListDropped)="drop($event)" cdkDropList cdkDropListOrientation="vertical"
+       class="example-list container justify-content-center">
+    <app-course-list-element-admin (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course
+                                   cdkDrag
+                                   class=" p-2 card-content example-box">
+    </app-course-list-element-admin>
   </div>
 </section>
+
+<!--<section>-->
+<!--  <div class="container d-flex flex-row justify-content-center flex-wrap ">-->
+<!--    <app-course-thumbnail-admin (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course-->
+<!--                                class="p-2 card-content">-->
+<!--    </app-course-thumbnail-admin>-->
+<!--  </div>-->
+<!--</section>-->
