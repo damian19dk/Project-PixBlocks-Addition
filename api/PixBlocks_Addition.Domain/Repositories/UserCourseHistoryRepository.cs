@@ -17,7 +17,7 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public UserCourseHistoryRepository(PixBlocksContext entities, IUserRepository userRepository)
         {
-            _userCourseHistories = entities.UserCourseHistories.Include(c => c.Course);
+            _userCourseHistories = entities.UserCourseHistories.Include(c => c.Courses);
             _entities = entities;
             _userRepository = userRepository;
         }
@@ -28,18 +28,18 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(Guid userId)
+        public async Task<UserCourseHistory> GetAllAsync(Guid userId)
         {
-            return await _userCourseHistories.Where(x => x.UserId == userId).ToListAsync();
+            return await _userCourseHistories.SingleOrDefaultAsync(x => x.UserId == userId);
         }
 
-        public async Task<IEnumerable<UserCourseHistory>> GetAllAsync(string login)
+        public async Task<UserCourseHistory> GetAllAsync(string login)
         {
             var user = await _userRepository.GetAsync(login);
             var userId = user.Id;
 
 
-            return await _userCourseHistories.Where(x => x.UserId == userId).ToListAsync();
+            return await _userCourseHistories.SingleOrDefaultAsync(x => x.UserId == userId);
         }
 
         public async Task RemoveAsync(Guid userId)

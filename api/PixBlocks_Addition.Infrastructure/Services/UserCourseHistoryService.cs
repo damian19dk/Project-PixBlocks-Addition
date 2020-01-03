@@ -67,9 +67,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var Ids = await _userCourseHistoryRepository.GetAllAsync(userId);
 
             List<Course> result = new List<Course>();
-            foreach (UserCourseHistory Id in Ids)
+            foreach (Course Id in Ids.Courses)
             {
-                result.Add(Id.Course);
+                result.Add(Id);
             }
             if (result.Count == 0) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
 
@@ -85,9 +85,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var Ids = await _userCourseHistoryRepository.GetAllAsync(user.Id);
 
             List<Course> result = new List<Course>();
-            foreach (UserCourseHistory Id in Ids)
+            foreach (Course Id in Ids.Courses)
             {
-                result.Add(Id.Course);
+                result.Add(Id);
             }
             if (result.Count == 0) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
             return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);

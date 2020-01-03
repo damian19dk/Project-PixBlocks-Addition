@@ -8,7 +8,7 @@ namespace PixBlocks_Addition.Domain.Entities
     {
         public Guid Id { get; protected set; }
         public Guid UserId { get; protected set; }
-        public Course Course { get; protected set; }
+        public ICollection<Course> Courses { get; protected set; } = new HashSet<Course>();
 
 
 
@@ -16,7 +16,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             Id = Guid.NewGuid();
             UserId = userId;
-            Course = course;
+            Courses.Add(course);
         }
 
         protected UserCourseHistory()
