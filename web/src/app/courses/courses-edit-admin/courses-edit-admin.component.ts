@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CourseDocument} from '../../models/courseDocument.model';
 import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
-import {CdkDragDrop, CdkDragEnter, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-courses-edit-admin',
@@ -52,14 +52,23 @@ export class CoursesEditAdminComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event.previousIndex + ' ' + event.currentIndex);
+    // console.log(event.previousIndex + ' ' + event.currentIndex);
+
     moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
+    this.courseService.changeOrder(this.courses.map(e => e.id)).subscribe(
+      data => {
+      },
+      error => {
+        this.error = error;
+      }
+    );
   }
 
-  entered(event: CdkDragEnter) {
-    console.log(event.currentIndex);
-    moveItemInArray(this.courses, event.item.data, event.container.data);
-  }
+
+  // entered(event: CdkDragEnter) {
+  //   console.log(event.currentIndex);
+  //   moveItemInArray(this.courses, event.item.data, event.container.data);
+  // }
 
 }
 
