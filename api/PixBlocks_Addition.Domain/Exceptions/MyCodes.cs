@@ -47,5 +47,6 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string MissingUser => "Nie ma takiego użytkownika!";//1015
         public static string MissingCourse => "Nie ma takiego kursu!";//2025
         public static string MissingHistory => "Brak historii użytkownika!";//1016
+        public static string SameCourseInUserHistory => "Kurs już znajduje się w histori użytkownika!";//1017
     }
 }

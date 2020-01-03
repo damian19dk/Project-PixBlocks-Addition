@@ -39,11 +39,28 @@ namespace PixBlocks_Addition.Infrastructure.Services
             if (_userRepository.GetAsync(userId) == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
             if (_courseRepository.GetAsync(courseId) == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
 
-            var course = await _courseRepository.GetAsync(courseId);
-    
-            var userCourseHistory = new UserCourseHistory(userId, course);
 
-            await _userCourseHistoryRepository.AddAsync(userCourseHistory);
+            var user = await _userRepository.GetAsync(userId);
+
+            if (await _userCourseHistoryRepository.GetAllAsync(user.Id) != null)
+            {
+                var history = await _userCourseHistoryRepository.GetAllAsync(user.Id);
+                var course = await _courseRepository.GetAsync(courseId);
+                foreach (Course check in history.Courses)
+                {
+                    if (check.Id == courseId) throw new MyException(MyCodesNumbers.SameCourseInUserHistory, MyCodes.SameCourseInUserHistory);
+                }
+                history.Courses.Add(course);
+                await _userCourseHistoryRepository.UpdateAsync(history);
+            }
+            else
+            {
+                var course = await _courseRepository.GetAsync(courseId);
+
+                var userCourseHistory = new UserCourseHistory(user, course);
+
+                await _userCourseHistoryRepository.AddAsync(userCourseHistory);
+            }
         }
 
         public async Task AddHistoryAsync(string login, Guid courseId)
@@ -53,11 +70,25 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
             var user = await _userRepository.GetAsync(login);
 
-            var course = await _courseRepository.GetAsync(courseId);
+            if (await _userCourseHistoryRepository.GetAllAsync(user.Id) != null)
+            {
+                var history = await _userCourseHistoryRepository.GetAllAsync(user.Id);
+                var course = await _courseRepository.GetAsync(courseId);
+                foreach (Course check in history.Courses)
+                {
+                    if (check.Id == courseId) throw new MyException(MyCodesNumbers.SameCourseInUserHistory, MyCodes.SameCourseInUserHistory);
+                }
+                history.Courses.Add(course);
+                await _userCourseHistoryRepository.UpdateAsync(history);
+            }
+            else
+            {
+                var course = await _courseRepository.GetAsync(courseId);
 
-            var userCourseHistory = new UserCourseHistory(user.Id, course);
+                var userCourseHistory = new UserCourseHistory(user, course);
 
-            await _userCourseHistoryRepository.AddAsync(userCourseHistory);
+                await _userCourseHistoryRepository.AddAsync(userCourseHistory);
+            }
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllAsync(Guid userId)

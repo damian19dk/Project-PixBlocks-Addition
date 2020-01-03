@@ -36,21 +36,21 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<UserCourseHistory> GetAllAsync(Guid userId)
         {
-            return await _userCourseHistories.SingleOrDefaultAsync(x => x.UserId == userId);
+            var user = await _userRepository.GetAsync(userId);
+            return await _userCourseHistories.SingleOrDefaultAsync(x => x.User == user);
         }
 
         public async Task<UserCourseHistory> GetAllAsync(string login)
         {
             var user = await _userRepository.GetAsync(login);
-            var userId = user.Id;
 
-
-            return await _userCourseHistories.SingleOrDefaultAsync(x => x.UserId == userId);
+            return await _userCourseHistories.SingleOrDefaultAsync(x => x.User == user);
         }
 
         public async Task RemoveAsync(Guid userId)
         {
-            var histories = await _userCourseHistories.Where(x => x.UserId == userId).ToListAsync();
+            var user = await _userRepository.GetAsync(userId);
+            var histories = await _userCourseHistories.Where(x => x.User == user).ToListAsync();
 
             foreach (UserCourseHistory history in histories)
             {
@@ -63,9 +63,8 @@ namespace PixBlocks_Addition.Domain.Repositories
         public async Task RemoveAsync(string login)
         {
             var user = _entities.Users.SingleOrDefault(x => x.Login == login);
-            var userId = user.Id;
 
-            var histories = await _entities.UserCourseHistories.Where(x => x.UserId == userId).ToListAsync();
+            var histories = await _entities.UserCourseHistories.Where(x => x.User == user).ToListAsync();
 
             foreach(UserCourseHistory history in histories)
             {

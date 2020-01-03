@@ -24,6 +24,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string WrongUserId => "1014";
         public static string MissingUser => "1015";
         public static string MissingHistory => "1016";
+        public static string SameCourseInUserHistory => "1017";
         //kody z 2*** dotyczą treści
         public static string TooShortDescription => "2000";
         public static string TooLongDescription => "2001";
