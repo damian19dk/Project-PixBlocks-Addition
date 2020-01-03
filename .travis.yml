@@ -5,7 +5,8 @@ dist: trusty
 sudo: required
 branches:
   only:
-    - fe-feature-128
+    - develop
+    - master
 before_install:
   - npm install -g @angular/cli
   - cd web; npm install
