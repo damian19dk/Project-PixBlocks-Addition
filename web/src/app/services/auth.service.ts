@@ -21,16 +21,16 @@ export class AuthService {
     private loadingService: LoadingService,
     private jwtHelper: JwtHelperService) {
 
-    // const diff = new Date().getTime() - new Date(localStorage.getItem('TokenExpires')).getTime() / 3600;
-    // if (localStorage.getItem('Token') !== undefined && diff >= 1) {
-    //   this.clearUserData();
-    // }
+    const diff = new Date().getTime() - new Date(localStorage.getItem('TokenExpires')).getTime() / 3600;
+    if (localStorage.getItem('Token') !== undefined && diff >= 1) {
+      this.clearUserData();
+    }
 
     this.roleUpdates$
       .pipe(scan((acc, next) => next, []))
       .subscribe(this.roles$);
 
-    setInterval(() => this.autoRefresh(), 1000); // 30000ms = 5min
+    setInterval(() => this.autoRefresh(), 2000); // 30000ms = 5min
   }
 
   // tslint:disable-next-line:variable-name
@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   autoRefresh(): void {
-    if (!this.isAuthenticated() && this.isLogged()) {
+    if (!this.isAuthenticated() && localStorage.getItem('Token') !== undefined) {
       this.isTokenRefreshing = true;
       this.refreshToken().pipe(takeWhile(() => this.isTokenRefreshing)).subscribe(
         data => {
