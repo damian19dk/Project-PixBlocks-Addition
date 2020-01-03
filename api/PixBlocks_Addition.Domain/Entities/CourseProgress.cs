@@ -11,16 +11,16 @@ namespace PixBlocks_Addition.Domain.Entities
         private readonly ICourseRepository _courseRepository;
 
         public Guid Id { get; protected set; }
-        public Guid UserId { get; protected set; }
-        public Guid CourseId { get; protected set; }
+        public User User { get; protected set; }
+        public ICollection<Course> Courses { get; protected set; } = new HashSet<Course>();
         public int TimeWatched { get; protected set; }
         public int PercentageWatched { get; protected set; } 
 
-        public CourseProgress(Guid userId, Guid courseId, int timeWatched = 0, int percentedWatched = 0)
+        public CourseProgress(User user, Course course, int timeWatched = 0, int percentedWatched = 0)
         {
             Id = Guid.NewGuid();
-            UserId = userId;
-            CourseId = courseId;
+            User = user;
+            Courses.Add(course);
             TimeWatched = timeWatched;
             PercentageWatched = percentedWatched; 
         }
