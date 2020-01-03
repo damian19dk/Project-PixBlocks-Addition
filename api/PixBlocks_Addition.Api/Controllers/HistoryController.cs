@@ -60,5 +60,17 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             return await _userCourseHistoryService.GetAllAsync(login);
         }
+
+        [HttpPut("clearUserHistoryId")]
+        public async Task ClearUserHistory(Guid userId)
+        {
+            await _userCourseHistoryService.CleanUserHistory(userId);
+        }
+
+        [HttpPut("clearUserHistory")]
+        public async Task ClearUserHistory(string login)
+        {
+            await _userCourseHistoryService.CleanUserHistory(login);
+        }
     }
 }

@@ -108,5 +108,24 @@ namespace PixBlocks_Addition.Infrastructure.Services
             
             await _userCourseHistoryRepository.RemoveAsync(login);
         }
+
+        public async Task CleanUserHistory(string login)
+        {
+            var user = await _userRepository.GetAsync(login);
+            var progres = await _userCourseHistoryRepository.GetAllAsync(login);
+
+            progres.Courses.Clear();
+
+            await _userCourseHistoryRepository.UpdateAsync(progres);
+        }
+
+        public async Task CleanUserHistory(Guid userId)
+        {
+            var progres = await _userCourseHistoryRepository.GetAllAsync(userId);
+
+            progres.Courses.Clear();
+
+            await _userCourseHistoryRepository.UpdateAsync(progres);
+        }
     }
 }

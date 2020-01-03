@@ -16,5 +16,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         Task<IEnumerable<CourseDto>> GetAllAsync(string login);
         Task RemoveAsync(Guid userId);
         Task RemoveAsync(string login);
+        Task CleanUserHistory(Guid userId);
+        Task CleanUserHistory(string login);
     }
 }

@@ -22,9 +22,15 @@ namespace PixBlocks_Addition.Domain.Repositories
             _userRepository = userRepository;
         }
 
-        public async Task AddAsync(UserCourseHistory userCourse)
+        public async Task AddAsync(UserCourseHistory userCourseHistory)
         {
-            await _entities.UserCourseHistories.AddAsync(userCourse);
+            await _entities.UserCourseHistories.AddAsync(userCourseHistory);
+            await _entities.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(UserCourseHistory userCourseHistory)
+        {
+            _entities.UserCourseHistories.Update(userCourseHistory);
             await _entities.SaveChangesAsync();
         }
 
