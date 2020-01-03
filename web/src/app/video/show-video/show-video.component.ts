@@ -100,7 +100,7 @@ export class ShowVideoComponent implements OnInit {
         this.loadingService.unload();
       },
       error => {
-        this.error = error;
+        this.courseDocument = null;
         this.loadingService.unload();
       }
     );
