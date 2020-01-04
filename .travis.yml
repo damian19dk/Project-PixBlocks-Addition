@@ -33,7 +33,7 @@ jobs:
         - dotnet build
       deploy:
         provider: azure_web_apps
-        username: $PixBlocksAddition
+        username: $$PixBlocksAddition
         password: $AZURE_PASSWORD
         site: https://pixblocksaddition.scm.azurewebsites.net/pixblocksaddition.git
         on:
