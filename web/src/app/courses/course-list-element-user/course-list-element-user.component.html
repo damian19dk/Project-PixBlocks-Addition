@@ -27,7 +27,7 @@
       <div>
         <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
                placement="bottom">{{course.courseVideos.length}}</small>
-        <small ngbTooltip="Premium"
+        <small *ngIf="course.premium" ngbTooltip="Premium"
                placement="bottom"><i class="far fa-star"></i></small>
       </div>
     </div>
