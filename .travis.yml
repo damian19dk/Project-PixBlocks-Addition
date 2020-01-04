@@ -1,16 +1,34 @@
-language: node_js
-node_js:
-  - "10.17.0"
-dist: trusty
-sudo: required
-branches:
-  only:
-    - develop
-    - master
-before_install:
-  - npm install -g @angular/cli
-  - cd web; npm install
-install:
-  - npm run build-locale
-  - npm install -g firebase-tools
-  - firebase deploy --project pixblocksaddition --token "$FIREBASE_TOKEN"
+#stages:
+#  - build
+#  - name: deploy
+#    if: branch = develop
+
+matrix:
+  include:
+    - language: node_js
+      node_js: "10.17.0"
+      dist: trusty
+      sudo: required
+      branches:
+        only:
+          - fe-feature-128
+      before_install:
+        - npm install -g @angular/cli
+        - cd web; npm install
+      install:
+        - npm run build-locale
+        - npm install -g firebase-tools
+        - firebase deploy --project pixblocksaddition --token "$FIREBASE_TOKEN"
+    - language: csharp
+      dotnet: 2.2.402
+      dist: trusty
+      sudo: required
+      branches:
+        only:
+          - fe-feature-128
+      solution: PixBlocks_Addition.sln
+      script:
+        - dotnet restore
+        - dotnet build
+
+
