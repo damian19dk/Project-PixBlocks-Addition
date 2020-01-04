@@ -31,5 +31,8 @@ jobs:
       script:
         - cd api; dotnet restore
         - dotnet build
-
-
+      deploy:
+        provider: azure_web_apps
+        username: $PixBlocksAddition
+        password: FrfpBoli0bbcQyyo0seqjz3N2GarD2j8PE5bgpbdjAbBWf023a53Rp24Rbbc
+        site: https://pixblocksaddition.scm.azurewebsites.net/pixblocksaddition.git
