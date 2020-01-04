@@ -63,6 +63,17 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
+        protected async Task<HttpResponseMessage> createCourseAsync(string title, string description, string language, bool premium)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("Title", title);
+            parameters.Add("Description", description);
+            parameters.Add("Language", language);
+            parameters.Add("Premium", premium.ToString());
+
+            return await sendMultiPartWithResponseAsync("api/course/create", "POST", parameters);
+        }
+
         protected async Task<HttpResponseMessage> sendMultiPartWithResponseAsync(string address, string method, IDictionary<string, string> parameters,
             Models.File image = null, Models.File video = null)
         {

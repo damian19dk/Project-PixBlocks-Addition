@@ -22,9 +22,9 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         public async Task create_course_with_same_title_should_fail()
         {
             var title = "Unique Title";
-            await createCourseAsync(title, "Some description", "pl", "false");
+            await createCourseAsync(title, "Some description", "pl", false);
 
-            var response = await createCourseAsync(title, "My description", "pl", "false");
+            var response = await createCourseAsync(title, "My description", "pl", false);
             var responseMessage = await response.Content.ReadAsStringAsync();
             var message = JsonConvert.DeserializeObject<ExceptionResponse>(responseMessage);
 
@@ -36,9 +36,9 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         public async Task create_course_with_same_title_but_different_language_should_pass()
         {
             var title = "Unique Title";
-            await createCourseAsync(title, "Some description", "pl", "false");
+            await createCourseAsync(title, "Some description", "pl", false);
 
-            var response = await createCourseAsync(title, "My description", "en", "false");
+            var response = await createCourseAsync(title, "My description", "en", false);
 
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
@@ -68,6 +68,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             };
             var tags = string.Join(',', CourseDto.Tags);
             var parameters = expectedCourse.GetProperties();
+
             await sendMultiPartAsync(address, "PUT", parameters);
             var response = await httpClient.GetAsync($"api/course?id={CourseDto.Id}");
             var responseString = await response.Content.ReadAsStringAsync();
@@ -93,9 +94,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             parameters.Add("Tags", expectedTags);
 
             await sendMultiPartAsync(address, "POST", parameters);
-
             httpClient.SetLanguage("pl");
-
             var response = await httpClient.GetAsync($"api/course/title?title={expectedTitle}");
             var responseString = await response.Content.ReadAsStringAsync();
             var course = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(responseString).Single();
@@ -127,7 +126,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         public async Task remove_course_should_pass()
         {
             var courseTitle = "Test course to remove";
-            var createResponse = await createCourseAsync(courseTitle, "test description", "pl", "false");
+            var createResponse = await createCourseAsync(courseTitle, "test description", "pl", false);
             createResponse.EnsureSuccessStatusCode();
 
             var course = (await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/title?title=" + courseTitle)).First();
@@ -154,17 +153,6 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 }
             }
             return true;
-        }
-
-        private async Task<HttpResponseMessage> createCourseAsync(string title, string description, string language, string premium)
-        {
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("Title", title);
-            parameters.Add("Description", description);
-            parameters.Add("Language", language);
-            parameters.Add("Premium", premium);
-
-            return await sendMultiPartWithResponseAsync("api/course/create", "POST", parameters);
         }
     }
 }
