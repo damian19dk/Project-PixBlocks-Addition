@@ -34,5 +34,7 @@ jobs:
       deploy:
         provider: azure_web_apps
         username: $PixBlocksAddition
-        password: FrfpBoli0bbcQyyo0seqjz3N2GarD2j8PE5bgpbdjAbBWf023a53Rp24Rbbc
+        password: $AZURE_PASSWORD
         site: https://pixblocksaddition.scm.azurewebsites.net/pixblocksaddition.git
+        on:
+          branch: fe-feature-128
