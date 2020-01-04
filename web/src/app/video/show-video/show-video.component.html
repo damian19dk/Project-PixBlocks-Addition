@@ -3,8 +3,8 @@
     {{error}}
   </div>
 
-  <h1 class="header padded-left">{{courseDocument.title}}</h1>
-  <h5 class="header padded-left">{{videoDocument.title}}</h5>
+  <h1 *ngIf="courseDocument" class="header padded-left">{{courseDocument.title}}</h1>
+  <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5>
 
   <div class="row">
 
@@ -70,7 +70,7 @@
     </div>
 
 
-    <div class="col">
+    <div *ngIf="courseDocument" class="col">
       <h4 class="header">Playlista:</h4>
 
       <div class="scroll list-group">
