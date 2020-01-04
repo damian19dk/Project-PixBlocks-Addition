@@ -22,11 +22,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IVideoRepository _videoRepository;
         private readonly IChangeMediaHandler<Course, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
+        private readonly IJWPlayerService _jwPlayerService;
         private readonly ILocalizationService _localizer;
 
         public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository,
             IChangeMediaHandler<Course, Course> changeMediaHandler, IResourceRepository imageRepository,
-            IResourceHandler imageHandler, IAutoMapperConfig config, ILocalizationService localizer)
+            IResourceHandler imageHandler, IAutoMapperConfig config, IJWPlayerService jwPlayerService, ILocalizationService localizer)
         {
             _changeMediaHandler = changeMediaHandler;
             _resourceHandler = imageHandler;
@@ -34,6 +35,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _mapper = config.Mapper;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
+            _jwPlayerService = jwPlayerService;
             _localizer = localizer;
         }
 
@@ -87,11 +89,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllByTagsAsync(IEnumerable<string> tags)
-            => _mapper.Map<IEnumerable<CourseDto>>(await _courseRepository.GetAllByTagsAsync(tags));
+            => _mapper.Map<IEnumerable<CourseDto>>(await _courseRepository.GetAllByTagsAsync(tags, _localizer.Language));
 
         public async Task<IEnumerable<CourseDto>> GetAllAsync(int page, int count = 10)
         {
-            var result = await _courseRepository.GetAllAsync(page, count);
+            var result = await _courseRepository.GetAllAsync(page, count, _localizer.Language);
             return _mapper.Map<IEnumerable<Course>, IEnumerable<CourseDto>>(result);
         }
 
@@ -117,6 +119,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
             course.CourseVideos.Remove(courseVideo);
             await _courseRepository.UpdateAsync(course);
+            await _videoRepository.RemoveAsync(videoId);
         }
 
         public async Task RemoveAsync(Guid id)
@@ -124,6 +127,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var course = await tryGetCourseAsync(id);
             if (course.CourseVideos != null && course.CourseVideos.Count > 0)
             {
+                foreach(var vid in course.CourseVideos)
+                {
+                    await _jwPlayerService.DeleteVideoAsync(vid.Video.MediaId);
+                    await _videoRepository.RemoveAsync(vid.Video.Id);
+                }
                 course.CourseVideos.Clear();
                 await _courseRepository.UpdateAsync(course);
             }

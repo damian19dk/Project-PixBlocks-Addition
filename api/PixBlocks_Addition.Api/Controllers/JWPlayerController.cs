@@ -10,7 +10,7 @@ using PixBlocks_Addition.Infrastructure.Services;
 
 namespace PixBlocks_Addition.Api.Controllers
 {
-    [Route("api/[controller]")] 
+    [Route("api/[controller]")]
     [ApiController]
     public class JWPlayerController : ControllerBase
     {
@@ -44,6 +44,13 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<string> CreateVideo()
         {
             return await _jwPlayer.CreateVideoAsync();
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete("delete")]
+        public async Task DeleteVideo(string mediaId)
+        {
+            await _jwPlayer.DeleteVideoAsync(mediaId);
         }
 
         [Authorize(Roles = "Administrator")]

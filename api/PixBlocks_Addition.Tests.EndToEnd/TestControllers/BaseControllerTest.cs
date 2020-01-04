@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PixBlocks_Addition.Api;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
+using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 .UseStartup<Startup>();
             server = new TestServer(webBuilder);
             httpClient = server.CreateClient();
-            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+            httpClient.SetLanguage("en");
             httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthorizationHeader.Admin);
             Init().Wait();
         }
@@ -61,6 +61,17 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var json = JsonConvert.SerializeObject(data);
 
             return new StringContent(json, Encoding.UTF8, "application/json");
+        }
+
+        protected async Task<HttpResponseMessage> createCourseAsync(string title, string description, string language, bool premium)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("Title", title);
+            parameters.Add("Description", description);
+            parameters.Add("Language", language);
+            parameters.Add("Premium", premium.ToString());
+
+            return await sendMultiPartWithResponseAsync("api/course/create", "POST", parameters);
         }
 
         protected async Task<HttpResponseMessage> sendMultiPartWithResponseAsync(string address, string method, IDictionary<string, string> parameters,
