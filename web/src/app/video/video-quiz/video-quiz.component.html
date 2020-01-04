@@ -1,0 +1,27 @@
+<div class="well col-md-12">
+
+
+    <div class="col-md-8" *ngIf="start">
+      <h5>{{currentQuestionSet.question}}</h5>
+      <div *ngFor="let o of currentQuestionSet.option">
+        <input type="radio" name="{{currentQuestionSet.id}}" value="{{o.optionid}}" [(ngModel)]="currentQuestionSet.selected" />{{o.name}}
+      </div>
+    </div>
+  
+  
+  
+  
+  <div class="col-md-4" *ngIf="start">
+      <h5>{{currentIndex+1}}/{{questions.length}}</h5>
+      <input *ngIf="(currentIndex+1) != questions.length" type="button" class="btn" value="Next" (click)="next()"/>
+  
+    </div>
+   <div class="col-md-4" >
+      <input *ngIf="!start" type="button" class="btn" value="{{buttonname}}" (click)="startQuiz()"/>
+    </div>
+    <div class="col-md-4" *ngIf="start">
+      <input type="button" class="btn" value="Submit" (click)="submit()"/>
+    </div>
+  
+    <div *ngIf="gameover"><h5>Result:  {{correct}}/{{questions.length}}</h5></div>
+  </div>
