@@ -1,27 +1,27 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {VideoDocument} from '../../models/videoDocument.model';
+import {CourseDocument} from '../../models/courseDocument.model';
 import {FormBuilder, Validators} from '@angular/forms';
+import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
 import {TagService} from '../../services/tag.service';
 import {LanguageService} from '../../services/language.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CourseDto} from '../../models/courseDto.model';
 import {FormModal} from '../../models/formModal';
-import {VideoService} from '../../services/video.service';
-import {VideoDto} from '../../models/videoDto.model';
 
 @Component({
-  selector: 'app-video-thumbnail',
-  templateUrl: './video-thumbnail.component.html',
-  styleUrls: ['./video-thumbnail.component.css']
+  selector: 'app-course-list-element-admin',
+  templateUrl: './course-list-element-admin.component.html',
+  styleUrls: ['./course-list-element-admin.component.css']
 })
-export class VideoThumbnailComponent extends FormModal implements OnInit {
+export class CourseListElementAdminComponent extends FormModal implements OnInit {
 
-  @Input() video: VideoDocument;
-  @Output() editVideoComponent: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
+  @Input() course: CourseDocument;
+  @Output() editCourseComponent: EventEmitter<any> = new EventEmitter<any>();
+  picture: string;
 
   constructor(private formBuilder: FormBuilder,
-              private videoService: VideoService,
+              private courseService: CourseService,
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
@@ -35,7 +35,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 
-    this.dataDto = new VideoDto();
+    this.dataDto = new CourseDto();
 
     this.sent = false;
     this.submitted = false;
@@ -43,17 +43,15 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.error = null;
 
     this.form = this.formBuilder.group({
-      parentId: [this.video.parentId, Validators.required],
-      mediaId: [null],
-      id: [this.video.id],
-      title: [this.video.title, Validators.required],
-      description: [this.video.description, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
-      premium: [this.video.premium],
-      tags: [this.tagService.toTagsList(this.video.tags)],
-      language: [this.video.language],
-      pictureUrl: [this.video.picture],
-      image: [null],
-      video: [null]
+      parentId: [null],
+      id: [this.course.id],
+      title: [this.course.title, Validators.required],
+      description: [this.course.description, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
+      premium: [this.course.premium],
+      tags: [this.tagService.toTagsList(this.course.tags)],
+      language: [this.course.language],
+      pictureUrl: [this.course.picture],
+      image: [null]
     });
   }
 
@@ -72,9 +70,9 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
-    this.videoService.update(formData)
+    this.courseService.update(formData)
       .subscribe(
-        () => {
+        data => {
           this.sent = true;
           this.error = null;
           this.loading = false;
@@ -88,8 +86,8 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   }
 
   remove() {
-    this.videoService.remove(this.video.id).subscribe(
-      () => {
+    this.courseService.remove(this.course.id).subscribe(
+      data => {
         this.refreshOtherThumbnails();
       },
       error => {
@@ -99,19 +97,15 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   }
 
   refreshOtherThumbnails() {
-    this.editVideoComponent.emit(null);
+    this.editCourseComponent.emit(null);
+  }
+
+  imitateImageInput() {
+    document.getElementById('image').click();
   }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
-  }
-
-  imitateFileInput() {
-    document.getElementById('video').click();
-  }
-
-  imitateImageInput() {
-    document.getElementById('image').click();
   }
 }

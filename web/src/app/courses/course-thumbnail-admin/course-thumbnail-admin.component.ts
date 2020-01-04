@@ -67,7 +67,7 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
     this.dataDto.from(this.form);
     this.dataDto.image = this.fileToUpload;
     const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags === null ? null : tags.map(e => e.text));
+    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.courseService.update(formData)

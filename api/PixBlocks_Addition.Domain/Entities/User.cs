@@ -14,7 +14,6 @@ namespace PixBlocks_Addition.Domain.Entities
         private static readonly Regex regex_login = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
         private static readonly Regex regex_mail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
-
         public Guid Id { get; protected set; }
         public string Login { get; protected set; }
         public string Email { get; protected set; }
@@ -22,7 +21,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public string Salt { get; protected set; }
         public int RoleId { get; protected set; }
         public bool IsPremium { get; protected set; }
-      
+
         public int Status { get; protected set; }
 
         public virtual Role Role { get; protected set; }

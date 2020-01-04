@@ -22,6 +22,7 @@ using PixBlocks_Addition.Infrastructure.Services.MediaServices;
 using PixBlocks_Addition.Infrastructure.Mappers;
 using System.Collections.Generic;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Reflection.Metadata;
 
 namespace PixBlocks_Addition.Api
 {
@@ -106,10 +107,12 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILocalizationService, LocalizationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserCourseHistoryService, UserCourseHistoryService>();
             services.AddScoped<IOrderService, OrderService>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserCourseHistoryRepository, UserCourseHistoryRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddTransient<CancellationTokenMiddleware>();
@@ -124,6 +127,8 @@ namespace PixBlocks_Addition.Api
                 {
                     {"Bearer", new string[] { }},
                 };
+
+                c.OperationFilter<AddRequiredHeaderParameter>();
 
                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {

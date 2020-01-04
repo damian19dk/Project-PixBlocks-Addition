@@ -21,6 +21,10 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string SameEmail => "1011";
         public static string UniqueEmail => "1012";
         public static string UniqueLogin => "1013";
+        public static string WrongUserId => "1014";
+        public static string MissingUser => "1015";
+        public static string MissingHistory => "1016";
+        public static string SameCourseInUserHistory => "1017";
         //kody z 2*** dotyczą treści
         public static string TooShortDescription => "2000";
         public static string TooLongDescription => "2001";
@@ -47,6 +51,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string SameVideo => "2022";
         public static string InvalidVideoParentId => "2023";
         public static string InvalidOrderData => "2024";
+        public static string MissingCourse => "2025";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";
