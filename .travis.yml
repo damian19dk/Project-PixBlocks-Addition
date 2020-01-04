@@ -21,8 +21,7 @@ jobs:
         - npm install -g firebase-tools
         - firebase deploy --project pixblocksaddition --token "$FIREBASE_TOKEN"
     - language: csharp
-        - dotnet: 2.2.402
-          mono: none
+      dotnet: 2.2.402
       dist: bionic
       sudo: required
       branches:
