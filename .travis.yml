@@ -12,7 +12,7 @@ jobs:
       sudo: required
       branches:
         only:
-          - fe-feature-128
+          - develop
       before_script:
         - npm install -g @angular/cli
         - cd web; npm install
@@ -26,7 +26,7 @@ jobs:
       sudo: required
       branches:
         only:
-          - fe-feature-128
+          - develop
       solution: api/PixBlocks_Addition.sln
       script:
         - cd api; dotnet restore
@@ -37,4 +37,4 @@ jobs:
         password: $AZURE_PASSWORD
         site: https://pixblocksaddition.scm.azurewebsites.net/pixblocksaddition.git
         on:
-          branch: fe-feature-128
+          branch: develop
