@@ -68,7 +68,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             else
                 token = refreshToken.Token;
-            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token, RoleId = user.RoleId, Email = user.Email};
+            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token, RoleName = user.GetRoleName(user.RoleId), Email = user.Email};
 
             return jwtDto;
         }

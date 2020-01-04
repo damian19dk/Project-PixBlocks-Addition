@@ -96,5 +96,9 @@ namespace PixBlocks_Addition.Domain.Entities
             if (roleid == 3 || roleid == 2 || roleid == 1) RoleId = roleid;
             else throw new MyException(MyCodesNumbers.WrongRoleId, MyCodes.WrongRoleId);
         }
+        public string GetRoleName(int roleId)
+        {
+            return Role.GetRoleName(roleId);
+        }
     }
 }
