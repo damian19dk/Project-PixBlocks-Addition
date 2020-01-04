@@ -79,3 +79,7 @@
 .d-flex, .text-muted {
   padding-bottom: 0%
 }
+
+.card-empty {
+  opacity: 0.4;
+}

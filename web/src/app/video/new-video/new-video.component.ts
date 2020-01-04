@@ -83,7 +83,7 @@ export class NewVideoComponent extends Form implements OnInit {
 
   searchCourse = (text$: Observable<string>) => {
     return text$.pipe(
-      debounceTime(300),
+      debounceTime(100),
       filter(text => text !== ''),
       switchMap((searchText) => this.courseService.findByTitle(searchText))
     );
