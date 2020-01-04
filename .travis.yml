@@ -27,7 +27,7 @@ jobs:
       branches:
         only:
           - fe-feature-128
-      solution: PixBlocks_Addition.sln
+      solution: api/PixBlocks_Addition.sln
       script:
         - dotnet restore
         - dotnet build
