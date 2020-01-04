@@ -24,8 +24,12 @@
 
     <div class="d-flex justify-content-between align-items-center">
       <small ngbTooltip="Czas trwania" placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-      <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
-             placement="bottom">{{course.courseVideos.length}}</small>
+      <div>
+        <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
+               placement="bottom">{{course.courseVideos.length}}</small>
+        <small ngbTooltip="Premium"
+               placement="bottom"><i class="far fa-star"></i></small>
+      </div>
     </div>
   </div>
 
