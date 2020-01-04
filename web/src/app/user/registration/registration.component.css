@@ -1,18 +1,16 @@
 #registration {
   width: 100%;
   height: 100vh;
-  display: block;
-  position: relative;
 }
 
-#registration::after {
-  content: "";
-  background: url("/assets/svg/undraw_personal_data_29co.svg") no-repeat center;
-  opacity: 0.15;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-}
+/*#registration::after {*/
+/*  content: "";*/
+/*  background: url("~/assets/svg/undraw_personal_data_29co.svg") no-repeat center;*/
+/*  opacity: 0.15;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  bottom: 0;*/
+/*  right: 0;*/
+/*  position: absolute;*/
+/*  z-index: -1;*/
+/*}*/

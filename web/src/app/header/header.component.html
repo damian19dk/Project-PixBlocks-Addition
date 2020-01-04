@@ -3,6 +3,8 @@
 <nav class="navbar navbar-expand-lg sticky-top bg-light">
   <a class="navbar-brand" routerLink="/">PixBlocks</a>
 
+  <app-search-bar class="align-self-center"></app-search-bar>
+
   <button class="navbar-toggler hidden-md-up" type="button" (click)="isNavCollapsed = !isNavCollapsed"
           data-target="#navbars-options" aria-controls="navbars-options" aria-expanded="false"
           aria-label="Toggle navigation">
@@ -11,23 +13,40 @@
 
   <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar">
-      <ul class="navbar-nav">
-        <app-search-bar *appHasRole="['user', 'admin']"></app-search-bar>
-        <button (click)="afterClick()" *appHasRole="['admin']" color="primary" i18n mat-stroked-button
-                routerLink="/videos">Dodaj wideo
-        </button>
-        <button (click)="afterClick()" *appHasRole="['admin']" color="primary" i18n mat-stroked-button
-                routerLink="/courses">Zarządzaj kursami
-        </button>
-        <button (click)="afterClick()" *appHasRole="['user', 'admin']" color="primary" i18n mat-stroked-button
+      <ul *appHasRole="['user']" class="navbar-nav">
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/profile">Mój profil
         </button>
-        <button (click)="afterClick()" *appHasRole="['user','admin']" color="primary" i18n mat-stroked-button
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/settings">Ustawienia
         </button>
-        <button (click)="afterClick(); logout()" *appHasRole="['user', 'admin']" color="primary" i18n
+        <button (click)="afterClick(); logout()" color="primary" i18n
                 mat-stroked-button>Wyloguj
         </button>
+        <app-select-languages [languages]="languages"></app-select-languages>
+      </ul>
+
+
+      <ul *appHasRole="['admin']" class="navbar-nav">
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+                routerLink="/videos">Dodaj wideo
+        </button>
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+                routerLink="/courses">Zarządzaj kursami
+        </button>
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+                routerLink="/profile">Mój profil
+        </button>
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+                routerLink="/settings">Ustawienia
+        </button>
+        <button (click)="afterClick(); logout()" color="primary" i18n
+                mat-stroked-button>Wyloguj
+        </button>
+        <app-select-languages [languages]="languages"></app-select-languages>
+      </ul>
+
+      <ul *appHasRole="['anonymous']" class="navbar-nav">
         <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary" i18n mat-stroked-button
                 routerLink="/register">
           Zarejestruj
@@ -40,4 +59,6 @@
       </ul>
     </div>
   </div>
+
+
 </nav>

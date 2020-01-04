@@ -12,7 +12,7 @@
          src='assets/img/movie.jpg'/>
   </div>
 
-  <div *ngIf="course.courseVideos.length === 0" class="card-box">
+  <div *ngIf="course.courseVideos.length === 0" class="card-box card-empty">
     <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
          src={{course.picture}}/>
     <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
