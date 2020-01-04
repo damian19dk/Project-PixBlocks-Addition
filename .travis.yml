@@ -29,7 +29,7 @@ matrix:
           - fe-feature-128
       solution: PixBlocks_Addition.sln
       script:
-        - dotnet restore
+        - cd api; dotnet restore
         - dotnet build
 
 
