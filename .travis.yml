@@ -12,10 +12,10 @@ jobs:
       branches:
         only:
           - fe-feature-128
-      before_install:
+      before_script:
         - npm install -g @angular/cli
         - cd web; npm install
-      install:
+      script:
         - npm run build-locale
         - npm install -g firebase-tools
         - firebase deploy --project pixblocksaddition --token "$FIREBASE_TOKEN"
