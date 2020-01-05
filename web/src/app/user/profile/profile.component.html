@@ -14,6 +14,9 @@
       <div i18n class="row justify-content-center">
         <h2>Rola systemowa: {{userDocument.roleName}}</h2>
       </div>
+      <div *ngIf="userDocument.premium" class="row justify-content-center" i18n>
+        <h2>Premium</h2>
+      </div>
 
       <div class="d-flex justify-content-center">
         <app-change-email></app-change-email>

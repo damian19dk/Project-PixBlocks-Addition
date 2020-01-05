@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.userDocument.login = this.authService.getLogin();
     this.userDocument.email = this.authService.getEmail();
-    this.userDocument.roleName = this.authService.getUserRole();
+    this.userDocument.roleName = this.authService.getRole();
+    this.userDocument.premium = this.authService.isPremium();
   }
 }

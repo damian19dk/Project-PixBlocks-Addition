@@ -12,7 +12,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 export class AuthService {
   roles$ = new ReplaySubject<string[]>(1);
   roleNames = ['Użytkownik', 'Administrator'];
-  roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
+  roleUpdates$ = new BehaviorSubject([this.getRole()]);
 
   private isTokenRefreshing = false;
 
@@ -78,9 +78,8 @@ export class AuthService {
     }
   }
 
-  private getUserRoleName(): string {
-    // tslint:disable-next-line:radix
-    return this.getUserRole() === null ? 'anonymous' : this.getUserRole();
+  getRole(): string {
+    return localStorage.getItem('UserRole') === null ? 'anonymous' : localStorage.getItem('UserRole');
   }
 
   login(login: string, password: string): Observable<any> {
@@ -115,12 +114,12 @@ export class AuthService {
     return localStorage.getItem('Token');
   }
 
-  getUserRole() {
-    return localStorage.getItem('UserRole');
-  }
-
   getEmail(): string {
     return localStorage.getItem('UserEmail');
+  }
+
+  isPremium(): boolean {
+    return localStorage.getItem('UserPremium') === 'true';
   }
 
   clearUserData(): void {
@@ -130,6 +129,7 @@ export class AuthService {
     localStorage.removeItem('UserLogin');
     localStorage.removeItem('UserRole');
     localStorage.removeItem('UserEmail');
+    localStorage.removeItem('UserPremium');
     this.removeAllRolesFromUser();
   }
 }

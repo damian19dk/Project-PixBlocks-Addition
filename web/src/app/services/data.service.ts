@@ -27,7 +27,7 @@ export class DataService {
     );
   }
 
-  getAll(page: number, count: number = 10) {
+  getAll(page: number, count: number = 100) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
