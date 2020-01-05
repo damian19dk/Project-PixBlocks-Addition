@@ -54,6 +54,7 @@ import {CourseListElementUserComponent} from './courses/course-list-element-user
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
 import { VideoQuizComponent } from './video/video-quiz/video-quiz.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

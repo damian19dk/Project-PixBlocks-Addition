@@ -1,110 +1,152 @@
 import { Component, OnInit } from '@angular/core';
 
+//import { QuizService } from '../services/quiz.service';
+//import { HelperService } from '../services/helper.service';
+import { Option, Question, Quiz, QuizConfig } from '../models/index';
+
 @Component({
   selector: 'app-video-quiz',
   templateUrl: './video-quiz.component.html',
   styleUrls: ['./video-quiz.component.css']
 })
 export class VideoQuizComponent implements OnInit {
-  questions: any;
- currentIndex: number;
- notAttempted: any;
- correct: any;
- currentQuestionSet: any;
- start = false;
- gameover = false;
- buttonname = 'Play';
+  quizes: any[];
+  quiz: Quiz = {
+    id: 1,
+    name: 'Quiz inicjacyjny',
+    description: 'dwa',
+    questions: [
+      {id : 1, name: 'Skąd się urwałeś?', questionTypeId: 1, answered: false, options: [
+      {
+        id : 1, name: 'Z choinki'
+      },
+      {
+        id:2,
+        name: 'Z malinki'
+      },
+      {
+        id:3,
+        name: 'Z gnoju i glinki'
+      },
+      {
+        id : 4,
+        name: 'Z chuja spadłeś'
+      }
+      ] 
+    },
+    {id:2, name: 'Jak się żyło?', questionTypeId:2, answered: false, options: [
+      {
+        id:1, name: 'costam'
+      },
+      {
+        id:2, name: 'jakistam'
+      }
+    ]}
+    ]
+  }
+    //new Quiz(null);
+  mode = 'quiz';
+  quizName: string;
+  config: QuizConfig = {
+    allowBack: true,
+    allowReview: true,
+    autoMove: false,  // if true, it will move to next question automatically when answered.
+    duration: 300,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    pageSize: 1,
+    requiredAll: false,  // indicates if you must answer all the questions before submitting.
+    richText: false,
+    shuffleQuestions: false,
+    shuffleOptions: false,
+    showClock: false,
+    showPager: true,
+    theme: 'none'
+  };
+
+  pager = {
+    index: 0,
+    size: 1,
+    count: 1
+  };
+  timer: any = null;
+  startTime: Date;
+  endTime: Date;
+  ellapsedTime = '00:00';
+  duration = '';
 
   constructor() {
-
-    this.questions = [
-      {
-        id: 1,
-        question: 'What is the full form of IP?',
-        option: [
-          {optionid: 1, name: 'Internet program'},
-          {optionid: 2, name: 'Internet protocol'},
-          {optionid: 3, name: 'Interface program'},
-          {optionid: 4, name: 'Interface protocol'}
-        ],
-        answer: 2,
-        selected: 0
-      },
-      {
-        id: 2,
-        question: 'Select the smallest memory size',
-        option: [
-          {optionid: 1, name: 'kilobyte'},
-          {optionid: 2, name: 'megabyte'},
-          {optionid: 3, name: 'gigabyte'},
-          {optionid: 4, name: 'terabyte'}
-        ],
-        answer: 1,
-        selected: 0
-      },
-      {
-        id: 3,
-        question: 'What is the full form of IP?',
-        option: [
-          {optionid: 1, name: 'Internet program'},
-          {optionid: 2, name: 'Internet protocol'},
-          {optionid: 3, name: 'Interface program'},
-          {optionid: 4, name: 'Interface protocol'}
-        ],
-        answer: 2,
-        selected: 0
-      },
-      {
-        id: 4,
-        question:'Select the smallest memory size',
-        option: [
-          {optionid: 1, name: 'kilobyte'},
-          {optionid: 2, name: 'megabyte'},
-          {optionid: 3, name: 'gigabyte'},
-          {optionid: 4, name: 'terabyte'}
-        ],
-        answer: 1,
-        selected: 0
-      }
-    ];
- 
-    this.currentIndex = 0;
-    this.currentQuestionSet = this.questions[this.currentIndex];
-   }
-
-   next(){
-    this.currentIndex = this.currentIndex + 1;
-    this.currentQuestionSet = this.questions[this.currentIndex];
-  }
-  submit(){
-    this.buttonname = "Replay";
-    if(this.currentIndex + 1 == this.questions.length) {
-       this.gameover = true;
-       this.start = false;
-         this.correct = 0;
-    this.notAttempted=0;
-    this.questions.map(x=>{
-        if(x.selected!=0){
-          if(x.selected == x.answer)
-            this.correct=this.correct + 1;
-        }
-        else{
-          this.notAttempted=this.notAttempted + 1;
-        }
-        x.selected=0;
-    });
-    }
-    
-  
-  }
-  startQuiz(){
-    this.gameover=false;
-    this.currentIndex=0;
-   this.currentQuestionSet = this.questions[this.currentIndex];
-      this.start=true;
   }
 
   ngOnInit() {
+    this.quizes = this.quizService.getAll();
+    this.quizName = this.quizes[0].id;
+    this.loadQuiz(this.quizName);
   }
 
+  loadQuiz(quizName: string) {
+    this.quizService.get(quizName).subscribe(res => {
+      this.quiz = new Quiz(res);
+      this.pager.count = this.quiz.questions.length;
+      this.startTime = new Date();
+      this.ellapsedTime = '00:00';
+      this.timer = setInterval(() => { this.tick(); }, 1000);
+      this.duration = this.parseTime(this.config.duration);
+    });
+    this.mode = 'quiz';
+  }
+
+  tick() {
+    const now = new Date();
+    const diff = (now.getTime() - this.startTime.getTime()) / 1000;
+    if (diff >= this.config.duration) {
+      this.onSubmit();
+    }
+    this.ellapsedTime = this.parseTime(diff);
+  }
+
+  parseTime(totalSeconds: number) {
+    let mins: string | number = Math.floor(totalSeconds / 60);
+    let secs: string | number = Math.round(totalSeconds % 60);
+    mins = (mins < 10 ? '0' : '') + mins;
+    secs = (secs < 10 ? '0' : '') + secs;
+    return `${mins}:${secs}`;
+  }
+
+  get filteredQuestions() {
+    return (this.quiz.questions) ?
+      this.quiz.questions.slice(this.pager.index, this.pager.index + this.pager.size) : [];
+  }
+
+  onSelect(question: Question, option: Option) {
+    if (question.questionTypeId === 1) {
+      question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
+    }
+
+    if (this.config.autoMove) {
+      this.goTo(this.pager.index + 1);
+    }
+  }
+
+  goTo(index: number) {
+    if (index >= 0 && index < this.pager.count) {
+      this.pager.index = index;
+      this.mode = 'quiz';
+    }
+  }
+
+  isAnswered(question: Question) {
+    return question.options.find(x => x.selected) ? 'Answered' : 'Not Answered';
+  };
+
+  isCorrect(question: Question) {
+    return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
+  };
+
+  onSubmit() {
+    let answers = [];
+    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
+
+    // Post your data to the server here. answers contains the questionId and the users' answer.
+    console.log(this.quiz.questions);
+    this.mode = 'result';
+  }
 }
