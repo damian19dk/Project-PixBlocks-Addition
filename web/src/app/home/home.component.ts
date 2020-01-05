@@ -20,8 +20,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.authService.roles$);
-    console.log(this.authService.getUserRole());
   }
 
   isLogged() {
