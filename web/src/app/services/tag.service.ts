@@ -8,7 +8,7 @@ export class TagService {
   private readonly tagSettingsForMultiselect: any;
 
   constructor() {
-    this.allTags = ['Haskell', 'Java', 'Ruby', 'Python', 'Kotlet schabowy', 'WebDevelop', 'Systemy operacyjne', 'JavaScript'].sort(); // zamockowane dane
+    this.allTags = ['Haskell', 'Java', 'Ruby', 'Python', 'Kotlet schabowy', 'WebDevelop', 'Systemy operacyjne', 'JavaScript', 'Muzyka'].sort(); // zamockowane dane
     this.tagSettingsForMultiselect = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',

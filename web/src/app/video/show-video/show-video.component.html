@@ -3,23 +3,30 @@
     {{error}}
   </div>
 
+
   <h1 *ngIf="courseDocument" class="header padded-left">{{courseDocument.title}}</h1>
   <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5>
 
   <div class="row">
 
     <div *ngIf="videoDocument" class="col-7">
-
       <div class="row">
         <div class="col-12">
-          <div class="embed-responsive embed-responsive-16by9 " id="video-field">
-            <iframe [src]="video.link | safe" allowfullscreen="allowfullscreen"
-                    class="embed-responsive-item justify-content-md-center"
-                    id="video" mozallowfullscreen="mozallowfullscreen"
-                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
-                    webkitallowfullscreen="webkitallowfullscreen">
-            </iframe>
+          <!--          <div class="embed-responsive embed-responsive-16by9 " id="video-field">-->
+          <!--            <iframe [src]="video.link | safe" allowfullscreen="allowfullscreen"-->
+          <!--                    class="embed-responsive-item justify-content-md-center"-->
+          <!--                    id="video" mozallowfullscreen="mozallowfullscreen"-->
+          <!--                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"-->
+          <!--                    webkitallowfullscreen="webkitallowfullscreen">-->
+          <!--            </iframe>-->
+          <!--          </div>-->
+
+          <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
+               msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
+               webkitallowfullscreen="webkitallowfullscreen">Loading...
           </div>
+
+
           <button class="btn">Start</button>
         </div>
       </div>
@@ -78,11 +85,17 @@
            [ngClass]="courseVideo.mediaId === videoDocument.mediaId ? 'bg-video' : null"
            class="list-group-item list-group-item-action flex-column align-items-start"
            routerLink="/courses/{{courseDocument.id}}/videos/{{courseVideo.mediaId}}">
-          <div class="d-flex w-100 justify-content-between">
+          <div class="d-flex w-100 justify-content-start">
             <h5 class="mb-1">{{courseVideo.title}}</h5>
           </div>
           <p class="mb-1">{{courseVideo.description | shortText}}</p>
-          <small>{{courseVideo.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
+          <div class=" d-flex justify-content-between">
+            <small container="body" ngbTooltip="Czas trwania"
+                   placement="bottom">{{courseVideo.duration * 1000 | date:'HH:mm:ss':'UTC'}}</small>
+            <small><i *ngIf="courseVideo.premium" class="far fa-star align-self-center" container="body"
+                      ngbTooltip="Premium"
+                      placement="bottom"></i></small>
+          </div>
         </a>
 
       </div>

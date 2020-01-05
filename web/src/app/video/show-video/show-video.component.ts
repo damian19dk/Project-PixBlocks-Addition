@@ -8,6 +8,8 @@ import {TagService} from 'src/app/services/tag.service';
 import {CourseDocument} from 'src/app/models/courseDocument.model';
 import {CourseService} from 'src/app/services/course.service';
 
+declare var jwplayer: any;
+
 @Component({
   selector: 'app-show-video',
   templateUrl: './show-video.component.html',
@@ -22,6 +24,7 @@ export class ShowVideoComponent implements OnInit {
   videos: Array<VideoDocument>;
   courses: Array<CourseDocument>;
   page = 1;
+  player: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +35,7 @@ export class ShowVideoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getCourses();
 
     this.route.params.subscribe(
@@ -50,7 +54,18 @@ export class ShowVideoComponent implements OnInit {
     this.videoService.getHostedVideo(id).subscribe(
       (data: HostedVideoDocument) => {
         this.video = data;
+
+        setTimeout(() => {
+          this.player = jwplayer('video-field').setup({
+            title: this.video.title,
+            file: this.video.sources[0].file,
+            image: this.video.image,
+            aspectratio: '16:9',
+            primary: 'html5',
+          });
+        }, 50);
         this.loadingService.unload();
+        console.log(this.video);
       },
       error => {
         this.error = error;
@@ -64,10 +79,9 @@ export class ShowVideoComponent implements OnInit {
     const mediaId = this.route.snapshot.paramMap.get('mediaId');
     this.videoService.getVideo(mediaId).subscribe(
       (data: VideoDocument) => {
-        this.videoDocument = data[0]
+        this.videoDocument = data[0];
         this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
         this.loadingService.unload();
-        console.log(this.videoDocument);
       },
       error => {
         this.error = error;
