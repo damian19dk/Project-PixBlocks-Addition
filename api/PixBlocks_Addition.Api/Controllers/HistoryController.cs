@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Infrastructure.DTOs;
@@ -7,6 +8,7 @@ using PixBlocks_Addition.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Api.Controllers
@@ -25,52 +27,56 @@ namespace PixBlocks_Addition.Api.Controllers
             _userCourseHistoryService = userCourseHistoryService;
         }
 
-        [HttpDelete("deleteUserHistoryId")]
-        public async Task RemoveUserhistory(Guid userId)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpDelete("deleteUserHistory")]
+        public async Task RemoveUserhistory()
         {
+            Guid userId = Guid.Empty;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                userId = Guid.Parse(identity.Claims.First().Value);
+            }
             await _userCourseHistoryService.RemoveAsync(userId);
         }
 
-        [HttpDelete("deleteUserHistory")]
-        public async Task RemoveUserhistory(string login)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("addCourseToHistory")]
+        public async Task AddCourseToHistory(Guid courseId)
         {
-            await _userCourseHistoryService.RemoveAsync(login);
-        }
-
-        [HttpPost("addCourseToHistoryId")]
-        public async Task AddCourseToHistory(Guid userId, Guid courseId)
-        {
+            Guid userId = Guid.Empty;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                userId = Guid.Parse(identity.Claims.First().Value);
+            }
             await _userCourseHistoryService.AddHistoryAsync(userId, courseId);
         }
 
-        [HttpPost("addCourseToHistory")]
-        public async Task AddCourseToHistory(string login, Guid courseId)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("getUserHistory")]
+        public async Task<IEnumerable<CourseDto>> GetUserHistory()
         {
-            await _userCourseHistoryService.AddHistoryAsync(login, courseId);
-        }
-
-        [HttpGet("getUserHistoryId")]
-        public async Task<IEnumerable<CourseDto>> GetUserHistory(Guid userId)
-        {
+            Guid userId = Guid.Empty;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                userId = Guid.Parse(identity.Claims.First().Value);
+            }
             return await _userCourseHistoryService.GetAllAsync(userId);
         }
 
-        [HttpGet("getUserHistory")]
-        public async Task<IEnumerable<CourseDto>> GetUserHistory(string login)
-        {
-            return await _userCourseHistoryService.GetAllAsync(login);
-        }
-
-        [HttpPut("clearUserHistoryId")]
-        public async Task ClearUserHistory(Guid userId)
-        {
-            await _userCourseHistoryService.CleanUserHistory(userId);
-        }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("clearUserHistory")]
-        public async Task ClearUserHistory(string login)
+        public async Task ClearUserHistory()
         {
-            await _userCourseHistoryService.CleanUserHistory(login);
+            Guid userId = Guid.Empty;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                userId = Guid.Parse(identity.Claims.First().Value);
+            }
+            await _userCourseHistoryService.CleanUserHistory(userId);
         }
     }
 }

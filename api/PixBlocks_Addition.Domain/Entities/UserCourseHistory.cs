@@ -12,11 +12,10 @@ namespace PixBlocks_Addition.Domain.Entities
 
 
 
-        public UserCourseHistory(User user, Course course)
+        public UserCourseHistory(User user)
         {
             Id = Guid.NewGuid();
             User = user;
-            Courses.Add(course);
         }
 
         protected UserCourseHistory()

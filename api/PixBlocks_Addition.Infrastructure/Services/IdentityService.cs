@@ -17,14 +17,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IRefreshTokenRepository _refreshTokens;
         private readonly IJwtHandler _jwtHandler;
         private readonly IEncrypter _encrypter;
+        private readonly IUserCourseHistoryRepository _userCourseHistoryRepository;
 
         public IdentityService(IJwtHandler jwtHandler,
-            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter)
+            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter, IUserCourseHistoryRepository userCourseHistoryRepository)
         {
             _jwtHandler = jwtHandler;
             _userRepository = userRepository;
             _refreshTokens = refreshTokenRepository;
             _encrypter = encrypter;
+            _userCourseHistoryRepository = userCourseHistoryRepository;
         }
 
         public async Task Register(string username, string password, string email, int role)
@@ -39,7 +41,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var hash = _encrypter.GetHash(password, salt);
 
             User user = new User(username, email, role, password, _encrypter);
+            UserCourseHistory userCourseHistory = new UserCourseHistory(user);
 
+            await _userCourseHistoryRepository.AddAsync(userCourseHistory);
             await _userRepository.AddAsync(user);
         }
 
@@ -68,7 +72,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             else
                 token = refreshToken.Token;
-            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token, RoleName = user.GetRoleName(user.RoleId), Email = user.Email};
+            var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token, RoleName = user.GetRoleName(user.RoleId), Email = user.Email, Premium = user.IsPremium};
 
             return jwtDto;
         }
