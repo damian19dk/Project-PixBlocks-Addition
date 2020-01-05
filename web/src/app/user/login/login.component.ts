@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-    templateUrl: 'login.component.html',
-    styleUrls: ['./login.component.css']
+  templateUrl: 'login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
@@ -45,12 +45,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.f.username.value, this.f.password.value)
       .subscribe(
         data => {
-          this.authService.addRolesToUser([this.authService.convertToRoleName(data.roleId)]);
+          this.authService.addRolesToUser([data.roleName]);
           localStorage.setItem('Token', data.accessToken);
           localStorage.setItem('UserLogin', this.f.username.value);
           localStorage.setItem('TokenRefresh', data.refreshToken);
           localStorage.setItem('TokenExpires', data.expires);
-          localStorage.setItem('UserRole', data.roleId);
+          localStorage.setItem('UserRole', data.roleName);
           localStorage.setItem('UserEmail', data.email);
           this.router.navigate([this.returnUrl]);
         },

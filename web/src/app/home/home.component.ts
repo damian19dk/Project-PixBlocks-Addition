@@ -16,18 +16,18 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private loadingService: LoadingService,
-    private authenticationService: AuthService) {
+    private authService: AuthService) {
   }
 
   ngOnInit() {
   }
 
   isLogged() {
-    return this.authenticationService.isLogged();
+    return this.authService.isLogged();
   }
 
   getLogin() {
-    return this.authenticationService.getLogin();
+    return this.authService.getLogin();
   }
 
 }

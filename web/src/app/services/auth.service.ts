@@ -11,7 +11,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class AuthService {
   roles$ = new ReplaySubject<string[]>(1);
-  roleNames = ['user', 'admin'];
+  roleNames = ['Użytkownik', 'Administrator'];
   roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
 
   private isTokenRefreshing = false;
@@ -80,7 +80,7 @@ export class AuthService {
 
   private getUserRoleName(): string {
     // tslint:disable-next-line:radix
-    return this.getUserRole() == null ? 'anonymous' : this.convertToRoleName(parseInt(this.getUserRole()));
+    return this.getUserRole() === null ? 'anonymous' : this.getUserRole();
   }
 
   login(login: string, password: string): Observable<any> {
@@ -131,9 +131,5 @@ export class AuthService {
     localStorage.removeItem('UserRole');
     localStorage.removeItem('UserEmail');
     this.removeAllRolesFromUser();
-  }
-
-  convertToRoleName(roleId: number): string {
-    return this.roleNames[roleId - 1];
   }
 }

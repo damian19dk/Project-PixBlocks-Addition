@@ -13,7 +13,7 @@
 
   <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar">
-      <ul *appHasRole="['user']" class="navbar-nav">
+      <ul *appHasRole="['Użytkownik']" class="navbar-nav">
         <button (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/profile">Mój profil
         </button>
@@ -27,7 +27,7 @@
       </ul>
 
 
-      <ul *appHasRole="['admin']" class="navbar-nav">
+      <ul *appHasRole="['Administrator']" class="navbar-nav">
         <button (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/videos">Dodaj wideo
         </button>
