@@ -25,6 +25,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public long Duration { get; protected set; }
         public DateTime PublishDate { get; protected set; }
         public string Language { get; protected set; }
+        public Guid? QuizId { get; protected set; } = null;
         public ICollection<Tag> Tags { get; protected set; } = new HashSet<Tag>();
 
         protected Media() { }
@@ -56,6 +57,7 @@ namespace PixBlocks_Addition.Domain.Entities
 
 
         public void SetPremium(bool value) => Premium = value;
+
         public void SetTitle(string title)
         {
             if (string.IsNullOrEmpty(title))
@@ -72,6 +74,7 @@ namespace PixBlocks_Addition.Domain.Entities
             }
             Title = title;
         }
+
         public void SetDescription(string description)
         {
             if (description.Length < 3)
@@ -84,6 +87,7 @@ namespace PixBlocks_Addition.Domain.Entities
             }
             Description = description;
         }
+
         public void SetPicture(string src)
         {
             Guid result;
@@ -92,6 +96,7 @@ namespace PixBlocks_Addition.Domain.Entities
                     throw new MyException(MyCodesNumbers.InvalidPictureSrc, MyCodes.InvalidPicSource);
             Picture = src;
         }
+
         public void SetDuration(long length)
         {
             if(length<0)
@@ -100,6 +105,7 @@ namespace PixBlocks_Addition.Domain.Entities
             }
             Duration = length;
         }
+
         public void SetLanguage(string lang)
         {
             if(string.IsNullOrWhiteSpace(lang))
@@ -120,6 +126,12 @@ namespace PixBlocks_Addition.Domain.Entities
             }
             Language = lang;
         }
+
+        public void SetQuiz(Guid? id)
+        {
+            QuizId = id;
+        }
+
         public void SetIndex(int index)
         {
             if (index < 0)
