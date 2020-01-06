@@ -11,6 +11,7 @@ namespace PixBlocks_Addition.Domain.Repositories
         Task AddAsync(Quiz quiz);
         Task<Quiz> GetAsync(Guid id);
         Task<Quiz> GetAsync(Media media);
+        Task<Media> GetMediaAsync(Guid quizId);
         Task UpdateAsync(Quiz quiz);
         Task RemoveAsync(Quiz quiz);
     }

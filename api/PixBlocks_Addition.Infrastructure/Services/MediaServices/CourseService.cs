@@ -20,12 +20,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly IQuizRepository _quizRepository;
         private readonly IChangeMediaHandler<Course, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly ILocalizationService _localizer;
 
-        public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository,
+        public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository, IQuizRepository quizRepository,
             IChangeMediaHandler<Course, Course> changeMediaHandler, IResourceRepository imageRepository,
             IResourceHandler imageHandler, IAutoMapperConfig config, IJWPlayerService jwPlayerService, ILocalizationService localizer)
         {
@@ -36,6 +37,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
             _jwPlayerService = jwPlayerService;
+            _quizRepository = quizRepository;
             _localizer = localizer;
         }
 
@@ -118,6 +120,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
             }
             course.CourseVideos.Remove(courseVideo);
+
+            if (courseVideo.Video.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)courseVideo.Video.QuizId);
+                if (quiz != null)
+                    await _quizRepository.RemoveAsync(quiz);
+            }
             await _courseRepository.UpdateAsync(course);
             await _videoRepository.RemoveAsync(videoId);
         }
@@ -139,12 +148,35 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 await _courseRepository.RemoveAllTagsAsync(course);
             }
+
+            if(course.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)course.QuizId);
+                await _quizRepository.RemoveAsync(quiz);
+            }
             await _courseRepository.RemoveAsync(id);
         }
 
         public async Task RemoveAsync(string title)
-            => await _courseRepository.RemoveAsync(title);
+        {
+            var courses = await _courseRepository.GetAsync(title);
+            if(courses.Count() > 1)
+            {
+                throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Cannot remove course {title}. Ambiguous title.");
+            }
+            if(courses.Count() < 0 )
+            {
+                throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with title {title} not found.");
+            }
 
+            var course = courses.First();
+            if (course.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)course.QuizId);
+                await _quizRepository.RemoveAsync(quiz);
+            }
+            await _courseRepository.RemoveAsync(course.Id);
+        }
         /// <summary>
         /// Gets course or throws an exception
         /// </summary>

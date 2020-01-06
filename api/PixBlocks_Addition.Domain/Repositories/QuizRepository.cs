@@ -22,6 +22,16 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task<Quiz> GetAsync(Media media) => await _entities.Quizzes.Include(q => q.Answers).SingleOrDefaultAsync(x => x.MediaId == media.Id);
 
+        public async Task<Media> GetMediaAsync(Guid quizId)
+        {
+            Media media = await _entities.Courses.SingleOrDefaultAsync(x => x.QuizId == quizId);
+            if(media == null)
+            {
+                media = await _entities.Videos.SingleOrDefaultAsync(x => x.QuizId == quizId);
+            }
+            return media;
+        }
+
         public async Task AddAsync(Quiz quiz)
         {
             _entities.Quizzes.Add(quiz);
@@ -30,12 +40,16 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task UpdateAsync(Quiz quiz)
         {
+            var answers = await _entities.QuizAnswers.Where(x => x.QuizId == quiz.Id).ToListAsync();
+            _entities.QuizAnswers.RemoveRange(answers);
             _entities.Quizzes.Update(quiz);
             await _entities.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(Quiz quiz)
         {
+            var answers = await _entities.QuizAnswers.Where(x => x.QuizId == quiz.Id).ToListAsync();
+            _entities.QuizAnswers.RemoveRange(answers);
             _entities.Quizzes.Remove(quiz);
             await _entities.SaveChangesAsync();
         }

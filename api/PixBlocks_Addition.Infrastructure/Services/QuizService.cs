@@ -75,6 +75,20 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {id} not found.");
             }
             await _quizRepository.RemoveAsync(quiz);
+
+            var media = await _quizRepository.GetMediaAsync(id);
+            media.SetQuiz(null);
+            if(media != null)
+            {
+                if(media is Course)
+                {
+                   await _courseRepository.UpdateAsync(media as Course);
+                }
+                else
+                {
+                    await _videoRepository.UpdateAsync(media as Video);
+                }
+            }
         }
 
         public async Task UpdateQuizAsync(UpdateQuizResource quiz)

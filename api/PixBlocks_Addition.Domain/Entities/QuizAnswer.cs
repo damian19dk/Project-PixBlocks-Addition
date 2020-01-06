@@ -7,6 +7,7 @@ namespace PixBlocks_Addition.Domain.Entities
     public class QuizAnswer
     {
         public Guid Id { get; protected set; }
+        public Guid QuizId { get; protected set; }
         public string Answer { get; private set; }
         public bool IsCorrect { get; private set; }
 

@@ -26,6 +26,7 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserCourseHistory> UserCourseHistories { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizAnswer> QuizAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
