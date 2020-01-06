@@ -46,10 +46,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 throw new MyException(MyCodesNumbers.QuizExists, $"The given media already has a quiz. Remove the quiz or choose another media.");
             }
 
-            var newQuiz = new Quiz(quiz.Question, media.Id);
-            foreach(var answer in quiz.Answers)
+            var newQuiz = new Quiz(media.Id);
+            foreach (var question in quiz.Questions)
             {
-                newQuiz.Answers.Add(new QuizAnswer(answer.Answer, answer.IsCorrect));
+                var newQuestion = new QuizQuestion(question.Question);
+                foreach (var answer in question.Answers)
+                {
+                    newQuestion.Answers.Add(new QuizAnswer(answer.Answer, answer.IsCorrect));
+                }
+                newQuiz.Questions.Add(newQuestion);
             }
             await _quizRepository.AddAsync(newQuiz);
 
@@ -99,15 +104,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {quiz.QuizId} not found.");
             }
 
-            if(currentQuiz.Question != quiz.Question)
+            currentQuiz.Questions.Clear();
+            foreach (var question in quiz.Questions)
             {
-                currentQuiz.SetQuestion(quiz.Question);
-            }
-
-            currentQuiz.Answers.Clear();
-            foreach(var answer in quiz.Answers)
-            {
-                currentQuiz.Answers.Add(new QuizAnswer(answer.Answer, answer.IsCorrect));
+                var newQuestion = new QuizQuestion(question.Question);
+                foreach (var answer in question.Answers)
+                {
+                    newQuestion.Answers.Add(new QuizAnswer(answer.Answer, answer.IsCorrect));
+                }
+                currentQuiz.Questions.Add(newQuestion);
             }
 
             await _quizRepository.UpdateAsync(currentQuiz);
