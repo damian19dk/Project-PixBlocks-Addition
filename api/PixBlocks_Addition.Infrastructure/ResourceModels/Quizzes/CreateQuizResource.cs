@@ -8,7 +8,6 @@ namespace PixBlocks_Addition.Infrastructure.ResourceModels.Quizzes
     public class CreateQuizResource
     {
         public Guid MediaId { get; set; }
-        public string Question { get; set; }
-        public ICollection<QuizAnswerResource> Answers { get; set; }
+        public ICollection<QuizQuestionResource> Questions { get; set; }
     }
 }
