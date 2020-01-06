@@ -12,14 +12,12 @@ namespace PixBlocks_Addition.Domain.Repositories
     public class UserCourseHistoryRepository : IUserCourseHistoryRepository
     {
         private readonly PixBlocksContext _entities;
-        private readonly IUserRepository _userRepository;
         private readonly IQueryable<UserCourseHistory> _userCourseHistories;
 
-        public UserCourseHistoryRepository(PixBlocksContext entities, IUserRepository userRepository)
+        public UserCourseHistoryRepository(PixBlocksContext entities)
         {
             _userCourseHistories = entities.UserCourseHistories.Include(c => c.Courses);
             _entities = entities;
-            _userRepository = userRepository;
         }
 
         public async Task AddAsync(UserCourseHistory userCourseHistory)
@@ -34,39 +32,16 @@ namespace PixBlocks_Addition.Domain.Repositories
             await _entities.SaveChangesAsync();
         }
 
-        public async Task<UserCourseHistory> GetAllAsync(Guid userId)
+        public async Task<UserCourseHistory> GetAllAsync(User user)
         {
-            var user = await _userRepository.GetAsync(userId);
             return await _userCourseHistories.SingleOrDefaultAsync(x => x.User == user);
         }
 
-        public async Task<UserCourseHistory> GetAllAsync(string login)
+        public async Task RemoveAsync(User user)
         {
-            var user = await _userRepository.GetAsync(login);
-
-            return await _userCourseHistories.SingleOrDefaultAsync(x => x.User == user);
-        }
-
-        public async Task RemoveAsync(Guid userId)
-        {
-            var user = await _userRepository.GetAsync(userId);
             var histories = await _userCourseHistories.Where(x => x.User == user).ToListAsync();
 
             foreach (UserCourseHistory history in histories)
-            {
-                _entities.UserCourseHistories.Remove(history);
-            }
-
-            await _entities.SaveChangesAsync();
-        }
-
-        public async Task RemoveAsync(string login)
-        {
-            var user = _entities.Users.SingleOrDefault(x => x.Login == login);
-
-            var histories = await _entities.UserCourseHistories.Where(x => x.User == user).ToListAsync();
-
-            foreach(UserCourseHistory history in histories)
             {
                 _entities.UserCourseHistories.Remove(history);
             }

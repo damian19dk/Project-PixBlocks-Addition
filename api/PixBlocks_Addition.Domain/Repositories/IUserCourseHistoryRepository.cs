@@ -10,9 +10,7 @@ namespace PixBlocks_Addition.Domain.Repositories
     {
         Task AddAsync(UserCourseHistory userCourse);
         Task UpdateAsync(UserCourseHistory userCourseHistory);
-        Task<UserCourseHistory> GetAllAsync(Guid userId);
-        Task<UserCourseHistory> GetAllAsync(string login);
-        Task RemoveAsync(Guid userId);
-        Task RemoveAsync(string login);
+        Task<UserCourseHistory> GetAllAsync(User user);
+        Task RemoveAsync(User user);
     }
 }

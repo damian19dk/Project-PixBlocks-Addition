@@ -11,12 +11,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
     public interface IUserCourseHistoryService
     {
         Task AddHistoryAsync(Guid userId, Guid courseId);
-        Task AddHistoryAsync(string login, Guid courseId);
         Task<IEnumerable<CourseDto>> GetAllAsync(Guid userId);
-        Task<IEnumerable<CourseDto>> GetAllAsync(string login);
         Task RemoveAsync(Guid userId);
-        Task RemoveAsync(string login);
         Task CleanUserHistory(Guid userId);
-        Task CleanUserHistory(string login);
     }
 }

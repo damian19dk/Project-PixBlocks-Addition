@@ -11,5 +11,6 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
         public long Expires { get; set; }
         public string RoleName { get; set; }
         public string Email { get; set; }
+        public bool Premium { get; set; }
     }
 }
