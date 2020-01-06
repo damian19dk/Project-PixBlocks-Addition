@@ -70,7 +70,7 @@ Quiz składa się z następujących składowych:
 - **Id** - Guid, unikalny identyfikator quizu
 - **MediaId** - Guid, identyfikator media(wideo lub kurs), którego dotyczy dany quiz
 - **Question** - string, pytanie
-- **Answers** - kolekcja zawierająca obiekty typu QuizAnswer, które opisują odpowiedzi
+- **Answers** - kolekcja zawierająca obiekty typu **QuizAnswer**, które opisują odpowiedzi
 
 Każdy quiz jest skorelowany z dokładnie jednym media. Każde media może przechowywać maksymalnie 1 quiz.
 Odpowiedzi do quizów mogą zawierać dowolną ilość poprawnych odpowiedzi.
