@@ -69,11 +69,10 @@ Pobierając dane należy pamiętać, że wszystkie zwracane dane są kategoryzow
 Quiz składa się z następujących składowych:
 - **Id** - Guid, unikalny identyfikator quizu
 - **MediaId** - Guid, identyfikator media(wideo lub kurs), którego dotyczy dany quiz
-- **Question** - string, pytanie
-- **Answers** - kolekcja zawierająca obiekty typu **QuizAnswer**, które opisują odpowiedzi
+- **Questions** - kolekcja zawierająca obiekty typu **QuizQuestion**, które zawierają pytania i odpowiedzi.
 
 Każdy quiz jest skorelowany z dokładnie jednym media. Każde media może przechowywać maksymalnie 1 quiz.<br>
 Odpowiedzi do quizów mogą zawierać dowolną ilość poprawnych odpowiedzi.<br>
 Usunięcie quizu powoduje ustawienie na null pola **QuizId** powiązanego media.<br>
 Usunięcie media z quizem powoduje również usunięcie quizu.<br>
-Aktualizacja quizu powoduje usunięcie kolekcji **Answers** i stworzenie nowej.<br>
+Aktualizacja quizu powoduje usunięcie kolekcji **QuizQuestions** i stworzenie nowej.<br>
