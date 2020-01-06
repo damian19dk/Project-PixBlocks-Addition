@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseDocument} from '../../models/courseDocument.model';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-course-list-element-user',
@@ -10,10 +11,13 @@ export class CourseListElementUserComponent implements OnInit {
 
   @Input() course: CourseDocument;
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
   }
 
+  isPremiumUser(): boolean {
+    return this.authService.isPremium();
+  }
 }

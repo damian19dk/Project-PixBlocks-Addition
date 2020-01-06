@@ -8,8 +8,16 @@
   overflow: hidden;
   max-height: 300px;
   max-width: 300px;
-  /*padding-top: 100%;*/
   margin: 25px 25px;
+}
+
+.card-premium {
+  border-style: solid;
+  transition: 0.3s;
+}
+
+.card-premium:hover {
+  box-shadow: 1.0rem 1.0rem 1.0rem rgba(255, 0, 0, 0.5);
 }
 
 .box-shadow {
