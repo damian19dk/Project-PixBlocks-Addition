@@ -25,9 +25,12 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserCourseHistory> UserCourseHistories { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizAnswer> QuizAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Quiz>().ToTable("Quizzes");
             modelBuilder.Entity<Video>().ToTable("Videos");
             modelBuilder.Entity<Video>().Property(e=>e.Resources)
                                         .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
