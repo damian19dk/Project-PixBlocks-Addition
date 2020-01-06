@@ -74,3 +74,6 @@ Quiz składa się z następujących składowych:
 
 Każdy quiz jest skorelowany z dokładnie jednym media. Każde media może przechowywać maksymalnie 1 quiz.
 Odpowiedzi do quizów mogą zawierać dowolną ilość poprawnych odpowiedzi.
+Usunięcie quizu powoduje ustawienie na null pola **QuizId** powiązanego media.
+Usunięcie media z quizem powoduje również usunięcie quizu.
+Aktualizacja quizu powoduje usunięcie kolekcji **Answers** i stworzenie nowej.
