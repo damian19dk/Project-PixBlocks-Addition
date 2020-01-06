@@ -48,6 +48,7 @@ Kurs posiada następujące pola:
 - **Duration** – nie jest wykorzystywane
 - **PublishDate** – data opublikowania kursu
 - **Language** – język kursu
+- **QuizId** - id do quizu, w przypadku braku przypisanego quizu ma wartość null
 - **Tags** – kolekcja tagów
 - **CourseVideos** – kolekcja wideo, które zostały dodane do kursu
 
@@ -63,3 +64,13 @@ Pobierając dane należy pamiętać, że wszystkie zwracane dane są kategoryzow
 - `api/course/tags` z parametrem (string [] tags) – zwraca wszystkie kursy o danych tagach
 - `api/course/title` z parametrem (string title) – zwraca kursy zawierające w tytule frazę title
 - `api/course` z parametrem (Guid id) – zwraca kurs o danym id
+
+## 5. Quizy
+Quiz składa się z następujących składowych:
+- **Id** - Guid, unikalny identyfikator quizu
+- **MediaId** - Guid, identyfikator media(wideo lub kurs), którego dotyczy dany quiz
+- **Question** - string, pytanie
+- **Answers** - kolekcja zawierająca obiekty typu QuizAnswer, które opisują odpowiedzi
+
+Każdy quiz jest skorelowany z dokładnie jednym media. Każde media może przechowywać maksymalnie 1 quiz.
+Odpowiedzi do quizów mogą zawierać dowolną ilość poprawnych odpowiedzi.
