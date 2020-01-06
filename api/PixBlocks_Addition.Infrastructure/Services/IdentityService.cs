@@ -43,8 +43,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
             User user = new User(username, email, role, password, _encrypter);
             UserCourseHistory userCourseHistory = new UserCourseHistory(user);
 
-            await _userCourseHistoryRepository.AddAsync(userCourseHistory);
             await _userRepository.AddAsync(user);
+            await _userCourseHistoryRepository.AddAsync(userCourseHistory);
         }
 
         public async Task<JwtDto> Login(string login, string password)
