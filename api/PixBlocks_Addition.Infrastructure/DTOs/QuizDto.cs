@@ -8,7 +8,6 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
     {
         public Guid Id { get; set; }
         public Guid MediaId { get; set; }
-        public string Question { get; set; }
-        public ICollection<QuizAnswerDto> Answers { get; set; }
+        public ICollection<QuizQuestionDto> Questions { get; set; }
     }
 }

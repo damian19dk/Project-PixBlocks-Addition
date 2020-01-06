@@ -25,13 +25,30 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var course = (await httpClient.GetAsync<IEnumerable<CourseDto>>($"api/course/title?title={courseTitle}")).First();
             var quiz = new CreateQuizResource()
             {
-                Question = "Ile mam lat?",
                 MediaId = course.Id,
-                Answers = new List<QuizAnswerResource>()
+                Questions = new List<QuizQuestionResource>()
                 {
-                    new QuizAnswerResource() { Answer = "Dwanaście :)", IsCorrect = false },
-                    new QuizAnswerResource() { Answer = "15", IsCorrect = false },
-                    new QuizAnswerResource() { Answer = "Dwadzieścia trzy", IsCorrect = true }
+                    new QuizQuestionResource()
+                    {
+                        Question = "Ile mam lat ?",
+                        Answers = new List<QuizAnswerResource>()
+                        {
+                            new QuizAnswerResource() { Answer = "Dwanaście :)", IsCorrect = false },
+                            new QuizAnswerResource() { Answer = "Dwadzieścia trzy", IsCorrect = true },
+                            new QuizAnswerResource() { Answer = "15", IsCorrect = false }
+                        }
+                    },
+                    new QuizQuestionResource()
+                    {
+                        Question = "Pytanie testowe",
+                        Answers = new List<QuizAnswerResource>()
+                        {
+                            new QuizAnswerResource() { Answer = "Odpowiedź numer 1", IsCorrect = false },
+                            new QuizAnswerResource() { Answer = "Odpowiedź numer 2", IsCorrect = true },
+                            new QuizAnswerResource() { Answer = "Odpowiedź numer 3", IsCorrect = false },
+                            new QuizAnswerResource() { Answer = "Odpowiedź numer 4", IsCorrect = true }
+                        }
+                    }
                 }
             };
             var json = JsonConvert.SerializeObject(quiz);

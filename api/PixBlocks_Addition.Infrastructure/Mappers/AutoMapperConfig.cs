@@ -23,6 +23,7 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<QuizAnswer, QuizAnswerDto>();
+                cfg.CreateMap<QuizQuestion, QuizQuestionDto>();
                 cfg.CreateMap<Quiz, QuizDto>();
                 cfg.CreateMap<Tag, string>().ConvertUsing(x => x.Name);
                 cfg.CreateMap<Video, VideoDto>()

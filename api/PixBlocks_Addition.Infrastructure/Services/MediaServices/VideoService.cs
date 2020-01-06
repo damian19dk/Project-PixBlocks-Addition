@@ -21,6 +21,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IQuizRepository _quizRepository;
         private readonly ILocalizationService _localizer;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
@@ -28,12 +29,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public VideoService(IVideoRepository videoRepository, ICourseRepository courseRepository, IJWPlayerService jwPlayerService, 
                             IResourceHandler resourceHandler, IResourceRepository resourceRepository, ILocalizationService localizer,
-                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
+                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config, IQuizRepository quizRepository)
         {
             _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
+            _quizRepository = quizRepository;
             _localizer = localizer;
             _videoRepository = videoRepository;
             _courseRepository = courseRepository;
@@ -164,11 +166,37 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
+            var video = await _videoRepository.GetAsync(id);
+            if(video == null)
+            {
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
+            }
+            if (video.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
+                await _quizRepository.RemoveAsync(quiz);
+            }
             await _videoRepository.RemoveAsync(id);
         }
 
         public async Task RemoveAsync(string title)
         {
+            var videos = await _videoRepository.GetAsync(title);
+            if(videos.Count() > 1)
+            {
+                throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Video with title {title} is ambiguous.");
+            }
+            if(videos.Count() == 0)
+            {
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with title {title} not found");
+            }
+
+            var video = videos.First();
+            if (video.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
+                await _quizRepository.RemoveAsync(quiz);
+            }
             await _videoRepository.RemoveAsync(title);
         }
 
