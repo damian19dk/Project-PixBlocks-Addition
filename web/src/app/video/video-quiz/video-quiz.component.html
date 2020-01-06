@@ -2,12 +2,12 @@
 <div class="row">
     <div class="col-6">
     </div>
-    <div class="col-6 text-right">
+ <!--   <div class="col-6 text-right">
       Select Quiz:
       <select [(ngModel)]="quizName" (change)="loadQuiz(quizName)">
         <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz.name}}</option>
       </select>
-    </div>
+    </div> -->
   </div>
   <div id="quiz">
     <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
@@ -16,7 +16,7 @@
     <div *ngIf="mode=='quiz' && quiz">
       <div *ngFor="let question of filteredQuestions;">
         <div class="badge badge-info">Question {{pager.index + 1}} of {{pager.count}}.</div>
-        <div *ngIf="config.duration" class="badge badge-info float-right">Time: {{ellapsedTime}} / {{duration}}</div>
+        
         <h3 class="font-weight-normal">{{pager.index + 1}}.
           <span [innerHTML]="question.name"></span>
         </h3>

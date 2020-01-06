@@ -18,28 +18,28 @@ export class VideoQuizComponent implements OnInit {
     questions: [
       {id : 1, name: 'Skąd się urwałeś?', questionTypeId: 1, answered: false, options: [
       {
-        id : 1, name: 'Z choinki'
+        id : 1, name: 'Z choinki', questionId: 1, isAnswer: true, selected: true
       },
       {
-        id:2,
+        id:2, questionId: 2, isAnswer: true, selected: true,
         name: 'Z malinki'
       },
       {
-        id:3,
+        id:3, questionId: 2, isAnswer: false, selected: true,
         name: 'Z gnoju i glinki'
       },
       {
-        id : 4,
+        id : 4, questionId: 2, isAnswer: false, selected: true,
         name: 'Z chuja spadłeś'
       }
       ] 
     },
     {id:2, name: 'Jak się żyło?', questionTypeId:2, answered: false, options: [
       {
-        id:1, name: 'costam'
+        id:1, name: 'costam', questionId: 3, isAnswer: false, selected: true,
       },
       {
-        id:2, name: 'jakistam'
+        id:2, name: 'jakistam', questionId: 3, isAnswer: false, selected: true,
       }
     ]}
     ]
@@ -77,12 +77,12 @@ export class VideoQuizComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.quizes = this.quizService.getAll();
+  //  this.quizes = this.quizService.getAll();
     this.quizName = this.quizes[0].id;
-    this.loadQuiz(this.quizName);
+    //this.loadQuiz(this.quizName);
   }
 
-  loadQuiz(quizName: string) {
+ /* loadQuiz(quizName: string) {
     this.quizService.get(quizName).subscribe(res => {
       this.quiz = new Quiz(res);
       this.pager.count = this.quiz.questions.length;
@@ -92,7 +92,7 @@ export class VideoQuizComponent implements OnInit {
       this.duration = this.parseTime(this.config.duration);
     });
     this.mode = 'quiz';
-  }
+  }*/
 
   tick() {
     const now = new Date();
