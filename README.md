@@ -72,8 +72,8 @@ Quiz składa się z następujących składowych:
 - **Question** - string, pytanie
 - **Answers** - kolekcja zawierająca obiekty typu **QuizAnswer**, które opisują odpowiedzi
 
-Każdy quiz jest skorelowany z dokładnie jednym media. Każde media może przechowywać maksymalnie 1 quiz.
-Odpowiedzi do quizów mogą zawierać dowolną ilość poprawnych odpowiedzi.
-Usunięcie quizu powoduje ustawienie na null pola **QuizId** powiązanego media.
-Usunięcie media z quizem powoduje również usunięcie quizu.
-Aktualizacja quizu powoduje usunięcie kolekcji **Answers** i stworzenie nowej.
+Każdy quiz jest skorelowany z dokładnie jednym media. Każde media może przechowywać maksymalnie 1 quiz.<br>
+Odpowiedzi do quizów mogą zawierać dowolną ilość poprawnych odpowiedzi.<br>
+Usunięcie quizu powoduje ustawienie na null pola **QuizId** powiązanego media.<br>
+Usunięcie media z quizem powoduje również usunięcie quizu.<br>
+Aktualizacja quizu powoduje usunięcie kolekcji **Answers** i stworzenie nowej.<br>
