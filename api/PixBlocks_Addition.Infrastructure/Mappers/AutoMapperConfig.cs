@@ -22,6 +22,8 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
         public IMapper Mapper
             => new MapperConfiguration(cfg =>
             {
+                cfg.CreateMap<QuizAnswer, QuizAnswerDto>();
+                cfg.CreateMap<Quiz, QuizDto>();
                 cfg.CreateMap<Tag, string>().ConvertUsing(x => x.Name);
                 cfg.CreateMap<Video, VideoDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
