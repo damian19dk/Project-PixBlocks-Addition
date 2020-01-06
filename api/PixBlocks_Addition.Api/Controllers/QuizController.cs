@@ -24,7 +24,7 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("create")]
-        public async Task CreateQuiz(CreateQuizResource quiz)
+        public async Task CreateQuiz([FromBody]CreateQuizResource quiz)
         {
             await _quizService.CreateQuizAsync(quiz);
         }
@@ -35,7 +35,7 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPut("update")]
-        public async Task UpdateQuiz(UpdateQuizResource quiz) 
+        public async Task UpdateQuiz([FromBody]UpdateQuizResource quiz) 
             => await _quizService.UpdateQuizAsync(quiz);
 
         [Authorize(Roles = "Administrator")]
