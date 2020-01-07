@@ -30,9 +30,19 @@ export class CourseService extends DataService {
   }
 
   changeOrder(coursesIds: Array<string>): Observable<any> {
-    const headers = new HttpHeaders();
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
     const courses = new CoursesOrder(coursesIds);
     return this.http.post<any>(environment.baseUrl + '/api/Order/courses', courses, {headers}).pipe(
       retry(10));
+  }
+
+  addToHistory(courseId: string) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.post<any>(environment.baseUrl + '/api/History/addCourseToHistory', {}, {headers}).pipe(
+      retry(10)
+    );
   }
 }

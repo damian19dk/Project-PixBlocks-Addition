@@ -7,6 +7,7 @@ import {VideoDocument} from 'src/app/models/videoDocument.model';
 import {TagService} from 'src/app/services/tag.service';
 import {CourseDocument} from 'src/app/models/courseDocument.model';
 import {CourseService} from 'src/app/services/course.service';
+import {AuthService} from '../../services/auth.service';
 
 declare var jwplayer: any;
 
@@ -31,11 +32,11 @@ export class ShowVideoComponent implements OnInit {
     private videoService: VideoService,
     private loadingService: LoadingService,
     private courseService: CourseService,
-    private tagService: TagService) {
+    private tagService: TagService,
+    private authService: AuthService) {
   }
 
   ngOnInit() {
-
     this.getCourses();
 
     this.route.params.subscribe(
@@ -49,6 +50,7 @@ export class ShowVideoComponent implements OnInit {
 
   getHostedVideo() {
     this.loadingService.load();
+    window.scrollTo({top: 0, behavior: 'smooth'});
 
     const id = this.route.snapshot.paramMap.get('mediaId');
     this.videoService.getHostedVideo(id).subscribe(
@@ -58,14 +60,16 @@ export class ShowVideoComponent implements OnInit {
         setTimeout(() => {
           this.player = jwplayer('video-field').setup({
             title: this.video.title,
-            file: this.video.sources[0].file,
+            sources: this.video.sources,
+            mediaId: this.video.mediaId,
             image: this.video.image,
+            autostart: 'viewable',
             aspectratio: '16:9',
-            primary: 'html5',
+            primary: 'html5'
           });
         }, 50);
+
         this.loadingService.unload();
-        console.log(this.video);
       },
       error => {
         this.error = error;
@@ -89,7 +93,7 @@ export class ShowVideoComponent implements OnInit {
       });
   }
 
-  getCourses() {
+  async getCourses() {
     this.loadingService.load();
 
     this.courseService.getAll(this.page).subscribe(
@@ -104,7 +108,7 @@ export class ShowVideoComponent implements OnInit {
     );
   }
 
-  getCourse() {
+  async getCourse() {
     this.loadingService.load();
     const courseId = this.route.snapshot.paramMap.get('id');
 
@@ -120,4 +124,11 @@ export class ShowVideoComponent implements OnInit {
     );
   }
 
+  isPremiumUser(): boolean {
+    return this.authService.isPremium();
+  }
+
+  forPremium(premium: boolean): boolean {
+    return premium ? this.authService.isPremium() : true;
+  }
 }
