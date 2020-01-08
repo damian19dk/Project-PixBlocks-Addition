@@ -1,10 +1,10 @@
-<div *ngIf="course" class="card mb-4 bg-white box-shadow ">
+<div *ngIf="course && course.premium ? isPremiumUser() : true" class="card mb-4 bg-white box-shadow">
 
   <div class="card-header text-center">
     {{course.title}}
   </div>
 
-  <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
+  <div *ngIf="course.courseVideos.length > 0; else empty" class="card-box card-link"
        routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
     <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
          src={{course.picture}}/>
@@ -12,25 +12,66 @@
          src='assets/img/movie.jpg'/>
   </div>
 
-  <div *ngIf="course.courseVideos.length === 0" class="card-box">
+  <ng-template #empty>
+    <div class="card-box">
+      <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
+           src={{course.picture}}/>
+      <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+           src='assets/img/movie.jpg'/>
+    </div>
+  </ng-template>
+
+  <div class="card-body">
+    <p class="card-text">{{course.description | shortText}}</p>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <small container="body"
+             ngbTooltip="Czas trwania" placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
+      <div>
+        <small class="badge badge-pill badge-primary" container="body"
+               ngbTooltip="Liczba filmów" placement="bottom">{{course.courseVideos.length}}</small>
+        <small *ngIf="course.premium" container="body" ngbTooltip="Premium" placement="bottom"><i
+          class="far fa-star"></i></small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="course && course.premium && !isPremiumUser()" class="card card-not-premium mb-4 bg-white">
+
+  <div class="card-header text-center">
+    {{course.title}}
+  </div>
+
+  <div *ngIf="course.courseVideos.length > 0; else empty" class="card-box card-link"
+       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
     <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
          src={{course.picture}}/>
     <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
          src='assets/img/movie.jpg'/>
   </div>
 
+  <ng-template #empty>
+    <div class="card-box">
+      <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
+           src={{course.picture}}/>
+      <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+           src='assets/img/movie.jpg'/>
+    </div>
+  </ng-template>
+
   <div class="card-body">
     <p class="card-text">{{course.description | shortText}}</p>
 
     <div class="d-flex justify-content-between align-items-center">
-      <small ngbTooltip="Czas trwania" placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
+      <small container="body"
+             ngbTooltip="Czas trwania" placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
       <div>
         <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
-               placement="bottom">{{course.courseVideos.length}}</small>
-        <small *ngIf="course.premium" ngbTooltip="Premium"
-               placement="bottom"><i class="far fa-star"></i></small>
+               container="body" placement="bottom">{{course.courseVideos.length}}</small>
+        <small *ngIf="course.premium" container="body" ngbTooltip="Premium" placement="bottom"><i
+          class="far fa-star"></i></small>
       </div>
     </div>
   </div>
-
 </div>

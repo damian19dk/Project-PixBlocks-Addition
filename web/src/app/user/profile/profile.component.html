@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row col-12 justify-content-center">
     <div class="col-4">
-      <img width="100%" height="100%" src="assets/svg/undraw_profile_pic_ic5t.svg">
+      <img alt="" height="100%" src="assets/svg/undraw_profile_pic_ic5t.svg" width="100%">
     </div>
     <div *ngIf="userDocument" class="col-8">
 
@@ -13,6 +13,9 @@
       </div>
       <div i18n class="row justify-content-center">
         <h2>Rola systemowa: {{userDocument.roleName}}</h2>
+      </div>
+      <div *ngIf="userDocument.premium" class="row justify-content-center" i18n>
+        <h2>Premium</h2>
       </div>
 
       <div class="d-flex justify-content-center">

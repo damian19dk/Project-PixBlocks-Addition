@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('TokenExpires', data.expires);
           localStorage.setItem('UserRole', data.roleName);
           localStorage.setItem('UserEmail', data.email);
+          localStorage.setItem('UserPremium', data.premium);
           this.router.navigate([this.returnUrl]);
         },
         error => {

@@ -57,6 +57,15 @@
 
   <div *appHasRole="['Użytkownik', 'Administrator']" class="container-fluid">
     <div *appHasRole="['Użytkownik']" class="row alert alert-info justify-content-center">
+      <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
+    </div>
+
+    <app-courses-history-for-user></app-courses-history-for-user>
+  </div>
+
+
+  <div *appHasRole="['Użytkownik', 'Administrator']" class="container-fluid">
+    <div *appHasRole="['Użytkownik']" class="row alert alert-info justify-content-center">
       <strong>{{getLogin()}}</strong>, zobacz, co nowego ostatnio dodaliśmy:
     </div>
 
