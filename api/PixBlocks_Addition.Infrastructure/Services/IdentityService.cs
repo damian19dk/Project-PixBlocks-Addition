@@ -17,14 +17,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IRefreshTokenRepository _refreshTokens;
         private readonly IJwtHandler _jwtHandler;
         private readonly IEncrypter _encrypter;
+        private readonly IVideoHistoryRepository _videoHistoryRepository;
 
         public IdentityService(IJwtHandler jwtHandler,
-            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter)
+            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter, IVideoHistoryRepository videoHistoryRepository)
         {
             _jwtHandler = jwtHandler;
             _userRepository = userRepository;
             _refreshTokens = refreshTokenRepository;
             _encrypter = encrypter;
+            _videoHistoryRepository = videoHistoryRepository;
         }
 
         public async Task Register(string username, string password, string email, int role)
@@ -39,8 +41,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var hash = _encrypter.GetHash(password, salt);
 
             User user = new User(username, email, role, password, _encrypter);
+            VideoHistory videoHistory = new VideoHistory(user);
 
             await _userRepository.AddAsync(user);
+            await _videoHistoryRepository.AddAsync(videoHistory);
         }
 
         public async Task<JwtDto> Login(string login, string password)

@@ -43,5 +43,10 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string EmptyTitle => "Tytuł nie może być pusty!";//2018
         public static string TooShortTitle => "Tytuł musi zawierać co najmniej 3 znaki!";//2016
         public static string TooLongTitle => "Tytuł nie może zawierać więcej niż 250 znaków!";//2017
+        public static string NegativeLength => "Długość kursu nie może być ujemna!";//2025
+        public static string UserNotFound => "Nie ma takiego użytkownika!";//1014
+        public static string VideoHistoryNotFound => "Nie znaleziono histori wideo użytkonika!";//1015
+        public static string VideoInHistory => "To wideo jest już w historii użytkonika!";//1016
+        public static string NegativeTime => "Czas nie może być ujemny!";//2026
     }
 }

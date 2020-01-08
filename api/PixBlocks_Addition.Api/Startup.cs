@@ -107,6 +107,9 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<ILocalizationService, LocalizationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IVideoHistoryService, VideoHistoryService>();
+            services.AddScoped<IVideoHistoryRepository, VideoHistoryRepository>();
+            services.AddScoped<IVideoHistoryHelperRepository, VideoHistoryHelperRepository>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -153,6 +156,7 @@ namespace PixBlocks_Addition.Api
             {
                 app.UseHsts();
             }
+           
             app.UseSwagger();
 
 

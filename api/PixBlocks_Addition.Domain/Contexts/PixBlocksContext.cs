@@ -24,7 +24,8 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<History> Histories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<CourseProgress> CoursesProgresses { get; set; }
+        public DbSet<VideoHistory> VideoHistories { get; set; }
+        public DbSet<VideoHistoryHelper> VideoHistoryHelpers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,8 @@ namespace PixBlocks_Addition.Domain.Contexts
             modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<History>().ToTable("History");
             modelBuilder.Entity<Role>().ToTable("Role");
+            modelBuilder.Entity<VideoHistory>().ToTable("VideoHistory");
+            modelBuilder.Entity<VideoHistoryHelper>().ToTable("VideoHistoryHelper");
 
             var videoFK = modelBuilder.Model.FindEntityType(typeof(Video)).GetForeignKeys();
             foreach (var fk in videoFK)

@@ -110,10 +110,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
 
-            course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
-            await _courseRepository.UpdateAsync(course);
+
 
             setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
+
+            course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
+            course.AddTime(await TakeTime(video.MediaId));
+            await _courseRepository.UpdateAsync(course);
         }
 
         private async Task setDuration(string mediaId, Video video, IVideoRepository videoRepository)
@@ -136,6 +139,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             video.SetStatus(response.Status);
             video.SetDuration((long)response.Duration);
             await videoRepository.UpdateAsync(video);
+        }
+
+        private async Task<long> TakeTime(string mediaId)
+        {
+            var video = await _jwPlayerService.GetVideoAsync(mediaId);
+            return video.Duration;
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
@@ -164,6 +173,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
+            var video = await _videoRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(video.ParentId);
+
+            course.TakeTime(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             await _videoRepository.RemoveAsync(id);
         }
 
