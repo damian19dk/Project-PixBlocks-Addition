@@ -52,6 +52,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {CoursesViewListUserComponent} from './courses/courses-view-list-user/courses-view-list-user.component';
 import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
+import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user/courses-history-for-user.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import {CourseListElementAdminComponent} from './courses/course-list-element-adm
     CoursesEditAdminComponent,
     CoursesViewListUserComponent,
     CourseListElementUserComponent,
-    CourseListElementAdminComponent
+    CourseListElementAdminComponent,
+    CoursesHistoryForUserComponent
   ],
   imports: [
     BrowserModule,

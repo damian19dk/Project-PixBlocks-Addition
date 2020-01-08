@@ -12,21 +12,12 @@
     <div *ngIf="videoDocument" class="col-7">
       <div class="row">
         <div class="col-12">
-          <!--          <div class="embed-responsive embed-responsive-16by9 " id="video-field">-->
-          <!--            <iframe [src]="video.link | safe" allowfullscreen="allowfullscreen"-->
-          <!--                    class="embed-responsive-item justify-content-md-center"-->
-          <!--                    id="video" mozallowfullscreen="mozallowfullscreen"-->
-          <!--                    msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"-->
-          <!--                    webkitallowfullscreen="webkitallowfullscreen">-->
-          <!--            </iframe>-->
-          <!--          </div>-->
-
           <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
                msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                webkitallowfullscreen="webkitallowfullscreen">Loading...
           </div>
 
-          <button class="btn">Start</button>
+          <button (click)="addCourseToUserHistory()" class="btn">Start</button>
         </div>
       </div>
 

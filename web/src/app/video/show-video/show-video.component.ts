@@ -131,4 +131,15 @@ export class ShowVideoComponent implements OnInit {
   forPremium(premium: boolean): boolean {
     return premium ? this.authService.isPremium() : true;
   }
+
+  addCourseToUserHistory() {
+    this.courseService.addToUserHistory(this.courseDocument.id).subscribe(
+      data => {
+
+      },
+      error => {
+
+      }
+    );
+  }
 }

@@ -37,11 +37,20 @@ export class CourseService extends DataService {
       retry(10));
   }
 
-  addToHistory(courseId: string) {
+  addToUserHistory(courseId: string): Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
-    return this.http.post<any>(environment.baseUrl + '/api/History/addCourseToHistory', {}, {headers}).pipe(
+    return this.http.post<any>(environment.baseUrl + '/api/History/addCourseToHistory?courseId=' + courseId, {}, {headers}).pipe(
+      retry(10)
+    );
+  }
+
+  getUserHistory(): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.get<any>(environment.baseUrl + '/api/History/getUserHistory', {headers}).pipe(
       retry(10)
     );
   }
