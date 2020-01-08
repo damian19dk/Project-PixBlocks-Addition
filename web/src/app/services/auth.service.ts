@@ -22,8 +22,8 @@ export class AuthService {
     private jwtHelper: JwtHelperService) {
 
     // tslint:disable-next-line:radix
-    const diff = new Date().getTime() - new Date(parseInt(localStorage.getItem('TokenExpires')) * 1000).getTime() / 3600;
-    if (localStorage.getItem('Token') !== undefined && diff >= 1) {
+    const diff = (new Date(parseInt(localStorage.getItem('TokenExpires')) * 1000).getTime() - new Date().getTime());
+    if (localStorage.getItem('Token') !== undefined && localStorage.getItem('Token') !== null && diff <= -3600000) {
       this.clearUserData();
     }
 
