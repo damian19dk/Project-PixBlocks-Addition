@@ -47,7 +47,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 if (i.Video == video) throw new MyException(MyCodesNumbers.VideoInHistory, MyCodes.VideoInHistory);
             }
-            var helper = new VideoHistoryHelper(video, time);
+            var helper = new VideoRecord(video, time);
 
             
             await _videoHistoryHelperRepository.AddAsync(helper);
@@ -72,9 +72,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
                     helper = i.Time;
             }
 
-            videoHistory.Videos.Remove(new VideoHistoryHelper(video, helper));
+            videoHistory.Videos.Remove(new VideoRecord(video, helper));
 
-            videoHistory.Videos.Add(new VideoHistoryHelper(video, time));
+            videoHistory.Videos.Add(new VideoRecord(video, time));
 
             //await _videoHistoryHelperRepository.UpdateAsync(videoHistory.Videos);
             await _videoHistoryRepository.UpdateAsync(videoHistory);

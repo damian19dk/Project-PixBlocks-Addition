@@ -12,7 +12,7 @@ namespace PixBlocks_Addition.Domain.Repositories
     public class VideoHistoryHelperRepository : IVideoHistoryHelperRepository
     {
         private readonly PixBlocksContext _entities;
-        private readonly IQueryable<VideoHistoryHelper> _videoHistoryHelpers;
+        private readonly IQueryable<VideoRecord> _videoHistoryHelpers;
 
         public VideoHistoryHelperRepository(PixBlocksContext entities)
         {
@@ -20,23 +20,23 @@ namespace PixBlocks_Addition.Domain.Repositories
             _videoHistoryHelpers = entities.VideoHistoryHelpers;
         }
 
-        public async Task AddAsync(VideoHistoryHelper videoHistoryHelper)
+        public async Task AddAsync(VideoRecord videoHistoryHelper)
         {
             await _entities.VideoHistoryHelpers.AddAsync(videoHistoryHelper);
             await _entities.SaveChangesAsync();
         }
 
-        public async Task<VideoHistoryHelper> GetAsync(Video video) => await _videoHistoryHelpers.SingleOrDefaultAsync(x => x.Video == video);
+        public async Task<VideoRecord> GetAsync(Video video) => await _videoHistoryHelpers.SingleOrDefaultAsync(x => x.Video == video);
 
-        public async Task<IEnumerable<VideoHistoryHelper>> GetAllAsync() => await _videoHistoryHelpers.ToListAsync();
+        public async Task<IEnumerable<VideoRecord>> GetAllAsync() => await _videoHistoryHelpers.ToListAsync();
 
-        public async Task RemoveAsync(VideoHistoryHelper videoHistoryHelper)
+        public async Task RemoveAsync(VideoRecord videoHistoryHelper)
         {
             _entities.VideoHistoryHelpers.Remove(videoHistoryHelper);
             await _entities.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(VideoHistoryHelper videoHistoryHelper)
+        public async Task UpdateAsync(VideoRecord videoHistoryHelper)
         {
             _entities.VideoHistoryHelpers.Update(videoHistoryHelper);
             await _entities.SaveChangesAsync();
