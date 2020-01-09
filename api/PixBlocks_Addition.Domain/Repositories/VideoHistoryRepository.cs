@@ -33,6 +33,7 @@ namespace PixBlocks_Addition.Domain.Repositories
 
         public async Task RemoveAsync(VideoHistory videoHistory)
         {
+            _entities.VideoHistoryHelpers.RemoveRange(videoHistory.Videos);
             _entities.VideoHistories.Remove(videoHistory);
             await _entities.SaveChangesAsync();
         }
