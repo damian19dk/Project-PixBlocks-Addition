@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixBlocks_Addition.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,7 +14,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public VideoHistory(User user)
         {
             Id = Guid.NewGuid();
-            User = user;
+            User = user ?? throw new MyException("user cannot be null");
         }
 
         protected VideoHistory()
