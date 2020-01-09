@@ -14,18 +14,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
 {
     public class VideoHistoryService : IVideoHistoryService
     {
-        private readonly IVideoHistoryRepository _videoHistoryRepository;
         private readonly IUserRepository _userRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IMapper _mapper;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoHistoryHelperRepository _videoHistoryHelperRepository;
 
-        public VideoHistoryService(IVideoHistoryRepository videoHistoryRepository, IUserRepository userRepository, 
-            IVideoRepository videoRepository, IAutoMapperConfig config, ICourseRepository courseRepository,
+        public VideoHistoryService(IUserRepository userRepository, IVideoRepository videoRepository, 
+            IAutoMapperConfig config, ICourseRepository courseRepository,
             IVideoHistoryHelperRepository videoHistoryHelperRepository)
         {
-            _videoHistoryRepository = videoHistoryRepository;
             _userRepository = userRepository;
             _videoRepository = videoRepository;
             _mapper = config.Mapper;

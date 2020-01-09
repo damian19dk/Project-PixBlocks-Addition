@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PixBlocks_Addition.Domain.Repositories
 {
-    public interface IVideoHistoryHelperRepository
+    public interface IVideoHistoryRepository
     {
-        Task AddAsync(VideoRecord videoHistoryHelper);
-        Task<VideoRecord> GetAsync(Video video);
-        Task<IEnumerable<VideoRecord>> GetAllAsync();
-        Task RemoveAsync(VideoRecord videoHistory);
-        Task UpdateAsync(VideoRecord videoHistory);
+        Task AddAsync(VideoHistory videoHistory);
+        Task<VideoHistory> GetAsync(User user);
+        Task<IEnumerable<VideoHistory>> GetAllAsync();
+        Task RemoveAsync(VideoHistory videoHistory);
+        Task UpdateAsync(VideoHistory videoHistory);
     }
 }
