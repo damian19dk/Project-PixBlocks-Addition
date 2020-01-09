@@ -99,6 +99,7 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IVideoHistoryRepository, VideoHistoryRepository>();
 
             services.AddScoped(typeof(IChangeMediaHandler<,>), typeof(ChangeMediaHandler<,>));
             services.AddScoped<IResourceService, ResourceService>();
@@ -108,8 +109,6 @@ namespace PixBlocks_Addition.Api
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IVideoHistoryService, VideoHistoryService>();
-            services.AddScoped<IVideoHistoryRepository, VideoHistoryRepository>();
-            services.AddScoped<IVideoHistoryHelperRepository, VideoHistoryHelperRepository>();
 
             services.AddHttpClient<IJWPlayerService, JWPlayerService>();
             services.AddScoped<IUserRepository, UserRepository>();

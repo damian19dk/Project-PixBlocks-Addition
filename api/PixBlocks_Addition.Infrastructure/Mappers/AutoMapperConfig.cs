@@ -23,6 +23,7 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Tag, string>().ConvertUsing(x => x.Name);
+                cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Video, VideoDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
                     .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
@@ -34,6 +35,7 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
                 cfg.CreateMap<Course, CourseDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
                     .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
+                cfg.CreateMap<VideoRecord, VideoRecordDto>();
                 cfg.CreateMap<VideoHistory, VideoHistoryDto>();
             })
             .CreateMapper();

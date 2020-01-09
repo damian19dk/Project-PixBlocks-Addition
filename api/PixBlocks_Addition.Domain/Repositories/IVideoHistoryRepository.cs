@@ -10,7 +10,9 @@ namespace PixBlocks_Addition.Domain.Repositories
     {
         Task AddAsync(VideoHistory videoHistory);
         Task<VideoHistory> GetAsync(User user);
+        Task<VideoRecord> GetAsync(User user, Guid videoId);
         Task<IEnumerable<VideoHistory>> GetAllAsync();
+        Task<bool> CheckUserHistory(User user);
         Task RemoveAsync(VideoHistory videoHistory);
         Task UpdateAsync(VideoHistory videoHistory);
     }

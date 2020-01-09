@@ -15,6 +15,7 @@ using PixBlocks_Addition.Infrastructure.Services.MediaServices;
 namespace PixBlocks_Addition.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class VideoHistoryController : ControllerBase
     {
@@ -24,10 +25,9 @@ namespace PixBlocks_Addition.Api.Controllers
         {
             _videoHistoryService = videoHistoryService;
         }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPost("addVideoToHistory")]
-        public async Task AddVideoToHistory(Guid videoId, long time = 0)
+        
+        [HttpPost("set")]
+        public async Task SetVideoProgress(Guid videoId, long time = 0)
         {
             Guid userId = Guid.Empty;
             var identity = User.Identity as ClaimsIdentity;
@@ -35,24 +35,10 @@ namespace PixBlocks_Addition.Api.Controllers
             {
                 userId = Guid.Parse(identity.Claims.First().Value);
             }
-            await _videoHistoryService.AddAsync(userId, videoId, time);
+            await _videoHistoryService.SetProgressAsync(userId, videoId, time);
         }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut("UpadateVideoHistory")]
-        public async Task UpdateVideoHistory(Guid videoId, long time = 0)
-        {
-            Guid userId = Guid.Empty;
-            var identity = User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                userId = Guid.Parse(identity.Claims.First().Value);
-            }
-            await _videoHistoryService.UpdateAsync(userId, videoId, time);
-        }
-
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("getUserVideoHistory")]
+        
+        [HttpGet("history")]
         public async Task<VideoHistoryDto> GetUserVideoHistory()
         {
             Guid userId = Guid.Empty;
@@ -61,11 +47,23 @@ namespace PixBlocks_Addition.Api.Controllers
             {
                 userId = Guid.Parse(identity.Claims.First().Value);
             }
-            return await _videoHistoryService.GetUserVideoHistory(userId);
+            return await _videoHistoryService.GetHistoryAsync(userId);
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet("GetUserProgres")]
+        [HttpGet("progress/{videoId}")]
+        public async Task<VideoRecordDto> GetVideoProgress(Guid videoId)
+        {
+            Guid userId = Guid.Empty;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                userId = Guid.Parse(identity.Claims.First().Value);
+            }
+            return await _videoHistoryService.GetVideoProgressAsync(userId, videoId);
+        }
+
+        
+        [HttpGet("progress/{courseId}")]
         public async Task<int> GetUserProgres(Guid courseId)
         {
             Guid userId = Guid.Empty;
@@ -74,7 +72,7 @@ namespace PixBlocks_Addition.Api.Controllers
             {
                 userId = Guid.Parse(identity.Claims.First().Value);
             }
-            return await _videoHistoryService.GetUserProgres(userId, courseId);
+            return await _videoHistoryService.GetProgressAsync(userId, courseId);
         }
     }
 }

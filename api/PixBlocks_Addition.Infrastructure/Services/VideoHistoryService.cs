@@ -70,7 +70,21 @@ namespace PixBlocks_Addition.Infrastructure.Services
             return _mapper.Map<VideoHistory, VideoHistoryDto>(result);
         }
 
-        public async Task<int> GetUserProgressAsync(Guid userId, Guid courseId)
+        public async Task<VideoRecordDto> GetVideoProgressAsync(Guid userId, Guid videoId)
+        {
+            var user = await _userRepository.GetAsync(userId);
+            if (user == null)
+                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+
+            var video = await _videoRepository.GetAsync(videoId);
+            if (video == null)
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+
+            var videoRecord = await _videoHistoryRepository.GetAsync(user, videoId);
+            return _mapper.Map<VideoRecordDto>(videoRecord);
+        }
+
+        public async Task<int> GetProgressAsync(Guid userId, Guid courseId)
         {
             var user = await _userRepository.GetAsync(userId);
             if (user == null)

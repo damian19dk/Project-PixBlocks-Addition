@@ -10,6 +10,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         Task SetProgressAsync(Guid userId, Guid videoId, long time = 0);
         Task<VideoHistoryDto> GetHistoryAsync(Guid userId);
-        Task<int> GetUserProgressAsync(Guid userId, Guid courseId);
+        Task<VideoRecordDto> GetVideoProgressAsync(Guid userId, Guid videoId);
+        Task<int> GetProgressAsync(Guid userId, Guid courseId);
     }
 }
