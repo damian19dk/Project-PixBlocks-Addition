@@ -4,8 +4,6 @@ using System.Text;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
-    
-
     public class VideoHistory
     {
         public Guid Id { get; protected set; }
