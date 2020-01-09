@@ -6,7 +6,7 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
 {
     public class VideoHistoryDto
     {
-        public UserDto user { get; set; }
-        public VideoDto video { get; set; }
+        public UserDto User { get; set; }
+        public ICollection<VideoRecordDto> Videos { get; set; }
     }
 }
