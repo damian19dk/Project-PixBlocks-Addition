@@ -111,14 +111,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             await _videoRepository.AddAsync(vid);
 
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
-            await _courseRepository.UpdateAsync(course);
+            
 
-            setDuration(video.MediaId, vid, course, (VideoRepository)_videoRepository.Clone());
+            setDuration(video.MediaId, vid, course, (VideoRepository)_videoRepository.Clone(), _courseRepository);
+            await _courseRepository.UpdateAsync(course);
         }
 
-        private async Task setDuration(string mediaId, Video video, Course course, IVideoRepository videoRepository)
+        private async Task setDuration(string mediaId, Video video, Course course, IVideoRepository videoRepository, ICourseRepository courseRepository)
         {
-           // var course = await _courseRepository.GetAsync(video.ParentId);
+            
             var response = await _jwPlayerService.ShowVideoAsync(mediaId);
             while (response.Status == "processing")
             {
@@ -134,23 +135,23 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     throw e;
                 }
             }
+            //var course = await courseRepository.GetAsync(video.ParentId);
 
-            
-            
             video.SetStatus(response.Status);
+            course.AddTime(10);
+            //await courseRepository.UpdateAsync(course);
             video.SetDuration((long)response.Duration);
             await videoRepository.UpdateAsync(video);
 
-            //var course = await _courseRepository.GetAsync(video.ParentId);
-            course.AddTime((long)response.Duration);
-            await _courseRepository.UpdateAsync(course);
-            //await setLength(course, (long)response.Duration);
+            //course.AddTime(10);
+            //await courseRepository.UpdateAsync(course);
+
         }
 
-        private async Task setLength(Course course, long time)
+        private async Task setLength(Course course, long time, ICourseRepository courseRepository)
         {
             course.AddTime(time);
-            await _courseRepository.UpdateAsync(course);
+            //await courseRepository.UpdateAsync(course);
         }
 
         private async Task<long> TakeTime(string mediaId)
