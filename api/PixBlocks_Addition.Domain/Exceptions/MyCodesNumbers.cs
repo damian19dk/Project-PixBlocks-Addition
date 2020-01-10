@@ -55,6 +55,8 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string AmbiguousTitle => "2026";
         public static string QuizNotFound => "2027";
         public static string QuizExists => "2028";
+        public static string TagExists => "2029";
+        public static string TagNotFound => "2030";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";
@@ -73,5 +75,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string EmptyLanguage => "6004";
         public static string CouldntLoad => "6005";
         public static string InvalidIndex => "6006";
+        public static string InvalidTagName => "6007";
+        public static string InvalidColor => "6008";
     }
 }

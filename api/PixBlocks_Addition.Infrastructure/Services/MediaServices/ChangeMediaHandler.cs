@@ -15,11 +15,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
     {
         private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public ChangeMediaHandler(IResourceHandler resourceHandler, IResourceRepository resourceRepository)
+        public ChangeMediaHandler(IResourceHandler resourceHandler, IResourceRepository resourceRepository, ITagRepository tagRepository)
         {
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
+            _tagRepository = tagRepository;
         }
 
         public async Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TParent> parentRepository = null)
@@ -50,31 +52,37 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             if (resource.Premium != entity.Premium)
                 entity.SetPremium(resource.Premium);
             
-            if (!string.IsNullOrEmpty(resource.Tags))
+            if (string.IsNullOrEmpty(resource.Tags))
             {
-                var tags = resource.Tags.Split(',', ';');
-                //Remove tags
-                ISet<Tag> tagsToRemove = new HashSet<Tag>();
-                foreach (var tag in entity.Tags)
-                {
-                    if (!tags.Contains(tag.Name))
-                    {
-                        tagsToRemove.Add(tag);
-                    }
-                }
-                await mediaRepository.RemoveTagsAsync(entity, tagsToRemove);
-                //Add tags
-                foreach (var tag in tags)
-                {
-                    if (!entity.Tags.Any(t => t.Name == tag))
-                    {
-                        entity.Tags.Add(new Tag(tag));
-                    }
-                }
+                entity.Tags.Clear();
             }
             else
             {
-                await mediaRepository.RemoveAllTagsAsync(entity);
+                var tags = resource.Tags.Split(',', ';');
+
+                ICollection<Tag> tagsToRemove = new HashSet<Tag>();
+                foreach(var entityTag in entity.Tags)
+                {
+                    if(!tags.Contains(entityTag.Name))
+                    {
+                        tagsToRemove.Add(entityTag);
+                    }
+                }
+                foreach (var tagEntity in tagsToRemove)
+                    entity.Tags.Remove(tagEntity);
+                
+                foreach(var tag in tags)
+                {
+                    var tagToAdd = await _tagRepository.GetAsync(tag, resource.Language);
+                    if(tagToAdd == null)
+                    {
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The desired tag {tag} was not found.");
+                    }
+                    if(!entity.Tags.Contains(tagToAdd))
+                    {
+                        entity.Tags.Add(tagToAdd);
+                    }
+                }
             }
 
             if(resource.Resources != null)
