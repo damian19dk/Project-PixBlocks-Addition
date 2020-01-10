@@ -42,7 +42,7 @@ namespace PixBlocks_Addition.Api.Controllers
             => await _tagService.UpdateAsync(name, tag);
 
         [Authorize(Roles = "Administrator")]
-        [HttpDelete]
+        [HttpDelete("{name}")]
         public async Task RemoveAsync(string name)
             => await _tagService.RemoveAsync(name);
     }
