@@ -15,7 +15,6 @@ namespace PixBlocks_Addition.Domain.Entities
         public Guid Id { get; protected set; }
         public int Index { get; protected set; }
         public string MediaId { get; protected set; }
-        public Category Category { get; protected set; }
         public Guid ParentId { get; protected set; }
         public bool Premium { get; protected set; }
         public string Title { get; protected set; }
