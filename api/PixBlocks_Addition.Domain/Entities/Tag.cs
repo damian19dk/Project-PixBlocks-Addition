@@ -26,9 +26,9 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public void SetName(string name)
         {
-            if(String.IsNullOrWhiteSpace(name) || name.Length < 4)
+            if(String.IsNullOrWhiteSpace(name) || name.Length < 2)
             {
-                throw new MyException(MyCodesNumbers.InvalidTagName, "Tag name must have at least 4 characters.");
+                throw new MyException(MyCodesNumbers.InvalidTagName, "Tag name must have at least 2 characters.");
             }
             if(name.Contains(',') || name.Contains(';'))
             {
