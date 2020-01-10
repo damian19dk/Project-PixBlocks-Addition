@@ -20,8 +20,8 @@ namespace PixBlocks_Addition.Api.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost]
-        public async Task CreateAsync(TagResource tag)
+        [HttpPost("create")]
+        public async Task CreateAsync([FromBody]TagResource tag)
             => await _tagService.CreateAsync(tag);
 
         [HttpGet]
@@ -38,7 +38,7 @@ namespace PixBlocks_Addition.Api.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPut("{name}")]
-        public async Task UpdateAsync(string name, TagResource tag)
+        public async Task UpdateAsync(string name, [FromBody]TagResource tag)
             => await _tagService.UpdateAsync(name, tag);
 
         [Authorize(Roles = "Administrator")]
