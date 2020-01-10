@@ -53,6 +53,7 @@ import {CoursesViewListUserComponent} from './courses/courses-view-list-user/cou
 import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
 import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user/courses-history-for-user.component';
+import { VideoQuizComponent } from './video/video-quiz/video-quiz.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user
     CoursesViewListUserComponent,
     CourseListElementUserComponent,
     CourseListElementAdminComponent,
-    CoursesHistoryForUserComponent
+    CoursesHistoryForUserComponent,
+    VideoQuizComponent
   ],
   imports: [
     BrowserModule,
