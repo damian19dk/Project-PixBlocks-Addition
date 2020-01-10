@@ -110,17 +110,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
 
-
-
-            setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
-
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
-            course.AddTime(await TakeTime(video.MediaId));
             await _courseRepository.UpdateAsync(course);
+
+            setDuration(video.MediaId, vid, course, (VideoRepository)_videoRepository.Clone());
         }
 
-        private async Task setDuration(string mediaId, Video video, IVideoRepository videoRepository)
+        private async Task setDuration(string mediaId, Video video, Course course, IVideoRepository videoRepository)
         {
+           // var course = await _courseRepository.GetAsync(video.ParentId);
             var response = await _jwPlayerService.ShowVideoAsync(mediaId);
             while (response.Status == "processing")
             {
@@ -136,9 +134,23 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     throw e;
                 }
             }
+
+            
+            
             video.SetStatus(response.Status);
             video.SetDuration((long)response.Duration);
             await videoRepository.UpdateAsync(video);
+
+            //var course = await _courseRepository.GetAsync(video.ParentId);
+            course.AddTime((long)response.Duration);
+            await _courseRepository.UpdateAsync(course);
+            //await setLength(course, (long)response.Duration);
+        }
+
+        private async Task setLength(Course course, long time)
+        {
+            course.AddTime(time);
+            await _courseRepository.UpdateAsync(course);
         }
 
         private async Task<long> TakeTime(string mediaId)
@@ -184,6 +196,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(string title)
         {
+            var videos = await _videoRepository.GetAsync(title, string.Empty);
+            var video = videos.SingleOrDefault(x => x.Title == title);
+            var course = await _courseRepository.GetAsync(video.ParentId);
+
+            course.TakeTime(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             await _videoRepository.RemoveAsync(title);
         }
 
