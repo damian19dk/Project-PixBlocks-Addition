@@ -21,13 +21,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IQuizRepository _quizRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly IChangeMediaHandler<Course, Course> _changeMediaHandler;
         private readonly IMapper _mapper;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly ILocalizationService _localizer;
 
         public CourseService(ICourseRepository courseRepository, IVideoRepository videoRepository, IQuizRepository quizRepository,
-            IChangeMediaHandler<Course, Course> changeMediaHandler, IResourceRepository imageRepository,
+            IChangeMediaHandler<Course, Course> changeMediaHandler, IResourceRepository imageRepository, ITagRepository tagRepository,
             IResourceHandler imageHandler, IAutoMapperConfig config, IJWPlayerService jwPlayerService, ILocalizationService localizer)
         {
             _changeMediaHandler = changeMediaHandler;
@@ -36,6 +37,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _mapper = config.Mapper;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
+            _tagRepository = tagRepository;
             _jwPlayerService = jwPlayerService;
             _quizRepository = quizRepository;
             _localizer = localizer;
@@ -59,7 +61,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 var resourceTags = resource.Tags.Split(',', ';');
                 foreach (string tag in resourceTags)
-                    tags.Add(new Tag(tag));
+                {
+                    var tagEntity = await _tagRepository.GetAsync(tag);
+                    if(tagEntity == null)
+                    {
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
+                    }
+                    tags.Add(tagEntity);
+                }
             }
 
             HashSet<string> resources = new HashSet<string>();
@@ -143,10 +152,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 }
                 course.CourseVideos.Clear();
                 await _courseRepository.UpdateAsync(course);
-            }
-            if (course.Tags != null && course.Tags.Count > 0)
-            {
-                await _courseRepository.RemoveAllTagsAsync(course);
             }
 
             if(course.QuizId != null)

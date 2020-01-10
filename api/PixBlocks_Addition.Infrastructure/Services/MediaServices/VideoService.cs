@@ -22,6 +22,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IVideoRepository _videoRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IQuizRepository _quizRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly ILocalizationService _localizer;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
@@ -29,7 +30,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public VideoService(IVideoRepository videoRepository, ICourseRepository courseRepository, IJWPlayerService jwPlayerService, 
                             IResourceHandler resourceHandler, IResourceRepository resourceRepository, ILocalizationService localizer,
-                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config, IQuizRepository quizRepository)
+                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config, IQuizRepository quizRepository,
+                            ITagRepository tagRepository)
         {
             _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
@@ -39,6 +41,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             _localizer = localizer;
             _videoRepository = videoRepository;
             _courseRepository = courseRepository;
+            _tagRepository = tagRepository;
             _jwPlayerService = jwPlayerService;
         }
 
@@ -103,7 +106,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 var videoTags = video.Tags.Split(',', ';');
                 foreach (string tag in videoTags)
-                    tags.Add(new Tag(tag));
+                {
+                    var entityTag = await _tagRepository.GetAsync(tag);
+                    if(entityTag == null)
+                    {
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
+                    }
+                    tags.Add(entityTag);
+                }
             }
 
             var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
