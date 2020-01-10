@@ -12,14 +12,16 @@ namespace PixBlocks_Addition.Domain.Entities
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public string Color { get; protected set; }
+        public string Language { get; protected set; }
 
 
-        public Tag(string name, string description, string color)
+        public Tag(string name, string description, string color, string language)
         {
             Id = Guid.NewGuid();
             SetName(name);
             SetDescription(description);
             SetColor(color);
+            SetLanguage(language);
         }
 
         public void SetName(string name)
@@ -51,6 +53,15 @@ namespace PixBlocks_Addition.Domain.Entities
                 throw new MyException(MyCodesNumbers.InvalidDescription, "Description cannot be null.");
             }
             Description = description;
+        }
+
+        public void SetLanguage(string language)
+        {
+            if(!Languages.IsValidLanguage(language))
+            {
+                throw new MyException(MyCodesNumbers.InvalidLanguage, "Language has to contain from 2 to 60 letters.");
+            }
+            Language = language;
         }
 
         protected Tag()

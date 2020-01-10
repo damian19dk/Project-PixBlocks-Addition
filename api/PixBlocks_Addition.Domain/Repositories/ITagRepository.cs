@@ -9,9 +9,9 @@ namespace PixBlocks_Addition.Domain.Repositories
     {
         Task AddAsync(Tag tag);
         Task<Tag> GetAsync(Guid id);
-        Task<Tag> GetAsync(string name);
-        Task<IEnumerable<Tag>> BrowseAsync(string name);
-        Task<IEnumerable<Tag>> GetAllAsync();
+        Task<Tag> GetAsync(string name, string language = "");
+        Task<IEnumerable<Tag>> BrowseAsync(string name, string language = "");
+        Task<IEnumerable<Tag>> GetAllAsync(string language = "");
         Task UpdateAsync(Tag tag);
         Task UpdateAsync(Tag[] tag);
         Task RemoveAsync(Tag tag);

@@ -14,16 +14,18 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         private readonly ITagRepository _tagRepository;
         private readonly IMapper _mapper;
+        private readonly ILocalizationService _localizationService;
 
-        public TagService(ITagRepository tagRepository, IAutoMapperConfig mapperConfig)
+        public TagService(ITagRepository tagRepository, ILocalizationService localizationService, IAutoMapperConfig mapperConfig)
         {
             _tagRepository = tagRepository;
+            _localizationService = localizationService;
             _mapper = mapperConfig.Mapper;
         }
 
         public async Task<IEnumerable<TagDto>> BrowseAsync(string name)
         {
-            var tags = await _tagRepository.BrowseAsync(name);
+            var tags = await _tagRepository.BrowseAsync(name, _localizationService.Language);
             return _mapper.Map<IEnumerable<TagDto>>(tags);
         }
 
@@ -35,24 +37,24 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 throw new MyException(MyCodesNumbers.TagExists, $"The tag {tag.Name} already exists.");
             }
 
-            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.Color));
+            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.Color, tag.Language));
         }
 
         public async Task<IEnumerable<TagDto>> GetAllAsync()
         {
-            var tags = await _tagRepository.GetAllAsync();
+            var tags = await _tagRepository.GetAllAsync(_localizationService.Language);
             return _mapper.Map<IEnumerable<TagDto>>(tags);
         }
 
         public async Task<TagDto> GetAsync(string name)
         {
-            var tag = await _tagRepository.GetAsync(name);
+            var tag = await _tagRepository.GetAsync(name, _localizationService.Language);
             return _mapper.Map<TagDto>(tag);
         }
 
         public async Task RemoveAsync(string name)
         {
-            var tag = await _tagRepository.GetAsync(name);
+            var tag = await _tagRepository.GetAsync(name, _localizationService.Language);
             if(tag == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
@@ -63,7 +65,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task UpdateAsync(string name, TagResource tag)
         {
-            var tagEntity = await _tagRepository.GetAsync(name);
+            var tagEntity = await _tagRepository.GetAsync(name, _localizationService.Language);
             if(tagEntity == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
@@ -72,6 +74,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             tagEntity.SetName(tag.Name);
             tagEntity.SetDescription(tag.Description);
             tagEntity.SetColor(tag.Color);
+            tagEntity.SetLanguage(tag.Language);
 
             await _tagRepository.UpdateAsync(tagEntity);
         }

@@ -73,7 +73,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 
                 foreach(var tag in tags)
                 {
-                    var tagToAdd = await _tagRepository.GetAsync(tag);
+                    var tagToAdd = await _tagRepository.GetAsync(tag, resource.Language);
                     if(tagToAdd == null)
                     {
                         throw new MyException(MyCodesNumbers.TagNotFound, $"The desired tag {tag} was not found.");

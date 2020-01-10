@@ -62,7 +62,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 var resourceTags = resource.Tags.Split(',', ';');
                 foreach (string tag in resourceTags)
                 {
-                    var tagEntity = await _tagRepository.GetAsync(tag);
+                    var tagEntity = await _tagRepository.GetAsync(tag, resource.Language);
                     if(tagEntity == null)
                     {
                         throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");

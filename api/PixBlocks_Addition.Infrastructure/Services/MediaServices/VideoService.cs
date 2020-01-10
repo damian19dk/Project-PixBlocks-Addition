@@ -107,7 +107,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 var videoTags = video.Tags.Split(',', ';');
                 foreach (string tag in videoTags)
                 {
-                    var entityTag = await _tagRepository.GetAsync(tag);
+                    var entityTag = await _tagRepository.GetAsync(tag, video.Language);
                     if(entityTag == null)
                     {
                         throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
