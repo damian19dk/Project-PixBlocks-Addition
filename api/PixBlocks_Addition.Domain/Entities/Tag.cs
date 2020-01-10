@@ -1,13 +1,14 @@
 ﻿using PixBlocks_Addition.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
     public class Tag
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public string Color { get; protected set; }
@@ -15,6 +16,7 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public Tag(string name, string description, string color)
         {
+            Id = Guid.NewGuid();
             SetName(name);
             SetDescription(description);
             SetColor(color);
