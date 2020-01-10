@@ -28,6 +28,10 @@ namespace PixBlocks_Addition.Domain.Entities
             {
                 throw new MyException(MyCodesNumbers.InvalidTagName, "Tag name must have at least 4 characters.");
             }
+            if(name.Contains(',') || name.Contains(';'))
+            {
+                throw new MyException(MyCodesNumbers.InvalidTagName, "Tag name cannot contain , or ;");
+            }
             Name = name;
         }
 
