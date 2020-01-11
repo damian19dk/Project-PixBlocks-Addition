@@ -6,7 +6,14 @@ import {
   ValidationErrors,
   AbstractControl
 } from "@angular/forms";
-import { Component, OnInit, OnChanges, Input, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
 
 @Component({
   selector: "app-quiz-question",
@@ -43,10 +50,18 @@ export class QuizQuestionComponent implements OnInit {
     return this.answers.controls;
   }
 
+  answerFormFor(index: number) {
+    return this.quizQuestionForm.value;
+  }
+
+  handleDeleteQuestion() {
+    this.onDeleteQuestion.emit(this.quizQuestionIndex);
+  }
+
   createAnswerForm() {
     return new FormGroup({
-      answer: new FormControl(),
-      isCorrect: new FormControl()
+      answer: new FormControl(""),
+      isCorrect: new FormControl(false)
     });
   }
 

@@ -6,18 +6,22 @@
   <div formArrayName="answers">
     <ng-container *ngFor="let answer of answersControls; let index">
       <app-quiz-answer
-        index="index"
+        [quizAnswerIndex]="index"
+        [quizAnswerForm]="answer"
         (onRemoveAnswer)="removeAnswer($event)"
       ></app-quiz-answer>
     </ng-container>
-    <span *ngIf="!answers.valid && answers.dirty">
-      Pytanie powinno zawierac conajmniej jedna odpowiedz
-    </span>
+    <div *ngIf="answers.errors.minLength && answers.dirty">
+      Pytanie powinno zawierac conajmniej dwie odpowiedzi
+    </div>
+    <div *ngIf="answers.errors.noCorrectAnswer">
+      Pytanie powinno zawierac conajmniej jedna poprawna odpowiedz
+    </div>
   </div>
   <button (click)="addQuestion()" type="button" [disabled]="!question.valid">
     Dodaj Odpowiedz
   </button>
-  <button>
+  <button (click)="handleDeleteQuestion()">
     Usun Pytanie
   </button>
 </div>

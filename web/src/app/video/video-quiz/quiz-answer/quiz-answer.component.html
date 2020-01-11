@@ -1,9 +1,9 @@
-<div>
-  <input type="text" placeholder="Odpowiedz" />
+<div [formGroup]="quizAnswerForm">
+  <input type="text" placeholder="Odpowiedz" formControlName="answer" />
   |
   <label>
     Poprawna?
-    <input type="checkbox" />
+    <input type="checkbox" formControlName="isCorrect" />
   </label>
   |
   <button (click)="handleRemoveAnswer()">Usun</button>

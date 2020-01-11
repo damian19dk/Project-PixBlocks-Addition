@@ -1,3 +1,4 @@
+import { FormGroup } from "@angular/forms";
 import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
 
 @Component({
@@ -6,7 +7,8 @@ import { Component, OnInit, Output, Input, EventEmitter } from "@angular/core";
   styleUrls: ["./quiz-answer.component.css"]
 })
 export class QuizAnswerComponent implements OnInit {
-  @Input() index: number;
+  @Input() quizAnswerIndex: number;
+  @Input() quizAnswerForm: FormGroup;
   @Output() onRemoveAnswer = new EventEmitter<number>();
 
   constructor() {}
@@ -14,7 +16,6 @@ export class QuizAnswerComponent implements OnInit {
   ngOnInit() {}
 
   handleRemoveAnswer() {
-    console.log("emnitting");
-    this.onRemoveAnswer.emit(this.index);
+    this.onRemoveAnswer.emit(this.quizAnswerIndex);
   }
 }
