@@ -1,47 +1,40 @@
-import { Component, Input, OnInit } from "@angular/core";
-import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators
-} from "@angular/forms";
-import { VideoService } from "src/app/services/video.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {VideoService} from 'src/app/services/video.service';
 
-import {
-  CreateQuizPayload,
-  Quiz,
-  UpdateQuizPayload
-} from "./../../../models/quiz.model";
-import { QuizService } from "./../../../services/quiz.service";
-import { Observable } from "rxjs";
-import { debounceTime, filter, switchMap } from "rxjs/operators";
-import { CourseDocument } from "src/app/models/courseDocument.model";
+import {CreateQuizPayload, Quiz, UpdateQuizPayload} from '../../../models/quiz.model';
+import {QuizService} from '../../../services/quiz.service';
+import {Observable} from 'rxjs';
+import {debounceTime, filter, switchMap} from 'rxjs/operators';
+import {CourseDocument} from 'src/app/models/courseDocument.model';
 
 @Component({
-  selector: "app-quiz-form",
-  templateUrl: "./quiz-form.component.html",
-  styleUrls: ["./quiz-form.component.css"]
+  selector: 'app-quiz-form',
+  templateUrl: './quiz-form.component.html',
+  styleUrls: ['./quiz-form.component.css']
 })
 export class QuizFormComponent implements OnInit {
   quizForm: FormGroup;
   @Input() quiz?: Quiz;
 
-  typeaheadVideo: { mediaId: string } = { mediaId: "" };
+  typeaheadVideo: { mediaId: string } = {mediaId: ''};
 
   constructor(
     private videoService: VideoService,
-    private quizService: QuizService
-  ) {}
+    private quizService: QuizService) {
+  }
+
+  get quizQuestions() {
+    return this.quizForm.get('questions') as FormArray;
+  }
 
   ngOnInit() {
     const initialQuestions = this.parseInitialQuiz();
     const mediaField = this.shouldUpdateQuizOnSubmit()
       ? {}
       : {
-          mediaId: new FormControl("", [Validators.required])
-        };
+        mediaId: new FormControl('', [Validators.required])
+      };
 
     this.quizForm = new FormGroup(
       {
@@ -52,7 +45,7 @@ export class QuizFormComponent implements OnInit {
     );
   }
 
-  quizQuestion(question = "", answers = []) {
+  quizQuestion(question = '', answers = []) {
     return new FormGroup({
       question: new FormControl(question, [Validators.required]),
       answers: new FormArray(answers, [
@@ -62,15 +55,11 @@ export class QuizFormComponent implements OnInit {
     });
   }
 
-  quizAnswer({ answer = "", isCorrect = false } = {}) {
+  quizAnswer({answer = '', isCorrect = false} = {}) {
     return new FormGroup({
       answer: new FormControl(answer),
       isCorrect: new FormControl(isCorrect)
     });
-  }
-
-  get quizQuestions() {
-    return this.quizForm.get("questions") as FormArray;
   }
 
   get quizQuestionsControls() {
@@ -87,27 +76,23 @@ export class QuizFormComponent implements OnInit {
 
   questionHasAtLeastTwoAnswers(control: AbstractControl): ValidationErrors {
     // At least 2 answers which are filled with text
-    const isValid =
-      control.value.filter(ans => Boolean(ans.answer.trim())).length >= 2;
+    const isValid = control.value.filter(ans => Boolean(ans.answer.trim())).length >= 2;
     if (!isValid) {
-      return { minLength: true };
+      return {minLength: true};
     }
 
     return null;
   }
 
-  questionHasAtLeastOneCorrectAnswer(
-    control: AbstractControl
-  ): ValidationErrors {
+  questionHasAtLeastOneCorrectAnswer(control: AbstractControl): ValidationErrors {
     if (control.value.length < 2) {
       return null;
     }
 
-    const isValid =
-      control.value.filter(answer => Boolean(answer.isCorrect)).length >= 1;
+    const isValid = control.value.filter(answer => Boolean(answer.isCorrect)).length >= 1;
 
     if (!isValid) {
-      return { noCorrectAnswer: true };
+      return {noCorrectAnswer: true};
     }
     return null;
   }
@@ -115,7 +100,7 @@ export class QuizFormComponent implements OnInit {
   hasQuestions(control: AbstractControl): ValidationErrors {
     const isValid = control.value.questions.length >= 1;
     if (!isValid) {
-      return { atLeastOneQuestion: true };
+      return {atLeastOneQuestion: true};
     }
     return null;
   }
@@ -129,15 +114,15 @@ export class QuizFormComponent implements OnInit {
 
     const shouldUpdateQuiz = this.shouldUpdateQuizOnSubmit();
     const payload = shouldUpdateQuiz
-      ? { ...this.quizForm.value, quizId: this.quiz.id }
-      : { ...this.quizForm.value, mediaId: this.typeaheadVideo.mediaId };
+      ? {...this.quizForm.value, quizId: this.quiz.id}
+      : {...this.quizForm.value, mediaId: this.typeaheadVideo.mediaId};
 
 
-     if (shouldUpdateQuiz) {
-       this.quizService.updateQuiz(payload as UpdateQuizPayload);
-     }
+    if (shouldUpdateQuiz) {
+      this.quizService.updateQuiz(payload as UpdateQuizPayload);
+    }
 
-     this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
+    this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
   }
 
   parseInitialQuiz() {
@@ -151,11 +136,11 @@ export class QuizFormComponent implements OnInit {
 
   search = (text$: Observable<string>) => {
     return text$.pipe(
-      debounceTime(250),
-      filter(text => text !== ""),
+      debounceTime(150),
+      filter(text => text !== ''),
       switchMap(searchText => this.videoService.findByTitle(searchText))
     );
-  };
+  }
 
   formatter = (x: CourseDocument) => x.title;
 }

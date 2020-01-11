@@ -1,10 +1,10 @@
 <div [formGroup]="quizAnswerForm">
-  <input type="text" placeholder="Odpowiedz" formControlName="answer" />
+  <input formControlName="answer" placeholder="Odpowiedz" type="text"/>
   |
   <label>
     Poprawna?
-    <input type="checkbox" formControlName="isCorrect" />
+    <input formControlName="isCorrect" type="checkbox"/>
   </label>
-  |
+
   <button (click)="handleRemoveAnswer()">Usun</button>
 </div>

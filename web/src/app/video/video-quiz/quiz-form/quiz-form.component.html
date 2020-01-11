@@ -8,12 +8,12 @@
         [quizQuestionIndex]="questionIndex"
         (onDeleteQuestion)="onDeleteQuestion($event)"
       ></app-quiz-question>
-      <hr />
+      <hr/>
     </div>
   </div>
   <button (click)="newQuizQuestion()" type="button">Dodaj Pytanie</button>
 
-  <hr />
+  <hr/>
 
   <input
     *ngIf="!shouldUpdateQuizOnSubmit()"
@@ -31,11 +31,9 @@
   <button type="submit" [disabled]="!quizForm.valid">Zapisz</button>
 
   <ng-template #rt let-r="result" let-t="term">
-    <div *ngIf="r.tags.length > 0" placement="right">
+    <div placement="right">
       <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
-      <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{
-        tag
-      }}</span>
+      <span *ngFor="let tag of r.tags" class="badge badge-info ml-2">{{tag}}</span>
     </div>
   </ng-template>
 </form>
