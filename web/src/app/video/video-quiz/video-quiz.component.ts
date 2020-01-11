@@ -19,9 +19,12 @@ export class VideoQuizComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.quizForm = new FormGroup({
-      questions: new FormArray([], [Validators.required])
-    });
+    this.quizForm = new FormGroup(
+      {
+        questions: new FormArray([])
+      },
+      [this.hasQuestions]
+    );
   }
 
   quizQuestion() {
@@ -61,7 +64,7 @@ export class VideoQuizComponent implements OnInit {
       return { minLength: true };
     }
 
-    return { minLength: false };
+    return null;
   }
 
   questionHasAtLeastOneCorrectAnswer(
@@ -77,7 +80,15 @@ export class VideoQuizComponent implements OnInit {
     if (!isValid) {
       return { noCorrectAnswer: true };
     }
-    return { noCorrectAnswer: false };
+    return null;
+  }
+
+  hasQuestions(control: AbstractControl): ValidationErrors {
+    const isValid = control.value.questions.length >= 1;
+    if (!isValid) {
+      return { atLeastOneQuestion: true };
+    }
+    return null;
   }
 
   handleSubmit() {

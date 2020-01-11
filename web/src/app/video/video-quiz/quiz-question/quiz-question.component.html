@@ -11,10 +11,10 @@
         (onRemoveAnswer)="removeAnswer($event)"
       ></app-quiz-answer>
     </ng-container>
-    <div *ngIf="answers.errors.minLength && answers.dirty">
+    <div *ngIf="answers.errors && answers.errors.minLength && answers.dirty">
       Pytanie powinno zawierac conajmniej dwie odpowiedzi
     </div>
-    <div *ngIf="answers.errors.noCorrectAnswer">
+    <div *ngIf="answers.errors && answers.errors.noCorrectAnswer">
       Pytanie powinno zawierac conajmniej jedna poprawna odpowiedz
     </div>
   </div>
