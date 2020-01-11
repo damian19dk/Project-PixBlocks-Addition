@@ -1,1 +1,13 @@
-<p>video-quiz works!</p>
+<form [formGroup]="quizForm" (submit)="handleSubmit()">
+  <div formArrayName="questions">
+    <div *ngFor="let question of quizQuestionsControls; let i = index">
+      <app-quiz-question
+        [quizQuestionForm]="question"
+        [quizQuestionIndex]="i"
+      ></app-quiz-question>
+      <hr />
+    </div>
+  </div>
+  <button (click)="newQuizQuestion()">Dodaj Pytanie</button>
+  <button type="submit" [disabled]="!quizForm.valid">Zapisz</button>
+</form>

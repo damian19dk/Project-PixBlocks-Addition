@@ -1,3 +1,4 @@
+import { VideoQuizComponent } from './video/video-quiz/video-quiz.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './user/login/login.component';
@@ -32,7 +33,9 @@ const routes: Routes = [
     data: {animation: 'settings'}
   },
   {path: 'profile', component: ProfileComponent, data: {animation: 'profile'}},
+  {path: 'quiz', component: VideoQuizComponent},
   {path: '**', component: PageNotFoundComponent}
+
 ];
 
 @NgModule({
