@@ -126,10 +126,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
             await _courseRepository.UpdateAsync(course);
 
-            setDuration(video.MediaId, vid, course, (VideoRepository)_videoRepository.Clone(), _courseRepository);
+             setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
         }
 
-        private async Task setDuration(string mediaId, Video video, Course course, IVideoRepository videoRepository, ICourseRepository courseRepository)
+        private async Task setDuration(string mediaId, Video video, IVideoRepository videoRepository)
         {
             var response = await _jwPlayerService.ShowVideoAsync(mediaId);
             while (response.Status == "processing")
