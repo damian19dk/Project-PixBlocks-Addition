@@ -6,11 +6,6 @@
   font-family: 'Oswald', sans-serif;
 }
 
-.col-5 {
-  display: flex;
-  justify-content: center;
-}
-
 .col-7 {
   margin-left: 10%;
 }
@@ -41,18 +36,6 @@
   padding-left: 10%;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
-body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .card2 {
   display: flex;
   min-width: 100%;
@@ -60,15 +43,20 @@ body {
   overflow-x: auto;
 }
 
-.card2::-webkit-scrollbar {
-  display: none;
-}
+ .card2::-webkit-scrollbar {
+   display: none;
+ }
 
-.card-content {
-  min-width: 200px;
-  margin: 5px;
-}
+ .card-content {
+   min-width: 200px;
+   margin: 5px;
+ }
 
-.bg-video {
-  background: rgba(13, 144, 252, 0.5);
-}
+ .video-description {
+   margin-top: 20px;
+   margin-bottom: 50px;
+ }
+
+ .bg-video {
+   background: rgba(13, 144, 252, 0.5);
+ }

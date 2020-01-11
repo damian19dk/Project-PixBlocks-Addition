@@ -18,7 +18,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         {
             _courses = entities.Courses
                         .Include(c => c.CourseVideos).ThenInclude(p => p.Video).ThenInclude(x => x.Tags)
-                        .Include(c => c.Category)
                         .Include(c => c.Tags);
         }
 
@@ -40,7 +39,8 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
                 return await _courses.Where(c => c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
             else
                 return await _courses.Where(c => c.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase)
-                                                 && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+                                                 && c.Tags.Any(t => tags.Contains(t.Name) && t.CheckLanguage(language)))
+                                                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10, string language = "")
@@ -63,7 +63,7 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
             if(String.IsNullOrEmpty(language))
                 return await _courses.CountAsync();
             else
-                return await _courses.CountAsync(x => x.Language == language);
+                return await _courses.CountAsync(x => x.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

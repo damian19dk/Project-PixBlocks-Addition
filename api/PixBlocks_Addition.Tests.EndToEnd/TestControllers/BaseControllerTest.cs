@@ -6,6 +6,7 @@ using NUnit.Framework;
 using PixBlocks_Addition.Api;
 using PixBlocks_Addition.Infrastructure.DTOs;
 using PixBlocks_Addition.Infrastructure.ResourceModels;
+using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
 using System.Collections.Generic;
@@ -30,20 +31,21 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 .UseStartup<Startup>();
             server = new TestServer(webBuilder);
             httpClient = server.CreateClient();
-            httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-            httpClient.DefaultRequestHeaders.Add("Accept-Language", "en");
+            httpClient.SetLanguage("en");
             httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthorizationHeader.Admin);
             Init().Wait();
         }
 
         private async Task Init()
         {
+            await createTags();
+
             var courseData = new Dictionary<string, string>();
             courseData.Add("Premium", "false");
             courseData.Add("Title", "Title1");
             courseData.Add("Description", "Some description.");
             courseData.Add("Language", "en");
-            courseData.Add("Tags", "tag3");
+            courseData.Add("Tags", "python");
 
             await sendMultiPartAsync("api/course/create", "POST", courseData);
 
@@ -56,11 +58,51 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             Assert.IsTrue(Guid.Empty != CourseDto.Id);
         }
 
+        private async Task createTags()
+        {
+            TagResource tag = new TagResource()
+            {
+                Name = "python",
+                Description = "Kurs nauki pythona.",
+                Color = "red",
+                Language = "none"
+            };
+            TagResource tag1 = new TagResource()
+            {
+                Name = "C++",
+                Description = "Kurs nauki C++.",
+                Color = "blue",
+                Language = "pl"
+            };
+            TagResource tag2 = new TagResource()
+            {
+                Name = "beginner",
+                Description = "Beginners.",
+                Color = "blue",
+                Language = "en"
+            };
+            var res = await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag), Encoding.UTF8, "application/json"));
+            res.EnsureSuccessStatusCode();
+            await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag1), Encoding.UTF8, "application/json"));
+            await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag2), Encoding.UTF8, "application/json"));
+        }
+
         protected static StringContent GetPayload(object data)
         {
             var json = JsonConvert.SerializeObject(data);
 
             return new StringContent(json, Encoding.UTF8, "application/json");
+        }
+
+        protected async Task<HttpResponseMessage> createCourseAsync(string title, string description, string language, bool premium)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("Title", title);
+            parameters.Add("Description", description);
+            parameters.Add("Language", language);
+            parameters.Add("Premium", premium.ToString());
+
+            return await sendMultiPartWithResponseAsync("api/course/create", "POST", parameters);
         }
 
         protected async Task<HttpResponseMessage> sendMultiPartWithResponseAsync(string address, string method, IDictionary<string, string> parameters,

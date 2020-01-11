@@ -14,8 +14,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         Task AddAsync(T entity);
         Task<int> CountAsync(string language="");
         Task RemoveAsync(Guid id);
-        Task RemoveTagsAsync(T entity, IEnumerable<Tag> tags);
-        Task RemoveAllTagsAsync(T entity);
         Task RemoveAsync(string name);
         Task UpdateAsync(T entity);
         Task UpdateAsync(IEnumerable<T> entities);

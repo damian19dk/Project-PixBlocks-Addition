@@ -20,15 +20,19 @@ namespace PixBlocks_Addition.Domain.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<VideoHistory> VideoHistories { get; set; }
         public DbSet<VideoRecord> VideoHistoryHelpers { get; set; }
+        public DbSet<UserCourseHistory> UserCourseHistories { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizQuestion> QuizQuestions { get; set; }
+        public DbSet<QuizAnswer> QuizAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Quiz>().ToTable("Quizzes");
             modelBuilder.Entity<Video>().ToTable("Videos");
             modelBuilder.Entity<Video>().Property(e=>e.Resources)
                                         .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
@@ -37,11 +41,12 @@ namespace PixBlocks_Addition.Domain.Contexts
             modelBuilder.Entity<Course>().Property(e => e.Resources)
                                          .HasConversion(v => string.Join(',', v), v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
             modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<History>().ToTable("History");
             modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<VideoHistory>().ToTable("VideoHistory");
             modelBuilder.Entity<VideoRecord>().ToTable("VideoHistoryHelper");
+            modelBuilder.Entity<UserCourseHistory>().ToTable("UserCourseHistrory");
+
 
             var videoFK = modelBuilder.Model.FindEntityType(typeof(Video)).GetForeignKeys();
             foreach (var fk in videoFK)

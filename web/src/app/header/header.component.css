@@ -1,6 +1,6 @@
 * {
   font-family: 'Oswald', sans-serif;
-  font-weight: 150;
+  font-weight: 100;
   color: #565656;
 }
 
@@ -30,24 +30,6 @@
   flex: 1;
 }
 
-.language {
-  margin-right: 2px;
-  margin-bottom: 5px;
-  border: 0;
-  vertical-align: baseline;
-  text-align: center;
-}
-
-.language button {
-  width: 100%;
-  height: 100%;
-}
-
 .languages a {
   width: 100%;
-}
-
-app-search-bar {
-  margin-top: 10px;
-  margin-right: 2px;
 }

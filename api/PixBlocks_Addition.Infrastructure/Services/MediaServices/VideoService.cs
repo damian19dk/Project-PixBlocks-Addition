@@ -21,6 +21,8 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceRepository _resourceRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IQuizRepository _quizRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly ILocalizationService _localizer;
         private readonly IJWPlayerService _jwPlayerService;
         private readonly IChangeMediaHandler<Video, Video> _changeMediaHandler;
@@ -28,15 +30,18 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public VideoService(IVideoRepository videoRepository, ICourseRepository courseRepository, IJWPlayerService jwPlayerService, 
                             IResourceHandler resourceHandler, IResourceRepository resourceRepository, ILocalizationService localizer,
-                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config)
+                            IChangeMediaHandler<Video, Video> changeMediaHandler, IAutoMapperConfig config, IQuizRepository quizRepository,
+                            ITagRepository tagRepository)
         {
             _changeMediaHandler = changeMediaHandler;
             _mapper = config.Mapper;
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
+            _quizRepository = quizRepository;
             _localizer = localizer;
             _videoRepository = videoRepository;
             _courseRepository = courseRepository;
+            _tagRepository = tagRepository;
             _jwPlayerService = jwPlayerService;
         }
 
@@ -101,7 +106,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 var videoTags = video.Tags.Split(',', ';');
                 foreach (string tag in videoTags)
-                    tags.Add(new Tag(tag));
+                {
+                    var entityTag = await _tagRepository.GetAsync(tag, video.Language);
+                    if(entityTag == null)
+                    {
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
+                    }
+                    tags.Add(entityTag);
+                }
             }
             
 
@@ -177,12 +189,23 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
+            if(video == null)
+            {
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
+            }
+        
             var video = await _videoRepository.GetAsync(id);
             var course = await _courseRepository.GetAsync(video.ParentId);
 
             course.TakeTime(video.Duration);
             await _courseRepository.UpdateAsync(course);
 
+         
+            if (video.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
+                await _quizRepository.RemoveAsync(quiz);
+            }
             await _videoRepository.RemoveAsync(id);
         }
 
@@ -195,6 +218,22 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             course.TakeTime(video.Duration);
             await _courseRepository.UpdateAsync(course);
 
+            var videos = await _videoRepository.GetAsync(title);
+            if(videos.Count() > 1)
+            {
+                throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Video with title {title} is ambiguous.");
+            }
+            if(videos.Count() == 0)
+            {
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with title {title} not found");
+            }
+
+            var video = videos.First();
+            if (video.QuizId != null)
+            {
+                var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
+                await _quizRepository.RemoveAsync(quiz);
+            }
             await _videoRepository.RemoveAsync(title);
         }
 

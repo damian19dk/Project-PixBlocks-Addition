@@ -20,6 +20,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         {
             var address = "api/order/courses";
             var createCourseEndpoint = "api/course/create";
+            httpClient.SetLanguage("en");
 
             var course1 = new MediaResource()
             {
@@ -47,9 +48,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             await sendMultiPartAsync(createCourseEndpoint, "POST", course2.GetProperties(x => new { x.Title, x.Language, x.Premium, x.Description }));
             await sendMultiPartAsync(createCourseEndpoint, "POST", course3.GetProperties(x => new { x.Title, x.Language, x.Premium, x.Description }));
 
-            var response = await httpClient.GetAsync($"api/course/all");
-            var responseString = await response.Content.ReadAsStringAsync();
-            var courses = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(responseString);
+            var courses = await httpClient.GetAsync<IEnumerable<CourseDto>>($"api/course/all");
 
             List<Guid> coursesId = new List<Guid>();
             IEnumerable<Guid> expectedCoursesId = new List<Guid>();
@@ -64,9 +63,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var res = await httpClient.PostAsync(address, data);
             var r = await res.Content.ReadAsStringAsync();
 
-            var newResponse = await httpClient.GetAsync("api/course/all");
-            var newResponseString = await newResponse.Content.ReadAsStringAsync();
-            var newCourses = JsonConvert.DeserializeObject<IEnumerable<CourseDto>>(newResponseString);
+            var newCourses = await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/all");
 
             foreach (var values in newCourses.Zip(expectedCoursesId, (course, expectedId) => new { CourseId = course.Id, ExpectedId = expectedId }))
             {

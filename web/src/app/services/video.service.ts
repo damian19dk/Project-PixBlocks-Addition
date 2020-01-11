@@ -4,6 +4,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HostedVideoDocument} from '../models/hostedVideoDocument.model';
 import {Observable} from 'rxjs';
 import {DataService} from './data.service';
+import {retry} from 'rxjs/operators';
+
+class VideosOrder {
+  videos: Array<string>;
+
+  constructor(videos: Array<string>) {
+    this.videos = videos;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +42,12 @@ export class VideoService extends DataService {
       .set('Content-Type', 'application/json');
 
     return this.http.get<HostedVideoDocument>(environment.baseUrl + '/api/JWPlayer/video?id=' + id, {headers});
+  }
+
+  changeOrder(videosIds: Array<string>): Observable<any> {
+    const headers = new HttpHeaders();
+    const videos = new VideosOrder(videosIds);
+    return this.http.post<any>(environment.baseUrl + '/api/Order/videos', videos, {headers}).pipe(
+      retry(10));
   }
 }

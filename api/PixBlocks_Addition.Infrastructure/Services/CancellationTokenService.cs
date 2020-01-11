@@ -39,7 +39,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 " ", new DistributedCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow =
-                        TimeSpan.FromMinutes(_jwtOptions.Value.ExpiryMinutes)
+                        TimeSpan.FromMinutes(_jwtOptions.Value.ExpiryMinutes + 5)
                 });
 
         private string GetCurrentAsync()

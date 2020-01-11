@@ -22,12 +22,14 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
         public IMapper Mapper
             => new MapperConfiguration(cfg =>
             {
+                cfg.CreateMap<QuizAnswer, QuizAnswerDto>();
+                cfg.CreateMap<QuizQuestion, QuizQuestionDto>();
+                cfg.CreateMap<Quiz, QuizDto>();
                 cfg.CreateMap<Tag, string>().ConvertUsing(x => x.Name);
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Video, VideoDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
                     .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));
-                cfg.CreateMap<Category, CategoryDto>();
                 cfg.CreateMap<Media, MediaDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))
                     .ForMember(x => x.Resources, opt => opt.ConvertUsing(new ResourceUrlConverter(_settings)));

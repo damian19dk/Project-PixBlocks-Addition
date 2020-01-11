@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PixBlocks_Addition.Domain.Contexts;
 using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Domain.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,8 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
                 return await _videos.Where(c => c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
             else
                 return await _videos.Where(c => c.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase)
-                                                 && c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+                                                 && c.Tags.Any(t => tags.Contains(t.Name) && t.CheckLanguage(language)))
+                                                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Video>> GetAllAsync(int page, int count = 10, string language = "")
@@ -66,9 +68,9 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<int> CountAsync(string language = "")
         {
             if (String.IsNullOrEmpty(language))
-                return await _videos.CountAsync(v => v.Language == language);
-            else
                 return await _videos.CountAsync();
+            else
+                return await _videos.CountAsync(v => v.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

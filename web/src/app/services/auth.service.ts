@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {LoadingService} from './loading.service';
 import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
-import {scan, takeWhile} from 'rxjs/operators';
+import {retry, scan, takeWhile} from 'rxjs/operators';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
@@ -11,8 +11,8 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 })
 export class AuthService {
   roles$ = new ReplaySubject<string[]>(1);
-  roleNames = ['user', 'admin'];
-  roleUpdates$ = new BehaviorSubject([this.getUserRoleName()]);
+  roleNames = ['Użytkownik', 'Administrator'];
+  roleUpdates$ = new BehaviorSubject([this.getRole()]);
 
   private isTokenRefreshing = false;
 
@@ -21,11 +21,17 @@ export class AuthService {
     private loadingService: LoadingService,
     private jwtHelper: JwtHelperService) {
 
+    // tslint:disable-next-line:radix
+    const diff = (new Date(parseInt(localStorage.getItem('TokenExpires')) * 1000).getTime() - new Date().getTime());
+    if (localStorage.getItem('Token') !== undefined && localStorage.getItem('Token') !== null && diff <= -3600000) {
+      this.clearUserData();
+    }
+
     this.roleUpdates$
       .pipe(scan((acc, next) => next, []))
       .subscribe(this.roles$);
 
-    setInterval(() => this.autoRefresh(), 10000); // 30000ms = 5min
+    setInterval(() => this.autoRefresh(), 2000); // 30000ms = 5min
   }
 
   // tslint:disable-next-line:variable-name
@@ -60,9 +66,9 @@ export class AuthService {
   }
 
   autoRefresh(): void {
-    if (!this.isAuthenticated()) {
+    if (!this.isAuthenticated() && !(localStorage.getItem('Token') === undefined || localStorage.getItem('Token') === null)) {
       this.isTokenRefreshing = true;
-      this.refreshToken().pipe(takeWhile(() => this.isTokenRefreshing)).subscribe(
+      this.refreshToken().subscribe(
         data => {
           localStorage.setItem('Token', data.accessToken);
           localStorage.setItem('TokenRefresh', data.refreshToken);
@@ -73,15 +79,15 @@ export class AuthService {
     }
   }
 
-  private getUserRoleName(): string {
-    // tslint:disable-next-line:radix
-    return this.getUserRole() == null ? 'anonymous' : this.convertToRoleName(parseInt(this.getUserRole()));
+  getRole(): string {
+    return localStorage.getItem('UserRole') === null ? 'anonymous' : localStorage.getItem('UserRole');
   }
 
   login(login: string, password: string): Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
-    return this.http.post<any>(environment.baseUrl + '/api/Identity/login', {login, password}, {headers});
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/login', {login, password}, {headers}).pipe(
+      retry(10));
   }
 
   logout(): void {
@@ -95,12 +101,12 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + '/api/Identity/refresh?token=' + localStorage.getItem('TokenRefresh'), {});
+    return this.http.post<any>(environment.baseUrl + '/api/Identity/refresh?token=' + localStorage.getItem('TokenRefresh'), {})
+      .pipe(takeWhile(() => this.isTokenRefreshing));
   }
 
-
   isLogged(): boolean {
-    return localStorage.getItem('Token') !== undefined;
+    return localStorage.getItem('Token') !== undefined && this.isAuthenticated();
   }
 
   getLogin(): string {
@@ -111,12 +117,12 @@ export class AuthService {
     return localStorage.getItem('Token');
   }
 
-  getUserRole() {
-    return localStorage.getItem('UserRole');
-  }
-
   getEmail(): string {
     return localStorage.getItem('UserEmail');
+  }
+
+  isPremium(): boolean {
+    return localStorage.getItem('UserPremium') === 'true';
   }
 
   clearUserData(): void {
@@ -126,10 +132,7 @@ export class AuthService {
     localStorage.removeItem('UserLogin');
     localStorage.removeItem('UserRole');
     localStorage.removeItem('UserEmail');
+    localStorage.removeItem('UserPremium');
     this.removeAllRolesFromUser();
-  }
-
-  convertToRoleName(roleId: number): string {
-    return this.roleNames[roleId - 1];
   }
 }

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './user/login/login.component';
 import {RegistrationComponent} from './user/registration/registration.component';
-import {CourseManagerComponent} from './courses/course-manager/course-manager.component';
+import {CourseManagerAdminComponent} from './courses/course-manager-admin/course-manager-admin.component';
 import {HomeComponent} from './home/home.component';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {animation: 'login'}},
   {path: 'register', component: RegistrationComponent, data: {animation: 'register'}},
   {path: 'videos', component: VideoManagerComponent, data: {animation: 'videos'}},
-  {path: 'courses', component: CourseManagerComponent, data: {animation: 'courses'}},
+  {path: 'courses', component: CourseManagerAdminComponent, data: {animation: 'courses'}},
   {path: '', component: HomeComponent, data: {animation: ''}},
   {path: 'home', component: HomeForLoggedComponent, data: {animation: 'home'}},
   {path: 'unauthorized', component: UnauthorizedComponent, data: {animation: 'unauthorized'}},

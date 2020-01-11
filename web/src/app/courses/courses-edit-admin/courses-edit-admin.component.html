@@ -1,0 +1,49 @@
+<!--<button (click)="add()">Add</button> <button (click)="shuffle()">Shuffle</button><br/>-->
+<!--<ul class="example-list"><li *ngFor="let item of items">{{ item }}</li></ul>-->
+
+<!--<div class="example-container" cdkDropListGroup>-->
+<!--  <div cdkDropList [cdkDropListEnterPredicate]="enter" (cdkDropListDropped)="drop()" #placeholder></div>-->
+<!--  <div cdkDropList *ngFor="let item of items"-->
+<!--       [cdkDropListEnterPredicate]="enter" (cdkDropListDropped)="drop()">-->
+<!--    <div cdkDrag class="example-box">{{item}}</div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--<section>-->
+<!--  <div cdkDropListGroup class="example-list container d-flex flex-row justify-content-center">-->
+<!--    <div *ngFor="let course of courses; let i = index" [cdkDropListData]="i" cdkDropList-->
+<!--         cdkDropListOrientation="horizontal">-->
+<!--      <app-course-thumbnail-admin [course]="course" (editCourseComponent)="getCourses()" (cdkDragEntered)="entered($event)" [cdkDragData]="i" cdkDrag-->
+<!--           class="p-2 card-content example-box">-->
+<!--      </app-course-thumbnail-admin>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!--<section>-->
+<!--  <div (cdkDropListDropped)="drop($event)" cdkDropList cdkDropListOrientation="horizontal"-->
+<!--       class="example-list container d-flex flex-row justify-content-center">-->
+<!--    <app-course-thumbnail-admin (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course cdkDrag-->
+<!--                          class="p-2 card-content example-box">-->
+<!--    </app-course-thumbnail-admin>-->
+<!--  </div>-->
+<!--</section>-->
+
+<section>
+  <div (cdkDropListDropped)="drop($event)" cdkDropList cdkDropListOrientation="vertical"
+       class="example-list container justify-content-center">
+    <app-course-list-element-admin (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course
+                                   cdkDrag
+                                   class=" p-2 card-content example-box">
+    </app-course-list-element-admin>
+  </div>
+</section>
+
+<!--<section>-->
+<!--  <div class="container d-flex flex-row justify-content-center flex-wrap ">-->
+<!--    <app-course-thumbnail-admin (editCourseComponent)="getCourses()" *ngFor="let course of courses" [course]=course-->
+<!--                                class="p-2 card-content">-->
+<!--    </app-course-thumbnail-admin>-->
+<!--  </div>-->
+<!--</section>-->

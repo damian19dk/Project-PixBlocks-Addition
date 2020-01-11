@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PixBlocks_Addition.Domain.Entities;
+using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -14,10 +17,12 @@ namespace PixBlocks_Addition.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IUserCourseHistoryService _userCourseHistoryService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IUserCourseHistoryService userCourseHistoryService)
         {
             _userService = userService;
+            _userCourseHistoryService = userCourseHistoryService;
         }
 
         [HttpPut("passwordChange")]

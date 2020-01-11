@@ -114,6 +114,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 + "&token=" + data.link.query.token;
         }
 
+        public async Task DeleteVideoAsync(string id)
+        {
+            var endpoint = "/v1/videos/delete/?";
+            var dic = new Dictionary<string, string>();
+            dic.Add("video_key", id);
+            var sig = _auth.CreateSignature(_jwPlayerOptions.Value.ApiKey, _jwPlayerOptions.Value.SecretKey, "json", dic);
+            var response = await postAsync(hostapi + endpoint + sig, null);
+        }
+
         private async Task<JWPlayerMedia> getMediaAsync(string endpoint)
         {
             var token = _jwtPlayerHandler.Create(endpoint);
@@ -127,6 +136,21 @@ namespace PixBlocks_Addition.Infrastructure.Services
             try
             {
                 var response = await _httpClient.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                    throw new MyException(response.ReasonPhrase);
+                return response.Content;
+            }
+            catch (Exception)
+            {
+                throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
+            }
+        }
+        private async Task<HttpContent> postAsync(string url, HttpContent content)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsync(url, content);
+                var rs = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                     throw new MyException(response.ReasonPhrase);
                 return response.Content;

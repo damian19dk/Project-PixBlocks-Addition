@@ -49,5 +49,10 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string VideoInHistory => "To wideo jest już w historii użytkonika!";//1016
         public static string NegativeTime => "Czas nie może być ujemny!";//2026
         public static string MissingVideos => "Brak wideo w kursie!";//2027
+        public static string WrongUserId => "Nie ma użytkownika o takim Id!";//1014
+        public static string MissingUser => "Nie ma takiego użytkownika!";//1015
+        public static string MissingCourse => "Nie ma takiego kursu!";//2025
+        public static string MissingHistory => "Brak historii użytkownika!";//1016
+        public static string SameCourseInUserHistory => "Kurs już znajduje się w histori użytkownika!";//1017
     }
 }
