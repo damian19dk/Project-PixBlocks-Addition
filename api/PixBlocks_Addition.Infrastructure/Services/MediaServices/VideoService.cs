@@ -151,12 +151,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             await videoRepository.UpdateAsync(video);
         }
 
-        private async Task setLength(Course course, long time, ICourseRepository courseRepository)
-        {
-            course.AddTime(time);
-            //await courseRepository.UpdateAsync(course);
-        }
-
         private async Task<long> TakeTime(string mediaId)
         {
             var video = await _jwPlayerService.GetVideoAsync(mediaId);
@@ -189,17 +183,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
-            if(video == null)
+            var video = await _videoRepository.GetAsync(id);
+            if (video == null)
             {
                 throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
             }
-        
-            var video = await _videoRepository.GetAsync(id);
-            var course = await _courseRepository.GetAsync(video.ParentId);
-
-            course.TakeTime(video.Duration);
-            await _courseRepository.UpdateAsync(course);
-
          
             if (video.QuizId != null)
             {
@@ -211,13 +199,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(string title)
         {
-            var videos = await _videoRepository.GetAsync(title, string.Empty);
-            var video = videos.SingleOrDefault(x => x.Title == title);
-            var course = await _courseRepository.GetAsync(video.ParentId);
-
-            course.TakeTime(video.Duration);
-            await _courseRepository.UpdateAsync(course);
-
             var videos = await _videoRepository.GetAsync(title);
             if(videos.Count() > 1)
             {
