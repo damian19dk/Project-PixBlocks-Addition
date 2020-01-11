@@ -64,7 +64,7 @@
 }
 
 .d-flex, .text-muted {
-  padding-bottom: 0%
+  padding-bottom: 0;
 }
 
 .languages {

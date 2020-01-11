@@ -24,7 +24,7 @@ export class CourseNewAdminComponent extends Form implements OnInit {
   }
 
   ngOnInit() {
-    this.tagsList = this.tagService.getTags();
+    this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 
@@ -61,6 +61,7 @@ export class CourseNewAdminComponent extends Form implements OnInit {
     const tags = this.form.value.tags;
     this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
+    console.log(this.dataDto);
 
     this.courseService.add(formData)
       .subscribe(
