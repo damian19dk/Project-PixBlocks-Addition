@@ -132,13 +132,12 @@ export class QuizFormComponent implements OnInit {
       ? { ...this.quizForm.value, quizId: this.quiz.id }
       : { ...this.quizForm.value, mediaId: this.typeaheadVideo.mediaId };
 
-    console.log(payload);
 
-    // if (shouldUpdateQuiz) {
-    //   this.quizService.updateQuiz(payload as UpdateQuizPayload);
-    // }
+     if (shouldUpdateQuiz) {
+       this.quizService.updateQuiz(payload as UpdateQuizPayload);
+     }
 
-    // this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
+     this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
   }
 
   parseInitialQuiz() {
