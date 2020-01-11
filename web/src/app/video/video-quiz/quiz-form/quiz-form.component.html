@@ -1,6 +1,11 @@
+
+  
+
 <div class="row title">
   <h2 i18n class="display-4">Dodaj quiz</h2>
 </div>
+<div class="row">
+  <div class="col-6">
 <form [formGroup]="quizForm" (submit)="handleSubmit($event)">
   <div formArrayName="questions">
     <div
@@ -30,7 +35,7 @@
     placeholder="Szukaj video"
   />
 
-  <button type="submit" [disabled]="!quizForm.valid">Zapisz</button>
+  <button class="saveVideo" type="submit" [disabled]="!quizForm.valid">Zapisz</button>
 
   <ng-template #rt let-r="result" let-t="term">
     <div placement="right">
@@ -39,3 +44,15 @@
     </div>
   </ng-template>
 </form>
+</div>
+<div class="col-6">
+  <img class="img-fluid" src="assets/svg/undraw_online_test_gba7.svg">
+</div>
+</div>
+
+  
+
+
+
+
+
