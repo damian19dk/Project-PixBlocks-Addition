@@ -1,7 +1,7 @@
 <div [formGroup]="quizQuestionForm">
   <input type="text" placeholder="Pytanie" formControlName="question" />
   <span *ngIf="question.invalid && (question.dirty || question.touched)">
-    Pytanie nie moze byc puste
+    Pytanie nie może byc puste
   </span>
   <div formArrayName="answers">
     <ng-container *ngFor="let answer of answersControls; let index">
@@ -12,16 +12,17 @@
       ></app-quiz-answer>
     </ng-container>
     <div *ngIf="answers.errors && answers.errors.minLength && answers.dirty">
-      Pytanie powinno zawierac conajmniej dwie odpowiedzi
+      Pytanie powinno zawierać conajmniej dwie odpowiedzi
     </div>
     <div *ngIf="answers.errors && answers.errors.noCorrectAnswer">
-      Pytanie powinno zawierac conajmniej jedna poprawna odpowiedz
+      Pytanie powinno zawierać conajmniej jedna poprawna odpowiedz
     </div>
   </div>
-  <button (click)="addQuestion()" type="button" [disabled]="!question.valid">
-    Dodaj Odpowiedz
+  <button  mat-raised-button color="primary" [class.spinner]="loading" (click)="addQuestion()" type="button" [disabled]="!question.valid">
+    Dodaj odpowiedź
   </button>
-  <button (click)="handleDeleteQuestion()">
-    Usun Pytanie
+  <button  mat-raised-button color="primary" [class.spinner]="loading" (click)="handleDeleteQuestion()">
+    Usuń pytanie
   </button>
+  
 </div>
