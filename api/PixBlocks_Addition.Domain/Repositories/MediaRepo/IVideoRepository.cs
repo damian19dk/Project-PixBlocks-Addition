@@ -9,5 +9,6 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
     public interface IVideoRepository: IMediaRepository<Video>, ICloneable
     {
         Task<IEnumerable<Video>> GetByMediaAsync(string mediaId);
+        Task<IEnumerable<Video>> GetVideosFromCourse(Course course);
     }
 }

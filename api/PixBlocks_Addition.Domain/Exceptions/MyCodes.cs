@@ -48,5 +48,6 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string VideoHistoryNotFound => "Nie znaleziono histori wideo użytkonika!";//1015
         public static string VideoInHistory => "To wideo jest już w historii użytkonika!";//1016
         public static string NegativeTime => "Czas nie może być ujemny!";//2026
+        public static string MissingVideos => "Brak wideo w kursie!";//2027
     }
 }

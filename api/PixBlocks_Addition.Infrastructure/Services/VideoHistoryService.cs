@@ -34,6 +34,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task SetProgressAsync(Guid userId, Guid videoId, long time = 0)
         {
+            if (time < 0)
+                throw new MyException(MyCodesNumbers.NegativeTime, MyCodes.NegativeTime);
+
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
                 throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
@@ -98,14 +101,25 @@ namespace PixBlocks_Addition.Infrastructure.Services
             if (videoHistory == null)
                 throw new MyException(MyCodesNumbers.VideoHistoryNotFound, MyCodes.VideoHistoryNotFound);
 
+            var videos = await _videoRepository.GetVideosFromCourse(course);
+            if (videos == null)
+                throw new MyException(MyCodesNumbers.MissingVideos, MyCodes.MissingVideos);
+
             long time = 0;
+            long length = 0;
             foreach(var record in videoHistory.Videos)
             {
                if (record.Video.ParentId == courseId)
                     time += record.Time;
             }
-            int percentage = (int)(time / course.Length) * 100;
-            return percentage;
+
+            foreach(var vid in videos)
+            {
+                length += vid.Duration;
+            }
+
+            double temp = (double)time / (double)length;
+            return (int)(temp * 100);
         }
     }
 }

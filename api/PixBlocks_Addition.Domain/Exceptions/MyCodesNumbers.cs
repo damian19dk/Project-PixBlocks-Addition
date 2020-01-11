@@ -52,6 +52,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string InvalidOrderData => "2024";
         public static string NegativeLength => "2025";
         public static string NegativeTime => "2026";
+        public static string MissingVideos => "2027";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";
