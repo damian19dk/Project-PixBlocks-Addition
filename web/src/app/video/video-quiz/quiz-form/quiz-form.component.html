@@ -1,0 +1,26 @@
+<form [formGroup]="quizForm" (submit)="handleSubmit($event)">
+  <div formArrayName="questions">
+    <div
+      *ngFor="let question of quizQuestionsControls; let questionIndex = index"
+    >
+      <app-quiz-question
+        [quizQuestionForm]="question"
+        [quizQuestionIndex]="questionIndex"
+        (onDeleteQuestion)="onDeleteQuestion($event)"
+      ></app-quiz-question>
+      <hr />
+    </div>
+  </div>
+  <button (click)="newQuizQuestion()" type="button">Dodaj Pytanie</button>
+
+  <hr />
+
+  <div *ngIf="quizForm.errors && quizForm.errors.associatedVideo">
+    Quiz musi dotyczyc video
+  </div>
+
+  <br />
+  <br />
+
+  <button type="submit" [disabled]="!quizForm.valid">Zapisz</button>
+</form>

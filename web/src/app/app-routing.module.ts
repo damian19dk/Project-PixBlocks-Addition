@@ -27,13 +27,13 @@ const routes: Routes = [
     data: {animation: 'courses/:id/videos/:mediaId'}
     // canActivate: [AuthGuard]
   },
+  {path: 'quiz', component: VideoQuizComponent},
   {
     path: 'settings',
     component: FunctionalityNotPreparedComponent,
     data: {animation: 'settings'}
   },
   {path: 'profile', component: ProfileComponent, data: {animation: 'profile'}},
-  {path: 'quiz', component: VideoQuizComponent},
   {path: '**', component: PageNotFoundComponent}
 
 ];

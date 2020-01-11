@@ -1,16 +1,3 @@
-<form [formGroup]="quizForm" (submit)="handleSubmit()">
-  <div formArrayName="questions">
-    <div
-      *ngFor="let question of quizQuestionsControls; let questionIndex = index"
-    >
-      <app-quiz-question
-        [quizQuestionForm]="question"
-        [quizQuestionIndex]="questionIndex"
-        (onDeleteQuestion)="onDeleteQuestion($event)"
-      ></app-quiz-question>
-      <hr />
-    </div>
-  </div>
-  <button (click)="newQuizQuestion()" type="button">Dodaj Pytanie</button>
-  <button type="submit" [disabled]="!quizForm.valid">Zapisz</button>
-</form>
+<div class="container">
+  <app-quiz-form></app-quiz-form>
+</div>

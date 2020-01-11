@@ -1,3 +1,4 @@
+import { QuizService } from "./services/quiz.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -55,7 +56,8 @@ import { CourseListElementAdminComponent } from "./courses/course-list-element-a
 import { CoursesHistoryForUserComponent } from "./courses/courses-history-for-user/courses-history-for-user.component";
 import { VideoQuizComponent } from "./video/video-quiz/video-quiz.component";
 import { QuizQuestionComponent } from "./video/video-quiz/quiz-question/quiz-question.component";
-import { QuizAnswerComponent } from './video/video-quiz/quiz-answer/quiz-answer.component';
+import { QuizAnswerComponent } from "./video/video-quiz/quiz-answer/quiz-answer.component";
+import { QuizFormComponent } from "./video/video-quiz/quiz-form/quiz-form.component";
 
 @NgModule({
   declarations: [
@@ -94,7 +96,8 @@ import { QuizAnswerComponent } from './video/video-quiz/quiz-answer/quiz-answer.
     CoursesHistoryForUserComponent,
     VideoQuizComponent,
     QuizQuestionComponent,
-    QuizAnswerComponent
+    QuizAnswerComponent,
+    QuizFormComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +130,7 @@ import { QuizAnswerComponent } from './video/video-quiz/quiz-answer/quiz-answer.
     VideoService,
     CourseService,
     LoadingService,
+    QuizService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
