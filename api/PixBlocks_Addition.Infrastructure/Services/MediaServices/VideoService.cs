@@ -115,20 +115,21 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     tags.Add(entityTag);
                 }
             }
-
-            var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
-                                0, video.Language, resources, tags);
             
+
+                var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
+                                    0, video.Language, resources, tags);
+
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
 
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
             await _courseRepository.UpdateAsync(course);
 
-            setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
+            setDuration(video.MediaId, vid, course, (VideoRepository)_videoRepository.Clone(), _courseRepository);
         }
 
-        private async Task setDuration(string mediaId, Video video, IVideoRepository videoRepository)
+        private async Task setDuration(string mediaId, Video video, Course course, IVideoRepository videoRepository, ICourseRepository courseRepository)
         {
             var response = await _jwPlayerService.ShowVideoAsync(mediaId);
             while (response.Status == "processing")
@@ -148,6 +149,18 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             video.SetStatus(response.Status);
             video.SetDuration((long)response.Duration);
             await videoRepository.UpdateAsync(video);
+        }
+
+        private async Task setLength(Course course, long time, ICourseRepository courseRepository)
+        {
+            course.AddTime(time);
+            //await courseRepository.UpdateAsync(course);
+        }
+
+        private async Task<long> TakeTime(string mediaId)
+        {
+            var video = await _jwPlayerService.GetVideoAsync(mediaId);
+            return video.Duration;
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
@@ -176,11 +189,18 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(Guid id)
         {
-            var video = await _videoRepository.GetAsync(id);
             if(video == null)
             {
                 throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
             }
+        
+            var video = await _videoRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(video.ParentId);
+
+            course.TakeTime(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
+         
             if (video.QuizId != null)
             {
                 var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
@@ -191,6 +211,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveAsync(string title)
         {
+            var videos = await _videoRepository.GetAsync(title, string.Empty);
+            var video = videos.SingleOrDefault(x => x.Title == title);
+            var course = await _courseRepository.GetAsync(video.ParentId);
+
+            course.TakeTime(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             var videos = await _videoRepository.GetAsync(title);
             if(videos.Count() > 1)
             {

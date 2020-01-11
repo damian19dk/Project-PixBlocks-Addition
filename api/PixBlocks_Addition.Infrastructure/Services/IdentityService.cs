@@ -17,15 +17,18 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IRefreshTokenRepository _refreshTokens;
         private readonly IJwtHandler _jwtHandler;
         private readonly IEncrypter _encrypter;
+        private readonly IVideoHistoryRepository _videoHistoryRepository;
         private readonly IUserCourseHistoryRepository _userCourseHistoryRepository;
 
         public IdentityService(IJwtHandler jwtHandler,
-            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter, IUserCourseHistoryRepository userCourseHistoryRepository)
+            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter, IUserCourseHistoryRepository userCourseHistoryRepository, IVideoHistoryRepository videoHistoryRepository)
+
         {
             _jwtHandler = jwtHandler;
             _userRepository = userRepository;
             _refreshTokens = refreshTokenRepository;
             _encrypter = encrypter;
+            _videoHistoryRepository = videoHistoryRepository;
             _userCourseHistoryRepository = userCourseHistoryRepository;
         }
 
@@ -41,10 +44,17 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var hash = _encrypter.GetHash(password, salt);
 
             User user = new User(username, email, role, password, _encrypter);
+
+            VideoHistory videoHistory = new VideoHistory(user);
+
+            await _userRepository.AddAsync(user);
+            await _videoHistoryRepository.AddAsync(videoHistory);
+
             UserCourseHistory userCourseHistory = new UserCourseHistory(user);
 
             await _userRepository.AddAsync(user);
             await _userCourseHistoryRepository.AddAsync(userCourseHistory);
+
         }
 
         public async Task<JwtDto> Login(string login, string password)
