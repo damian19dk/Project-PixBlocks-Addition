@@ -15,6 +15,9 @@ import {
   UpdateQuizPayload
 } from "./../../../models/quiz.model";
 import { QuizService } from "./../../../services/quiz.service";
+import { Observable } from "rxjs";
+import { debounceTime, filter, switchMap } from "rxjs/operators";
+import { CourseDocument } from "src/app/models/courseDocument.model";
 
 @Component({
   selector: "app-quiz-form",
@@ -25,6 +28,8 @@ export class QuizFormComponent implements OnInit {
   quizForm: FormGroup;
   @Input() quiz?: Quiz;
 
+  typeaheadVideo: { mediaId: string } = { mediaId: "" };
+
   constructor(
     private videoService: VideoService,
     private quizService: QuizService
@@ -32,10 +37,16 @@ export class QuizFormComponent implements OnInit {
 
   ngOnInit() {
     const initialQuestions = this.parseInitialQuiz();
+    const mediaField = this.shouldUpdateQuizOnSubmit()
+      ? {}
+      : {
+          mediaId: new FormControl("", [Validators.required])
+        };
+
     this.quizForm = new FormGroup(
       {
         questions: new FormArray(initialQuestions),
-        quizId: new FormControl()
+        ...mediaField
       },
       [this.hasQuestions]
     );
@@ -117,16 +128,17 @@ export class QuizFormComponent implements OnInit {
     e.preventDefault();
 
     const shouldUpdateQuiz = this.shouldUpdateQuizOnSubmit();
-    const payload =
-      this.quiz && this.quiz.id
-        ? { ...this.quizForm.value, quizId: this.quiz.id }
-        : this.quizForm.value;
+    const payload = shouldUpdateQuiz
+      ? { ...this.quizForm.value, quizId: this.quiz.id }
+      : { ...this.quizForm.value, mediaId: this.typeaheadVideo.mediaId };
 
-    if (shouldUpdateQuiz) {
-      this.quizService.updateQuiz(payload as UpdateQuizPayload);
-    }
+    console.log(payload);
 
-    this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
+    // if (shouldUpdateQuiz) {
+    //   this.quizService.updateQuiz(payload as UpdateQuizPayload);
+    // }
+
+    // this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
   }
 
   parseInitialQuiz() {
@@ -137,4 +149,14 @@ export class QuizFormComponent implements OnInit {
       this.quizQuestion(q.question, q.answers.map(this.quizAnswer))
     );
   }
+
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(250),
+      filter(text => text !== ""),
+      switchMap(searchText => this.videoService.findByTitle(searchText))
+    );
+  };
+
+  formatter = (x: CourseDocument) => x.title;
 }

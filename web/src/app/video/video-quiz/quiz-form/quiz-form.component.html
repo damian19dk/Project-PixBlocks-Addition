@@ -15,12 +15,27 @@
 
   <hr />
 
-  <div *ngIf="quizForm.errors && quizForm.errors.associatedVideo">
-    Quiz musi dotyczyc video
-  </div>
-
-  <br />
-  <br />
+  <input
+    *ngIf="!shouldUpdateQuizOnSubmit()"
+    class="form-control empty d-inline-flex align-self-center w-100"
+    formControlName="mediaId"
+    i18n-placeholder
+    type="text"
+    [inputFormatter]="formatter"
+    [ngbTypeahead]="search"
+    [(ngModel)]="typeaheadVideo"
+    [resultTemplate]="rt"
+    placeholder="Szukaj video"
+  />
 
   <button type="submit" [disabled]="!quizForm.valid">Zapisz</button>
+
+  <ng-template #rt let-r="result" let-t="term">
+    <div *ngIf="r.tags.length > 0" placement="right">
+      <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
+      <span class="badge badge-info ml-2" *ngFor="let tag of r.tags">{{
+        tag
+      }}</span>
+    </div>
+  </ng-template>
 </form>
