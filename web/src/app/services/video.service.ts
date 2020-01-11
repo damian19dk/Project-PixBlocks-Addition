@@ -48,6 +48,6 @@ export class VideoService extends DataService {
     const headers = new HttpHeaders();
     const videos = new VideosOrder(videosIds);
     return this.http.post<any>(environment.baseUrl + '/api/Order/videos', videos, {headers}).pipe(
-      retry(10));
+      retry(environment.maxRetryValue));
   }
 }
