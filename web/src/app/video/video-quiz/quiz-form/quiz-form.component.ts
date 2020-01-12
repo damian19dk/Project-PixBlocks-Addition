@@ -126,6 +126,7 @@ export class QuizFormComponent implements OnInit {
         data => {
           this.loading = false;
           this.sent = true;
+          this.error = null;
         },
         error => {
           this.loading = false;
@@ -139,6 +140,7 @@ export class QuizFormComponent implements OnInit {
       data => {
         this.loading = false;
         this.sent = true;
+        this.error = null;
       },
       error => {
         this.loading = false;
