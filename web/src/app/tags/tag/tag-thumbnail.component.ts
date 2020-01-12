@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TagDto} from '../../models/tagDto.model';
 
 @Component({
-  selector: 'app-tag',
-  templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.css']
+  selector: 'app-tag-thumbnail',
+  templateUrl: './tag-thumnail.component.html',
+  styleUrls: ['./tag-thumbnail.component.css']
 })
-export class TagComponent implements OnInit {
+export class TagThumbnailComponent implements OnInit {
 
   @Input() tagDto: TagDto;
 

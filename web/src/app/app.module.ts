@@ -56,8 +56,10 @@ import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SettingsComponent} from './settings/settings.component';
 import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
-import {TagComponent} from './tags/tag/tag.component';
+import {TagThumbnailComponent} from './tags/tag/tag-thumbnail.component';
 import {ColorSketchModule} from 'ngx-color/sketch';
+import {TagsViewAdminComponent} from './tags/tags-view-admin/tags-view-admin.component';
+import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/tag-thumbnail-edit-admin.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import {ColorSketchModule} from 'ngx-color/sketch';
     CoursesHistoryForUserComponent,
     SettingsComponent,
     NewTagAdminComponent,
-    TagComponent
+    TagThumbnailComponent,
+    TagsViewAdminComponent,
+    TagThumbnailEditAdminComponent
   ],
   imports: [
     BrowserModule,

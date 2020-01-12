@@ -17,7 +17,7 @@ import {FormModal} from '../../models/formModal';
 export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
-  @Output() editCourseComponent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() courseChanged: EventEmitter<any> = new EventEmitter<any>();
   picture: string;
 
   constructor(private formBuilder: FormBuilder,
@@ -97,7 +97,7 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
   }
 
   refreshOtherThumbnails() {
-    this.editCourseComponent.emit(null);
+    this.courseChanged.emit(null);
   }
 
   imitateImageInput() {

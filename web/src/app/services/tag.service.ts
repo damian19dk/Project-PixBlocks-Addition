@@ -35,7 +35,9 @@ export class TagService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}`, {headers});
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
   getOne(name: string) {
@@ -43,7 +45,9 @@ export class TagService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${name}`, {headers});
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${name}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
   add(tagDto: TagDto) {
@@ -81,9 +85,7 @@ export class TagService {
   }
 
   addTagDto(name: string) {
-    this.getOne(name).pipe(
-      retry(environment.maxRetryValue)
-    )
+    this.getOne(name)
       .subscribe(
         data => {
           this.allTags.set(name, data);

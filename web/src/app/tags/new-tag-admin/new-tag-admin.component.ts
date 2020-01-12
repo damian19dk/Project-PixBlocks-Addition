@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Language, LanguageService} from '../../services/language.service';
 import {FormModal} from '../../models/formModal';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +15,7 @@ import {ColorEvent} from 'ngx-color';
 export class NewTagAdminComponent extends FormModal implements OnInit {
   languages: Array<Language>;
   exampleTag: TagDto = new TagDto();
+  @Output() tagChanged: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder,
@@ -63,6 +64,7 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
+          this.refreshOtherThumbnails();
         },
         error => {
           this.sent = true;
@@ -74,5 +76,9 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
   changeColor($event: ColorEvent) {
     this.dataDto.color = $event.color.hex;
     this.exampleTag.color = this.dataDto.color;
+  }
+
+  refreshOtherThumbnails() {
+    this.tagChanged.emit(null);
   }
 }

@@ -1,6 +1,6 @@
 <ng-template #modal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" i18n>Dodaj tag</h4>
+    <h4 class="modal-title" i18n>Edytuj tag</h4>
     <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -15,7 +15,7 @@
       Tag dodano pomyślnie
     </div>
 
-    <form (ngSubmit)="create()" [formGroup]="form" class="col-12">
+    <form [formGroup]="form" class="col-12">
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="name" i18n>Nazwa</label>
@@ -71,7 +71,14 @@
       </div>
 
       <div class="modal-footer justify-content-end">
-        <button (click)="create()" [disabled]="loading" class="btn btn-success" type="submit">
+        <button (click)="remove(); modal.close('Deleted')" [disabled]="loading" class="btn btn-warning" type="button">
+          <div *ngIf="!loading" i18n>Usuń</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm align-self-center" i18n></span>
+            Ładowanie..
+          </div>
+        </button>
+        <button (click)="edit()" [disabled]="loading" class="btn btn-success" type="button">
           <div *ngIf="!loading" i18n>Zapisz</div>
           <div *ngIf="loading">
             <span class="spinner-border spinner-border-sm align-self-center" i18n></span>
@@ -86,9 +93,5 @@
   </div>
 </ng-template>
 
-<div>
-  <button (click)="openModal(modal)" [class.spinner]="loading" [disabled]="loading" color="primary" mat-raised-button>
-    Dodaj tag
-  </button>
-</div>
+<app-tag-thumbnail (click)="openModal(modal)" [tagDto]="tagDto"></app-tag-thumbnail>
 
