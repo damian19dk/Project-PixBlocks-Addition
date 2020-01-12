@@ -80,6 +80,17 @@ export class TagService {
     return this.allTags.get(name);
   }
 
+  addTagDto(name: string) {
+    this.getOne(name).pipe(
+      retry(environment.maxRetryValue)
+    )
+      .subscribe(
+        data => {
+          this.allTags.set(name, data);
+        }
+      );
+  }
+
   getTagSettingsForMultiselect() {
     return this.tagSettingsForMultiselect;
   }

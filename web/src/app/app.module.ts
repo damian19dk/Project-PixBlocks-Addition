@@ -57,6 +57,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SettingsComponent} from './settings/settings.component';
 import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
 import {TagComponent} from './tags/tag/tag.component';
+import {ColorSketchModule} from 'ngx-color/sketch';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import {TagComponent} from './tags/tag/tag.component';
     MatFormFieldModule,
     MatSelectModule,
     DragDropModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    ColorSketchModule
   ],
   exports: [
     HasRoleDirective

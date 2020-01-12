@@ -5,6 +5,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators} from '@angular/forms';
 import {TagDto} from '../../models/tagDto.model';
 import {TagService} from '../../services/tag.service';
+import {ColorEvent} from 'ngx-color';
 
 @Component({
   selector: 'app-new-tag-admin',
@@ -13,6 +14,7 @@ import {TagService} from '../../services/tag.service';
 })
 export class NewTagAdminComponent extends FormModal implements OnInit {
   languages: Array<Language>;
+  exampleTag: TagDto = new TagDto();
 
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder,
@@ -25,6 +27,10 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
     this.languages = this.languageService.getAllLanguages();
     this.dataDto = new TagDto();
 
+    this.exampleTag.name = 'Tag';
+    this.exampleTag.description = 'Lorem ipsum...';
+    this.exampleTag.color = '#fff';
+
     this.sent = false;
     this.submitted = false;
     this.loading = false;
@@ -33,7 +39,7 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
-      color: ['primary'],
+      color: ['#fff'],
       language: ['pl']
     });
   }
@@ -46,13 +52,14 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
     }
 
     this.loading = true;
-    this.dataDto = this.form.value;
-
-    console.log(this.dataDto);
+    this.dataDto.name = this.form.value.name;
+    this.dataDto.description = this.form.value.description;
+    this.dataDto.language = this.form.value.language;
 
     this.tagService.add(this.dataDto)
       .subscribe(
         data => {
+          this.tagService.addTagDto(this.dataDto.name);
           this.sent = true;
           this.error = null;
           this.loading = false;
@@ -62,5 +69,10 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
           this.error = error;
           this.loading = false;
         });
+  }
+
+  changeColor($event: ColorEvent) {
+    this.dataDto.color = $event.color.hex;
+    this.exampleTag.color = this.dataDto.color;
   }
 }
