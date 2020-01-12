@@ -25,7 +25,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var expectedPremium = true;
             var expectedLanguage = "pl";
             var expectedDescription = "Some expected description.";
-            var expectedTags = "nauka jazdy,gumy,rtęć,inne";
+            var expectedTags = "C++,python";
             var parameters = new Dictionary<string, string>();
             parameters.Add("Title", expectedTitle);
             parameters.Add("Description", expectedDescription);

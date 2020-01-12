@@ -33,5 +33,4 @@ export class SearchBarComponent implements OnInit {
   }
 
   formatter = (x: CourseDocument) => x.title;
-
 }

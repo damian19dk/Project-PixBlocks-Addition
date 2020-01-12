@@ -24,7 +24,7 @@ export class CourseNewAdminComponent extends Form implements OnInit {
   }
 
   ngOnInit() {
-    this.tagsList = this.tagService.getTags();
+    this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 

@@ -1,0 +1,94 @@
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" i18n>Dodaj tag</h4>
+    <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body input-group container">
+
+    <div *ngIf="error" class="alert alert-danger col-12">
+      {{error}}
+    </div>
+
+    <div *ngIf="sent && !error" class="alert alert-success col-12" i18n>
+      Tag dodano pomyślnie
+    </div>
+
+    <form (ngSubmit)="create()" [formGroup]="form" class="col-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="name" i18n>Nazwa</label>
+        <div class="col-sm-10 input-group">
+          <input [ngClass]="{'is-invalid' : submitted && f.name.errors}" class="form-control" formControlName="name"
+                 i18n-placeholder id="name" placeholder="Wpisz nazwę" type="text">
+
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required" i18n>Pole jest puste</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="description" i18n>Opis</label>
+        <div class="col-sm-10 input-group">
+                    <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
+                              formControlName="description"
+                              i18n-placeholder id="description"
+                              placeholder="Wpisz opis"></textarea>
+
+          <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required" i18n>Pole jest puste</div>
+            <div *ngIf="f.description.errors.minlength" i18n>Opis musi mieć minimum 3 znaki</div>
+            <div *ngIf="f.description.errors.maxlength" i18n>Opis może mieć maksymalnie 10000 znaków</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="language" i18n>Język</label>
+        <div class="col-sm-8 input-group">
+          <mat-radio-group class="languages" color="primary" formControlName="language">
+            <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
+              {{language.label}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="color" i18n>Kolor tła</label>
+        <div class="col-sm-10 input-group">
+          <color-sketch (onChangeComplete)="changeColor($event)" color="#fff"></color-sketch>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+        <div class="col-sm-10 input-group justify-content-center align-self-center">
+          <app-tag-thumbnail [tagDto]="exampleTag"></app-tag-thumbnail>
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-end">
+        <button (click)="create()" [disabled]="loading" class="btn btn-success" type="submit">
+          <div *ngIf="!loading" i18n>Zapisz</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm align-self-center" i18n></span>
+            Ładowanie..
+          </div>
+        </button>
+        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+          Zamknij
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div>
+  <button (click)="openModal(modal)" [class.spinner]="loading" [disabled]="loading" color="primary" mat-raised-button>
+    Dodaj tag
+  </button>
+</div>
+

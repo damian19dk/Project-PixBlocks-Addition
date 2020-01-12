@@ -38,12 +38,14 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 
         private async Task Init()
         {
+            await createTags();
+
             var courseData = new Dictionary<string, string>();
             courseData.Add("Premium", "false");
             courseData.Add("Title", "Title1");
             courseData.Add("Description", "Some description.");
             courseData.Add("Language", "en");
-            courseData.Add("Tags", "tag3");
+            courseData.Add("Tags", "python");
 
             await sendMultiPartAsync("api/course/create", "POST", courseData);
 
@@ -54,6 +56,35 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 
             Assert.IsTrue(courses.Any(x => x.Title == "Title1"));
             Assert.IsTrue(Guid.Empty != CourseDto.Id);
+        }
+
+        private async Task createTags()
+        {
+            TagResource tag = new TagResource()
+            {
+                Name = "python",
+                Description = "Kurs nauki pythona.",
+                Color = "red",
+                Language = "none"
+            };
+            TagResource tag1 = new TagResource()
+            {
+                Name = "C++",
+                Description = "Kurs nauki C++.",
+                Color = "blue",
+                Language = "pl"
+            };
+            TagResource tag2 = new TagResource()
+            {
+                Name = "beginner",
+                Description = "Beginners.",
+                Color = "blue",
+                Language = "en"
+            };
+            var res = await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag), Encoding.UTF8, "application/json"));
+            res.EnsureSuccessStatusCode();
+            await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag1), Encoding.UTF8, "application/json"));
+            await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag2), Encoding.UTF8, "application/json"));
         }
 
         protected static StringContent GetPayload(object data)

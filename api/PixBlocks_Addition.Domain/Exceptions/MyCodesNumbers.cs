@@ -21,6 +21,9 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string SameEmail => "1011";
         public static string UniqueEmail => "1012";
         public static string UniqueLogin => "1013";
+        public static string UserNotFound => "1014";
+        public static string VideoHistoryNotFound => "1015";
+        public static string VideoInHistory => "1016";
         public static string WrongUserId => "1014";
         public static string MissingUser => "1015";
         public static string MissingHistory => "1016";
@@ -51,10 +54,15 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string SameVideo => "2022";
         public static string InvalidVideoParentId => "2023";
         public static string InvalidOrderData => "2024";
+        public static string NegativeLength => "2025";
+        public static string NegativeTime => "2026";
+        public static string MissingVideos => "2027";
         public static string MissingCourse => "2025";
         public static string AmbiguousTitle => "2026";
         public static string QuizNotFound => "2027";
         public static string QuizExists => "2028";
+        public static string TagExists => "2029";
+        public static string TagNotFound => "2030";
         //kody z 3*** dotycza JWT
         public static string TokenNotFound => "3000";
         public static string UserNotFoundJWT => "3001";
@@ -73,5 +81,7 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string EmptyLanguage => "6004";
         public static string CouldntLoad => "6005";
         public static string InvalidIndex => "6006";
+        public static string InvalidTagName => "6007";
+        public static string InvalidColor => "6008";
     }
 }

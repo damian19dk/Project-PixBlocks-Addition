@@ -52,8 +52,6 @@ export class CoursesEditAdminComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    // console.log(event.previousIndex + ' ' + event.currentIndex);
-
     moveItemInArray(this.courses, event.previousIndex, event.currentIndex);
     this.courseService.changeOrder(this.courses.map(e => e.id)).subscribe(
       data => {
@@ -63,12 +61,6 @@ export class CoursesEditAdminComponent implements OnInit {
       }
     );
   }
-
-
-  // entered(event: CdkDragEnter) {
-  //   console.log(event.currentIndex);
-  //   moveItemInArray(this.courses, event.item.data, event.container.data);
-  // }
 
 }
 

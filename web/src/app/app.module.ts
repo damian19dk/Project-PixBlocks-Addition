@@ -59,6 +59,13 @@ import {QuizQuestionComponent} from './video/video-quiz/quiz-question/quiz-quest
 import {QuizAnswerComponent} from './video/video-quiz/quiz-answer/quiz-answer.component';
 import {QuizFormComponent} from './video/video-quiz/quiz-form/quiz-form.component';
 import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-quiz-user.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {SettingsComponent} from './settings/settings.component';
+import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
+import {TagThumbnailComponent} from './tags/tag/tag-thumbnail.component';
+import {ColorSketchModule} from 'ngx-color/sketch';
+import {TagsViewAdminComponent} from './tags/tags-view-admin/tags-view-admin.component';
+import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/tag-thumbnail-edit-admin.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +102,11 @@ import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-q
     CourseListElementUserComponent,
     CourseListElementAdminComponent,
     CoursesHistoryForUserComponent,
+    SettingsComponent,
+    NewTagAdminComponent,
+    TagThumbnailComponent,
+    TagsViewAdminComponent,
+    TagThumbnailEditAdminComponent,
     VideoQuizComponent,
     QuizQuestionComponent,
     QuizAnswerComponent,
@@ -123,7 +135,9 @@ import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-q
     MatRadioModule,
     MatFormFieldModule,
     MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressBarModule,
+    ColorSketchModule
   ],
   exports: [HasRoleDirective],
   providers: [

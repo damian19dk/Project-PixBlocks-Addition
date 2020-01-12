@@ -34,7 +34,7 @@ export class CourseService extends DataService {
       .set('Content-Type', 'application/json');
     const courses = new CoursesOrder(coursesIds);
     return this.http.post<any>(environment.baseUrl + '/api/Order/courses', courses, {headers}).pipe(
-      retry(10));
+      retry(environment.maxRetryValue));
   }
 
   addToUserHistory(courseId: string): Observable<any> {
@@ -42,7 +42,7 @@ export class CourseService extends DataService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
     return this.http.post<any>(environment.baseUrl + '/api/History/addCourseToHistory?courseId=' + courseId, {}, {headers}).pipe(
-      retry(10)
+      retry(environment.maxRetryValue)
     );
   }
 
@@ -51,7 +51,7 @@ export class CourseService extends DataService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
     return this.http.get<any>(environment.baseUrl + '/api/History/getUserHistory', {headers}).pipe(
-      retry(10)
+      retry(environment.maxRetryValue)
     );
   }
 }
