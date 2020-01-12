@@ -1,13 +1,13 @@
-export interface Quiz {
+export class Quiz {
   id: string;
   mediaId: string;
-  questions: QuizQuestion[];
+  questions: Array<QuizQuestion>;
 }
 
 export interface QuizQuestion {
   quizId: string;
   question: string;
-  answers: QuizAnswer[];
+  answers: Array<QuizAnswer>;
 }
 
 export interface QuizAnswer {
@@ -19,7 +19,7 @@ export interface CreateQuizPayload {
   mediaId: string;
   question: {
     question: string;
-    answers: QuizAnswer[];
+    answers: Array<QuizAnswer>;
   }[];
 }
 
@@ -27,6 +27,11 @@ export interface UpdateQuizPayload {
   quizId: string;
   question: {
     question: string;
-    answers: QuizAnswer[];
+    answers: Array<QuizAnswer>;
   }[];
+}
+
+export interface Question {
+  question: string;
+  answers: Array<QuizAnswer>;
 }

@@ -1,0 +1,14 @@
+<div *ngIf="quiz">
+  <span *ngFor="let question of quiz.questions" class="question">
+    {{question.question}}
+    <br>
+    <ul *ngFor="let answer of question.answers">
+      <mat-checkbox color="primary">
+       {{answer.answer}}
+      </mat-checkbox>
+      </ul>
+  </span>
+  <button (click)="checkAnswers()" [class.spinner]="loading" [disabled]="loading" color="primary" mat-raised-button>
+    Sprawdź!
+  </button>
+</div>

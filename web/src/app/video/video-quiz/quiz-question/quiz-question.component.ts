@@ -1,49 +1,37 @@
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
-  ValidationErrors,
-  AbstractControl
-} from "@angular/forms";
-import {
-  Component,
-  OnInit,
-  OnChanges,
-  Input,
-  Output,
-  EventEmitter
-} from "@angular/core";
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: "app-quiz-question",
-  templateUrl: "./quiz-question.component.html",
-  styleUrls: ["./quiz-question.component.css"]
+  selector: 'app-quiz-question',
+  templateUrl: './quiz-question.component.html',
+  styleUrls: ['./quiz-question.component.css']
 })
 export class QuizQuestionComponent implements OnInit {
   @Input() quizQuestionForm: FormGroup;
   @Input() quizQuestionIndex: number;
   @Output() onDeleteQuestion = new EventEmitter<number>();
 
-  constructor() {}
+  constructor() {
+  }
 
   addQuestion() {
     this.answers.markAsDirty();
     this.answers.push(this.createAnswerForm());
   }
 
-  ngOnInit() {}
+  get question() {
+    return this.quizQuestionForm.get('question');
+  }
 
   get formValid() {
     return this.quizQuestionForm.valid;
   }
 
-  get question() {
-    return this.quizQuestionForm.get("question");
+  get answers() {
+    return this.quizQuestionForm.get('answers') as FormArray;
   }
 
-  get answers() {
-    return this.quizQuestionForm.get("answers") as FormArray;
+  ngOnInit() {
   }
 
   get answersControls() {
@@ -60,7 +48,7 @@ export class QuizQuestionComponent implements OnInit {
 
   createAnswerForm() {
     return new FormGroup({
-      answer: new FormControl(""),
+      answer: new FormControl(''),
       isCorrect: new FormControl(false)
     });
   }

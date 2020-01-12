@@ -1,7 +1,7 @@
 import {CreateQuizPayload, UpdateQuizPayload} from '../models/quiz.model';
 import {DataService} from './data.service';
 import {Observable} from 'rxjs/internal/Observable';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 
@@ -11,11 +11,24 @@ export class QuizService extends DataService {
     super('Quiz', http);
   }
 
-  createQuiz(payload: CreateQuizPayload): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/api/${this.BASE_PATH}/create`, payload);
+  getOne(id: string): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.get<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/${id}`, {headers});
   }
 
-  updateQuiz(payload: UpdateQuizPayload): Observable<any> {
-    return this.http.put(`${environment.baseUrl}/api/${this.BASE_PATH}/update`, payload);
+  add(payload: CreateQuizPayload): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.post<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/create`, payload, {headers});
+  }
+
+  update(payload: UpdateQuizPayload): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.put<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/update`, payload, {headers});
   }
 }

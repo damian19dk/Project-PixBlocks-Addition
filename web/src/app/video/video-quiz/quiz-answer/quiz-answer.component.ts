@@ -11,9 +11,11 @@ export class QuizAnswerComponent implements OnInit {
   @Input() quizAnswerForm: FormGroup;
   @Output() onRemoveAnswer = new EventEmitter<number>();
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   handleRemoveAnswer() {
     this.onRemoveAnswer.emit(this.quizAnswerIndex);

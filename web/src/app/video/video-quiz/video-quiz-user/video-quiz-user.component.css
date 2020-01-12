@@ -1,0 +1,9 @@
+.question {
+  margin: 5px;
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}

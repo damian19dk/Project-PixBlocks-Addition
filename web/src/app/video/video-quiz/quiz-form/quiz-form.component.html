@@ -1,56 +1,56 @@
-
-  
-
 <div class="row title">
   <h2 i18n class="display-4">Dodaj quiz</h2>
 </div>
 <div class="row">
   <div class="col-6">
-<form [formGroup]="quizForm" (submit)="handleSubmit($event)">
-  <div formArrayName="questions">
-    <div
-      *ngFor="let question of quizQuestionsControls; let questionIndex = index"
-    >
-      <app-quiz-question
-        [quizQuestionForm]="question"
-        [quizQuestionIndex]="questionIndex"
-        (onDeleteQuestion)="onDeleteQuestion($event)"
-      ></app-quiz-question>
+    <form (submit)="handleSubmit($event)" [formGroup]="quizForm">
+      <div formArrayName="questions">
+        <div
+          *ngFor="let question of quizQuestionsControls; let questionIndex = index"
+        >
+          <app-quiz-question
+            (onDeleteQuestion)="onDeleteQuestion($event)"
+            [quizQuestionForm]="question"
+            [quizQuestionIndex]="questionIndex"
+          ></app-quiz-question>
+          <hr/>
+        </div>
+      </div>
+      <button (click)="newQuizQuestion()" [class.spinner]="loading" color="primary" mat-raised-button type="button">
+        Dodaj pytanie
+      </button>
       <hr/>
-    </div>
+
+      <input
+        *ngIf="!shouldUpdateQuizOnSubmit()"
+        [(ngModel)]="typeaheadVideo"
+        [inputFormatter]="formatter"
+        [ngbTypeahead]="search"
+        [resultTemplate]="rt"
+        class="form-control empty d-inline-flex align-self-center w-100"
+        formControlName="mediaId"
+        i18n-placeholder
+        placeholder="Szukaj video"
+        type="text"
+      />
+
+      <button [disabled]="!quizForm.valid" class="saveVideo" color="primary" mat-raised-button type="submit">Zapisz
+      </button>
+
+      <ng-template #rt let-r="result" let-t="term">
+        <div placement="right">
+          <ngb-highlight [result]="r.title" [term]="t" class="mr-2"></ngb-highlight>
+          <span *ngFor="let tag of r.tags" class="badge badge-info ml-2">{{tag}}</span>
+        </div>
+      </ng-template>
+    </form>
   </div>
-  <button mat-raised-button color="primary" [class.spinner]="loading" (click)="newQuizQuestion()" type="button">Dodaj pytanie</button>
-  <hr/>
-
-  <input
-    *ngIf="!shouldUpdateQuizOnSubmit()"
-    class="form-control empty d-inline-flex align-self-center w-100"
-    formControlName="mediaId"
-    i18n-placeholder
-    type="text"
-    [inputFormatter]="formatter"
-    [ngbTypeahead]="search"
-    [(ngModel)]="typeaheadVideo"
-    [resultTemplate]="rt"
-    placeholder="Szukaj video"
-  />
-
-  <button class="saveVideo" type="submit" [disabled]="!quizForm.valid">Zapisz</button>
-
-  <ng-template #rt let-r="result" let-t="term">
-    <div placement="right">
-      <ngb-highlight class="mr-2" [result]="r.title" [term]="t"></ngb-highlight>
-      <span *ngFor="let tag of r.tags" class="badge badge-info ml-2">{{tag}}</span>
-    </div>
-  </ng-template>
-</form>
-</div>
-<div class="col-6">
-  <img class="img-fluid" src="assets/svg/undraw_online_test_gba7.svg">
-</div>
+  <div class="col-6">
+    <img class="img-fluid" src="assets/svg/undraw_online_test_gba7.svg">
+  </div>
 </div>
 
-  
+
 
 
 

@@ -1,5 +1,5 @@
 <div [formGroup]="quizQuestionForm">
-  <input type="text" placeholder="Pytanie" formControlName="question" />
+  <input formControlName="question" placeholder="Pytanie" type="text"/>
   <span *ngIf="question.invalid && (question.dirty || question.touched)">
     Pytanie nie może byc puste
   </span>
@@ -18,11 +18,13 @@
       Pytanie powinno zawierać conajmniej jedna poprawna odpowiedz
     </div>
   </div>
-  <button  mat-raised-button color="primary" [class.spinner]="loading" (click)="addQuestion()" type="button" [disabled]="!question.valid">
+  <button (click)="addQuestion()" [class.spinner]="loading" [disabled]="!question.valid" color="primary"
+          mat-raised-button
+          type="button">
     Dodaj odpowiedź
   </button>
-  <button  mat-raised-button color="primary" [class.spinner]="loading" (click)="handleDeleteQuestion()">
+  <button (click)="handleDeleteQuestion()" [class.spinner]="loading" color="primary" mat-raised-button>
     Usuń pytanie
   </button>
-  
+
 </div>

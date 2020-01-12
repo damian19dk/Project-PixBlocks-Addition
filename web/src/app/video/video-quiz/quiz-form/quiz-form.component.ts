@@ -6,7 +6,6 @@ import {CreateQuizPayload, Quiz, UpdateQuizPayload} from '../../../models/quiz.m
 import {QuizService} from '../../../services/quiz.service';
 import {Observable} from 'rxjs';
 import {debounceTime, filter, switchMap} from 'rxjs/operators';
-import {CourseDocument} from 'src/app/models/courseDocument.model';
 import {VideoDocument} from '../../../models/videoDocument.model';
 
 @Component({
@@ -119,10 +118,10 @@ export class QuizFormComponent implements OnInit {
       : {...this.quizForm.value, mediaId: this.typeaheadVideo.id};
 
     if (shouldUpdateQuiz) {
-      this.quizService.updateQuiz(payload as UpdateQuizPayload);
+      this.quizService.update(payload as UpdateQuizPayload);
     }
 
-    this.quizService.createQuiz(payload as CreateQuizPayload).subscribe();
+    this.quizService.add(payload as CreateQuizPayload).subscribe();
   }
 
   parseInitialQuiz() {
@@ -142,5 +141,5 @@ export class QuizFormComponent implements OnInit {
     );
   }
 
-  formatter = (x: CourseDocument) => x.title;
+  formatter = (x: VideoDocument) => x.title;
 }
