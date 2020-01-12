@@ -60,7 +60,9 @@
         <div class="form-group row">
           <label i18n for="tags" class="col-sm-2 col-form-label">Tagi</label>
           <div class="col-sm-8">
-            <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz tagi'" [data]="tagsList"
+            <ng-multiselect-dropdown [data]="tagsList"
+                                     [placeholder]="'Wybierz tagi'"
+                                     formControlName="tags"
                                      [settings]="tagsSettings">
             </ng-multiselect-dropdown>
           </div>

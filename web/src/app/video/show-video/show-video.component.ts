@@ -124,6 +124,10 @@ export class ShowVideoComponent implements OnInit {
     );
   }
 
+  getTag(name: string) {
+    return this.tagService.getTagDto(name);
+  }
+
   isPremiumUser(): boolean {
     return this.authService.isPremium();
   }

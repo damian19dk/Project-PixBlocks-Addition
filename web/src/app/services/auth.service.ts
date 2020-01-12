@@ -22,10 +22,10 @@ export class AuthService {
     private jwtHelper: JwtHelperService) {
 
     // tslint:disable-next-line:radix
-    const diff = (new Date(parseInt(localStorage.getItem('TokenExpires')) * 1000).getTime() - new Date().getTime());
-    if (localStorage.getItem('Token') !== undefined && localStorage.getItem('Token') !== null && diff <= -3600000) {
-      this.clearUserData();
-    }
+    // const diff = (new Date(parseInt(localStorage.getItem('TokenExpires')) * 1000).getTime() - new Date().getTime());
+    // if (localStorage.getItem('Token') !== undefined && localStorage.getItem('Token') !== null && diff <= -3600000) {
+    //   this.clearUserData();
+    // }
 
     this.roleUpdates$
       .pipe(scan((acc, next) => next, []))
@@ -87,7 +87,7 @@ export class AuthService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
     return this.http.post<any>(environment.baseUrl + '/api/Identity/login', {login, password}, {headers}).pipe(
-      retry(10));
+      retry(environment.maxRetryValue));
   }
 
   logout(): void {

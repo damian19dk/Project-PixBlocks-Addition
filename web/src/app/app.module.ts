@@ -53,6 +53,13 @@ import {CoursesViewListUserComponent} from './courses/courses-view-list-user/cou
 import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
 import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user/courses-history-for-user.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {SettingsComponent} from './settings/settings.component';
+import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
+import {TagThumbnailComponent} from './tags/tag/tag-thumbnail.component';
+import {ColorSketchModule} from 'ngx-color/sketch';
+import {TagsViewAdminComponent} from './tags/tags-view-admin/tags-view-admin.component';
+import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/tag-thumbnail-edit-admin.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +95,12 @@ import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user
     CoursesViewListUserComponent,
     CourseListElementUserComponent,
     CourseListElementAdminComponent,
-    CoursesHistoryForUserComponent
+    CoursesHistoryForUserComponent,
+    SettingsComponent,
+    NewTagAdminComponent,
+    TagThumbnailComponent,
+    TagsViewAdminComponent,
+    TagThumbnailEditAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +124,9 @@ import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user
     MatRadioModule,
     MatFormFieldModule,
     MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressBarModule,
+    ColorSketchModule
   ],
   exports: [
     HasRoleDirective
