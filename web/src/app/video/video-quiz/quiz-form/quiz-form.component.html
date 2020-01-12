@@ -3,11 +3,16 @@
 </div>
 <div class="row">
   <div class="col-6">
+    <div *ngIf="sent && error" class="alert alert-danger">
+      {{error}}
+    </div>
+    <div *ngIf="sent && !error" class="alert alert-success" i18n>
+      Quiz dodano pomyślnie
+    </div>
+
     <form (submit)="handleSubmit($event)" [formGroup]="quizForm">
       <div formArrayName="questions">
-        <div
-          *ngFor="let question of quizQuestionsControls; let questionIndex = index"
-        >
+        <div *ngFor="let question of quizQuestionsControls; let questionIndex = index">
           <app-quiz-question
             (onDeleteQuestion)="onDeleteQuestion($event)"
             [quizQuestionForm]="question"

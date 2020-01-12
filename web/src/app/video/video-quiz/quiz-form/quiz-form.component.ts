@@ -16,6 +16,9 @@ import {VideoDocument} from '../../../models/videoDocument.model';
 export class QuizFormComponent implements OnInit {
   quizForm: FormGroup;
   @Input() quiz?: Quiz;
+  sent: boolean;
+  error: string;
+  loading = false;
 
   typeaheadVideo: VideoDocument = new VideoDocument();
 
@@ -111,6 +114,7 @@ export class QuizFormComponent implements OnInit {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.loading = true;
 
     const shouldUpdateQuiz = this.shouldUpdateQuizOnSubmit();
     const payload = shouldUpdateQuiz
@@ -118,10 +122,30 @@ export class QuizFormComponent implements OnInit {
       : {...this.quizForm.value, mediaId: this.typeaheadVideo.id};
 
     if (shouldUpdateQuiz) {
-      this.quizService.update(payload as UpdateQuizPayload);
+      this.quizService.update(payload as UpdateQuizPayload).subscribe(
+        data => {
+          this.loading = false;
+          this.sent = true;
+        },
+        error => {
+          this.loading = false;
+          this.sent = true;
+          this.error = error;
+        }
+      );
     }
 
-    this.quizService.add(payload as CreateQuizPayload).subscribe();
+    this.quizService.add(payload as CreateQuizPayload).subscribe(
+      data => {
+        this.loading = false;
+        this.sent = true;
+      },
+      error => {
+        this.loading = false;
+        this.sent = true;
+        this.error = error;
+      }
+    );
   }
 
   parseInitialQuiz() {

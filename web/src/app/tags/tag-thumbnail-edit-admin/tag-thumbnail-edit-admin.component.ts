@@ -86,7 +86,7 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
     this.tagChanged.emit(null);
   }
 
-  changeColor($event: ColorEvent) {
+  changeBackgroundColor($event: ColorEvent) {
     this.dataDto.color = $event.color.hex;
     this.exampleTag.color = this.dataDto.color;
   }
