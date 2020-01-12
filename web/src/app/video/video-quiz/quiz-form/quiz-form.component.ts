@@ -7,6 +7,7 @@ import {QuizService} from '../../../services/quiz.service';
 import {Observable} from 'rxjs';
 import {debounceTime, filter, switchMap} from 'rxjs/operators';
 import {CourseDocument} from 'src/app/models/courseDocument.model';
+import {VideoDocument} from '../../../models/videoDocument.model';
 
 @Component({
   selector: 'app-quiz-form',
@@ -17,7 +18,7 @@ export class QuizFormComponent implements OnInit {
   quizForm: FormGroup;
   @Input() quiz?: Quiz;
 
-  typeaheadVideo: { mediaId: string } = {mediaId: ''};
+  typeaheadVideo: VideoDocument = new VideoDocument();
 
   constructor(
     private videoService: VideoService,
@@ -115,8 +116,7 @@ export class QuizFormComponent implements OnInit {
     const shouldUpdateQuiz = this.shouldUpdateQuizOnSubmit();
     const payload = shouldUpdateQuiz
       ? {...this.quizForm.value, quizId: this.quiz.id}
-      : {...this.quizForm.value, mediaId: this.typeaheadVideo.mediaId};
-
+      : {...this.quizForm.value, mediaId: this.typeaheadVideo.id};
 
     if (shouldUpdateQuiz) {
       this.quizService.updateQuiz(payload as UpdateQuizPayload);

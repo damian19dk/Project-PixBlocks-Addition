@@ -1,32 +1,32 @@
-export type Quiz = {
+export interface Quiz {
   id: string;
   mediaId: string;
   questions: QuizQuestion[];
-};
+}
 
-export type QuizQuestion = {
+export interface QuizQuestion {
   quizId: string;
   question: string;
   answers: QuizAnswer[];
-};
+}
 
-export type QuizAnswer = {
+export interface QuizAnswer {
   answer: string;
   isCorrect: boolean;
-};
+}
 
-export type CreateQuizPayload = {
+export interface CreateQuizPayload {
   mediaId: string;
   question: {
     question: string;
     answers: QuizAnswer[];
   }[];
-};
+}
 
-export type UpdateQuizPayload = {
+export interface UpdateQuizPayload {
   quizId: string;
   question: {
     question: string;
     answers: QuizAnswer[];
   }[];
-};
+}
