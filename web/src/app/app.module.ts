@@ -53,7 +53,10 @@ import {CoursesViewListUserComponent} from './courses/courses-view-list-user/cou
 import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
 import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user/courses-history-for-user.component';
-import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {SettingsComponent} from './settings/settings.component';
+import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
+import {TagComponent} from './tags/tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +92,10 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     CoursesViewListUserComponent,
     CourseListElementUserComponent,
     CourseListElementAdminComponent,
-    CoursesHistoryForUserComponent
+    CoursesHistoryForUserComponent,
+    SettingsComponent,
+    NewTagAdminComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,

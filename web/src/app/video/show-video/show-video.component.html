@@ -3,7 +3,6 @@
     {{error}}
   </div>
 
-
   <h1 *ngIf="courseDocument" class="header padded-left">{{courseDocument.title}}</h1>
   <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5>
 
@@ -30,7 +29,8 @@
 
           <div class="col-12 text-center">
             <ng-container>
-              <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>
+              <!--              <span *ngFor="let tag of videoDocument.tags" class="badge badge-dark">{{tag}}</span>-->
+              <app-tag *ngFor="let tag of videoDocument.tags" [tagDto]="getTag(tag)"></app-tag>
             </ng-container>
           </div>
         </div>

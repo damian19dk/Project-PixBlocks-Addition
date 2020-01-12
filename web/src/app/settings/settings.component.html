@@ -1,0 +1,22 @@
+<div *appHasRole="['Administrator']" class="container">
+  <div class="row title">
+    <h2 class="display-4" i18n>Ustawienia</h2>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <app-new-tag-admin></app-new-tag-admin>
+      </div>
+      <div class="col-6">
+        <img class="img-fluid" src="assets/svg/undraw_preferences_uuo2.svg">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *appHasRole="['Uzytkownik']">
+  <app-functionality-not-prepared></app-functionality-not-prepared>
+</div>

@@ -8,10 +8,18 @@ import {TagDto} from '../models/tagDto.model';
   providedIn: 'root'
 })
 export class TagService {
+  private allTags: Map<string, TagDto> = new Map();
   private readonly tagSettingsForMultiselect: any;
   private BASE_PATH = 'Tag';
 
   constructor(private http: HttpClient) {
+
+    this.getAll().subscribe(
+      data => {
+        data.forEach(tag => this.allTags.set(tag.name, tag));
+      }
+    );
+
     this.tagSettingsForMultiselect = {
       singleSelection: false,
       selectAllText: 'Zaznacz wszystkie',
@@ -58,7 +66,7 @@ export class TagService {
     );
   }
 
-  remove() {
+  remove(name: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
@@ -66,6 +74,10 @@ export class TagService {
     return this.http.delete<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${name}`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
+  }
+
+  getTagDto(name: string) {
+    return this.allTags.get(name);
   }
 
   getTagSettingsForMultiselect() {

@@ -1,7 +1,7 @@
 import {FormGroup} from '@angular/forms';
 import {Language} from '../services/language.service';
 import {TagDto} from './tagDto.model';
-import {TagService} from "../services/tag.service";
+import {TagService} from '../services/tag.service';
 
 export class Form {
   form: FormGroup;
