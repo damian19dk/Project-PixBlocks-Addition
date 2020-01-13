@@ -31,7 +31,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task CreateAsync(TagResource tag)
         {
-            var tagExists = await _tagRepository.GetAsync(tag.Name);
+            var tagExists = await _tagRepository.GetAsync(tag.Name, tag.Language);
             if (tagExists != null)
             {
                 throw new MyException(MyCodesNumbers.TagExists, $"The tag {tag.Name} already exists.");
@@ -70,7 +70,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
             }
-
+            var tagExists = await _tagRepository.GetAsync(tag.Name, tag.Language);
+            if(tagExists != null)
+            {
+                throw new MyException(MyCodesNumbers.TagExists, $"The tag with name {tag.Name} already exists.");
+            }
             tagEntity.SetName(tag.Name);
             tagEntity.SetDescription(tag.Description);
             tagEntity.SetColor(tag.Color);
