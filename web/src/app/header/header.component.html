@@ -1,9 +1,12 @@
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <nav class="navbar navbar-expand-lg sticky-top bg-light">
+  <div class="logoButton">
+  <a href="http://www.pixblocks.com"><img src='assets/img/sygnet-1.png' alt="Logo" style="width:30px; margin-right: 10px;"></a>
   <a class="navbar-brand" routerLink="/">PixBlocks</a>
-
-  <app-search-bar class="align-self-center"></app-search-bar>
+  </div>
+  <!-- <app-search-bar class="align-self-center"></app-search-bar> -->
 
   <button class="navbar-toggler hidden-md-up" type="button" (click)="isNavCollapsed = !isNavCollapsed"
           data-target="#navbars-options" aria-controls="navbars-options" aria-expanded="false"
@@ -11,9 +14,12 @@
     <i class="fas fa-bars"></i>
   </button>
 
-  <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse" id="navbars-options">
-    <div class="main-navbar">
+  <div [ngbCollapse]="isNavCollapsed" class="allButtons collapse navbar-collapse" id="navbars-options">
+    <div class="main-navbar float-right">
       <ul *appHasRole="['Użytkownik']" class="navbar-nav">
+        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+                routerLink="/">Moje kursy
+        </button>      
         <button (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/profile">Mój profil
         </button>

@@ -1,5 +1,5 @@
 * {
-  font-family: 'Oswald', sans-serif;
+  /*font-family: 'Oswald', sans-serif; */
   font-weight: 100;
   color: #565656;
 }
@@ -11,8 +11,8 @@
   border-right: 0;
   border-style: solid;
   border-color: #0d90fc;
-  padding-left: 10%;
-  padding-right: 10%;
+  /*padding-left: 10%;
+  padding-right: 10%;*/
   height: 70px;
   margin-bottom: 35px;
 }
@@ -21,15 +21,17 @@
   font-size: 18px;
 }
 
-.container-fluid {
-  display: flex;
-  justify-content: center;
-}
-
 .flex-fill {
   flex: 1;
 }
 
 .languages a {
   width: 100%;
+}
+.logoButton {
+  padding-left: 10%;
+}
+.allButtons {}
+#navbars-options {
+ /* padding-left: 70%;*/
 }
