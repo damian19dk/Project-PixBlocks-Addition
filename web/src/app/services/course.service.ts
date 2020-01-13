@@ -54,4 +54,13 @@ export class CourseService extends DataService {
       retry(environment.maxRetryValue)
     );
   }
+
+  getProgress(courseId: string) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.get<any>(`${environment.baseUrl}/api/VideoHistory/progress/${courseId}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
+  }
 }
