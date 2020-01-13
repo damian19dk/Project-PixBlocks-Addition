@@ -9,7 +9,8 @@ export class DataService {
 
   findByTitle(title: string) {
     const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
     return this.http.get<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/title?title=${title}`, {headers}).pipe(
       retry(environment.maxRetryValue)
