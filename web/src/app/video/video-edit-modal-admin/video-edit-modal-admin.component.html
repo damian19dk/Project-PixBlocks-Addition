@@ -12,7 +12,7 @@
     </div>
 
     <div *ngIf="sent && !error" class="alert alert-success col-12" i18n>
-      Kurs zaktualizowano pomyślnie
+      Film zaktualizowano pomyślnie
     </div>
 
     <form (ngSubmit)="edit()" [formGroup]="form" class="col-12">
@@ -22,7 +22,6 @@
           <input class="form-control" formControlName="id" hidden type="text">
         </div>
       </div>
-
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="title" i18n>Tytuł</label>
@@ -88,24 +87,26 @@
         </div>
       </div>
 
+
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : image}"
                  class="form-control"
                  hidden id="image" type="file">
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="videos" i18n>Filmy</label>
-        <div (cdkDropListDropped)="drop($event)" cdkDropList class="drop-list">
-          <div *ngFor="let video of course.courseVideos" cdkDrag class="drop-list-element">
-            {{video.title}}
-            <app-video-edit-modal-admin (videoChanged)="getCourse()" [video]="video"></app-video-edit-modal-admin>
-          </div>
+        <label class="col-sm-2 col-form-label" for="video" i18n>Film</label>
+        <div class="col-sm-10">
+          <label (click)="imitateFileInput()"
+                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="form-control"
+                 hidden id="video" type="file">
         </div>
       </div>
 
@@ -129,42 +130,7 @@
   </div>
 </ng-template>
 
-<div *ngIf="course" class="card mb-4 bg-white box-shadow ">
-
-  <div class="card-header text-center">
-    {{course.title}}
-  </div>
-
-  <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
-       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div>
-
-  <div *ngIf="course.courseVideos.length === 0" class="card-box">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div>
-
-  <div class="card-body">
-    <p class="card-text">{{course.description | shortText}}</p>
-
-    <div class="d-flex justify-content-between align-items-center">
-      <small container="body" ngbTooltip="Czas trwania"
-             placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-
-      <div>
-        <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
-          <i class="fas fa-edit"></i>Edytuj
-        </button>
-        <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
-               container="body" placement="bottom">{{course.courseVideos.length}}</small>
-      </div>
-    </div>
-  </div>
-
-</div>
+<button (click)="openModal(modal)" *ngIf="video.status === 'ready'" class="btn btn-sm btn-outline-primary" i18n
+        type="button">
+  <i class="fas fa-edit"></i>Edytuj
+</button>

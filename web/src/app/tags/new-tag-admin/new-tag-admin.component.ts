@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Language, LanguageService} from '../../services/language.service';
 import {FormModal} from '../../models/formModal';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators} from '@angular/forms';
 import {TagDto} from '../../models/tagDto.model';
 import {TagService} from '../../services/tag.service';
@@ -20,8 +20,9 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder,
               protected modalService: NgbModal,
-              private tagService: TagService) {
-    super(modalService);
+              private tagService: TagService,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
   ngOnInit() {

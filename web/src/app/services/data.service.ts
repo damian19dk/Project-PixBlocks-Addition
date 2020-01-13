@@ -21,7 +21,6 @@ export class DataService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-
     return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/?id=` + id, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
@@ -38,27 +37,33 @@ export class DataService {
   }
 
   add(dto: any) {
-    const headers = new HttpHeaders();
+    const headers = new HttpHeaders()
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
     return this.http.post<any>(environment.baseUrl + `/api/${this.BASE_PATH}/create`, dto, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
 
   update(dto: any) {
-    const headers = new HttpHeaders();
+    const headers = new HttpHeaders()
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
     return this.http.put<any>(environment.baseUrl + `/api/${this.BASE_PATH}/change`, dto, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
 
   remove(id: string) {
-    return this.http.delete<any>(environment.baseUrl + `/api/${this.BASE_PATH}?Id=` + id).pipe(
+    const headers = new HttpHeaders()
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.delete<any>(environment.baseUrl + `/api/${this.BASE_PATH}?id=` + id, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
 
   count() {
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/count`).pipe(
+    const headers = new HttpHeaders()
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/count`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }

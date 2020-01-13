@@ -7,9 +7,11 @@ import {DataService} from './data.service';
 import {retry} from 'rxjs/operators';
 
 class VideosOrder {
+  courseId: string;
   videos: Array<string>;
 
-  constructor(videos: Array<string>) {
+  constructor(courseId: string, videos: Array<string>) {
+    this.courseId = courseId;
     this.videos = videos;
   }
 }
@@ -44,9 +46,9 @@ export class VideoService extends DataService {
     return this.http.get<HostedVideoDocument>(environment.baseUrl + '/api/JWPlayer/video?id=' + id, {headers});
   }
 
-  changeOrder(videosIds: Array<string>): Observable<any> {
+  changeOrder(courseId: string, videosIds: Array<string>): Observable<any> {
     const headers = new HttpHeaders();
-    const videos = new VideosOrder(videosIds);
+    const videos = new VideosOrder(courseId, videosIds);
     return this.http.post<any>(environment.baseUrl + '/api/Order/videos', videos, {headers}).pipe(
       retry(environment.maxRetryValue));
   }

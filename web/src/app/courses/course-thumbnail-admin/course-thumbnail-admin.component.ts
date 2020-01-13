@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CourseDocument} from 'src/app/models/courseDocument.model';
 import {CourseDto} from 'src/app/models/courseDto.model';
 import {CourseService} from 'src/app/services/course.service';
@@ -25,8 +25,9 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
-              protected modalService: NgbModal) {
-    super(modalService);
+              protected modalService: NgbModal,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
 

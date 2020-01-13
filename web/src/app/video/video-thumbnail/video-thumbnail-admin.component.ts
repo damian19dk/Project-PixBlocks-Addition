@@ -4,20 +4,20 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {LoadingService} from '../../services/loading.service';
 import {TagService} from '../../services/tag.service';
 import {LanguageService} from '../../services/language.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormModal} from '../../models/formModal';
 import {VideoService} from '../../services/video.service';
 import {VideoDto} from '../../models/videoDto.model';
 
 @Component({
   selector: 'app-video-thumbnail',
-  templateUrl: './video-thumbnail.component.html',
-  styleUrls: ['./video-thumbnail.component.css']
+  templateUrl: './video-thumbnail-admin.component.html',
+  styleUrls: ['./video-thumbnail-admin.component.css']
 })
-export class VideoThumbnailComponent extends FormModal implements OnInit {
+export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
 
   @Input() video: VideoDocument;
-  @Output() editVideoComponent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
   image: any;
 
   constructor(private formBuilder: FormBuilder,
@@ -25,8 +25,9 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
-              protected modalService: NgbModal) {
-    super(modalService);
+              protected modalService: NgbModal,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
 
@@ -99,7 +100,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   }
 
   refreshOtherThumbnails() {
-    this.editVideoComponent.emit(null);
+    this.videoChanged.emit(null);
   }
 
   handleFileInput(files: FileList) {
