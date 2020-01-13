@@ -6,11 +6,11 @@ import {CourseManagerAdminComponent} from './courses/course-manager-admin/course
 import {HomeComponent} from './home/home.component';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
-import {FunctionalityNotPreparedComponent} from './error-pages/functionality-not-prepared/functionality-not-prepared.component';
 import {ProfileComponent} from './user/profile/profile.component';
 import {PageNotFoundComponent} from './error-pages/page-not-found/page-not-found.component';
 import {HomeForLoggedComponent} from './home-for-logged/home-for-logged.component';
 import {VideoManagerComponent} from './video/video-manager/video-manager.component';
+import {SettingsComponent} from './settings/settings.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {animation: 'login'}},
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: FunctionalityNotPreparedComponent,
+    component: SettingsComponent,
     data: {animation: 'settings'}
   },
   {path: 'profile', component: ProfileComponent, data: {animation: 'profile'}},

@@ -60,6 +60,11 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
             return new VideoRepository((PixBlocksContext)_entities.Clone());
         }
 
+        public async Task<IEnumerable<Video>> GetVideosFromCourse(Course course)
+        {
+            return await _videos.Where(x => x.ParentId == course.Id).ToListAsync();
+        }
+
         public async Task<int> CountAsync(string language = "")
         {
             if (String.IsNullOrEmpty(language))

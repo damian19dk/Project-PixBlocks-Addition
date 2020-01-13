@@ -115,17 +115,18 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     tags.Add(entityTag);
                 }
             }
-
-            var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
-                                0, video.Language, resources, tags);
             
+
+                var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
+                                    0, video.Language, resources, tags);
+
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
 
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
             await _courseRepository.UpdateAsync(course);
 
-            setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
+             setDuration(video.MediaId, vid, (VideoRepository)_videoRepository.Clone());
         }
 
         private async Task setDuration(string mediaId, Video video, IVideoRepository videoRepository)
@@ -148,6 +149,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             video.SetStatus(response.Status);
             video.SetDuration((long)response.Duration);
             await videoRepository.UpdateAsync(video);
+        }
+
+        private async Task<long> TakeTime(string mediaId)
+        {
+            var video = await _jwPlayerService.GetVideoAsync(mediaId);
+            return video.Duration;
         }
 
         public async Task<IEnumerable<VideoDto>> GetAllByTagsAsync(IEnumerable<string> tags)
@@ -177,10 +184,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveAsync(Guid id)
         {
             var video = await _videoRepository.GetAsync(id);
-            if(video == null)
+            if (video == null)
             {
                 throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
             }
+         
             if (video.QuizId != null)
             {
                 var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);

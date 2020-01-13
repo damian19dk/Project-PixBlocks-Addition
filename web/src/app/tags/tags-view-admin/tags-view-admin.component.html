@@ -1,0 +1,10 @@
+<div>
+  <div class="row">
+    <app-tag-thumbnail-edit-admin (tagChanged)="getAllTags()" *ngFor="let tag of tags" [tagDto]="tag"
+                                  class="tag-edit"></app-tag-thumbnail-edit-admin>
+  </div>
+  <div class="row">
+    <app-new-tag-admin (tagChanged)="getAllTags()"></app-new-tag-admin>
+  </div>
+</div>
+

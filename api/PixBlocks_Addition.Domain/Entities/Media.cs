@@ -42,6 +42,7 @@ namespace PixBlocks_Addition.Domain.Entities
             SetPicture(picture);
             SetDuration(duration);
             SetLanguage(lang);
+            
 
             if (resources != null)
                 foreach (string resource in resources)
