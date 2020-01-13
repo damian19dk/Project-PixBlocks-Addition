@@ -51,6 +51,26 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         }
 
         [Test]
+        public async Task change_tag_name_when_it_is_already_taken_should_fail()
+        {
+            var name = "Taken tag";
+            var response = await createTag(name, "Some desc", "red", "pl");
+            response.EnsureSuccessStatusCode();
+            var expectedTag = new TagResource()
+            {
+                Name = name,
+                Description = "Description",
+                Color = "black",
+                Language = "pl"
+            };
+
+            httpClient.SetLanguage("pl");
+            var res = await httpClient.PutAsync($"api/tag/{name}", new StringContent(JsonConvert.SerializeObject(expectedTag), Encoding.UTF8, "application/json"));
+
+            Assert.IsFalse(res.IsSuccessStatusCode);
+        }
+
+        [Test]
         public async Task remove_tag_should_work()
         {
             var name = "Tag to remove";
