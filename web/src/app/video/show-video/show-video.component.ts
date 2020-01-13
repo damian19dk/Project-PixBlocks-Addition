@@ -29,6 +29,7 @@ export class ShowVideoComponent implements OnInit {
   quiz: Quiz;
   page = 1;
   player: any;
+  progress: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -120,6 +121,7 @@ export class ShowVideoComponent implements OnInit {
     this.courseService.getOne(courseId).subscribe(
       (data: CourseDocument) => {
         this.courseDocument = data;
+        this.getProgress();
         this.loadingService.unload();
       },
       error => {
@@ -139,6 +141,21 @@ export class ShowVideoComponent implements OnInit {
       },
       error => {
         this.quiz = null;
+        this.loadingService.unload();
+      }
+    );
+  }
+
+  async getProgress() {
+    this.loadingService.load();
+
+    this.courseService.getProgress(this.courseDocument.id).subscribe(
+      (data: number) => {
+        this.progress = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.progress = 0;
         this.loadingService.unload();
       }
     );

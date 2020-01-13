@@ -21,7 +21,6 @@ export class DataService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-
     return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/?id=` + id, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
