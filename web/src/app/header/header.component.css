@@ -28,10 +28,16 @@
 .languages a {
   width: 100%;
 }
+
 .logoButton {
   padding-left: 10%;
 }
-.allButtons {}
+.allButtons {
+  padding-left: 40%;
+}
 #navbars-options {
  /* padding-left: 70%;*/
+}
+.navbar-brand {
+  padding-top: 3px;
 }

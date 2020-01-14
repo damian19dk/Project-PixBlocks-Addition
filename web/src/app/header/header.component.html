@@ -3,8 +3,8 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <nav class="navbar navbar-expand-lg sticky-top bg-light">
   <div class="logoButton">
-  <a href="http://www.pixblocks.com"><img src='assets/img/sygnet-1.png' alt="Logo" style="width:30px; margin-right: 10px;"></a>
-  <a class="navbar-brand" routerLink="/">PixBlocks</a>
+  <a href="http://www.pixblocks.com"><img src='assets/img/sygnet-1.png' alt="Logo" style="width:34px; margin-right: 10px;"></a>
+  <a class="navbar-brand" style="font-size: 25px; height: min-content; padding-top: 10px; padding-bottom: 10px;" routerLink="/">PixBlocks</a>
   </div>
   <!-- <app-search-bar class="align-self-center"></app-search-bar> -->
 
@@ -17,13 +17,13 @@
   <div [ngbCollapse]="isNavCollapsed" class="allButtons collapse navbar-collapse" id="navbars-options">
     <div class="main-navbar float-right">
       <ul *appHasRole="['Użytkownik']" class="navbar-nav">
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/">Moje kursy
         </button>      
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/profile">Mój profil
         </button>
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/settings">Ustawienia
         </button>
         <button (click)="afterClick(); logout()" color="primary" i18n
