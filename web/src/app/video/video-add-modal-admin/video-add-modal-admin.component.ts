@@ -95,12 +95,10 @@ export class VideoAddModalAdminComponent extends FormModal implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   handleImageInput(files: FileList) {
     this.image = files.item(0);
-    this.image = this.image.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   imitateFileInput() {
