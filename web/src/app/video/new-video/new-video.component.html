@@ -12,9 +12,9 @@
       <form [formGroup]="form" (ngSubmit)="create()">
 
         <div class="form-group row">
-          <label i18n for="title" class="col-sm-2 col-form-label">Tytuł</label>
+          <label class="col-sm-2 col-form-label" i18n>Tytuł</label>
           <div class="col-sm-10 input-group">
-            <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" type="text" class="form-control" id="title"
+            <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" class="form-control" type="text"
                    formControlName="title" i18n-placeholder placeholder="Wpisz tytuł">
 
             <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
@@ -24,10 +24,10 @@
         </div>
 
         <div class="form-group row">
-          <label i18n for="description" class="col-sm-2 col-form-label">Opis</label>
+          <label class="col-sm-2 col-form-label" i18n>Opis</label>
           <div class="col-sm-10 input-group">
             <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
-                      id="description" formControlName="description" i18n-placeholder
+                      formControlName="description" i18n-placeholder
                       placeholder="Wpisz opis"></textarea>
 
             <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group row">
-          <label i18n for="language" class="col-sm-2 col-form-label">Język</label>
+          <label class="col-sm-2 col-form-label" i18n>Język</label>
           <div class="col-sm-8 input-group">
             <mat-radio-group class="languages" color="primary" formControlName="language">
               <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
@@ -52,14 +52,16 @@
         <div class="form-group row">
           <label i18n for="premium" class="col-sm-2">Premium</label>
           <div class="col-sm-8 justify-content-start mx-1">
-            <mat-checkbox color="primary" id="premium" formControlName="premium"></mat-checkbox>
+            <mat-checkbox color="primary" formControlName="premium"></mat-checkbox>
           </div>
         </div>
 
         <div class="form-group row">
-          <label i18n for="tags" class="col-sm-2 col-form-label">Tagi</label>
+          <label class="col-sm-2 col-form-label" i18n>Tagi</label>
           <div class="col-sm-10">
-            <ng-multiselect-dropdown formControlName="tags" [placeholder]="'Wybierz tagi'" [data]="tagsList"
+            <ng-multiselect-dropdown [data]="tagsList"
+                                     [placeholder]="'Wybierz tagi'"
+                                     formControlName="tags"
                                      [settings]="tagsSettings">
             </ng-multiselect-dropdown>
           </div>
@@ -68,13 +70,13 @@
         <div class="form-group row">
           <label i18n for="picture" class="col-sm-2 col-form-label">Obrazek</label>
           <div class="col-sm-10">
-            <input formControlName="pictureUrl" type="text" class="form-control" id="picture" i18n-placeholder
+            <input class="form-control" formControlName="pictureUrl" i18n-placeholder type="text"
                    placeholder="Podaj adres obrazka">
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="video" i18n>Film</label>
+          <label class="col-sm-2 col-form-label" i18n>Film</label>
           <div class="col-sm-10">
             <label (click)="imitateFileInput()"
                    class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
@@ -91,20 +93,17 @@
 
 
         <div class="form-group row">
-          <label i18n for="parentId" class="col-sm-2 col-form-label">Kurs</label>
+          <label class="col-sm-2 col-form-label" i18n>Kurs</label>
           <div class="col-sm-10 input-group">
-
-            <input formControlName="parentId" [ngClass]="{'is-invalid' : submitted && f.parentId.errors}" type="text"
-                   class="form-control" [ngbTypeahead]="searchCourse" [inputFormatter]="formatter" [resultTemplate]="rt"
-                   i18n-placeholder
-                   placeholder="Wyszukaj kurs"/>
+            <app-course-choose-admin (courseSelected)="selectCourse($event)"
+                                     [buttonName]="'Wybierz kurs'">
+            </app-course-choose-admin>
 
             <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
               <div i18n *ngIf="f.parentId.errors.required">Pole jest puste</div>
             </div>
           </div>
         </div>
-
 
         <div class="form-group row justify-content-end">
           <div>

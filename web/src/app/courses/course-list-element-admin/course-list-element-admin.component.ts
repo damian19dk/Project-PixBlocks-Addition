@@ -80,7 +80,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.refreshOtherCourses();
         },
         error => {
           this.sent = true;
@@ -104,7 +104,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
   remove() {
     this.courseService.remove(this.course.id).subscribe(
       data => {
-        this.refreshOtherThumbnails();
+        this.refreshOtherCourses();
         this.error = null;
       },
       error => {
@@ -113,7 +113,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
     );
   }
 
-  refreshOtherThumbnails() {
+  refreshOtherCourses() {
     this.courseChanged.emit(null);
   }
 
@@ -123,9 +123,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
-
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.course.courseVideos, event.previousIndex, event.currentIndex);

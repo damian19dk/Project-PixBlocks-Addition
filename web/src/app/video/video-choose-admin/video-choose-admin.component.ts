@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VideoService} from '../../services/video.service';
 import {VideoDocument} from '../../models/videoDocument.model';
 
@@ -9,6 +9,7 @@ import {VideoDocument} from '../../models/videoDocument.model';
 })
 export class VideoChooseAdminComponent implements OnInit {
 
+  @Input() buttonName: string;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
   videos: Array<VideoDocument>;
   selectedVideo: VideoDocument;

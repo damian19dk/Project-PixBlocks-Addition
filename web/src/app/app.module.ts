@@ -16,7 +16,7 @@ import {AuthService} from './services/auth.service';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
 import {NewVideoComponent} from './video/new-video/new-video.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
-import {VideoThumbnailAdminComponent} from './video/video-thumbnail/video-thumbnail-admin.component';
+import {VideoThumbnailAdminComponent} from './video/video-thumbnail-admin/video-thumbnail-admin.component';
 import {VideoService} from './services/video.service';
 import {CourseManagerAdminComponent} from './courses/course-manager-admin/course-manager-admin.component';
 import {CourseNewAdminComponent} from './courses/course-new-admin/course-new-admin.component';
@@ -63,6 +63,7 @@ import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/ta
 import {VideoEditModalAdminComponent} from './video/video-edit-modal-admin/video-edit-modal-admin.component';
 import {VideoAddModalAdminComponent} from './video/video-add-modal-admin/video-add-modal-admin.component';
 import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose-admin.component';
+import {CourseChooseAdminComponent} from './courses/course-choose-admin/course-choose-admin.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose
     TagThumbnailEditAdminComponent,
     VideoEditModalAdminComponent,
     VideoAddModalAdminComponent,
-    VideoChooseAdminComponent
+    VideoChooseAdminComponent,
+    CourseChooseAdminComponent
   ],
   imports: [
     BrowserModule,
