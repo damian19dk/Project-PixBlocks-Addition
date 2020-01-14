@@ -1,0 +1,6 @@
+<div class="d-inline-block" ngbDropdown>
+  <button class="btn btn-outline-primary" id="add-video" ngbDropdownToggle>Dodaj istniejące</button>
+  <div aria-labelledby="add-video" ngbDropdownMenu>
+    <button (click)="chooseVideo(video)" *ngFor="let video of videos" ngbDropdownItem>{{video.title}}</button>
+  </div>
+</div>
