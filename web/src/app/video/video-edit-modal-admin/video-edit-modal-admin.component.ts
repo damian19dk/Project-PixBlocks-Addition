@@ -8,6 +8,7 @@ import {LanguageService} from '../../services/language.service';
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {VideoDto} from '../../models/videoDto.model';
 import {FormModal} from '../../models/formModal';
+import {CourseService} from '../../services/course.service';
 
 @Component({
   selector: 'app-video-edit-modal-admin',
@@ -22,6 +23,7 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
+              private courseService: CourseService,
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
@@ -89,8 +91,9 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
   }
 
   remove() {
-    this.videoService.remove(this.video.id).subscribe(
-      () => {
+    this.courseService.removeVideo(this.video.parentId, this.video.id).subscribe(
+      data => {
+        this.error = null;
         this.refreshOtherThumbnails();
       },
       error => {
@@ -108,11 +111,16 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
     this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
+  handleImageInput(files: FileList) {
+    this.image = files.item(0);
+    this.image = this.image.size > 0 ? 'Gotowe do wysłania' : 'Wybierz plik';
+  }
+
   imitateFileInput() {
-    document.getElementById('video').click();
+    document.getElementById('editVideo').click();
   }
 
   imitateImageInput() {
-    document.getElementById('image').click();
+    document.getElementById('editVideoImage').click();
   }
 }

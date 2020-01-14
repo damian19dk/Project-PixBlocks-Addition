@@ -56,7 +56,7 @@ export class DataService {
   remove(id: string) {
     const headers = new HttpHeaders()
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
-    return this.http.delete<any>(`${environment.baseUrl}/api/${this.BASE_PATH}?id=${id}`, {headers}).pipe(
+    return this.http.delete<any>(`${environment.baseUrl}/api/${this.BASE_PATH}?Id=${id}`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }

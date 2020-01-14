@@ -19,8 +19,8 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
 
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder,
-              protected modalService: NgbModal,
               private tagService: TagService,
+              protected modalService: NgbModal,
               protected modalConfig: NgbModalConfig) {
     super(modalService, modalConfig);
   }

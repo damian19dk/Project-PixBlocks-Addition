@@ -3,10 +3,10 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 
 export class FormModal extends Form {
   constructor(protected modalService: NgbModal,
-              protected config: NgbModalConfig) {
+              protected modalConfig: NgbModalConfig) {
     super();
-    config.backdrop = 'static';
-    config.keyboard = false;
+    modalConfig.backdrop = 'static';
+    modalConfig.keyboard = false;
   }
 
   openModal(content) {

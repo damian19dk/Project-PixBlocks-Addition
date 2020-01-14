@@ -101,6 +101,7 @@
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="videos" i18n>Filmy</label>
+        <app-video-add-modal-admin (videoChanged)="getCourse()" [course]="course"></app-video-add-modal-admin>
         <div (cdkDropListDropped)="drop($event)" cdkDropList class="drop-list">
           <div *ngFor="let video of course.courseVideos" cdkDrag class="drop-list-element">
             {{video.title}}

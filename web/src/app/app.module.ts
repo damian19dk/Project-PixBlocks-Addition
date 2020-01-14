@@ -61,6 +61,8 @@ import {ColorSketchModule} from 'ngx-color/sketch';
 import {TagsViewAdminComponent} from './tags/tags-view-admin/tags-view-admin.component';
 import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/tag-thumbnail-edit-admin.component';
 import {VideoEditModalAdminComponent} from './video/video-edit-modal-admin/video-edit-modal-admin.component';
+import {VideoAddModalAdminComponent} from './video/video-add-modal-admin/video-add-modal-admin.component';
+import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose-admin.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,9 @@ import {VideoEditModalAdminComponent} from './video/video-edit-modal-admin/video
     TagThumbnailComponent,
     TagsViewAdminComponent,
     TagThumbnailEditAdminComponent,
-    VideoEditModalAdminComponent
+    VideoEditModalAdminComponent,
+    VideoAddModalAdminComponent,
+    VideoChooseAdminComponent
   ],
   imports: [
     BrowserModule,

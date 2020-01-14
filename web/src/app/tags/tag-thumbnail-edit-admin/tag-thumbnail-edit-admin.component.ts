@@ -18,9 +18,9 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
   exampleTag: TagDto = new TagDto();
 
   constructor(private tagService: TagService,
-              protected modalService: NgbModal,
               private languageService: LanguageService,
               private formBuilder: FormBuilder,
+              protected modalService: NgbModal,
               protected modalConfig: NgbModalConfig) {
     super(modalService, modalConfig);
   }
