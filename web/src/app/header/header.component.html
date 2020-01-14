@@ -14,8 +14,9 @@
     <i class="fas fa-bars"></i>
   </button>
 
-  <div [ngbCollapse]="isNavCollapsed" class="allButtons collapse navbar-collapse" id="navbars-options">
+  <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse userButtons" id="navbars-options">
     <div class="main-navbar float-right">
+       
       <ul *appHasRole="['Użytkownik']" class="navbar-nav">
         <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/">Moje kursy
@@ -31,19 +32,21 @@
         </button>
         <app-select-languages [languages]="languages"></app-select-languages>
       </ul>
-
-
+        </div>
+        </div>
+      <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse adminButtons" id="navbars-options">
+        <div class="main-navbar float-right">
       <ul *appHasRole="['Administrator']" class="navbar-nav">
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/videos">Dodaj wideo
         </button>
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/courses">Zarządzaj kursami
         </button>
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/profile">Mój profil
         </button>
-        <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+        <button style="margin-right: 3px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
                 routerLink="/settings">Ustawienia
         </button>
         <button (click)="afterClick(); logout()" color="primary" i18n
@@ -51,7 +54,10 @@
         </button>
         <app-select-languages [languages]="languages"></app-select-languages>
       </ul>
-
+        </div>
+        </div>
+      <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse" id="navbars-options">
+        <div class="main-navbar float-right">
       <ul *appHasRole="['anonymous']" class="navbar-nav">
         <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary" i18n mat-stroked-button
                 routerLink="/register">
