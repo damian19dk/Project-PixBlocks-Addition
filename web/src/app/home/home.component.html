@@ -1,5 +1,5 @@
 <div class="container">
-  <div i18n id="title">
+  <div *appHasRole="['anonymous']" i18n id="title">
     <span style="color:#0d90fc">Programowanie</span> <br>
     <span style="color:#000000">dla każdego!</span>
   </div>
@@ -54,8 +54,13 @@
     </div>
 
   </div>
+</div>
 
-  <div *appHasRole="['Użytkownik']" class="container-fluid">
+  <div *appHasRole="['Użytkownik']" class="container loggedIn">
+    <div i18n id="title">
+      <span style="color:#0d90fc">Programowanie</span> <br>
+      <span style="color:#000000">dla każdego!</span>
+    </div>
     <div class="row alert alert-info justify-content-center">
       <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
     </div>
@@ -64,14 +69,14 @@
   </div>
 
 
-  <div *appHasRole="['Użytkownik']" class="container-fluid">
+  <div *appHasRole="['Użytkownik']" class="container">
     <div class="row alert alert-info justify-content-center">
       <strong>{{getLogin()}}</strong>, zobacz, co nowego ostatnio dodaliśmy:
     </div>
 
     <app-courses-view-list-user></app-courses-view-list-user>
   </div>
-</div>
+
 
 
 

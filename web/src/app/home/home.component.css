@@ -18,7 +18,7 @@
 .font-weight-bold {
   font-size: 20px;
 }
-.container {
+.loggedIn {
   background-image: url('./../../assets/svg/undraw_researching_22gp.svg');  
   background-repeat: no-repeat;
   background-position: top right;
