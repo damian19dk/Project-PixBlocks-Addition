@@ -13,6 +13,7 @@ export class CourseChooseAdminComponent implements OnInit {
   @Output() courseSelected: EventEmitter<any> = new EventEmitter<any>();
   courses: Array<CourseDocument>;
   selectedCourse: CourseDocument;
+  isSelected = false;
 
   constructor(private courseService: CourseService) {
   }
@@ -33,6 +34,7 @@ export class CourseChooseAdminComponent implements OnInit {
   }
 
   chooseCourse(course: CourseDocument) {
+    this.isSelected = true;
     this.selectedCourse = course;
     this.emitCourseSelectedEvent();
   }

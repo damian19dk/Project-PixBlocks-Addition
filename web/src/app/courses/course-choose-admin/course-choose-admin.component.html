@@ -1,7 +1,10 @@
 <div class="d-inline-block" ngbDropdown>
-  <button class="btn btn-outline-primary" ngbDropdownToggle type="button">{{buttonName}}</button>
-  <div ngbDropdownMenu>
-    <button (click)="chooseCourse(course)" *ngFor="let course of courses" ngbDropdownItem
+  <button color="primary" mat-raised-button ngbDropdownToggle type="button">{{buttonName}}</button>
+  <div *ngIf="courses" ngbDropdownMenu>
+    <button (click)="chooseCourse(course)"
+            *ngFor="let course of courses"
+            [ngClass]="isSelected && selectedCourse.id === course.id ? 'selected-course' : null"
+            ngbDropdownItem
             type="button">{{course.title}}</button>
   </div>
 </div>
