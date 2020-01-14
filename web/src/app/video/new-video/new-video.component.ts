@@ -15,14 +15,14 @@ export class NewVideoComponent extends Form implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
               private tagService: TagService,
-              private languageServce: LanguageService) {
+              private languageService: LanguageService) {
     super();
   }
 
   ngOnInit() {
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
-    this.languages = this.languageServce.getAllLanguages();
+    this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new VideoDto();
 
@@ -36,12 +36,13 @@ export class NewVideoComponent extends Form implements OnInit {
       language: ['pl'],
       pictureUrl: [null],
       image: [null],
-      video: [null]
+      video: [null, Validators.required]
     });
   }
 
   create() {
     this.submitted = true;
+    this.form.controls.video.setValue(this.fileToUpload);
 
     if (this.form.invalid) {
       return;
