@@ -3,10 +3,6 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {TagService} from 'src/app/services/tag.service';
 import {VideoService} from 'src/app/services/video.service';
 import {VideoDto} from 'src/app/models/videoDto.model';
-import {debounceTime, filter, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {CourseService} from '../../services/course.service';
-import {CourseDocument} from '../../models/courseDocument.model';
 import {LanguageService} from '../../services/language.service';
 import {Form} from '../../models/form';
 
@@ -16,26 +12,19 @@ import {Form} from '../../models/form';
   styleUrls: ['./new-video.component.css']
 })
 export class NewVideoComponent extends Form implements OnInit {
-
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
               private tagService: TagService,
-              private languageServce: LanguageService,
-              private courseService: CourseService) {
+              private languageService: LanguageService) {
     super();
   }
 
   ngOnInit() {
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
-    this.languages = this.languageServce.getAllLanguages();
+    this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new VideoDto();
-
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       parentId: [null, Validators.required],
@@ -47,12 +36,13 @@ export class NewVideoComponent extends Form implements OnInit {
       language: ['pl'],
       pictureUrl: [null],
       image: [null],
-      video: [null]
+      video: [null, Validators.required]
     });
   }
 
   create() {
     this.submitted = true;
+    this.form.controls.video.setValue(this.fileToUpload);
 
     if (this.form.invalid) {
       return;
@@ -61,7 +51,6 @@ export class NewVideoComponent extends Form implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.parentId = this.form.value.parentId.id;
     this.dataDto.video = this.fileToUpload;
     const tags = this.form.value.tags;
     this.dataDto.tags = this.tagService.toTagsString(tags);
@@ -81,25 +70,16 @@ export class NewVideoComponent extends Form implements OnInit {
         });
   }
 
-  searchCourse = (text$: Observable<string>) => {
-    return text$.pipe(
-      debounceTime(100),
-      filter(text => text !== ''),
-      switchMap((searchText) => this.courseService.findByTitle(searchText))
-    );
-  }
-
-  formatter = (x: CourseDocument) =>
-    x.title
-
-
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   imitateFileInput() {
     this.fileToUpload = null;
     document.getElementById('video').click();
+  }
+
+  selectCourse($event: any) {
+    this.form.controls.parentId.setValue($event.id);
   }
 }

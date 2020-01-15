@@ -5,9 +5,11 @@ import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
 import {TagService} from '../../services/tag.service';
 import {LanguageService} from '../../services/language.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CourseDto} from '../../models/courseDto.model';
 import {FormModal} from '../../models/formModal';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {VideoService} from '../../services/video.service';
 
 @Component({
   selector: 'app-course-list-element-admin',
@@ -22,11 +24,13 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
+              private videoService: VideoService,
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
-              protected modalService: NgbModal) {
-    super(modalService);
+              protected modalService: NgbModal,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
 
@@ -76,7 +80,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.refreshOtherCourses();
         },
         error => {
           this.sent = true;
@@ -85,10 +89,11 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
         });
   }
 
-  remove() {
-    this.courseService.remove(this.course.id).subscribe(
-      data => {
-        this.refreshOtherThumbnails();
+  getCourse() {
+    this.courseService.getOne(this.course.id).subscribe(
+      (data: CourseDocument) => {
+        this.course = data;
+        this.error = null;
       },
       error => {
         this.error = error;
@@ -96,7 +101,19 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
     );
   }
 
-  refreshOtherThumbnails() {
+  remove() {
+    this.courseService.remove(this.course.id).subscribe(
+      data => {
+        this.refreshOtherCourses();
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
+  refreshOtherCourses() {
     this.courseChanged.emit(null);
   }
 
@@ -106,6 +123,17 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.course.courseVideos, event.previousIndex, event.currentIndex);
+    this.videoService.changeOrder(this.course.id, this.course.courseVideos.map(e => e.id)).subscribe(
+      data => {
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
   }
 }

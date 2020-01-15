@@ -7,17 +7,16 @@ export class Form {
   form: FormGroup;
   dataDto: any;
 
-  loading: boolean;
-  submitted: boolean;
-  sent: boolean;
-  error: string;
+  loading = false;
+  submitted = false;
+  sent = false;
+  error: string = null;
 
   tagsList: Array<TagDto>;
   tagsSettings = {};
   languages: Array<Language>;
 
   fileToUpload: File = null;
-  fileUploadMessage: string;
 
   get f() {
     return this.form.controls;

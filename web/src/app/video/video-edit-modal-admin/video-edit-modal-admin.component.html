@@ -1,6 +1,6 @@
 <ng-template #modal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" i18n>Edytuj kurs</h4>
+    <h4 class="modal-title" i18n>Edytuj film</h4>
     <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -12,7 +12,7 @@
     </div>
 
     <div *ngIf="sent && !error" class="alert alert-success col-12" i18n>
-      Kurs zaktualizowano pomyślnie
+      Film zaktualizowano pomyślnie
     </div>
 
     <form (ngSubmit)="edit()" [formGroup]="form" class="col-12">
@@ -64,8 +64,10 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" i18n>Tagi</label>
         <div class="col-sm-10">
-          <ng-multiselect-dropdown [data]="tagsList" [placeholder]="'Wybierz tagi'"
-                                   [settings]="tagsSettings" formControlName="tags">
+          <ng-multiselect-dropdown [data]="tagsList"
+                                   [placeholder]="'Wybierz tagi'"
+                                   [settings]="tagsSettings"
+                                   formControlName="tags">
           </ng-multiselect-dropdown>
         </div>
       </div>
@@ -79,26 +81,31 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
+        <label [for]="video.id" class="col-sm-2 col-form-label" i18n>Zdjęcie</label>
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleImageInput($event.target.files)" [id]="video.id"
                  class="form-control"
-                 hidden id="image" type="file">
+                 [ngClass]="{'is-valid' : image}" hidden type="file">
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" i18n>Filmy</label>
+        <label [for]="video.mediaId" class="col-sm-2 col-form-label" i18n>Film</label>
         <div class="col-sm-10">
-          <app-video-add-modal-admin (videoChanged)="getCourse()" [course]="course"></app-video-add-modal-admin>
+          <label (click)="imitateFileInput()"
+                 class="file-label">{{fileToUpload ? 'Gotowy do wysłania' : 'Wybierz film'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="form-control"
+                 [id]="video.mediaId" hidden type="file">
         </div>
-        <div (cdkDropListDropped)="drop($event)" cdkDropList class="drop-list">
-          <div *ngFor="let video of course.courseVideos" cdkDrag class="drop-list-element">
-            {{video.title}}
-            <app-video-edit-modal-admin (videoChanged)="getCourse()" [video]="video"></app-video-edit-modal-admin>
-          </div>
+      </div>
+
+      <div class="row form-group">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+        <div class="col-sm-10 align-self-center overflow-hidden">
+          <a [href]="hostedVideo.link" target="_blank">{{hostedVideo.link}}</a>
         </div>
       </div>
 
@@ -122,42 +129,7 @@
   </div>
 </ng-template>
 
-<div *ngIf="course" class="card mb-4 bg-white box-shadow ">
-
-  <div class="card-header text-center">
-    {{course.title}}
-  </div>
-
-  <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
-       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div>
-
-  <div *ngIf="course.courseVideos.length === 0" class="card-box">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div>
-
-  <div class="card-body">
-    <p class="card-text">{{course.description | shortText}}</p>
-
-    <div class="d-flex justify-content-between align-items-center">
-      <small container="body" ngbTooltip="Czas trwania"
-             placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-
-      <div>
-        <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
-          <i class="fas fa-edit"></i>Edytuj
-        </button>
-        <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
-               container="body" placement="bottom">{{course.courseVideos.length}}</small>
-      </div>
-    </div>
-  </div>
-
-</div>
+<button (click)="openModal(modal)" [disabled]="video.status !== 'ready'" class="btn btn-sm btn-outline-primary" i18n
+        type="button">
+  <i class="fas fa-edit"></i>Edytuj
+</button>

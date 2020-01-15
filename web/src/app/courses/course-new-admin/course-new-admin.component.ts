@@ -78,7 +78,6 @@ export class CourseNewAdminComponent extends Form implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
   }
 
   imitateFileInput() {

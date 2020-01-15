@@ -1,4 +1,4 @@
-.example-list {
+.drop-list {
   max-width: 100%;
   border: solid 1px #ccc;
   min-height: 60px;
@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-.example-box {
+.drop-list-element {
   padding: 20px 10px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
@@ -34,11 +34,11 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-box:last-child {
+.drop-list-element:last-child {
   border: none;
 }
 
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+.drop-list.cdk-drop-list-dragging .drop-list-element:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 

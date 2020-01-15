@@ -18,16 +18,10 @@
     <form (ngSubmit)="edit()" [formGroup]="form" class="col-12">
 
       <div class="form-group row">
-        <div class="col-sm-10 input-group">
-          <input class="form-control" formControlName="id" hidden type="text">
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="title" i18n>Tytuł</label>
+        <label class="col-sm-2 col-form-label" i18n>Tytuł</label>
         <div class="col-sm-10 input-group">
           <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" class="form-control" formControlName="title"
-                 i18n-placeholder id="title" placeholder="Wpisz tytuł" type="text">
+                 i18n-placeholder placeholder="Wpisz tytuł" type="text">
 
           <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
             <div *ngIf="f.title.errors.required" i18n>Pole jest puste</div>
@@ -37,11 +31,10 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="description" i18n>Opis</label>
+        <label class="col-sm-2 col-form-label" i18n>Opis</label>
         <div class="col-sm-10 input-group">
                     <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
-                              formControlName="description" i18n-placeholder id="description"
-                              placeholder="Wpisz opis"></textarea>
+                              formControlName="description" i18n-placeholder placeholder="Wpisz opis"></textarea>
 
           <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
             <div *ngIf="f.description.errors.required" i18n>Pole jest puste</div>
@@ -52,7 +45,7 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="language" i18n>Język</label>
+        <label class="col-sm-2 col-form-label" i18n>Język</label>
         <div class="col-sm-8 input-group">
           <mat-radio-group class="languages" color="primary" formControlName="language">
             <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
@@ -63,14 +56,14 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2" for="premium" i18n>Premium</label>
+        <label class="col-sm-2" i18n>Premium</label>
         <div class="col-sm-8 justify-content-start mx-1">
-          <mat-checkbox color="primary" formControlName="premium" id="premium"></mat-checkbox>
+          <mat-checkbox color="primary" formControlName="premium"></mat-checkbox>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="tags" i18n>Tagi</label>
+        <label class="col-sm-2 col-form-label" i18n>Tagi</label>
         <div class="col-sm-10">
           <ng-multiselect-dropdown [data]="tagsList" [placeholder]="'Wybierz tagi'"
                                    [settings]="tagsSettings" formControlName="tags">
@@ -79,10 +72,9 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="picture" i18n>Obrazek</label>
+        <label class="col-sm-2 col-form-label" i18n>Obrazek</label>
         <div class="col-sm-10">
-          <input class="form-control" formControlName="pictureUrl" i18n-placeholder id="picture"
-                 placeholder="Podaj adres obrazka"
+          <input class="form-control" formControlName="pictureUrl" i18n-placeholder placeholder="Podaj adres obrazka"
                  type="text">
         </div>
       </div>
@@ -93,7 +85,7 @@
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
                  class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : image}"
+          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : image}"
                  class="form-control"
                  hidden id="image" type="file">
         </div>
@@ -161,10 +153,6 @@
         <button (click)="openModal(modal)" *ngIf="video.status === 'ready'" class="btn btn-sm btn-outline-primary" i18n
                 type="button">
           <i class="fas fa-edit"></i>Edytuj
-        </button>
-        <button (click)="remove()" *ngIf="video.status === 'ready'" class="btn btn-sm btn-outline-danger" i18n
-                type="button">
-          <i class="far fa-trash-alt"></i>Usuń
         </button>
       </div>
     </div>
