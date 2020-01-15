@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using PixBlocks_Addition.Infrastructure.ResourceModels;
 using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using PixBlocks_Addition.Tests.EndToEnd.Models;
 using System;
@@ -20,6 +21,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         [Test]
         public async Task create_video_should_add_correct_data_and_add_video_to_specific_course()
         {
+            httpClient.SetLanguage("en");
             var parentCourseId = (await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/all?page=1")).Single().Id;
             var expectedTitle = "łąkIng Ded";
             var expectedPremium = true;
@@ -63,6 +65,46 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             response.EnsureSuccessStatusCode();
             Assert.True(videoResponse == null);
         }
+
+        [Test]
+        public async Task change_attached_course_should_work()
+        {
+            //Arrange
+            httpClient.SetLanguage("pl");
+            var videoTitle = "TestingAttachedCourse";
+            var newCourseTitle = "Test Attached Course";
+
+            await createCourseAsync("Old course title", "description", "pl", false);
+            var currentCourseId = (await httpClient.GetAsync<IEnumerable<CourseDto>>("api/course/all?page=1")).First().Id;
+            var createVideoResponse = await createVideoAsync(videoTitle, "Some desc", "pl", true, currentCourseId);
+            createVideoResponse.EnsureSuccessStatusCode();
+
+            var createCourseResonse = await createCourseAsync(newCourseTitle, "Some desc", "pl", true);
+            createCourseResonse.EnsureSuccessStatusCode();
+            var courses = await httpClient.GetAsync<IEnumerable<CourseDto>>($"api/course/title?title={newCourseTitle}");
+
+            var newCourse = courses.SingleOrDefault();
+            var currentCourse = await httpClient.GetAsync<CourseDto>($"api/course?id={currentCourseId}");
+            var video = currentCourse.CourseVideos.Single(x => x.Title == videoTitle);
+
+            //Act
+            var resource = new ChangeAttachedCourseResource()
+            {
+                CourseId = newCourse.Id,
+                VideoId = video.Id
+            };
+            var changeCourseResponse = await httpClient.PutAsync("api/video/change-course", new StringContent(JsonConvert.SerializeObject(resource), Encoding.UTF8, "application/json"));
+            changeCourseResponse.EnsureSuccessStatusCode();
+            var oldCourse = await httpClient.GetAsync<CourseDto>($"api/course?id={currentCourseId}");
+            newCourse = await httpClient.GetAsync<CourseDto>($"api/course?id={newCourse.Id}");
+            var updatedVideo = await httpClient.GetAsync<VideoDto>($"api/video?id={video.Id}");
+
+            //Assert
+            Assert.IsTrue(updatedVideo.ParentId == newCourse.Id);
+            Assert.IsTrue(newCourse.CourseVideos.Any(x => x.Id == updatedVideo.Id));
+            Assert.IsFalse(oldCourse.CourseVideos.Any(x => x.Id == video.Id));
+        }
+
         private bool checkVideoData(IDictionary<string, string> data, VideoDto video)
         {
             foreach (var p in data)
