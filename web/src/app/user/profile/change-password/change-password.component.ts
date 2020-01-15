@@ -38,12 +38,18 @@ export class ChangePasswordComponent extends FormModal implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     const login = this.authService.getLogin();
     return this.userService.changePassword(login, this.form.value.newPassword, this.form.value.oldPassword).subscribe(
       data => {
+        this.sent = true;
+        this.loading = false;
         this.error = null;
       },
       error => {
+        this.sent = true;
+        this.loading = false;
         this.error = error;
       }
     );
