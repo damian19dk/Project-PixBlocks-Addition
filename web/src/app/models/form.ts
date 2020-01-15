@@ -29,4 +29,11 @@ export class Form {
       }
     );
   }
+
+  resetFlags() {
+    this.loading = false;
+    this.submitted = false;
+    this.sent = false;
+    this.error = null;
+  }
 }

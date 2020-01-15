@@ -35,6 +35,11 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
 
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+
+  initFormModal() {
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
@@ -136,4 +141,5 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
       }
     );
   }
+
 }

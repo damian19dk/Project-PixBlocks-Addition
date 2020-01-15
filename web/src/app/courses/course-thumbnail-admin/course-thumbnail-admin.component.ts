@@ -30,9 +30,12 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
     super(modalService, modalConfig);
   }
 
-
   ngOnInit() {
-    this.getTags(this.tagService)
+    this.initFormModal();
+  }
+
+  initFormModal() {
+    this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 

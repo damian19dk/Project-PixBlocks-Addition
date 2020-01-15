@@ -91,7 +91,7 @@
       </div>
 
       <div class="modal-footer justify-content-end">
-        <button (click)="remove(); modal.close('Deleted')" [disabled]="loading" class="btn btn-warning" i18n
+        <button (click)="remove(); closeModal(modal)" [disabled]="loading" class="btn btn-warning" i18n
                 type="submit">
           Usuń
         </button>
@@ -102,7 +102,7 @@
             Ładowanie..
           </div>
         </button>
-        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
           Zamknij
         </button>
       </div>

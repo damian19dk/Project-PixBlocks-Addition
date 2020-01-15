@@ -71,7 +71,7 @@
       </div>
 
       <div class="modal-footer justify-content-end">
-        <button (click)="remove(); modal.close('Deleted')" [disabled]="loading" class="btn btn-warning" type="button">
+        <button (click)="remove(); closeModal(modal)" [disabled]="loading" class="btn btn-warning" type="button">
           <div *ngIf="!loading" i18n>Usuń</div>
           <div *ngIf="loading">
             <span class="spinner-border spinner-border-sm align-self-center" i18n></span>
@@ -85,7 +85,7 @@
             Ładowanie..
           </div>
         </button>
-        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
           Zamknij
         </button>
       </div>

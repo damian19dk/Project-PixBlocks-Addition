@@ -26,6 +26,10 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
   }
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.languages = this.languageService.getAllLanguages();
     this.dataDto = new TagDto();
 

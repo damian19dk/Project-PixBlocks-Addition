@@ -1,49 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
+import {AuthService} from 'src/app/services/auth.service';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {FormModal} from '../../../models/formModal';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent extends FormModal implements OnInit {
 
-  changePasswordForm: FormGroup;
-
-  constructor(private modalService: NgbModal,
+  constructor(protected modalService: NgbModal,
+              protected modalConfig: NgbModalConfig,
               private formBuilder: FormBuilder,
               private userService: UserService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+    super(modalService, modalConfig);
+  }
 
   ngOnInit() {
-    this.changePasswordForm = this.formBuilder.group({
-      oldPassword: [null],
-      newPassword: [null]
+    this.initFormModal();
+  }
+
+  initFormModal() {
+    this.form = this.formBuilder.group({
+      oldPassword: [null, Validators.required],
+      newPassword: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
     });
   }
 
   changePassword() {
-    if (this.changePasswordForm.invalid) {
+    this.submitted = true;
+
+    if (this.form.invalid) {
       return;
     }
 
     const login = this.authService.getLogin();
-
-    return this.userService.changePassword(login, this.changePasswordForm.value.newPassword, this.changePasswordForm.value.oldPassword).subscribe(
+    return this.userService.changePassword(login, this.form.value.newPassword, this.form.value.oldPassword).subscribe(
       data => {
-
+        this.error = null;
       },
       error => {
-
+        this.error = error;
       }
     );
   }
-
-  openModal(content) {
-    this.modalService.open(content, { centered: true });
-  }
-
 }

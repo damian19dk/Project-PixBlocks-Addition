@@ -36,6 +36,10 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
 
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.getHostedVideo();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
