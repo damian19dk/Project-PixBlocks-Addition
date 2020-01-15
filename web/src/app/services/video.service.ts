@@ -29,21 +29,27 @@ export class VideoService extends DataService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    return this.http.get<any>(environment.baseUrl + '/api/Video/' + mediaId, {headers});
+    return this.http.get<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/${mediaId}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
   getHostedPlaylist(id: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    return this.http.get<any>(environment.baseUrl + '/api/JWPlayer/playlist?id=' + id, {headers});
+    return this.http.get<any>(`${environment.baseUrl}/api/JWPlayer/playlist?id=${id}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
-  getHostedVideo(id: string): Observable<HostedVideoDocument> {
+  getHostedVideo(mediaId: string): Observable<HostedVideoDocument> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    return this.http.get<HostedVideoDocument>(environment.baseUrl + '/api/JWPlayer/video?id=' + id, {headers});
+    return this.http.get<HostedVideoDocument>(`${environment.baseUrl}/api/JWPlayer/video?id=${mediaId}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
   changeOrder(courseId: string, videosIds: Array<string>): Observable<any> {

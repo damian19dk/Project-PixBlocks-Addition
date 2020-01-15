@@ -79,7 +79,7 @@
                  type="text">
         </div>
       </div>
-      
+
       <div class="form-group row">
         <label [for]="video.id" class="col-sm-2 col-form-label" i18n>Zdjęcie</label>
         <div class="col-sm-10">
@@ -95,10 +95,17 @@
         <label [for]="video.mediaId" class="col-sm-2 col-form-label" i18n>Film</label>
         <div class="col-sm-10">
           <label (click)="imitateFileInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
+                 class="file-label">{{fileToUpload ? 'Gotowy do wysłania' : 'Wybierz film'}}</label>
           <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
                  class="form-control"
                  [id]="video.mediaId" hidden type="file">
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+        <div class="col-sm-10 align-self-center overflow-hidden">
+          <a [href]="hostedVideo.link" target="_blank">{{hostedVideo.link}}</a>
         </div>
       </div>
 

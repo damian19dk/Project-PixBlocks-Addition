@@ -9,6 +9,7 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {VideoDto} from '../../models/videoDto.model';
 import {FormModal} from '../../models/formModal';
 import {CourseService} from '../../services/course.service';
+import {HostedVideoDocument} from "../../models/hostedVideoDocument.model";
 
 @Component({
   selector: 'app-video-edit-modal-admin',
@@ -20,6 +21,7 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
   @Input() video: VideoDocument;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
   image: any;
+  hostedVideo: HostedVideoDocument;
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
@@ -34,16 +36,12 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
 
 
   ngOnInit() {
+    this.getHostedVideo();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new VideoDto();
-
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       parentId: [this.video.parentId, Validators.required],
@@ -102,6 +100,18 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
     );
   }
 
+  async getHostedVideo() {
+    this.videoService.getHostedVideo(this.video.mediaId).subscribe(
+      (data: HostedVideoDocument) => {
+        this.hostedVideo = data;
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
   refreshOtherThumbnails() {
     this.videoChanged.emit(null);
   }
@@ -115,10 +125,10 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
   }
 
   imitateFileInput() {
-    document.getElementById('editVideo').click();
+    document.getElementById(this.video.mediaId).click();
   }
 
   imitateImageInput() {
-    document.getElementById('editVideoImage').click();
+    document.getElementById(this.video.id).click();
   }
 }
