@@ -77,7 +77,7 @@
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" i18n>Film</label>
-          <div class="col-sm-10">
+          <div class="col-sm-10 input-group">
             <button (click)="imitateFileInput()"
                     [color]="fileToUpload ? 'accent' : 'primary'"
                     mat-raised-button
@@ -85,6 +85,7 @@
             <input (change)="handleFileInput($event.target.files)"
                    class="form-control"
                    hidden id="video"
+                   accept="video/*"
                    type="file">
 
             <div *ngIf="submitted && f.video.errors" class="invalid-feedback">

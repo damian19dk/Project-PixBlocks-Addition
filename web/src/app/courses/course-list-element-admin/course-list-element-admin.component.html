@@ -85,7 +85,9 @@
                  class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
           <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
                  class="form-control"
-                 hidden id="image" type="file">
+                 accept="image/*" hidden
+                 id="image"
+                 type="file">
         </div>
       </div>
 

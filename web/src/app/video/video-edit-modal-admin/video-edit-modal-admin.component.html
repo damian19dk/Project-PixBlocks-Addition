@@ -87,7 +87,9 @@
                  class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
           <input (change)="handleImageInput($event.target.files)" [id]="video.id"
                  class="form-control"
-                 [ngClass]="{'is-valid' : image}" hidden type="file">
+                 [ngClass]="{'is-valid' : image}"
+                 accept="image/*"
+                 hidden type="file">
         </div>
       </div>
 
@@ -98,7 +100,9 @@
                  class="file-label">{{fileToUpload ? 'Gotowy do wysłania' : 'Wybierz film'}}</label>
           <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
                  class="form-control"
-                 [id]="video.mediaId" hidden type="file">
+                 [id]="video.mediaId" accept="video/*"
+                 hidden
+                 type="file">
         </div>
       </div>
 
