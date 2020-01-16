@@ -12,7 +12,7 @@ export abstract class FormModal extends Form {
   openModal(content) {
     this.resetFlags();
     this.initFormModal();
-    this.modalService.open(content, {centered: true});
+    this.modalService.open(content, {centered: true, size: 'lg'});
   }
 
   closeModal(modal) {

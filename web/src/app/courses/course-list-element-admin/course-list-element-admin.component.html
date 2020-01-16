@@ -82,8 +82,8 @@
         <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
                  class="form-control"
                  accept="image/*" hidden
                  id="image"
@@ -161,5 +161,4 @@
       </div>
     </div>
   </div>
-
 </div>

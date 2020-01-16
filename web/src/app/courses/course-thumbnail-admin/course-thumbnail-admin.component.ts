@@ -18,7 +18,6 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
   @Output() courseChanged: EventEmitter<any> = new EventEmitter<any>();
-  picture: string;
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
@@ -40,11 +39,6 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
     this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new CourseDto();
-
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       parentId: [null],
@@ -69,9 +63,6 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.courseService.update(formData)
@@ -80,7 +71,7 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.refreshOtherCourses();
         },
         error => {
           this.sent = true;
@@ -92,7 +83,8 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
   remove() {
     this.courseService.remove(this.course.id).subscribe(
       data => {
-        this.refreshOtherThumbnails();
+        this.error = null;
+        this.refreshOtherCourses();
       },
       error => {
         this.error = error;
@@ -100,7 +92,7 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
     );
   }
 
-  refreshOtherThumbnails() {
+  refreshOtherCourses() {
     this.courseChanged.emit(null);
   }
 
@@ -109,6 +101,6 @@ export class CourseThumbnailAdminComponent extends FormModal implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 }

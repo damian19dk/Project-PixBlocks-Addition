@@ -71,9 +71,6 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.videoService.update(formData)
@@ -82,7 +79,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.refreshOtherVideos();
         },
         error => {
           this.sent = true;
@@ -94,7 +91,8 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
   remove() {
     this.videoService.remove(this.video.id).subscribe(
       () => {
-        this.refreshOtherThumbnails();
+        this.error = null;
+        this.refreshOtherVideos();
       },
       error => {
         this.error = error;
@@ -102,19 +100,19 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
     );
   }
 
-  refreshOtherThumbnails() {
+  refreshOtherVideos() {
     this.videoChanged.emit(null);
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  handleVideoInput(files: FileList) {
+    this.form.controls.video.setValue(files.item(0));
   }
 
   handleImageInput(files: FileList) {
-    this.image = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 
-  imitateFileInput() {
+  imitateVideoInput() {
     document.getElementById('video').click();
   }
 

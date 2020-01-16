@@ -16,8 +16,6 @@ export class Form {
   tagsSettings = {};
   languages: Array<Language>;
 
-  fileToUpload: File = null;
-
   get f() {
     return this.form.controls;
   }

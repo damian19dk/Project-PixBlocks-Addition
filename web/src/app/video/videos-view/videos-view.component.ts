@@ -9,10 +9,6 @@ import {VideoService} from '../../services/video.service';
   styleUrls: ['./videos-view.component.css']
 })
 export class VideosViewComponent implements OnInit {
-
-  page = 1;
-  count: number;
-
   videos: Array<VideoDocument>;
   error: string;
 
@@ -23,13 +19,12 @@ export class VideosViewComponent implements OnInit {
 
   ngOnInit() {
     this.getVideos();
-    this.getCount();
   }
 
   getVideos() {
     this.loadingService.load();
 
-    this.videoService.getAll(this.page).subscribe(
+    this.videoService.getAll(1).subscribe(
       (data: Array<VideoDocument>) => {
         this.videos = data;
         this.loadingService.unload();
@@ -37,15 +32,6 @@ export class VideosViewComponent implements OnInit {
       error => {
         this.error = error;
         this.loadingService.unload();
-      }
-    );
-  }
-
-  getCount() {
-    return this.videoService.count().subscribe(
-      data => {
-        // tslint:disable-next-line:radix
-        this.count = parseInt(data);
       }
     );
   }

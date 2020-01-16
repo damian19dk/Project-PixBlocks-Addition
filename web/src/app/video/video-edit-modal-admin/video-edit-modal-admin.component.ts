@@ -9,7 +9,7 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {VideoDto} from '../../models/videoDto.model';
 import {FormModal} from '../../models/formModal';
 import {CourseService} from '../../services/course.service';
-import {HostedVideoDocument} from "../../models/hostedVideoDocument.model";
+import {HostedVideoDocument} from '../../models/hostedVideoDocument.model';
 
 @Component({
   selector: 'app-video-edit-modal-admin',
@@ -20,7 +20,6 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
 
   @Input() video: VideoDocument;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
   hostedVideo: HostedVideoDocument;
 
   constructor(private formBuilder: FormBuilder,
@@ -72,9 +71,6 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.videoService.update(formData)
@@ -83,7 +79,7 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.emitVideoChangedEvent();
         },
         error => {
           this.sent = true;
@@ -96,7 +92,7 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
     this.courseService.removeVideo(this.video.parentId, this.video.id).subscribe(
       data => {
         this.error = null;
-        this.refreshOtherThumbnails();
+        this.emitVideoChangedEvent();
       },
       error => {
         this.error = error;
@@ -116,16 +112,16 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
     );
   }
 
-  refreshOtherThumbnails() {
+  emitVideoChangedEvent() {
     this.videoChanged.emit(null);
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.form.controls.video.setValue(files.item(0));
   }
 
   handleImageInput(files: FileList) {
-    this.image = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 
   imitateFileInput() {

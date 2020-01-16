@@ -20,7 +20,6 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
 
   @Input() course: CourseDocument;
   @Output() courseChanged: EventEmitter<any> = new EventEmitter<any>();
-  picture: string;
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
@@ -33,11 +32,9 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
     super(modalService, modalConfig);
   }
 
-
   ngOnInit() {
     this.initFormModal();
   }
-
 
   initFormModal() {
     this.getTags(this.tagService);
@@ -45,11 +42,6 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
     this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new CourseDto();
-
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       parentId: [null],
@@ -74,9 +66,6 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.courseService.update(formData)
@@ -127,7 +116,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -141,5 +130,4 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
       }
     );
   }
-
 }

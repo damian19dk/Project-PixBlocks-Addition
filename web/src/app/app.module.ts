@@ -64,6 +64,8 @@ import {VideoEditModalAdminComponent} from './video/video-edit-modal-admin/video
 import {VideoAddModalAdminComponent} from './video/video-add-modal-admin/video-add-modal-admin.component';
 import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose-admin.component';
 import {CourseChooseAdminComponent} from './courses/course-choose-admin/course-choose-admin.component';
+import {JWPlayerComponent} from './JWPlayer/jwplayer/jwplayer.component';
+import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import {CourseChooseAdminComponent} from './courses/course-choose-admin/course-c
     VideoEditModalAdminComponent,
     VideoAddModalAdminComponent,
     VideoChooseAdminComponent,
-    CourseChooseAdminComponent
+    CourseChooseAdminComponent,
+    JWPlayerComponent,
+    VideoPreviewComponent
   ],
   imports: [
     BrowserModule,

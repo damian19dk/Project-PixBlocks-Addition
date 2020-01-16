@@ -11,6 +11,10 @@ export class DataDto {
   language: string;
   tags: string;
 
+  private static toTagsString(tags: Array<string>) {
+    return tags === null ? null : tags.join();
+  }
+
   toFormData(): FormData {
     const formData = new FormData();
     this.parentId !== null ? formData.append('parentId', this.parentId) : null;
@@ -34,6 +38,6 @@ export class DataDto {
     this.pictureUrl = form.value.pictureUrl;
     this.image = form.value.image;
     this.language = form.value.language;
-    this.tags = form.value.tags;
+    this.tags = DataDto.toTagsString(form.value.tags);
   }
 }
