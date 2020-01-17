@@ -10,6 +10,7 @@ import {CourseDocument} from '../../models/courseDocument.model';
 export class CourseChooseAdminComponent implements OnInit {
 
   @Input() buttonName: string;
+  @Input() course: CourseDocument = null;
   @Output() courseSelected: EventEmitter<any> = new EventEmitter<any>();
   courses: Array<CourseDocument>;
   selectedCourse: CourseDocument;
@@ -19,6 +20,10 @@ export class CourseChooseAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.course !== undefined && this.course !== null) {
+      this.isSelected = true;
+      this.selectedCourse = this.course;
+    }
     this.getCourses();
   }
 
@@ -26,9 +31,6 @@ export class CourseChooseAdminComponent implements OnInit {
     this.courseService.getAll(1).subscribe(
       (data: Array<CourseDocument>) => {
         this.courses = data;
-      },
-      error => {
-
       }
     );
   }

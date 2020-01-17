@@ -118,7 +118,7 @@ import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.comp
     VideoChooseAdminComponent,
     CourseChooseAdminComponent,
     JWPlayerComponent,
-    VideoPreviewComponent
+    VideoPreviewComponent,
     TagThumbnailEditAdminComponent,
     VideoQuizComponent,
     QuizQuestionComponent,
@@ -173,4 +173,5 @@ import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.comp
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

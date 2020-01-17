@@ -8,16 +8,18 @@
       <app-quiz-answer
         [quizAnswerIndex]="index"
         [quizAnswerForm]="answer"
-        (onRemoveAnswer)="removeAnswer($event)"
-      ></app-quiz-answer>
+        (onRemoveAnswer)="removeAnswer($event)"></app-quiz-answer>
     </ng-container>
-    <div *ngIf="answers.errors && answers.errors.minLength && answers.dirty">
-      Pytanie powinno zawierać conajmniej dwie odpowiedzi
-    </div>
-    <div *ngIf="answers.errors && answers.errors.noCorrectAnswer">
-      Pytanie powinno zawierać conajmniej jedna poprawna odpowiedz
+    <div *ngIf="answers.errors" class="invalid-feedback">
+      <div *ngIf="answers.errors.minLength && answers.dirty">
+        Pytanie powinno zawierać conajmniej dwie odpowiedzi
+      </div>
+      <div *ngIf="answers.errors.noCorrectAnswer">
+        Pytanie powinno zawierać conajmniej jedną poprawną odpowiedź
+      </div>
     </div>
   </div>
+
   <button (click)="addQuestion()" [class.spinner]="loading" [disabled]="!question.valid" color="primary"
           mat-raised-button
           type="button">

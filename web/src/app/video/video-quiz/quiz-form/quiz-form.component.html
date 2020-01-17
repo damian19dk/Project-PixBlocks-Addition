@@ -14,7 +14,7 @@
       <div formArrayName="questions">
         <div *ngFor="let question of quizQuestionsControls; let questionIndex = index">
           <app-quiz-question
-            (onDeleteQuestion)="onDeleteQuestion($event)"
+            (questionDeleted)="onDeleteQuestion($event)"
             [quizQuestionForm]="question"
             [quizQuestionIndex]="questionIndex"
           ></app-quiz-question>

@@ -9,22 +9,21 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class QuizQuestionComponent implements OnInit {
   @Input() quizQuestionForm: FormGroup;
   @Input() quizQuestionIndex: number;
-  @Output() onDeleteQuestion = new EventEmitter<number>();
+  @Output() questionDeleted = new EventEmitter<number>();
+  loading = false;
 
   constructor() {
   }
 
   addQuestion() {
+    this.loading = true;
     this.answers.markAsDirty();
     this.answers.push(this.createAnswerForm());
+    this.loading = false;
   }
 
   get question() {
     return this.quizQuestionForm.get('question');
-  }
-
-  get formValid() {
-    return this.quizQuestionForm.valid;
   }
 
   get answers() {
@@ -38,12 +37,8 @@ export class QuizQuestionComponent implements OnInit {
     return this.answers.controls;
   }
 
-  answerFormFor(index: number) {
-    return this.quizQuestionForm.value;
-  }
-
   handleDeleteQuestion() {
-    this.onDeleteQuestion.emit(this.quizQuestionIndex);
+    this.questionDeleted.emit(this.quizQuestionIndex);
   }
 
   createAnswerForm() {
