@@ -1,0 +1,7 @@
+<div class="d-inline-block" ngbDropdown>
+  <button class="btn btn-outline-primary" ngbDropdownToggle type="button">{{buttonName}}</button>
+  <div ngbDropdownMenu>
+    <button (click)="chooseVideo(video)" *ngFor="let video of videos" ngbDropdownItem
+            type="button">{{video.title}}</button>
+  </div>
+</div>

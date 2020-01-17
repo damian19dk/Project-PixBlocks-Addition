@@ -233,5 +233,35 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             return await _videoRepository.CountAsync(_localizer.Language);
         }
+
+        public async Task ChangeCourse(ChangeAttachedCourseResource attachCourse)
+        {
+            var newCourse = await _courseRepository.GetAsync(attachCourse.CourseId);
+            if(newCourse == null)
+            {
+                throw new MyException(MyCodesNumbers.CourseNotFound, MyCodes.CourseNotFound);
+            }
+            var video = await _videoRepository.GetAsync(attachCourse.VideoId);
+            if(video == null)
+            {
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+            }
+            var sameName = newCourse.CourseVideos.Any(x => x.Video.Title == video.Title);
+            if(sameName)
+            {
+                throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
+            }
+
+            var currentCourse = await _courseRepository.GetAsync(video.ParentId);
+            var courseVideo = currentCourse.CourseVideos.SingleOrDefault(x => x.Video.Id == video.Id);
+            currentCourse.CourseVideos.Remove(courseVideo);
+            await _courseRepository.UpdateAsync(currentCourse);
+
+            video.SetParent(newCourse);
+            newCourse.CourseVideos.Add(new CourseVideo(newCourse.Id, video));
+
+            await _videoRepository.UpdateAsync(video);
+            await _courseRepository.UpdateAsync(newCourse);
+        }
     }
 }

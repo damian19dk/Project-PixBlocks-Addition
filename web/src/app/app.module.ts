@@ -17,7 +17,7 @@ import {AuthService} from './services/auth.service';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
 import {NewVideoComponent} from './video/new-video/new-video.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
-import {VideoThumbnailComponent} from './video/video-thumbnail/video-thumbnail.component';
+import {VideoThumbnailAdminComponent} from './video/video-thumbnail-admin/video-thumbnail-admin.component';
 import {VideoService} from './services/video.service';
 import {CourseManagerAdminComponent} from './courses/course-manager-admin/course-manager-admin.component';
 import {CourseNewAdminComponent} from './courses/course-new-admin/course-new-admin.component';
@@ -66,6 +66,12 @@ import {TagThumbnailComponent} from './tags/tag/tag-thumbnail.component';
 import {ColorSketchModule} from 'ngx-color/sketch';
 import {TagsViewAdminComponent} from './tags/tags-view-admin/tags-view-admin.component';
 import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/tag-thumbnail-edit-admin.component';
+import {VideoEditModalAdminComponent} from './video/video-edit-modal-admin/video-edit-modal-admin.component';
+import {VideoAddModalAdminComponent} from './video/video-add-modal-admin/video-add-modal-admin.component';
+import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose-admin.component';
+import {CourseChooseAdminComponent} from './courses/course-choose-admin/course-choose-admin.component';
+import {JWPlayerComponent} from './JWPlayer/jwplayer/jwplayer.component';
+import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +85,7 @@ import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/ta
     UnauthorizedComponent,
     NewVideoComponent,
     ShowVideoComponent,
-    VideoThumbnailComponent,
+    VideoThumbnailAdminComponent,
     ShortTextPipe,
     SafePipe,
     CourseManagerAdminComponent,
@@ -106,6 +112,13 @@ import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/ta
     NewTagAdminComponent,
     TagThumbnailComponent,
     TagsViewAdminComponent,
+    TagThumbnailEditAdminComponent,
+    VideoEditModalAdminComponent,
+    VideoAddModalAdminComponent,
+    VideoChooseAdminComponent,
+    CourseChooseAdminComponent,
+    JWPlayerComponent,
+    VideoPreviewComponent
     TagThumbnailEditAdminComponent,
     VideoQuizComponent,
     QuizQuestionComponent,

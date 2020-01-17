@@ -61,6 +61,7 @@ export class ShowVideoComponent implements OnInit {
     this.videoService.getHostedVideo(id).subscribe(
       (data: HostedVideoDocument) => {
         this.video = data;
+        this.error = null;
 
         setTimeout(() => {
           this.player = jwplayer('video-field').setup({
@@ -90,6 +91,7 @@ export class ShowVideoComponent implements OnInit {
       (data: VideoDocument) => {
         this.videoDocument = data[0];
         this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
+        this.error = null;
         this.getQuiz();
         this.loadingService.unload();
       },
@@ -105,6 +107,7 @@ export class ShowVideoComponent implements OnInit {
     this.courseService.getAll(this.page).subscribe(
       (data: Array<CourseDocument>) => {
         this.courses = data;
+        this.error = null;
         this.loadingService.unload();
       },
       error => {
@@ -121,6 +124,7 @@ export class ShowVideoComponent implements OnInit {
     this.courseService.getOne(courseId).subscribe(
       (data: CourseDocument) => {
         this.courseDocument = data;
+        this.error = null;
         this.getProgress();
         this.loadingService.unload();
       },

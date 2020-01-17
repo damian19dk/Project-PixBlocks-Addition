@@ -1,5 +1,6 @@
 ﻿using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Domain.Repositories.MediaRepo;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,18 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
+        private readonly ILocalizationService _localizationService;
 
-        public OrderService(ICourseRepository courseRepository, IVideoRepository videoRepository)
+        public OrderService(ICourseRepository courseRepository, IVideoRepository videoRepository, ILocalizationService localizationService)
         {
             _courseRepository = courseRepository;
+            _localizationService = localizationService;
             _videoRepository = videoRepository;
         }
 
         public async Task OrderCourses(IEnumerable<Guid> courses)
         {
-            var count = await _courseRepository.CountAsync();
+            var count = await _courseRepository.CountAsync(_localizationService.Language);
             if(courses.Count() != count)
             {
                 throw new MyException(MyCodesNumbers.InvalidOrderData, "The given collection size is incorrect.");
@@ -32,7 +35,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             foreach(var id in courses)
             {
                 var course = await _courseRepository.GetAsync(id);
-                if(course == null)
+                if(course == null || !string.Equals(course.Language, _localizationService.Language, StringComparison.InvariantCultureIgnoreCase))
                 {
                     throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with id {id} does not exist");
                 }
@@ -47,7 +50,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task OrderVideos(IEnumerable<Guid> videos, Guid courseId)
         {
             var course = await _courseRepository.GetAsync(courseId);
-            if(course == null)
+            if (course == null || !string.Equals(course.Language, _localizationService.Language, StringComparison.InvariantCultureIgnoreCase))
             {
                 throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with id {courseId} does not exist.");
             }

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TagDto} from '../../models/tagDto.model';
 import {TagService} from '../../services/tag.service';
 import {FormModal} from '../../models/formModal';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators} from '@angular/forms';
 import {LanguageService} from '../../services/language.service';
 import {ColorEvent} from 'ngx-color';
@@ -18,13 +18,18 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
   exampleTag: TagDto = new TagDto();
 
   constructor(private tagService: TagService,
-              protected modalService: NgbModal,
               private languageService: LanguageService,
-              private formBuilder: FormBuilder) {
-    super(modalService);
+              private formBuilder: FormBuilder,
+              protected modalService: NgbModal,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.languages = this.languageService.getAllLanguages();
     this.dataDto = new TagDto();
 

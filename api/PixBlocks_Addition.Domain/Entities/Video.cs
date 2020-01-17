@@ -27,5 +27,14 @@ namespace PixBlocks_Addition.Domain.Entities
             }
             Status = status;
         }
+
+        public void SetParent(Course course)
+        {
+            if(course == null)
+            {
+                throw new MyException(MyCodesNumbers.NullCourse, "Course cannot be null.");
+            }
+            ParentId = course.Id;
+        }
     }
 }
