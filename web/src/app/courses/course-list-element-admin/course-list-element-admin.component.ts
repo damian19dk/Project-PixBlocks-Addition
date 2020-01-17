@@ -37,6 +37,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
   }
 
   initFormModal() {
+    this.getCourse();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();

@@ -6,6 +6,7 @@
   display: block;
   background: white;
   border-radius: 4px;
+  z-index: 1100;
 }
 
 .drop-list-element {
@@ -20,6 +21,7 @@
   cursor: move;
   background: white;
   font-size: 14px;
+  z-index: 2000;
 }
 
 .cdk-drag-preview {
