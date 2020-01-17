@@ -8,6 +8,7 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormModal} from '../../models/formModal';
 import {VideoService} from '../../services/video.service';
 import {VideoDto} from '../../models/videoDto.model';
+import {HostedVideoDocument} from "../../models/hostedVideoDocument.model";
 
 @Component({
   selector: 'app-video-thumbnail',
@@ -18,7 +19,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
 
   @Input() video: VideoDocument;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
+  hostedVideo: HostedVideoDocument;
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
@@ -35,6 +36,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
   }
 
   initFormModal() {
+    this.getHostedVideo();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
@@ -99,6 +101,19 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
       }
     );
   }
+
+  async getHostedVideo() {
+    this.videoService.getHostedVideo(this.video.mediaId).subscribe(
+      (data: HostedVideoDocument) => {
+        this.hostedVideo = data;
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
 
   refreshOtherVideos() {
     this.videoChanged.emit(null);

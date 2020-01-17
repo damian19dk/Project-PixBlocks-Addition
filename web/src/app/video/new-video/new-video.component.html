@@ -94,7 +94,7 @@
             <button (click)="imitateFileInput()"
                     [color]="f.video.value ? 'accent' : 'primary'"
                     mat-raised-button
-                    type="button">{{f.video ? 'Gotowy do wysłania' : 'Wybierz film'}}</button>
+                    type="button">{{f.video.value ? 'Gotowy do wysłania' : 'Wybierz film'}}</button>
             <input (change)="handleFileInput($event.target.files)"
                    class="form-control"
                    hidden id="video"
