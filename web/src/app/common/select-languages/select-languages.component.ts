@@ -7,15 +7,22 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class SelectLanguagesComponent implements OnInit {
   @Input() languages: Array<any>;
+  selectedLanguage: any;
 
   constructor() {
   }
 
   ngOnInit() {
+    console.log(this.selectedLanguage);
+    console.log(localStorage.getItem('Accept-Language'));
+    if (this.selectedLanguage === undefined || this.selectedLanguage === null) {
+      this.selectedLanguage = localStorage.getItem('Accept-Language');
+    }
   }
 
   selectLanguage(language: string): void {
     localStorage.setItem('Accept-Language', language);
+    this.selectedLanguage = language;
     window.location.href = window.location.origin + '/' + language;
   }
 

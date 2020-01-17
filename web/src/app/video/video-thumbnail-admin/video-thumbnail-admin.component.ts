@@ -8,6 +8,7 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormModal} from '../../models/formModal';
 import {VideoService} from '../../services/video.service';
 import {VideoDto} from '../../models/videoDto.model';
+import {HostedVideoDocument} from "../../models/hostedVideoDocument.model";
 
 @Component({
   selector: 'app-video-thumbnail',
@@ -18,7 +19,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
 
   @Input() video: VideoDocument;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
+  hostedVideo: HostedVideoDocument;
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
@@ -31,6 +32,11 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
   }
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
+    this.getHostedVideo();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
@@ -67,9 +73,6 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.videoService.update(formData)
@@ -78,7 +81,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.refreshOtherVideos();
         },
         error => {
           this.sent = true;
@@ -90,7 +93,8 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
   remove() {
     this.videoService.remove(this.video.id).subscribe(
       () => {
-        this.refreshOtherThumbnails();
+        this.error = null;
+        this.refreshOtherVideos();
       },
       error => {
         this.error = error;
@@ -98,19 +102,32 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
     );
   }
 
-  refreshOtherThumbnails() {
+  async getHostedVideo() {
+    this.videoService.getHostedVideo(this.video.mediaId).subscribe(
+      (data: HostedVideoDocument) => {
+        this.hostedVideo = data;
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
+
+  refreshOtherVideos() {
     this.videoChanged.emit(null);
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  handleVideoInput(files: FileList) {
+    this.form.controls.video.setValue(files.item(0));
   }
 
   handleImageInput(files: FileList) {
-    this.image = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 
-  imitateFileInput() {
+  imitateVideoInput() {
     document.getElementById('video').click();
   }
 

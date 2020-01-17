@@ -30,11 +30,6 @@ export class CourseNewAdminComponent extends Form implements OnInit {
 
     this.dataDto = new CourseDto();
 
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
-
     this.form = this.formBuilder.group({
       parentId: [null],
       title: [null, Validators.required],
@@ -57,9 +52,6 @@ export class CourseNewAdminComponent extends Form implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.courseService.add(formData)
@@ -77,7 +69,7 @@ export class CourseNewAdminComponent extends Form implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 
   imitateFileInput() {
