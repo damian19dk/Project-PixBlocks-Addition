@@ -38,7 +38,8 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 Name = "Nauka",
                 Description = "Opis",
-                Color = "black",
+                FontColor = "black",
+                BackgroundColor = "black",
                 Language = "en"
             };
 
@@ -65,7 +66,8 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 Name = name,
                 Description = "Description",
-                Color = "black",
+                FontColor = "black",
+                BackgroundColor = "black",
                 Language = "pl"
             };
 
@@ -97,7 +99,8 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 Name = name,
                 Description = description,
-                Color = color,
+                FontColor = color,
+                BackgroundColor = "black",
                 Language = language
             };
             return await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag), Encoding.UTF8, "application/json"));

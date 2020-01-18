@@ -64,21 +64,24 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 Name = "python",
                 Description = "Kurs nauki pythona.",
-                Color = "red",
+                FontColor = "red",
+                BackgroundColor = "black",
                 Language = "none"
             };
             TagResource tag1 = new TagResource()
             {
                 Name = "C++",
                 Description = "Kurs nauki C++.",
-                Color = "blue",
+                FontColor = "blue",
+                BackgroundColor = "black",
                 Language = "pl"
             };
             TagResource tag2 = new TagResource()
             {
                 Name = "beginner",
                 Description = "Beginners.",
-                Color = "blue",
+                FontColor = "blue",
+                BackgroundColor = "black",
                 Language = "en"
             };
             var res = await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag), Encoding.UTF8, "application/json"));

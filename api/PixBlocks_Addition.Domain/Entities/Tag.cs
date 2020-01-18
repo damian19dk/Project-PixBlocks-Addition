@@ -11,16 +11,17 @@ namespace PixBlocks_Addition.Domain.Entities
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
-        public string Color { get; protected set; }
+        public string FontColor { get; protected set; }
+        public string BackgroundColor { get; protected set; }
         public string Language { get; protected set; }
 
 
-        public Tag(string name, string description, string color, string language)
+        public Tag(string name, string description, string fontColor, string backgroundColor, string language)
         {
             Id = Guid.NewGuid();
             SetName(name);
             SetDescription(description);
-            SetColor(color);
+            SetColor(fontColor, backgroundColor);
             SetLanguage(language);
         }
 
@@ -37,13 +38,14 @@ namespace PixBlocks_Addition.Domain.Entities
             Name = name;
         }
 
-        public void SetColor(string color)
+        public void SetColor(string fontColor, string backgroundColor)
         {
-            if (color == null)
+            if (fontColor == null || backgroundColor == null)
             {
                 throw new MyException(MyCodesNumbers.InvalidColor, "Color cannot be null.");
             }
-            Color = color;
+            FontColor = fontColor;
+            BackgroundColor = backgroundColor;
         }
 
         public void SetDescription(string description)
