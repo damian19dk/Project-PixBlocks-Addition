@@ -1,6 +1,11 @@
 .card {
   width: 100%;
   height: auto;
+  border-style: solid;
+  border: 3px;
+  transition: 0.3s;
+  border-color: black;
+  border-radius: 20px;
 }
 
 .card-box {
@@ -67,6 +72,7 @@
 .card-not-premium {
   border-style: solid;
   transition: 0.3s;
+  border-radius: 20px;
 }
 
 .card-not-premium:hover .card-img-top {
