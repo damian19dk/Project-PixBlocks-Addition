@@ -29,6 +29,10 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<IEnumerable<TagDto>> GetAllAsync()
             => await _tagService.GetAllAsync();
 
+        [HttpGet]
+        public async Task<TagDto> GetAsync(string name)
+            => await _tagService.GetAsync(name);
+
         [HttpGet("{id}")]
         public async Task<TagDto> GetAsync(Guid id)
             => await _tagService.GetAsync(id);
