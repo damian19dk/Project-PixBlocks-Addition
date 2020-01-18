@@ -2,15 +2,21 @@
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
-
-  <h1 *ngIf="courseDocument" class="header padded-left">{{courseDocument.title}}</h1>
-  <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5>
+  <div class="container-fluid">
+    <div class="courseTitle">
+  <div class="title">    
+    <h2 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h2>
+  </div>
+ </div>
+</div>
+  <!-- <h1 *ngIf="courseDocument" class="header padded-left" i18n>{{courseDocument.title}}</h1>
+   <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5> -->
 
   <div class="row">
 
     <div *ngIf="videoDocument" class="col-7">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 bg-light" style=" border-radius: 25px; padding-top: 40px;">
           <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
                msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                webkitallowfullscreen="webkitallowfullscreen">Loading...
@@ -20,8 +26,8 @@
         </div>
         <!--        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>-->
       </div>
-
-      <div class="row justify-content-between">
+      
+      <div class="row justify-content-between" style="padding-top: 9px;">
         <div class="col-4 justify-content-center">
           <div class="col-12 text-center">
             <span ngbTooltip="Tagi" placement="left"><i class="fas fa-tags fa-2x"></i></span>
@@ -71,7 +77,7 @@
     <div *ngIf="courseDocument" class="col">
       <h4 class="header">Playlista:</h4>
 
-      <div class="scroll list-group">
+      <div class="scroll list-group" style="max-height: 41rem">
         <a *ngFor="let courseVideo of courseDocument.courseVideos"
            [ngClass]="courseVideo.mediaId === videoDocument.mediaId ? 'bg-video' : null"
            class="list-group-item list-group-item-action flex-column align-items-start"
@@ -91,6 +97,19 @@
 
       </div>
     </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1"></div>
+    <div class="col-6" style="padding-left: 10%; border-style: solid; height: 25rem;">Tu będą quizy</div>
+    
+    <div class="col-5 quizImage" style="height: 25rem;">
+      <img class="img-max" src="assets/svg/undraw_quiz_nlyh.svg">     
+    </div>
+  </div>
+  </div>
+</div>
+  <div class="row" style="height: 10rem;">
+    
   </div>
 
   <div class="row justify-content-center">
