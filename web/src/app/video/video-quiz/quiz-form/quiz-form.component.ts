@@ -4,8 +4,6 @@ import {VideoService} from 'src/app/services/video.service';
 
 import {CreateQuizPayload, Quiz, UpdateQuizPayload} from '../../../models/quiz.model';
 import {QuizService} from '../../../services/quiz.service';
-import {Observable} from 'rxjs';
-import {debounceTime, filter, switchMap} from 'rxjs/operators';
 import {VideoDocument} from '../../../models/videoDocument.model';
 
 @Component({
@@ -159,13 +157,7 @@ export class QuizFormComponent implements OnInit {
     );
   }
 
-  search = (text$: Observable<string>) => {
-    return text$.pipe(
-      debounceTime(150),
-      filter(text => text !== ''),
-      switchMap(searchText => this.videoService.findByTitle(searchText))
-    );
+  selectVideo($event: any) {
+    this.typeaheadVideo = $event;
   }
-
-  formatter = (x: VideoDocument) => x.title;
 }

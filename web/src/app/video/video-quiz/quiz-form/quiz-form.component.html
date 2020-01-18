@@ -26,28 +26,17 @@
       </button>
       <hr/>
 
-      <input
-        *ngIf="!shouldUpdateQuizOnSubmit()"
-        [(ngModel)]="typeaheadVideo"
-        [inputFormatter]="formatter"
-        [ngbTypeahead]="search"
-        [resultTemplate]="rt"
-        class="form-control empty d-inline-flex align-self-center w-100"
-        formControlName="mediaId"
-        i18n-placeholder
-        placeholder="Szukaj video"
-        type="text"
-      />
+      <app-video-choose-admin (videoSelected)="selectVideo($event)"
+                              [buttonName]="'Wybierz film'">
+      </app-video-choose-admin>
+      <hr/>
 
-      <button [disabled]="!quizForm.valid" class="saveVideo" color="primary" mat-raised-button type="submit">Zapisz
+      <button [disabled]="!quizForm.valid"
+              class="saveVideo"
+              color="primary"
+              mat-raised-button
+              type="submit">Zapisz
       </button>
-
-      <ng-template #rt let-r="result" let-t="term">
-        <div placement="right">
-          <ngb-highlight [result]="r.title" [term]="t" class="mr-2"></ngb-highlight>
-          <span *ngFor="let tag of r.tags" class="badge badge-info ml-2">{{tag}}</span>
-        </div>
-      </ng-template>
     </form>
   </div>
   <div class="col-6">

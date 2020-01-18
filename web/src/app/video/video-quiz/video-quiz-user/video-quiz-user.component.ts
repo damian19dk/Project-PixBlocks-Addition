@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Quiz} from '../../../models/quiz.model';
-import {QuizService} from '../../../services/quiz.service';
 
 @Component({
   selector: 'app-video-quiz-user',
@@ -13,11 +12,11 @@ export class VideoQuizUserComponent implements OnInit {
   loading = false;
   submitted = false;
 
-  constructor(private quizService: QuizService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.getQuiz();
+    this.prepareQuiz();
   }
 
   checkAnswers() {
@@ -43,17 +42,11 @@ export class VideoQuizUserComponent implements OnInit {
     this.loading = false;
   }
 
-  async getQuiz() {
-    this.quizService.getOne('A6105B14-4C97-4634-A1D3-04960F041B2C').subscribe(
-      (data: Quiz) => {
-        this.quiz = data;
-
-        for (const question of this.quiz.questions) {
-          for (const answer of question.answers) {
-            answer.isSelected = false;
-          }
-        }
+  async prepareQuiz() {
+    for (const question of this.quiz.questions) {
+      for (const answer of question.answers) {
+        answer.isSelected = false;
       }
-    );
+    }
   }
 }

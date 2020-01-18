@@ -12,13 +12,11 @@ import {PageNotFoundComponent} from './error-pages/page-not-found/page-not-found
 import {HomeForLoggedComponent} from './home-for-logged/home-for-logged.component';
 import {VideoManagerComponent} from './video/video-manager/video-manager.component';
 import {SettingsComponent} from './settings/settings.component';
-import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-quiz-user.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {animation: 'login'}},
   {path: 'register', component: RegistrationComponent, data: {animation: 'register'}},
   {path: 'videos', component: VideoManagerComponent, data: {animation: 'videos'}},
-  {path: 'videos/quiz', component: VideoQuizUserComponent, data: {animation: 'quizes'}},
   {path: 'courses', component: CourseManagerAdminComponent, data: {animation: 'courses'}},
   {path: '', component: HomeComponent, data: {animation: ''}},
   {path: 'home', component: HomeForLoggedComponent, data: {animation: 'home'}},
@@ -29,7 +27,7 @@ const routes: Routes = [
     data: {animation: 'courses/:id/videos/:mediaId'}
     // canActivate: [AuthGuard]
   },
-  {path: 'quiz', component: VideoQuizComponent},
+  {path: 'quizes', component: VideoQuizComponent},
   {
     path: 'settings',
     component: SettingsComponent,

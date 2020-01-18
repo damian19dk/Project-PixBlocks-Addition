@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {VideoService} from '../../services/video.service';
 import {VideoDocument} from '../../models/videoDocument.model';
+import {VideoService} from "../../services/video.service";
 
 @Component({
   selector: 'app-video-choose-admin',
@@ -10,14 +10,20 @@ import {VideoDocument} from '../../models/videoDocument.model';
 export class VideoChooseAdminComponent implements OnInit {
 
   @Input() buttonName: string;
-  @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
+  @Input() video: VideoDocument = null;
+  @Output() videoSelected: EventEmitter<any> = new EventEmitter<any>();
   videos: Array<VideoDocument>;
   selectedVideo: VideoDocument;
+  isSelected = false;
 
   constructor(private videoService: VideoService) {
   }
 
   ngOnInit() {
+    if (this.video !== undefined && this.video !== null) {
+      this.isSelected = true;
+      this.selectedVideo = this.video;
+    }
     this.getVideos();
   }
 
@@ -25,22 +31,17 @@ export class VideoChooseAdminComponent implements OnInit {
     this.videoService.getAll(1).subscribe(
       (data: Array<VideoDocument>) => {
         this.videos = data;
-      },
-      error => {
-
       }
     );
   }
 
-  save() {
-    this.refreshOtherThumbnails();
-  }
-
   chooseVideo(video: VideoDocument) {
+    this.isSelected = true;
     this.selectedVideo = video;
+    this.emitVideoSelectedEvent();
   }
 
-  refreshOtherThumbnails() {
-    this.videoChanged.emit(null);
+  emitVideoSelectedEvent() {
+    this.videoSelected.emit(this.selectedVideo);
   }
 }
