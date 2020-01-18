@@ -1,25 +1,21 @@
-* {
-  /*font-family: 'Oswald', sans-serif; */
+.navbar {
+  background: rgb(246,246,246);
+  background: linear-gradient(0deg, rgba(246,246,246,1) 0%, rgba(240,245,245,1) 100%);
+  
+  
+
+  /*font-family: 'Oswald', sans-serif; 
   font-weight: 100;
   color: #565656;
+  font-size: 2rem !important; 
 }
 
-.navbar {
-  border-bottom: 1px;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-style: solid;
-  border-color: #0d90fc;
-  /*padding-left: 10%;
-  padding-right: 10%;*/
-  height: 70px;
-  margin-bottom: 35px;
-}
+  background: rgb(198,198,222);
+  background: linear-gradient(90deg, rgba(198,198,222,1) 0%, rgba(233,233,241,1) 100%, rgba(0,212,255,1) 100%);
 
-.fa-search {
-  font-size: 18px;
-}
+
+    background: rgb(212,212,228);
+  background: linear-gradient(90deg, rgba(212,212,228,1) 0%, rgba(233,233,241,1) 100%, rgba(0,212,255,1) 100%);
 
 .flex-fill {
   flex: 1;
@@ -30,19 +26,34 @@
 }
 
 .logoButton {
- /*padding-left: 20%; */
- margin-left: 10%;
- 
+ padding-left: 6%; */
+ /*margin-left: 10%; 
+
 }
 .userButtons {
-  padding-left: 40%;
+  padding-left: 50%;
 }
 .adminButtons {
-  padding-left: 0%;
+  
 }
-#navbars-options {
- /* padding-left: 70%;*/
+#navbars-options { */
+ /* padding-left: 70%;
 }
 .navbar-brand {
   padding-top: 3px;
+}
+*/
+}
+.navbar {
+  border-bottom: 0.25px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-style: solid;
+  border-color:grey;
+ /* font-size: 50px;
+  padding-left: 10%; 
+  padding-right: 10%; */
+  height: 70px;
+  margin-bottom: 35px;
 }

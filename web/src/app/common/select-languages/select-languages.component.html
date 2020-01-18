@@ -1,6 +1,6 @@
-<div *ngIf="languages" class="language" ngbDropdown ngbTooltip="Język" placement="bottom">
-  <button i18n class="btn btn-outline-primary" ngbDropdownToggle><i class="fa fa-language"
-      aria-hidden="true"></i></button>
+<div *ngIf="languages" class="language" ngbDropdown placement="bottom">
+  <button i18n class="languageButton  btn-outline-primary" style="margin-right: 3px; height: 68px;" ngbDropdownToggle><i class="fa fa-language"
+    aria-hidden="true"></i></button>
   <div ngbDropdownMenu>
     <div *ngFor="let language of languages" class="d-flex justify-content-center align-self-center languages">
       <a (click)="selectLanguage(language.code)">
@@ -9,4 +9,3 @@
     </div>
   </div>
 </div>
-
