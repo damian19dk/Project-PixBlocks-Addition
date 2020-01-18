@@ -47,12 +47,6 @@ namespace PixBlocks_Addition.Infrastructure.Services
             return _mapper.Map<IEnumerable<TagDto>>(tags);
         }
 
-        public async Task<TagDto> GetAsync(string name)
-        {
-            var tag = await _tagRepository.GetAsync(name, _localizationService.Language);
-            return _mapper.Map<TagDto>(tag);
-        }
-
         public async Task<TagDto> GetAsync(Guid id)
         {
             var tag = await _tagRepository.GetAsync(id);

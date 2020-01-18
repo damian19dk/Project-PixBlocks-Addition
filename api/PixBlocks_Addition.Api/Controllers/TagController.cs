@@ -29,11 +29,7 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<IEnumerable<TagDto>> GetAllAsync()
             => await _tagService.GetAllAsync();
 
-        [HttpGet("{name}")]
-        public async Task<TagDto> GetAsync(string name)
-            => await _tagService.GetAsync(name);
-
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<TagDto> GetAsync(Guid id)
             => await _tagService.GetAsync(id);
 
@@ -47,7 +43,7 @@ namespace PixBlocks_Addition.Api.Controllers
             => await _tagService.UpdateAsync(id, tag);
 
         [Authorize(Roles = "Administrator")]
-        [HttpDelete("{name}")]
+        [HttpDelete("{id}")]
         public async Task RemoveAsync(Guid id)
             => await _tagService.RemoveAsync(id);
     }
