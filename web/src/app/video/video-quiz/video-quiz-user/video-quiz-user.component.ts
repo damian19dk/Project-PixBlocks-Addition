@@ -16,7 +16,9 @@ export class VideoQuizUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.prepareQuiz();
+    if (this.quiz !== undefined && this.quiz !== null) {
+      this.prepareQuiz();
+    }
   }
 
   checkAnswers() {
