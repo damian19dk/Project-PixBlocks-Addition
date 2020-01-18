@@ -25,7 +25,7 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task CreateAsync([FromBody]TagResource tag)
             => await _tagService.CreateAsync(tag);
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IEnumerable<TagDto>> GetAllAsync()
             => await _tagService.GetAllAsync();
 
