@@ -23,6 +23,12 @@
   background-repeat: no-repeat;
   background-position: top right;
 }
+@media screen and (min-width: 1900px) {
+.loggedIn {
+  margin-right: 38%;
+}
+
+}
 .userLoggedIn
 {
   background-image: url('./../../assets/svg/undraw_Choose_bwbs.svg'), url('./../../assets/svg/undraw_Business_analytics_64el.svg');  
