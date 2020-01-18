@@ -10,15 +10,19 @@
     <div *ngIf="videoDocument" class="col-7">
       <div class="row">
         <div class="col-12">
-          <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
-               msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
-               webkitallowfullscreen="webkitallowfullscreen">Loading...
-          </div>
+          <div class="embed-responsive embed-responsive-16by9" id="video-field"
+               mozallowfullscreen="mozallowfullscreen"
+               msallowfullscreen="msallowfullscreen"
+               oallowfullscreen="oallowfullscreen"
+               webkitallowfullscreen="webkitallowfullscreen"></div>
 
           <button (click)="addCourseToUserHistory()" class="btn">Start</button>
         </div>
-        <mat-progress-bar [value]="progress" class="mb-1" mode="determinate" ngbTooltip="{{progress}}"
-                          placement="left"></mat-progress-bar>
+        <mat-progress-bar [value]="progress"
+                          class="mb-1"
+                          mode="determinate"
+                          ngbTooltip="{{progress}}"
+                          placement="top"></mat-progress-bar>
       </div>
 
       <div class="row justify-content-between">
@@ -64,8 +68,6 @@
         </div>
       </div>
       <app-video-quiz-user [quiz]="quiz"></app-video-quiz-user>
-
-
     </div>
 
 
