@@ -1,14 +1,27 @@
 <div *ngIf="quiz">
-  <span *ngFor="let question of quiz.questions" class="question">
-    {{question.question}}
+  <span *ngFor="let question of quiz.questions; let i = index" class="question">
+    {{i + 1}}. {{question.question}}
     <br>
     <ul *ngFor="let answer of question.answers">
-      <mat-checkbox color="primary">
+      <mat-checkbox *ngIf="submitted"
+                    [checked]="true"
+                    [color]="submitted ? (answer.isSelected === answer.isCorrect ? 'accent' : 'warn') : 'primary'">
+      </mat-checkbox>
+      <mat-checkbox [(ngModel)]="answer.isSelected"
+                    [disabled]="submitted"
+                    color="primary">
        {{answer.answer}}
       </mat-checkbox>
       </ul>
   </span>
-  <button (click)="checkAnswers()" [class.spinner]="loading" [disabled]="loading" color="primary" mat-raised-button>
+  <div *ngIf="submitted" i18n>
+    Liczba poprawnych odpowiedzi: {{correctAnswers}}
+  </div>
+  <button (click)="checkAnswers()" [class.spinner]="loading"
+          [disabled]="loading || submitted"
+          color="primary"
+          i18n
+          mat-raised-button>
     Sprawdź!
   </button>
 </div>

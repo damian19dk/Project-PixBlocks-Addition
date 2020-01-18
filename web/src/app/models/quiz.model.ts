@@ -4,18 +4,19 @@ export class Quiz {
   questions: Array<QuizQuestion>;
 }
 
-export interface QuizQuestion {
+export class QuizQuestion {
   quizId: string;
   question: string;
   answers: Array<QuizAnswer>;
 }
 
-export interface QuizAnswer {
+export class QuizAnswer {
   answer: string;
   isCorrect: boolean;
+  isSelected: boolean;
 }
 
-export interface CreateQuizPayload {
+export class CreateQuizPayload {
   mediaId: string;
   question: {
     question: string;
@@ -23,7 +24,7 @@ export interface CreateQuizPayload {
   }[];
 }
 
-export interface UpdateQuizPayload {
+export class UpdateQuizPayload {
   quizId: string;
   question: {
     question: string;
@@ -31,7 +32,7 @@ export interface UpdateQuizPayload {
   }[];
 }
 
-export interface Question {
+export class Question {
   question: string;
   answers: Array<QuizAnswer>;
 }

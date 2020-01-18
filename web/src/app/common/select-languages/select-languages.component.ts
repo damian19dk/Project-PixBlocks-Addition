@@ -13,8 +13,6 @@ export class SelectLanguagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.selectedLanguage);
-    console.log(localStorage.getItem('Accept-Language'));
     if (this.selectedLanguage === undefined || this.selectedLanguage === null) {
       this.selectedLanguage = localStorage.getItem('Accept-Language');
     }
