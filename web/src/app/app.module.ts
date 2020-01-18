@@ -1,3 +1,4 @@
+import {QuizService} from './services/quiz.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -53,6 +54,11 @@ import {CoursesViewListUserComponent} from './courses/courses-view-list-user/cou
 import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
 import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user/courses-history-for-user.component';
+import {VideoQuizComponent} from './video/video-quiz/video-quiz.component';
+import {QuizQuestionComponent} from './video/video-quiz/quiz-question/quiz-question.component';
+import {QuizAnswerComponent} from './video/video-quiz/quiz-answer/quiz-answer.component';
+import {QuizFormComponent} from './video/video-quiz/quiz-form/quiz-form.component';
+import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-quiz-user.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SettingsComponent} from './settings/settings.component';
 import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
@@ -112,7 +118,13 @@ import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.comp
     VideoChooseAdminComponent,
     CourseChooseAdminComponent,
     JWPlayerComponent,
-    VideoPreviewComponent
+    VideoPreviewComponent,
+    TagThumbnailEditAdminComponent,
+    VideoQuizComponent,
+    QuizQuestionComponent,
+    QuizAnswerComponent,
+    QuizFormComponent,
+    VideoQuizUserComponent
   ],
   imports: [
     BrowserModule,
@@ -140,15 +152,14 @@ import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.comp
     MatProgressBarModule,
     ColorSketchModule
   ],
-  exports: [
-    HasRoleDirective
-  ],
+  exports: [HasRoleDirective],
   providers: [
     AuthGuardService,
     AuthService,
     VideoService,
     CourseService,
     LoadingService,
+    QuizService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

@@ -1,7 +1,11 @@
 <div class="d-inline-block" ngbDropdown>
-  <button class="btn btn-outline-primary" ngbDropdownToggle type="button">{{buttonName}}</button>
-  <div ngbDropdownMenu>
-    <button (click)="chooseVideo(video)" *ngFor="let video of videos" ngbDropdownItem
+  <button [color]="isSelected ? 'accent' : 'primary'" mat-raised-button ngbDropdownToggle
+          type="button">{{buttonName}}</button>
+  <div *ngIf="videos" ngbDropdownMenu>
+    <button (click)="chooseVideo(video)"
+            *ngFor="let video of videos"
+            [ngClass]="isSelected && selectedVideo.id === video.id ? 'selected-video' : null"
+            ngbDropdownItem
             type="button">{{video.title}}</button>
   </div>
 </div>

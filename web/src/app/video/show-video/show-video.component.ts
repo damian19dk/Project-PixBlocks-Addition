@@ -8,6 +8,8 @@ import {TagService} from 'src/app/services/tag.service';
 import {CourseDocument} from 'src/app/models/courseDocument.model';
 import {CourseService} from 'src/app/services/course.service';
 import {AuthService} from '../../services/auth.service';
+import {QuizService} from '../../services/quiz.service';
+import {Quiz} from '../../models/quiz.model';
 
 declare var jwplayer: any;
 
@@ -24,8 +26,9 @@ export class ShowVideoComponent implements OnInit {
   error: string;
   videos: Array<VideoDocument>;
   courses: Array<CourseDocument>;
-  page = 1;
+  quiz: Quiz = null;
   player: any;
+  progress: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +36,8 @@ export class ShowVideoComponent implements OnInit {
     private loadingService: LoadingService,
     private courseService: CourseService,
     private tagService: TagService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private quizService: QuizService) {
   }
 
   ngOnInit() {
@@ -41,6 +45,9 @@ export class ShowVideoComponent implements OnInit {
 
     this.route.params.subscribe(
       () => {
+        this.quiz = null;
+        this.progress = 0;
+
         this.getCourse();
         this.getVideo();
         this.getHostedVideo();
@@ -87,6 +94,9 @@ export class ShowVideoComponent implements OnInit {
         this.videoDocument = data[0];
         this.videoDocument.tags = this.tagService.toTagsList(this.videoDocument.tags);
         this.error = null;
+        if (this.videoDocument.quizId !== null && this.videoDocument.quizId !== undefined) {
+          this.getQuiz();
+        }
         this.loadingService.unload();
       },
       error => {
@@ -98,7 +108,7 @@ export class ShowVideoComponent implements OnInit {
   async getCourses() {
     this.loadingService.load();
 
-    this.courseService.getAll(this.page).subscribe(
+    this.courseService.getAll(1).subscribe(
       (data: Array<CourseDocument>) => {
         this.courses = data;
         this.error = null;
@@ -119,10 +129,41 @@ export class ShowVideoComponent implements OnInit {
       (data: CourseDocument) => {
         this.courseDocument = data;
         this.error = null;
+        this.getProgress();
         this.loadingService.unload();
       },
       error => {
         this.courseDocument = null;
+        this.loadingService.unload();
+      }
+    );
+  }
+
+  async getQuiz() {
+    this.loadingService.load();
+
+    this.quizService.getOne(this.videoDocument.quizId).subscribe(
+      (data: Quiz) => {
+        this.quiz = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.quiz = null;
+        this.loadingService.unload();
+      }
+    );
+  }
+
+  async getProgress() {
+    this.loadingService.load();
+
+    this.courseService.getProgress(this.courseDocument.id).subscribe(
+      (data: number) => {
+        this.progress = data;
+        this.loadingService.unload();
+      },
+      error => {
+        this.progress = 0;
         this.loadingService.unload();
       }
     );

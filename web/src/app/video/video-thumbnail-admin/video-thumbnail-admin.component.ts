@@ -8,7 +8,9 @@ import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormModal} from '../../models/formModal';
 import {VideoService} from '../../services/video.service';
 import {VideoDto} from '../../models/videoDto.model';
-import {HostedVideoDocument} from "../../models/hostedVideoDocument.model";
+import {HostedVideoDocument} from '../../models/hostedVideoDocument.model';
+import {CourseDocument} from '../../models/courseDocument.model';
+import {CourseService} from '../../services/course.service';
 
 @Component({
   selector: 'app-video-thumbnail',
@@ -20,6 +22,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
   @Input() video: VideoDocument;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
   hostedVideo: HostedVideoDocument;
+  course: CourseDocument = null;
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
@@ -27,7 +30,8 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
               private tagService: TagService,
               private languageService: LanguageService,
               protected modalService: NgbModal,
-              protected modalConfig: NgbModalConfig) {
+              protected modalConfig: NgbModalConfig,
+              private courseService: CourseService) {
     super(modalService, modalConfig);
   }
 
@@ -36,6 +40,7 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
   }
 
   initFormModal() {
+    this.getCourse();
     this.getHostedVideo();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
@@ -114,6 +119,18 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
     );
   }
 
+  async getCourse() {
+    this.courseService.getOne(this.video.parentId).subscribe(
+      (data: CourseDocument) => {
+        this.course = data;
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
 
   refreshOtherVideos() {
     this.videoChanged.emit(null);
@@ -133,5 +150,9 @@ export class VideoThumbnailAdminComponent extends FormModal implements OnInit {
 
   imitateImageInput() {
     document.getElementById('image').click();
+  }
+
+  selectCourse($event: any) {
+    this.form.controls.parentId.setValue($event.id);
   }
 }

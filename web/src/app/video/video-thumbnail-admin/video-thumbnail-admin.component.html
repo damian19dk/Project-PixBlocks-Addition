@@ -18,6 +18,20 @@
     <form (ngSubmit)="edit()" [formGroup]="form" class="col-12">
 
       <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Kurs</label>
+        <div class="col-sm-10">
+          <app-course-choose-admin (courseSelected)="selectCourse($event)"
+                                   [buttonName]="'Wybierz kurs'"
+                                   [course]="course">
+          </app-course-choose-admin>
+
+          <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
+            <div *ngIf="f.parentId.errors.required" i18n>Brak kursu</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-sm-2 col-form-label" i18n>Tytuł</label>
         <div class="col-sm-10 input-group">
           <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" class="form-control" formControlName="title"
@@ -26,7 +40,6 @@
           <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
             <div *ngIf="f.title.errors.required" i18n>Pole jest puste</div>
           </div>
-
         </div>
       </div>
 
