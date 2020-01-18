@@ -1,0 +1,48 @@
+<exceptions>
+  <WrongFormatOfMail>Wrong format of email!</WrongFormatOfMail>
+  <TooLongLogin>User name is too long! (max 20 characters)</TooLongLogin>
+  <TooShortLogin>User name is too short! (min 4 characters)</TooShortLogin>
+  <TooLongPassword>Password is too long (max 20 characters)</TooLongPassword>
+  <TooShortPassword>Password is too short (min 6 characters)</TooShortPassword>
+  <WrongRoleId>Wrong role Id</WrongRoleId>
+  <WrongUserStatus>Wrong user status</WrongUserStatus>
+  <WrongCharactersInPassword>Prohibited characters in password!</WrongCharactersInPassword>
+  <WrongCharactersInLogin>prohibited characters in user name!</WrongCharactersInLogin>
+  <ImageNotFound>Image not found!</ImageNotFound>
+  <TooLongDescription>Description is too long! (max 10000 characters)</TooLongDescription>
+  <TooShortDescription>Description is too short (min 3 characters)</TooShortDescription>
+  <SamePassword>New password must be different from old!</SamePassword>
+  <SameEmail>New e-mail must be different from old!</SameEmail>
+  <UniqueEmail>Account with that e-mail address already exists!</UniqueEmail>
+  <UniqueLogin>Account with that user name already exists!</UniqueLogin>
+  <UniqueLogin>Wrong credentials!</UniqueLogin>
+  <TokenNotFound>Refresh token was not found!</TokenNotFound>
+  <UserNotFoundJWT>User not found!</UserNotFoundJWT>
+  <RefreshAToken>Refresh token was already revoked!</RefreshAToken>
+  <VideoNotFound>Video not found!</VideoNotFound>
+  <CourseNotFound>Course not found!</CourseNotFound>
+  <SameVideoInCourse>Course have this video already!</SameVideoInCourse>
+  <EmptyLanguageTitle>Language cannot be empty!</EmptyLanguageTitle>
+  <WrongCharactersInLanguage>Prohibited characters in language</WrongCharactersInLanguage>
+  <TooShortLanguage>Language is too short! (min 2 characters)</TooShortLanguage>
+  <TooLongLanguage>Language is too long! (max 60 characters)</TooLongLanguage>
+  <InvalidDuration>Duration cannot be negative!</InvalidDuration>
+  <InvalidPicSource>Picture source must be URL or Id!</InvalidPicSource>
+  <EmptyTitle>Title cannot be empty!</EmptyTitle>
+  <TooShortTitle>Title is too short! (min 3 characters)</TooShortTitle>
+  <TooLongTitle>Title is too long! (max 250 characters)</TooLongTitle>
+  <UserNotFound>User not found!</UserNotFound>
+  <VideoHistoryNotFound>User video history not found!</VideoHistoryNotFound>
+  <VideoInHistory>Video already in user history!</VideoInHistory>
+  <NegativeTime>Time cannot be negative!</NegativeTime>
+  <MissingVideos>Missing video in course!</MissingVideos>
+  <WrongUserId>Missing user with this Id!</WrongUserId>
+  <MissingUser>User not found!</MissingUser>
+  <MissingHistory>Missing user history!</MissingHistory>
+  <SameCourseInUserHistory>Course already in user history!</SameCourseInUserHistory>
+  <TagNotFound>The tag does not exist!</TagNotFound>
+  <QuizExists>The given media already has a quiz. Remove the quiz or choose another media.</QuizExists>
+  <InvalidOrderData>The given collection size is incorrect!</InvalidOrderData>
+  <MissingFile>Video file is missing!</MissingFile>
+  <InvalidVideoParentId>You have to provide valid course id!</InvalidVideoParentId>
+</exceptions>

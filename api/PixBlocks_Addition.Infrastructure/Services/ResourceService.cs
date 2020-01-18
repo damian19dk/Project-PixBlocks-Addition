@@ -15,11 +15,13 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
+        private readonly ILocalizationService _localization;
 
-        public ResourceService(IResourceHandler resourceHandler, IResourceRepository resourceRepository)
+        public ResourceService(IResourceHandler resourceHandler, IResourceRepository resourceRepository, ILocalizationService localization)
         {
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
+            _localization = localization;
         }
 
         public async Task ChangeAsync(ChangeResource resource)
@@ -55,7 +57,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var resource = await _resourceRepository.GetAsync(id);
             if (resource == null)
             {
-                throw new MyException(MyCodesNumbers.ImageNotFound, $"Nie znaleziono zasobu z id: {id}.");
+                if (_localization.Language == "en")
+                    throw new MyException(MyCodesNumbers.ImageNotFound, $"Resource not found with id: {id}.");
+                else
+                    throw new MyException(MyCodesNumbers.ImageNotFound, $"Nie znaleziono zasobu z id: {id}.");
             }
             return resource;
         }

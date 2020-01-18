@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
@@ -20,34 +21,40 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoHistoryRepository _videoHistoryRepository;
+        private readonly ILocalizationService _localization;
 
         public VideoHistoryService(IUserRepository userRepository, IVideoRepository videoRepository, 
             IAutoMapperConfig config, ICourseRepository courseRepository,
-            IVideoHistoryRepository videoHistoryRepository)
+            IVideoHistoryRepository videoHistoryRepository, ILocalizationService localization)
         {
             _userRepository = userRepository;
             _videoRepository = videoRepository;
             _mapper = config.Mapper;
             _courseRepository = courseRepository;
             _videoHistoryRepository = videoHistoryRepository;
+            _localization = localization;
         }
 
         public async Task SetProgressAsync(Guid userId, Guid videoId, long time = 0)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             if (time < 0)
-                throw new MyException(MyCodesNumbers.NegativeTime, MyCodes.NegativeTime);
+                throw new MyException(MyCodesNumbers.NegativeTime, doc.SelectSingleNode($"exceptions/NegativeTime").InnerText);
 
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
-                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+                throw new MyException(MyCodesNumbers.UserNotFound, doc.SelectSingleNode($"exceptions/UserNotFound").InnerText);
 
             var video = await _videoRepository.GetAsync(videoId);
             if (video == null)
-                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, doc.SelectSingleNode($"exceptions/VideoNotFound").InnerText);
 
             var videoHistory = await _videoHistoryRepository.GetAsync(user);
             if (videoHistory == null)
-                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, MyCodes.VideoHistoryNotFound);
+                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, doc.SelectSingleNode($"exceptions/VideoHistoryNotFound").InnerText);
 
             VideoRecord videoRecord = videoHistory.Videos.SingleOrDefault(v => v.Video.Id == videoId);
             if(videoRecord == null)
@@ -65,8 +72,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<VideoHistoryDto> GetHistoryAsync(Guid userId)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+            if (user == null) throw new MyException(MyCodesNumbers.UserNotFound, doc.SelectSingleNode($"exceptions/UserNotFound").InnerText);
 
             var result = await _videoHistoryRepository.GetAsync(user);
 
@@ -75,13 +86,17 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<VideoRecordDto> GetVideoProgressAsync(Guid userId, Guid videoId)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
-                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+                throw new MyException(MyCodesNumbers.UserNotFound, doc.SelectSingleNode($"exceptions/UserNotFound").InnerText);
 
             var video = await _videoRepository.GetAsync(videoId);
             if (video == null)
-                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, doc.SelectSingleNode($"exceptions/VideoNotFound").InnerText);
 
             var videoRecord = await _videoHistoryRepository.GetAsync(user, videoId);
             return _mapper.Map<VideoRecordDto>(videoRecord);
@@ -89,21 +104,25 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<int> GetProgressAsync(Guid userId, Guid courseId)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
-                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+                throw new MyException(MyCodesNumbers.UserNotFound, doc.SelectSingleNode($"exceptions/UserNotFound").InnerText);
 
             var course = await _courseRepository.GetAsync(courseId);
             if (course == null)
-                throw new MyException(MyCodesNumbers.CourseNotFound, MyCodes.CourseNotFound);
+                throw new MyException(MyCodesNumbers.CourseNotFound, doc.SelectSingleNode($"exceptions/CourseNotFound").InnerText);
 
             var videoHistory = await _videoHistoryRepository.GetAsync(user);
             if (videoHistory == null)
-                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, MyCodes.VideoHistoryNotFound);
+                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, doc.SelectSingleNode($"exceptions/VideoHistoryNotFound").InnerText);
 
             var videos = await _videoRepository.GetVideosFromCourse(course);
             if (videos == null)
-                throw new MyException(MyCodesNumbers.MissingVideos, MyCodes.MissingVideos);
+                throw new MyException(MyCodesNumbers.MissingVideos, doc.SelectSingleNode($"exceptions/MissingVideos").InnerText);
 
             long time = 0;
             long length = 0;

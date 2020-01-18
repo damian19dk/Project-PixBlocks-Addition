@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
@@ -19,9 +20,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IEncrypter _encrypter;
         private readonly IVideoHistoryRepository _videoHistoryRepository;
         private readonly IUserCourseHistoryRepository _userCourseHistoryRepository;
+        private readonly ILocalizationService _localization;
 
         public IdentityService(IJwtHandler jwtHandler,
-            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter, IUserCourseHistoryRepository userCourseHistoryRepository, IVideoHistoryRepository videoHistoryRepository)
+            IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository, IEncrypter encrypter,
+            IUserCourseHistoryRepository userCourseHistoryRepository, IVideoHistoryRepository videoHistoryRepository,
+            ILocalizationService localization)
 
         {
             _jwtHandler = jwtHandler;
@@ -30,15 +34,20 @@ namespace PixBlocks_Addition.Infrastructure.Services
             _encrypter = encrypter;
             _videoHistoryRepository = videoHistoryRepository;
             _userCourseHistoryRepository = userCourseHistoryRepository;
+            _localization = localization;
         }
 
         public async Task Register(string username, string password, string email, int role)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var unemail = await _userRepository.IsEmailUnique(email);
             var unelogin = await _userRepository.IsLoginUnique(username);
-            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, doc.SelectSingleNode($"exceptions/UniqueEmail").InnerText);
 
-            if (!unelogin) throw new MyException(MyCodesNumbers.UniqueLogin, MyCodes.UniqueLogin);
+            if (!unelogin) throw new MyException(MyCodesNumbers.UniqueLogin, doc.SelectSingleNode($"exceptions/UniqueLogin").InnerText);
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
@@ -55,15 +64,19 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<JwtDto> Login(string login, string password)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
+                throw new MyException(MyCodesNumbers.InvalidCredentials, doc.SelectSingleNode($"exceptions/InvalidCredentials").InnerText);
             }
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password != hash)
             {
-                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
+                throw new MyException(MyCodesNumbers.InvalidCredentials, doc.SelectSingleNode($"exceptions/InvalidCredentials").InnerText);
             }
             var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name, true);
             var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
@@ -85,19 +98,23 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<JwtDto> RefreshAccessToken(string refreshToken)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
+                throw new MyException(MyCodesNumbers.TokenNotFound, doc.SelectSingleNode($"exceptions/TokenNotFound").InnerText);
             }
             if (token.Revoked)
             {
-                throw new MyException(MyCodesNumbers.RefreshToken, MyCodes.RefreshToken);
+                throw new MyException(MyCodesNumbers.RefreshToken, doc.SelectSingleNode($"exceptions/RefreshToken").InnerText);
             }
             var user = await _userRepository.GetAsync(token.UserId);
             if (user == null)
             {
-                throw new MyException(MyCodesNumbers.UserNotFoundJWT, MyCodes.UserNotFoundJWT);
+                throw new MyException(MyCodesNumbers.UserNotFoundJWT, doc.SelectSingleNode($"exceptions/UserNotFoundJWT").InnerText);
             }
             var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name, user.IsPremium);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
@@ -107,14 +124,18 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task RevokeRefreshToken(string refreshToken)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
+                throw new MyException(MyCodesNumbers.TokenNotFound, doc.SelectSingleNode($"exceptions/TokenNotFound").InnerText);
             }
             if (token.Revoked)
             {
-                throw new MyException(MyCodesNumbers.RefreshAToken, MyCodes.RefreshAToken);
+                throw new MyException(MyCodesNumbers.RefreshAToken, doc.SelectSingleNode($"exceptions/RefreshAToken").InnerText);
             }
             token.Revoke();
             await _refreshTokens.UpdateAsync();
