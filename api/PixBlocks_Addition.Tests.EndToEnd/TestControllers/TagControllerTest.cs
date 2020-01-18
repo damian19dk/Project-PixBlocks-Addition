@@ -22,7 +22,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             response.EnsureSuccessStatusCode();
 
             httpClient.SetLanguage("en");
-            var tag = await httpClient.GetAsync<TagDto>($"api/tag/{name}");
+            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
 
             Assert.IsTrue(tag != null);
         }
@@ -59,6 +59,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var name = "Taken tag";
             var response = await createTag(name, "Some desc", "red", "pl");
             response.EnsureSuccessStatusCode();
+            httpClient.SetLanguage("pl");
             var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
             var expectedTag = new TagResource()
             {
@@ -70,7 +71,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 
             httpClient.SetLanguage("pl");
             var res = await httpClient.PutAsync($"api/tag/{tag.Id}", new StringContent(JsonConvert.SerializeObject(expectedTag), Encoding.UTF8, "application/json"));
-
+            var r = res.Content.ReadAsStringAsync();
             Assert.IsFalse(res.IsSuccessStatusCode);
         }
 
@@ -80,9 +81,9 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var name = "Tag to remove";
             var response = await createTag(name, "Some desc", "red", "pl");
             response.EnsureSuccessStatusCode();
-            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
-
             httpClient.SetLanguage("pl");
+            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
+            
             var res = await httpClient.DeleteAsync($"api/tag/{tag.Id}");
             res.EnsureSuccessStatusCode();
             tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
