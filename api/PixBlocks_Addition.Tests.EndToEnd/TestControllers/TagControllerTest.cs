@@ -6,6 +6,8 @@ using PixBlocks_Addition.Tests.EndToEnd.Extentions;
 using System.Text;
 using System.Threading.Tasks;
 using PixBlocks_Addition.Infrastructure.DTOs;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
 {
@@ -20,7 +22,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             response.EnsureSuccessStatusCode();
 
             httpClient.SetLanguage("en");
-            var tag = await httpClient.GetAsync<TagDto>($"api/tag/{name}");
+            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
 
             Assert.IsTrue(tag != null);
         }
@@ -31,19 +33,21 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var name = "Nauka jazdy";
             var response = await createTag(name, "Some desc", "red", "pl");
             response.EnsureSuccessStatusCode();
+            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
             var expectedTag = new TagResource()
             {
                 Name = "Nauka",
                 Description = "Opis",
-                Color = "black",
+                FontColor = "black",
+                BackgroundColor = "black",
                 Language = "en"
             };
 
             httpClient.SetLanguage("pl");
-            var res = await httpClient.PutAsync($"api/tag/{name}", new StringContent(JsonConvert.SerializeObject(expectedTag), Encoding.UTF8, "application/json"));
+            var res = await httpClient.PutAsync($"api/tag/{tag.Id}", new StringContent(JsonConvert.SerializeObject(expectedTag), Encoding.UTF8, "application/json"));
             res.EnsureSuccessStatusCode();
             httpClient.SetLanguage("en");
-            var getTag = await httpClient.GetAsync($"api/tag/{expectedTag.Name}");
+            var getTag = await httpClient.GetAsync($"api/tag?name={expectedTag.Name}");
             var content = await getTag.Content.ReadAsStringAsync();
             var newTag = JsonConvert.DeserializeObject<TagDto>(content);
 
@@ -56,17 +60,20 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var name = "Taken tag";
             var response = await createTag(name, "Some desc", "red", "pl");
             response.EnsureSuccessStatusCode();
+            httpClient.SetLanguage("pl");
+            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
             var expectedTag = new TagResource()
             {
                 Name = name,
                 Description = "Description",
-                Color = "black",
+                FontColor = "black",
+                BackgroundColor = "black",
                 Language = "pl"
             };
 
             httpClient.SetLanguage("pl");
-            var res = await httpClient.PutAsync($"api/tag/{name}", new StringContent(JsonConvert.SerializeObject(expectedTag), Encoding.UTF8, "application/json"));
-
+            var res = await httpClient.PutAsync($"api/tag/{tag.Id}", new StringContent(JsonConvert.SerializeObject(expectedTag), Encoding.UTF8, "application/json"));
+            var r = res.Content.ReadAsStringAsync();
             Assert.IsFalse(res.IsSuccessStatusCode);
         }
 
@@ -76,11 +83,12 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             var name = "Tag to remove";
             var response = await createTag(name, "Some desc", "red", "pl");
             response.EnsureSuccessStatusCode();
-
             httpClient.SetLanguage("pl");
-            var res = await httpClient.DeleteAsync($"api/tag/{name}");
+            var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
+            
+            var res = await httpClient.DeleteAsync($"api/tag/{tag.Id}");
             res.EnsureSuccessStatusCode();
-            var tag = await httpClient.GetAsync<TagDto>($"api/tag/{name}");
+            tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
 
             Assert.IsTrue(tag == null);
         }
@@ -91,7 +99,8 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
             {
                 Name = name,
                 Description = description,
-                Color = color,
+                FontColor = color,
+                BackgroundColor = "black",
                 Language = language
             };
             return await httpClient.PostAsync("api/tag/create", new StringContent(JsonConvert.SerializeObject(tag), Encoding.UTF8, "application/json"));

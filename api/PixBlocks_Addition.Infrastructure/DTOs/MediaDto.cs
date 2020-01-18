@@ -17,6 +17,6 @@ namespace PixBlocks_Addition.Infrastructure.DTOs
         public DateTime PublishDate { get; set; }
         public string Language { get; set; }
         public Guid? QuizId { get; set; }
-        public ICollection<string> Tags { get; set; }
+        public ICollection<TagDto> Tags { get; set; }
     }
 }

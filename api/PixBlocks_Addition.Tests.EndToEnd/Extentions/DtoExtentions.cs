@@ -8,7 +8,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.Extentions
 {
     public static class DtoExtentions
     {
-        private static string[] arrayProperties = { "Tags", "Resources" };
+        private static string[] arrayProperties = { "Resources" };
         private static string[] useToStringForProperties = { "Id", "Premium", "PublishDate", "Duration" };
         private static string[] noMapProperties = { "Courses", "Lessons", "Exercises", "Videos",
                                                     "CourseVideos", "LessonVideos", "ExerciseVideos", "PublishDate"};
@@ -20,7 +20,15 @@ namespace PixBlocks_Addition.Tests.EndToEnd.Extentions
 
             foreach (var p in properties)
             {
-                if (arrayProperties.Contains(p.Name))
+                if(p.Name == "Tags")
+                {
+                    var tagsDto = ((IEnumerable<TagDto>)p.GetValue(parameters));
+                    ISet<string> tags = new HashSet<string>();
+                    foreach (var t in tagsDto)
+                        tags.Add(t.Name);
+                    dict.Add(p.Name, string.Join(',', tags));
+                }
+                else if (arrayProperties.Contains(p.Name))
                 {
                     dict.Add(p.Name, string.Join(',', (IEnumerable<string>)p.GetValue(parameters)));
                 }
@@ -48,7 +56,15 @@ namespace PixBlocks_Addition.Tests.EndToEnd.Extentions
 
             foreach (var p in properties)
             {
-                if (arrayProperties.Contains(p.Name))
+                if (p.Name == "Tags")
+                {
+                    var tagsDto = ((IEnumerable<TagDto>)p.GetValue(lesson));
+                    ISet<string> tags = new HashSet<string>();
+                    foreach (var t in tagsDto)
+                        tags.Add(t.Name);
+                    dict.Add(p.Name, string.Join(',', tags));
+                }
+                else if (arrayProperties.Contains(p.Name))
                 {
                     dict.Add(p.Name, string.Join(',', (IEnumerable<string>)p.GetValue(lesson)));
                 }

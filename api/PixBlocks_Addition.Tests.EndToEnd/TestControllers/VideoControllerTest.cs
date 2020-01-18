@@ -118,7 +118,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 {
                     foreach (var tag in video.Tags)
                     {
-                        if (!data["Tags"].Contains(tag))
+                        if (!data["Tags"].Contains(tag.Name))
                             return false;
                     }
                 }

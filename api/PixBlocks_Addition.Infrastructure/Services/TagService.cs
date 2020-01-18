@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
@@ -37,7 +38,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 throw new MyException(MyCodesNumbers.TagExists, $"The tag {tag.Name} already exists.");
             }
 
-            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.Color, tag.Language));
+            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.FontColor, tag.BackgroundColor, tag.Language));
         }
 
         public async Task<IEnumerable<TagDto>> GetAllAsync()
@@ -52,10 +53,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
             return _mapper.Map<TagDto>(tag);
         }
 
-        public async Task RemoveAsync(string name)
+        public async Task<TagDto> GetAsync(Guid id)
         {
-            var tag = await _tagRepository.GetAsync(name, _localizationService.Language);
-            if(tag == null)
+            var tag = await _tagRepository.GetAsync(id);
+            return _mapper.Map<TagDto>(tag);
+        }
+
+        public async Task RemoveAsync(Guid id)
+        {
+            var tag = await _tagRepository.GetAsync(id);
+            if (tag == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
             }
@@ -63,9 +70,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
             await _tagRepository.RemoveAsync(tag);
         }
 
-        public async Task UpdateAsync(string name, TagResource tag)
+        public async Task UpdateAsync(Guid id, TagResource tag)
         {
-            var tagEntity = await _tagRepository.GetAsync(name, _localizationService.Language);
+            var tagEntity = await _tagRepository.GetAsync(id);
             if(tagEntity == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
@@ -77,7 +84,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             tagEntity.SetName(tag.Name);
             tagEntity.SetDescription(tag.Description);
-            tagEntity.SetColor(tag.Color);
+            tagEntity.SetColor(tag.FontColor, tag.BackgroundColor);
             tagEntity.SetLanguage(tag.Language);
 
             await _tagRepository.UpdateAsync(tagEntity);
