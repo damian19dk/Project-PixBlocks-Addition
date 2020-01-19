@@ -61,7 +61,7 @@ export class VideoService extends DataService {
 
   setVideoHistory(videoId: string, time: number): Observable<any> {
     const headers = new HttpHeaders();
-    return this.http.post<any>(`${environment.baseUrl}/api/VideoHistory/set`, {}, {headers}).pipe(
+    return this.http.post<any>(`${environment.baseUrl}/api/VideoHistory/set?videoId=${videoId}&time=${time}`, {}, {headers}).pipe(
       retry(environment.maxRetryValue));
   }
 }

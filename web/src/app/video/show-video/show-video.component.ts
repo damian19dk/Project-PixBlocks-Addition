@@ -75,8 +75,7 @@ export class ShowVideoComponent implements OnInit {
             aspectratio: '16:9',
             primary: 'html5'
           });
-          jwplayer('video-field').on('pause', (e) => {
-
+          jwplayer('video-field').on('pause', () => {
             this.setVideoHistory();
           });
         }, 50);
@@ -159,28 +158,26 @@ export class ShowVideoComponent implements OnInit {
   }
 
   async getProgress() {
-    this.loadingService.load();
-
     this.courseService.getProgress(this.courseDocument.id).subscribe(
       (data: number) => {
         this.progress = data;
-        this.loadingService.unload();
       },
       error => {
         this.progress = 0;
-        this.loadingService.unload();
       }
     );
   }
 
   async setVideoHistory() {
-    const currentPosition = jwplayer('video-field').getPosition();
+    // tslint:disable-next-line:radix
+    const currentPosition = parseInt(jwplayer('video-field').getPosition());
     this.videoService.setVideoHistory(this.videoDocument.id, currentPosition).subscribe(
       data => {
         this.getProgress();
+        this.error = null;
       },
       error => {
-
+        this.error = error;
       }
     );
   }

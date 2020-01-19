@@ -4,11 +4,11 @@
   </div>
   <div class="container-fluid">
     <div class="courseTitle">
-  <div class="title">    
-    <h2 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h2>
+      <div class="title">
+        <h2 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h2>
+      </div>
+    </div>
   </div>
- </div>
-</div>
   <!-- <h1 *ngIf="courseDocument" class="header padded-left" i18n>{{courseDocument.title}}</h1>
    <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5> -->
 
@@ -29,7 +29,7 @@
                           ngbTooltip="Aktualny postęp: {{progress}}/100"
                           placement="top"></mat-progress-bar>
       </div>
-      
+
       <div class="row justify-content-between" style="padding-top: 9px;">
         <div class="col-4 justify-content-center">
           <div class="col-12 text-center">
@@ -38,7 +38,8 @@
 
           <div class="col-12 text-center">
             <ng-container>
-              <app-tag-thumbnail *ngFor="let tag of videoDocument.tags" [tagDto]="getTag(tag)"></app-tag-thumbnail>
+              <app-tag-thumbnail *ngFor="let tag of videoDocument.tags"
+                                 [tagDto]="getTag(tag)"></app-tag-thumbnail>
             </ng-container>
           </div>
         </div>
@@ -72,7 +73,6 @@
           </div>
         </div>
       </div>
-      <app-video-quiz-user [quiz]="quiz"></app-video-quiz-user>
     </div>
 
 
@@ -102,16 +102,18 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-1"></div>
-    <div class="col-6" style="padding-left: 10%; border-style: solid; height: 25rem;">Tu będą quizy</div>
-    
-    <div class="col-5 quizImage" style="height: 25rem;">
-      <img class="img-max" src="assets/svg/undraw_quiz_nlyh.svg">     
+        <div class="col-6" style="padding-left: 10%; height: 25rem;">
+          <app-video-quiz-user [quiz]="quiz"></app-video-quiz-user>
+        </div>
+
+        <div class="col-5 quizImage" style="height: 25rem;">
+          <img class="img-max" src="assets/svg/undraw_quiz_nlyh.svg">
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-</div>
   <div class="row" style="height: 10rem;">
-    
+
   </div>
 
   <div class="row justify-content-center">

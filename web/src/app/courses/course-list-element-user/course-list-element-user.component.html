@@ -1,26 +1,24 @@
 <div *ngIf="course && course.premium ? isPremiumUser() : true">
-
   <div class="card mb-3 bg-white box-shadow" style="max-width: 80%;">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <!-- <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg> -->
         <div *ngIf="course.courseVideos.length > 0; else empty" class="card-box card-link"
-          routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
+             routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
           <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-          
-       <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
-            src={{course.picture}}/>
-       <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-            src='assets/img/movie.jpg'/>
-     </div>
+
+          <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
+               src={{course.picture}}/>
+          <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+               src='assets/img/movie.jpg'/>
+        </div>
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{course.title}}</h5>
           <p class="card-text">{{course.description | shortText}}</p>
           <p class="card-text"><small class="text-muted">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-            <small style="margin-left: 80%;"class="badge badge-pill badge-primary" container="body"
-            ngbTooltip="Liczba filmów" placement="bottom">{{course.courseVideos.length}}</small>
+            <small class="badge badge-pill badge-primary" container="body" ngbTooltip="Liczba filmów"
+                   placement="bottom" style="margin-left: 80%;">{{course.courseVideos.length}}</small>
             <small *ngIf="course.premium" container="body" ngbTooltip="Premium" placement="bottom"><i
               class="far fa-star"></i></small>
           </p>
@@ -28,21 +26,6 @@
       </div>
     </div>
   </div>
-
-
-<!-- 
-  <div *ngIf="course.courseVideos.length > 0; else empty" class="card-box card-link"
-       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
-       <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-       
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-         <div class="card-header text-center">
-          {{course.title}}
-        </div>
-  </div> -->
 
   <ng-template #empty>
     <div class="card-box">
@@ -52,47 +35,29 @@
            src='assets/img/movie.jpg'/>
     </div>
   </ng-template>
-<!-- 
-  <div class="card-body">
-    <p class="card-text">{{course.description | shortText}}</p>
-
-    <div class="d-flex justify-content-between align-items-center">
-      <small container="body"
-             ngbTooltip="Czas trwania" placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-      <div>
-        <small class="badge badge-pill badge-primary" container="body"
-               ngbTooltip="Liczba filmów" placement="bottom">{{course.courseVideos.length}}</small>
-        <small *ngIf="course.premium" container="body" ngbTooltip="Premium" placement="bottom"><i
-          class="far fa-star"></i></small>
-      </div>
-    </div>
-  </div> -->
 </div>
 
 <div *ngIf="course && course.premium && !isPremiumUser()">
-
-
   <div class="card-not-premium bg-white mb-3 bg-white box-shadow" style="max-width: 80%;">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <!-- <svg class="bd-placeholder-img" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg> -->
         <div *ngIf="course.courseVideos.length > 0; else empty" class="card-box card-link"
-          routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
+             routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
           <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
-          
-       <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
-            src={{course.picture}}/>
-       <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-            src='assets/img/movie.jpg'/>
-     </div>
+
+          <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top align-middle mx-auto d-block"
+               src={{course.picture}}/>
+          <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+               src='assets/img/movie.jpg'/>
+        </div>
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{course.title}}</h5>
           <p class="card-text">{{course.description | shortText}}</p>
           <p class="card-text"><small class="text-muted">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-            <small style="margin-left: 80%;"class="badge badge-pill badge-primary" container="body"
-            ngbTooltip="Liczba filmów" placement="bottom">{{course.courseVideos.length}}</small>
+            <small class="badge badge-pill badge-primary" container="body" ngbTooltip="Liczba filmów"
+                   placement="bottom" style="margin-left: 80%;">{{course.courseVideos.length}}</small>
             <small *ngIf="course.premium" container="body" ngbTooltip="Premium" placement="bottom"><i
               class="far fa-star"></i></small>
           </p>
@@ -100,42 +65,6 @@
       </div>
     </div>
   </div>
-<!-- 
-  <div class="card-header text-center">
-    {{course.title}}
-  </div>
-
-  <div *ngIf="course.courseVideos.length > 0; else empty" class="card-box card-link"
-       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div>
-
-  <ng-template #empty>
-    <div class="card-box">
-      <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-           src={{course.picture}}/>
-      <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-           src='assets/img/movie.jpg'/>
-    </div>
-  </ng-template>
-
-  <div class="card-body">
-    <p class="card-text">{{course.description | shortText}}</p>
-
-    <div class="d-flex justify-content-between align-items-center">
-      <small container="body"
-             ngbTooltip="Czas trwania" placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
-      <div>
-        <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
-               container="body" placement="bottom">{{course.courseVideos.length}}</small>
-        <small *ngIf="course.premium" container="body" ngbTooltip="Premium" placement="bottom"><i
-          class="far fa-star"></i></small>
-      </div>
-    </div>
-  </div> -->
 
   <ng-template #empty>
     <div class="card-box">
