@@ -1,2 +1,4 @@
-<span [ngStyle]="{'background-color': tagDto.color}" class="badge" ngbTooltip="{{tagDto.description}}"
+<span [ngStyle]="{'background-color': tagDto.backgroundColor, 'color': tagDto.fontColor}"
+      class="badge"
+      ngbTooltip="{{tagDto.description}}"
       placement="bottom">{{tagDto.name}}</span>

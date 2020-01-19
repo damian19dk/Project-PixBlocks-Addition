@@ -77,7 +77,9 @@ export class ShowVideoComponent implements OnInit {
           });
         }, 50);
 
-        jwplayer().on('pause').addEventListener();
+        jwplayer().on('pause', (e) => {
+          console.log(e);
+        });
 
         this.loadingService.unload();
       },
