@@ -88,24 +88,26 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task UpdateAsync(Guid id, TagResource tag)
         {
-
             string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
 
             var tagEntity = await _tagRepository.GetAsync(id);
-            
-            if(tagEntity == null)
+
+            if (tagEntity == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, doc.SelectSingleNode($"exceptions/TagNotFound").InnerText);
             }
             var tagExists = await _tagRepository.GetAsync(tag.Name, tag.Language);
-            if(tagExists != null)
+            if (tag.Name != tagEntity.Name)
             {
-                if (_localization.Language == "en")
-                    throw new MyException(MyCodesNumbers.TagExists, $"The tag {tag.Name} already exists!");
-                else
-                    throw new MyException(MyCodesNumbers.TagExists, $"Tag o nazwie: {tag.Name} już istnieje!");
+                if (tagExists != null)
+                {
+                    if (_localization.Language == "en")
+                        throw new MyException(MyCodesNumbers.TagExists, $"The tag {tag.Name} already exists!");
+                    else
+                        throw new MyException(MyCodesNumbers.TagExists, $"Tag o nazwie: {tag.Name} już istnieje!");
+                }
             }
             tagEntity.SetName(tag.Name, _localization.Language);
             tagEntity.SetDescription(tag.Description, _localization.Language);
