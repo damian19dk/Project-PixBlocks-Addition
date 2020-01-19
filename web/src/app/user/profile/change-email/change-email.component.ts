@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from 'src/app/services/user.service';
@@ -11,6 +11,8 @@ import {FormModal} from '../../../models/formModal';
   styleUrls: ['./change-email.component.css']
 })
 export class ChangeEmailComponent extends FormModal implements OnInit {
+  @Output() profileChanged: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(protected modalService: NgbModal,
               private formBuilder: FormBuilder,
               private userService: UserService,
@@ -42,6 +44,7 @@ export class ChangeEmailComponent extends FormModal implements OnInit {
     return this.userService.changeEmail(login, this.form.value.email).subscribe(
       data => {
         localStorage.setItem('UserEmail', this.form.value.email);
+        this.emitProfileChangedEvent();
         this.sent = true;
         this.error = null;
         this.loading = false;
@@ -52,5 +55,9 @@ export class ChangeEmailComponent extends FormModal implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  emitProfileChangedEvent() {
+    this.profileChanged.emit(null);
   }
 }

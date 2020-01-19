@@ -1,63 +1,79 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="d-flex flex-grow-1">
-            <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand d-none d-lg-inline-block" href="#">
-            <a style="padding-left: 50%;" class="navbar-brand" routerLink="/"><img src='assets/img/logo_pixblocks.png' alt="Logo"></a>
-            </a>
-            
-        </div>
-        <button class="navbar-toggler hidden-md-up" type="button" (click)="isNavCollapsed = !isNavCollapsed"
+  <div class="d-flex flex-grow-1">
+    <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
+    <a class="navbar-brand d-none d-lg-inline-block" href="#">
+      <a class="navbar-brand" routerLink="/" style="padding-left: 50%;"><img alt="Logo"
+                                                                             src='assets/img/logo_pixblocks.png'></a>
+    </a>
+
+  </div>
+  <button (click)="isNavCollapsed = !isNavCollapsed" class="navbar-toggler hidden-md-up" type="button"
           data-target="#navbars-options" aria-controls="navbars-options" aria-expanded="false"
           aria-label="Toggle navigation">
     <i class="fas fa-bars"></i>
-        </button>
-        <div [ngbCollapse]="isNavCollapsed" style="padding-right: 10%" class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
-                <ul *appHasRole="['Użytkownik']" class="navbar-nav ml-auto">
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/mycourses">Moje kursy
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/profile">Mój profil
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/settings">Ustawienia
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick(); logout()" color="primary" i18n
-                                mat-stroked-button>Wyloguj
-                        </button>
-                        <app-select-languages [languages]="languages"></app-select-languages>
-                </ul>
+  </button>
+  <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar"
+       style="padding-right: 10%">
+    <ul *appHasRole="['Użytkownik']" class="navbar-nav ml-auto">
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/mycourses"
+              style="margin-right: 3px; border: none; height: 73px;">Moje kursy
+      </button>
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/profile"
+              style="margin-right: 3px; border: none; height: 73px;">Mój profil
+      </button>
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/settings"
+              style="margin-right: 3px; border: none; height: 73px;">Ustawienia
+      </button>
+      <button (click)="afterClick(); logout()" color="primary" i18n
+              mat-stroked-button
+              style="margin-right: 3px; border: none; height: 73px;">Wyloguj
+      </button>
+      <app-select-languages [languages]="languages"></app-select-languages>
+    </ul>
 
-                <ul *appHasRole="['Administrator']" class="navbar-nav ml-auto">
-                        <button class="" style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/videos">Dodaj wideo
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/courses">Zarządzaj kursami
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/profile">Mój profil
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" color="primary" i18n mat-stroked-button
-                                routerLink="/settings">Ustawienia
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick(); logout()" color="primary" i18n
-                                mat-stroked-button>Wyloguj
-                        </button>
-                        <app-select-languages [languages]="languages"></app-select-languages>
-                      </ul>
-                <ul *appHasRole="['anonymous']" class="navbar-nav ml-auto">
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" *appHasRole="['anonymous']" color="primary" i18n mat-stroked-button
-                                routerLink="/register">
-                          Zarejestruj
-                        </button>
-                        <button style="margin-right: 3px; border: none; height: 73px;" (click)="afterClick()" *appHasRole="['anonymous']" color="primary" i18n mat-stroked-button
-                                routerLink="/login">
-                          Zaloguj
-                        </button>
-                        <app-select-languages [languages]="languages"></app-select-languages>
-                </ul>
-                
-        </div>
-    </nav>
-    
+    <ul *appHasRole="['Administrator']" class="navbar-nav ml-auto">
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/courses"
+              style="margin-right: 3px; border: none; height: 73px;">Kursy
+      </button>
+      <button (click)="afterClick()" class="" color="primary" i18n
+              mat-stroked-button routerLink="/videos"
+              style="margin-right: 3px; border: none; height: 73px;">Filmy
+      </button>
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/quizes"
+              style="margin-right: 3px; border: none; height: 73px;">Quizy
+      </button>
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/profile"
+              style="margin-right: 3px; border: none; height: 73px;">Mój profil
+      </button>
+      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+              routerLink="/settings"
+              style="margin-right: 3px; border: none; height: 73px;">Ustawienia
+      </button>
+      <button (click)="afterClick(); logout()" color="primary" i18n
+              mat-stroked-button
+              style="margin-right: 3px; border: none; height: 73px;">Wyloguj
+      </button>
+      <app-select-languages [languages]="languages"></app-select-languages>
+    </ul>
+    <ul *appHasRole="['anonymous']" class="navbar-nav ml-auto">
+      <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary"
+              i18n mat-stroked-button routerLink="/register"
+              style="margin-right: 3px; border: none; height: 73px;">
+        Zarejestruj
+      </button>
+      <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary"
+              i18n mat-stroked-button routerLink="/login"
+              style="margin-right: 3px; border: none; height: 73px;">
+        Zaloguj
+      </button>
+      <app-select-languages [languages]="languages"></app-select-languages>
+    </ul>
+
+  </div>
+</nav>

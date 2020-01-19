@@ -1,3 +1,7 @@
 .deleteButton {
   margin-left: 1rem;
 }
+
+.is-correct {
+  margin-left: 5px;
+}
