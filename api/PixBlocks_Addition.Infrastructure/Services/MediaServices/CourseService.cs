@@ -104,7 +104,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             var course = new Course(resource.Premium, Guid.Empty, resource.Title, resource.Description,
-                                    resource.PictureUrl, resource.Language, 0, resources, tags);
+                                    resource.PictureUrl, _localizer.Language, resource.Language, 0, resources, tags);
             await _courseRepository.AddAsync(course);
         }
 

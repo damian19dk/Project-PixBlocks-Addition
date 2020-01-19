@@ -59,12 +59,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
             VideoRecord videoRecord = videoHistory.Videos.SingleOrDefault(v => v.Video.Id == videoId);
             if(videoRecord == null)
             {
-                videoRecord = new VideoRecord(video, time);
+                videoRecord = new VideoRecord(video, time, _localization.Language);
                 videoHistory.Videos.Add(videoRecord);
             }
             else
             {
-                videoRecord.SetTime(time);
+                videoRecord.SetTime(time, _localization.Language);
             }
 
             await _videoHistoryRepository.UpdateAsync(videoHistory);

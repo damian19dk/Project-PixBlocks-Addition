@@ -47,7 +47,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                     else
                         throw new MyException(MyCodesNumbers.CourseNotFound, $"Kurs z id {id} nie istnieje!");
                 }
-                course.SetIndex(index);
+                course.SetIndex(index, _localizationService.Language);
                 validCourses.Add(course);
                 index++;
             }
@@ -95,7 +95,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                     else
                         throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie istnieje wideo z id {id}!");
                 }
-                video.SetIndex(index);
+                video.SetIndex(index, _localizationService.Language);
                 validVideos.Add(video);
                 index++;
             }

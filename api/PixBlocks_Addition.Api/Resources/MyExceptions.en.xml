@@ -7,7 +7,7 @@
   <WrongRoleId>Wrong role Id</WrongRoleId>
   <WrongUserStatus>Wrong user status</WrongUserStatus>
   <WrongCharactersInPassword>Prohibited characters in password!</WrongCharactersInPassword>
-  <WrongCharactersInLogin>prohibited characters in user name!</WrongCharactersInLogin>
+  <WrongCharactersInLogin>Prohibited characters in user name!</WrongCharactersInLogin>
   <ImageNotFound>Image not found!</ImageNotFound>
   <TooLongDescription>Description is too long! (max 10000 characters)</TooLongDescription>
   <TooShortDescription>Description is too short (min 3 characters)</TooShortDescription>
@@ -23,7 +23,7 @@
   <CourseNotFound>Course not found!</CourseNotFound>
   <SameVideoInCourse>Course have this video already!</SameVideoInCourse>
   <EmptyLanguageTitle>Language cannot be empty!</EmptyLanguageTitle>
-  <WrongCharactersInLanguage>Prohibited characters in language</WrongCharactersInLanguage>
+  <WrongCharactersInLanguage>Prohibited characters in language!</WrongCharactersInLanguage>
   <TooShortLanguage>Language is too short! (min 2 characters)</TooShortLanguage>
   <TooLongLanguage>Language is too long! (max 60 characters)</TooLongLanguage>
   <InvalidDuration>Duration cannot be negative!</InvalidDuration>
@@ -45,4 +45,10 @@
   <InvalidOrderData>The given collection size is incorrect!</InvalidOrderData>
   <MissingFile>File is missing!</MissingFile>
   <InvalidVideoParentId>You have to provide valid course id!</InvalidVideoParentId>
+  <InvalidLanguage>Wrong language!</InvalidLanguage>
+  <InvalidIndex>Index cannot be negative</InvalidIndex>
+  <InvalidColor>Color cannot be null!</InvalidColor>
+  <InvalidDescription>Description cannot be empty!</InvalidDescription>
+  <LanguageTooShortTooLong>Lenguage cannot be shorter then 2 and longer then 60 characters!</LanguageTooShortTooLong>
+  <InvalidCredentials>Wrong credentials!</InvalidCredentials>
 </exceptions>

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
@@ -28,39 +29,47 @@ namespace PixBlocks_Addition.Domain.Entities
 
         protected User() { }
       
-        public User(string login, string e_mail, string password, Role role, IEncrypter encrypter)
+        public User(string login, string e_mail, string password, Role role, IEncrypter encrypter, string localization)
         {
             Id = Guid.NewGuid();
-            SetLogin(login);
-            SetEmail(e_mail);
-            SetRole(role.Id);
-            SetPassword(password, encrypter);
+            SetLogin(login, localization);
+            SetEmail(e_mail, localization);
+            SetRole(role.Id, localization);
+            SetPassword(password, encrypter, localization);
         }
 
-        public User(string login, string e_mail, int role, string password, IEncrypter encrypter)
+        public User(string login, string e_mail, int role, string password, IEncrypter encrypter, string localization)
         {
             Id = Guid.NewGuid();
-            SetLogin(login);
-            SetEmail(e_mail);
-            SetRole(role);
-            SetPassword(password, encrypter);
+            SetLogin(login, localization);
+            SetEmail(e_mail, localization);
+            SetRole(role, localization);
+            SetPassword(password, encrypter, localization);
         }
 
-        public void SetLogin(string login)
+        public void SetLogin(string login, string language)
         {
-            if (login.Length < 3) throw new MyException(MyCodesNumbers.TooShortLogin, MyCodes.TooShortLogin);
-            if (login.Length >= 20) throw new MyException(MyCodesNumbers.TooLongLogin, MyCodes.TooLongLogin);
-            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
-            if (!regex_login.IsMatch(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
+            if (login.Length < 3) throw new MyException(MyCodesNumbers.TooShortLogin, doc.SelectSingleNode($"exceptions/TooShortLogin").InnerText);
+            if (login.Length >= 20) throw new MyException(MyCodesNumbers.TooLongLogin, doc.SelectSingleNode($"exceptions/TooLongLogin").InnerText);
+            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, doc.SelectSingleNode($"exceptions/WrongCharactersInLogin").InnerText);
+            if (!regex_login.IsMatch(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, doc.SelectSingleNode($"exceptions/WrongCharactersInLogin").InnerText);
             Login = login;
         }
 
-        public void SetPassword(string password, IEncrypter encrypter)
+        public void SetPassword(string password, IEncrypter encrypter, string language)
         {
-            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodesNumbers.WrongCharactersInPassword, MyCodes.WrongCharactersInPassword);
-            if (password.Length < 6) throw new MyException(MyCodesNumbers.TooShortPassword, MyCodes.TooShortPassword);
-            if (password.Length >= 20) throw new MyException(MyCodesNumbers.TooLongPassword, MyCodes.TooLongPassword);
-            if (password == Password) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
+            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodesNumbers.WrongCharactersInPassword, doc.SelectSingleNode($"exceptions/WrongCharactersInPassword").InnerText);
+            if (password.Length < 6) throw new MyException(MyCodesNumbers.TooShortPassword, doc.SelectSingleNode($"exceptions/TooShortPassword").InnerText);
+            if (password.Length >= 20) throw new MyException(MyCodesNumbers.TooLongPassword, doc.SelectSingleNode($"exceptions/TooLongPassword").InnerText);
+            if (password == Password) throw new MyException(MyCodesNumbers.SamePassword, doc.SelectSingleNode($"exceptions/SamePassword").InnerText);
 
             string salt = encrypter.GetSalt(password);
             string hash = encrypter.GetHash(password, salt);
@@ -74,27 +83,39 @@ namespace PixBlocks_Addition.Domain.Entities
             IsPremium = premium;
         }
 
-        public void SetRole(int role)
+        public void SetRole(int role, string language)
         {
-            IsRoleCorrectSet(role);
+            IsRoleCorrectSet(role, language);
             if (role > 1) SetPremium(true);
             RoleId = role;
         }
-        public void SetEmail(string mail)
+        public void SetEmail(string mail, string language)
         {
-            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodesNumbers.WrongFormatOfMail, MyCodes.WrongFormatOfMail);
-            if (mail == Email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
+            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodesNumbers.WrongFormatOfMail, doc.SelectSingleNode($"exceptions/WrongFormatOfMail").InnerText);
+            if (mail == Email) throw new MyException(MyCodesNumbers.SameEmail, doc.SelectSingleNode($"exceptions/SameEmail").InnerText);
             Email = mail;
         }
-        public void SetStatus(int status)
+        public void SetStatus(int status, string language)
         {
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             if (status == 1 || status == 0) Status = status;
-            else throw new MyException(MyCodesNumbers.WrongUserStatus, MyCodes.WrongUserStatus);
+            else throw new MyException(MyCodesNumbers.WrongUserStatus, doc.SelectSingleNode($"exceptions/WrongUserStatus").InnerText);
         }
-        public void IsRoleCorrectSet(int roleid)
+        public void IsRoleCorrectSet(int roleid, string language)
         {
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             if (roleid == 3 || roleid == 2 || roleid == 1) RoleId = roleid;
-            else throw new MyException(MyCodesNumbers.WrongRoleId, MyCodes.WrongRoleId);
+            else throw new MyException(MyCodesNumbers.WrongRoleId, doc.SelectSingleNode($"exceptions/WrongRoleId").InnerText);
         }
         public string GetRoleName(int roleId)
         {

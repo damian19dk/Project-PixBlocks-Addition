@@ -44,7 +44,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                     throw new MyException(MyCodesNumbers.TagExists, $"Tag o nazwie: {tag.Name} już istnieje!");
             }
 
-            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.Color, tag.Language));
+            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.Color, tag.Language, _localization.Language));
         }
 
         public async Task<IEnumerable<TagDto>> GetAllAsync()
@@ -93,10 +93,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 else
                     throw new MyException(MyCodesNumbers.TagExists, $"Tag o nazwie: {tag.Name} już istnieje!");
             }
-            tagEntity.SetName(tag.Name);
-            tagEntity.SetDescription(tag.Description);
-            tagEntity.SetColor(tag.Color);
-            tagEntity.SetLanguage(tag.Language);
+            tagEntity.SetName(tag.Name, _localization.Language);
+            tagEntity.SetDescription(tag.Description, _localization.Language);
+            tagEntity.SetColor(tag.Color, _localization.Language);
+            tagEntity.SetLanguage(tag.Language, _localization.Language);
 
             await _tagRepository.UpdateAsync(tagEntity);
         }

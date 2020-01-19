@@ -52,7 +52,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
 
-            User user = new User(username, email, role, password, _encrypter);
+            User user = new User(username, email, role, password, _encrypter, _localization.Language);
 
             VideoHistory videoHistory = new VideoHistory(user);
             UserCourseHistory userCourseHistory = new UserCourseHistory(user);
@@ -137,7 +137,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             {
                 throw new MyException(MyCodesNumbers.RefreshAToken, doc.SelectSingleNode($"exceptions/RefreshAToken").InnerText);
             }
-            token.Revoke();
+            token.Revoke(_localization.Language);
             await _refreshTokens.UpdateAsync();
         }
     }

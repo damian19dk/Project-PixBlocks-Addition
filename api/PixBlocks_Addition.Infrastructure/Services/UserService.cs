@@ -36,7 +36,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             if (user.Email == email) throw new MyException(MyCodesNumbers.SameEmail, doc.SelectSingleNode($"exceptions/SameEmail").InnerText);
             if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, doc.SelectSingleNode($"exceptions/UniqueEmail").InnerText);
 
-            user.SetEmail(email);
+            user.SetEmail(email, _localization.Language);
 
             await _userRepository.UpdateAsync(user);
         }
@@ -50,7 +50,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             if (newPassword == oldPassword) throw new MyException(MyCodesNumbers.SamePassword, doc.SelectSingleNode($"exceptions/SamePassword").InnerText);
 
-            user.SetPassword(newPassword, _encrypter);
+            user.SetPassword(newPassword, _encrypter, _localization.Language);
 
             await _userRepository.UpdateAsync(user);
         }

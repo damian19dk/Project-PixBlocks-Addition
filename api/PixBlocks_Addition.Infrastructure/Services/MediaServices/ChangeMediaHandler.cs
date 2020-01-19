@@ -52,12 +52,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     else
                         throw new MyException(MyCodesNumbers.SameTitleMedia, $"Istnieje już media o tytule: {resource.Title}.");
                 }
-                entity.SetTitle(resource.Title);
+                entity.SetTitle(resource.Title, _localizer.Language);
             }
             if (resource.Description != entity.Description)
-                entity.SetDescription(resource.Description);
+                entity.SetDescription(resource.Description, _localizer.Language);
             if (resource.Language != entity.Language)
-                entity.SetLanguage(resource.Language);
+                entity.SetLanguage(resource.Language, _localizer.Language);
             if (resource.Premium != entity.Premium)
                 entity.SetPremium(resource.Premium);
             
@@ -117,7 +117,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             if (resource.PictureUrl != null)
             {
                 await tryRemoveResourceFromDb(entity.Picture);
-                entity.SetPicture(resource.PictureUrl);
+                entity.SetPicture(resource.PictureUrl, _localizer.Language);
             }
             //Add picture to database
             if (resource.Image != null)
@@ -125,7 +125,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 await tryRemoveResourceFromDb(entity.Picture);
                 var img = await _resourceHandler.CreateAsync(resource.Image);
                 await _resourceRepository.AddAsync(img);
-                entity.SetPicture(img.Id.ToString());
+                entity.SetPicture(img.Id.ToString(), _localizer.Language);
             }
 
             await mediaRepository.UpdateAsync(entity);

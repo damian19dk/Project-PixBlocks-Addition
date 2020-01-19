@@ -129,7 +129,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             
 
                 var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
-                                    0, video.Language, resources, tags);
+                                    0, video.Language, _localizer.Language, resources, tags);
 
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
@@ -158,7 +158,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 }
             }
             video.SetStatus(response.Status);
-            video.SetDuration((long)response.Duration);
+            video.SetDuration((long)response.Duration, _localizer.Language);
             await videoRepository.UpdateAsync(video);
         }
 
