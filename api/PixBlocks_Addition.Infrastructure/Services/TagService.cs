@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using AutoMapper;
@@ -44,7 +45,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                     throw new MyException(MyCodesNumbers.TagExists, $"Tag o nazwie: {tag.Name} już istnieje!");
             }
 
-            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.Color, tag.Language, _localization.Language));
+            await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.FontColor, tag.BackgroundColor, tag.Language, _localization.Language));
         }
 
         public async Task<IEnumerable<TagDto>> GetAllAsync()
@@ -59,14 +60,21 @@ namespace PixBlocks_Addition.Infrastructure.Services
             return _mapper.Map<TagDto>(tag);
         }
 
-        public async Task RemoveAsync(string name)
+        public async Task<TagDto> GetAsync(Guid id)
         {
+
             string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
 
-            var tag = await _tagRepository.GetAsync(name, _localizationService.Language);
-            if(tag == null)
+            var tag = await _tagRepository.GetAsync(id, _localizationService.Language);
+            return _mapper.Map<TagDto>(tag);
+        }
+
+        public async Task RemoveAsync(Guid id)
+        {
+            var tag = await _tagRepository.GetAsync(id);
+            if (tag == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, doc.SelectSingleNode($"exceptions/TagNotFound").InnerText);
             }
@@ -74,13 +82,15 @@ namespace PixBlocks_Addition.Infrastructure.Services
             await _tagRepository.RemoveAsync(tag);
         }
 
-        public async Task UpdateAsync(string name, TagResource tag)
+        public async Task UpdateAsync(Guid id, TagResource tag)
         {
+
             string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
 
-            var tagEntity = await _tagRepository.GetAsync(name, _localizationService.Language);
+            var tagEntity = await _tagRepository.GetAsync(id, _localizationService.Language);
+            
             if(tagEntity == null)
             {
                 throw new MyException(MyCodesNumbers.TagNotFound, doc.SelectSingleNode($"exceptions/TagNotFound").InnerText);
@@ -95,7 +105,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             tagEntity.SetName(tag.Name, _localization.Language);
             tagEntity.SetDescription(tag.Description, _localization.Language);
-            tagEntity.SetColor(tag.Color, _localization.Language);
+            tagEntity.SetColor(tag.FontColor, tag.BackgroundColor, _localization.Language);
             tagEntity.SetLanguage(tag.Language, _localization.Language);
 
             await _tagRepository.UpdateAsync(tagEntity);

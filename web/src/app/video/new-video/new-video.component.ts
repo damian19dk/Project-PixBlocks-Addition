@@ -42,7 +42,6 @@ export class NewVideoComponent extends Form implements OnInit {
 
   create() {
     this.submitted = true;
-    this.form.controls.video.setValue(this.fileToUpload);
 
     if (this.form.invalid) {
       return;
@@ -51,9 +50,6 @@ export class NewVideoComponent extends Form implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.video = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.videoService.add(formData)
@@ -70,12 +66,19 @@ export class NewVideoComponent extends Form implements OnInit {
         });
   }
 
+  handleImageInput(files: FileList) {
+    this.form.controls.image.setValue(files.item(0));
+  }
+
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.form.controls.video.setValue(files.item(0));
+  }
+
+  imitateImageInput() {
+    document.getElementById('image').click();
   }
 
   imitateFileInput() {
-    this.fileToUpload = null;
     document.getElementById('video').click();
   }
 

@@ -18,7 +18,6 @@ export class VideoAddModalAdminComponent extends FormModal implements OnInit {
 
   @Input() course: CourseDocument;
   @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
@@ -32,16 +31,15 @@ export class VideoAddModalAdminComponent extends FormModal implements OnInit {
 
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new VideoDto();
-
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       parentId: [this.course.id, Validators.required],
@@ -68,10 +66,6 @@ export class VideoAddModalAdminComponent extends FormModal implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.image;
-    this.dataDto.video = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.videoService.add(formData)
@@ -80,7 +74,7 @@ export class VideoAddModalAdminComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.emitVideoChangedEvent();
         },
         error => {
           this.sent = true;
@@ -89,16 +83,16 @@ export class VideoAddModalAdminComponent extends FormModal implements OnInit {
         });
   }
 
-  refreshOtherThumbnails() {
+  emitVideoChangedEvent() {
     this.videoChanged.emit(null);
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    this.form.controls.video.setValue(files.item(0));
   }
 
   handleImageInput(files: FileList) {
-    this.image = files.item(0);
+    this.form.controls.image.setValue(files.item(0));
   }
 
   imitateFileInput() {

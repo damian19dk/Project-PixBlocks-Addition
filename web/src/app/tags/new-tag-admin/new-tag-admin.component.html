@@ -59,7 +59,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="color" i18n>Kolor tła</label>
         <div class="col-sm-10 input-group">
-          <color-sketch (onChangeComplete)="changeColor($event)" color="#fff"></color-sketch>
+          <color-sketch (onChangeComplete)="changeBackgroundColor($event)" color="#fff"></color-sketch>
         </div>
       </div>
 
@@ -78,7 +78,7 @@
             Ładowanie..
           </div>
         </button>
-        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
           Zamknij
         </button>
       </div>

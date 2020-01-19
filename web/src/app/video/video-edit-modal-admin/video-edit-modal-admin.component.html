@@ -84,10 +84,12 @@
         <label [for]="video.id" class="col-sm-2 col-form-label" i18n>Zdjęcie</label>
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
-                 class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
           <input (change)="handleImageInput($event.target.files)" [id]="video.id"
                  class="form-control"
-                 [ngClass]="{'is-valid' : image}" hidden type="file">
+                 [ngClass]="{'is-valid' : f.image.value}"
+                 accept="image/*"
+                 hidden type="file">
         </div>
       </div>
 
@@ -95,22 +97,32 @@
         <label [for]="video.mediaId" class="col-sm-2 col-form-label" i18n>Film</label>
         <div class="col-sm-10">
           <label (click)="imitateFileInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowy do wysłania' : 'Wybierz film'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="file-label">{{f.video.value ? 'Gotowy do wysłania' : 'Wybierz film'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [id]="video.mediaId"
                  class="form-control"
-                 [id]="video.mediaId" hidden type="file">
+                 [ngClass]="{'is-valid' : f.video.value}"
+                 accept="video/*"
+                 hidden
+                 type="file">
         </div>
       </div>
 
-      <div class="row form-group">
-        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+      <div *ngIf="hostedVideo" class="row form-group">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd ostatnio wgranego filmu</label>
         <div class="col-sm-10 align-self-center overflow-hidden">
           <a [href]="hostedVideo.link" target="_blank">{{hostedVideo.link}}</a>
         </div>
       </div>
 
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd filmu</label>
+        <div class="col-sm-10">
+          <app-video-preview [video]="f.video.value"></app-video-preview>
+        </div>
+      </div>
+
       <div class="modal-footer justify-content-end">
-        <button (click)="remove(); modal.close('Deleted')" [disabled]="loading" class="btn btn-warning" i18n
+        <button (click)="remove(); closeModal(modal)" [disabled]="loading" class="btn btn-warning" i18n
                 type="submit">
           Usuń
         </button>
@@ -121,7 +133,7 @@
             Ładowanie..
           </div>
         </button>
-        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
           Zamknij
         </button>
       </div>

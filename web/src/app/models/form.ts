@@ -16,8 +16,6 @@ export class Form {
   tagsSettings = {};
   languages: Array<Language>;
 
-  fileToUpload: File = null;
-
   get f() {
     return this.form.controls;
   }
@@ -28,5 +26,12 @@ export class Form {
         this.tagsList = data.map(tag => tag.name);
       }
     );
+  }
+
+  resetFlags() {
+    this.loading = false;
+    this.submitted = false;
+    this.sent = false;
+    this.error = null;
   }
 }

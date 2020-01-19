@@ -82,9 +82,10 @@
         <label class="col-sm-2 col-form-label" for="newVideoImage" i18n>Zdjęcie</label>
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
-                 class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : image}"
+                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
                  class="form-control"
+                 accept="image/*"
                  hidden id="newVideoImage" type="file">
         </div>
       </div>
@@ -93,10 +94,19 @@
         <label class="col-sm-2 col-form-label" for="newVideo" i18n>Film</label>
         <div class="col-sm-10">
           <label (click)="imitateFileInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+                 class="file-label">{{f.video.value ? 'Gotowy do wysłania' : 'Wybierz film'}}</label>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : f.video.value}"
                  class="form-control"
-                 hidden id="newVideo" type="file">
+                 accept="video/*" hidden
+                 id="newVideo"
+                 type="file">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+        <div class="col-sm-10">
+          <app-video-preview [video]="f.video.value"></app-video-preview>
         </div>
       </div>
 
@@ -108,7 +118,7 @@
             Ładowanie..
           </div>
         </button>
-        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
           Zamknij
         </button>
       </div>

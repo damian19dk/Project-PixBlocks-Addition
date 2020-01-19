@@ -13,16 +13,17 @@ namespace PixBlocks_Addition.Domain.Entities
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
-        public string Color { get; protected set; }
+        public string FontColor { get; protected set; }
+        public string BackgroundColor { get; protected set; }
         public string Language { get; protected set; }
 
 
-        public Tag(string name, string description, string color, string language, string localization)
+        public Tag(string name, string description, string fontColor, string backgroundColor, string language, string localization)
         {
             Id = Guid.NewGuid();
             SetName(name, localization);
             SetDescription(description, localization);
-            SetColor(color, localization);
+            SetColor(fontColor, backgroundColor, localization);
             SetLanguage(language, localization);
         }
 
@@ -45,15 +46,18 @@ namespace PixBlocks_Addition.Domain.Entities
             Name = name;
         }
 
-        public void SetColor(string color, string language)
+        public void SetColor(string fontColor, string backgroundColor, string language)
         {
             string file = $"Resources\\MyExceptions.{language}.xml";
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
-
-            if (color == null)
+  
+            if (fontColor == null || backgroundColor == null)
+            {
                 throw new MyException(MyCodesNumbers.InvalidColor, doc.SelectSingleNode($"exceptions/InvalidColor").InnerText);
-            Color = color;
+            }
+            FontColor = fontColor;
+            BackgroundColor = backgroundColor;
         }
 
         public void SetDescription(string description, string language)

@@ -26,6 +26,10 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
   }
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.languages = this.languageService.getAllLanguages();
     this.dataDto = new TagDto();
 
@@ -87,7 +91,7 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
     this.tagChanged.emit(null);
   }
 
-  changeColor($event: ColorEvent) {
+  changeBackgroundColor($event: ColorEvent) {
     this.dataDto.color = $event.color.hex;
     this.exampleTag.color = this.dataDto.color;
   }

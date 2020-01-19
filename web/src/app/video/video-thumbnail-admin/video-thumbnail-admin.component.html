@@ -18,6 +18,20 @@
     <form (ngSubmit)="edit()" [formGroup]="form" class="col-12">
 
       <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Kurs</label>
+        <div class="col-sm-10">
+          <app-course-choose-admin (courseSelected)="selectCourse($event)"
+                                   [buttonName]="'Wybierz kurs'"
+                                   [course]="course">
+          </app-course-choose-admin>
+
+          <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">
+            <div *ngIf="f.parentId.errors.required" i18n>Brak kursu</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-sm-2 col-form-label" i18n>Tytuł</label>
         <div class="col-sm-10 input-group">
           <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" class="form-control" formControlName="title"
@@ -26,7 +40,6 @@
           <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
             <div *ngIf="f.title.errors.required" i18n>Pole jest puste</div>
           </div>
-
         </div>
       </div>
 
@@ -79,31 +92,47 @@
         </div>
       </div>
 
-
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
         <div class="col-sm-10">
           <label (click)="imitateImageInput()"
-                 class="file-label">{{image ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : image}"
+                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
                  class="form-control"
-                 hidden id="image" type="file">
+                 accept="image/*"
+                 hidden
+                 id="image" type="file">
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="video" i18n>Film</label>
         <div class="col-sm-10">
-          <label (click)="imitateFileInput()"
-                 class="file-label">{{fileToUpload ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : fileToUpload}"
+          <label (click)="imitateVideoInput()"
+                 class="file-label">{{f.video.value ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
+          <input (change)="handleVideoInput($event.target.files)" [ngClass]="{'is-valid' : f.video.value}"
                  class="form-control"
+                 accept="video/*"
                  hidden id="video" type="file">
         </div>
       </div>
 
+      <div *ngIf="hostedVideo" class="row form-group">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd ostatnio wgranego filmu</label>
+        <div class="col-sm-10 align-self-center overflow-hidden">
+          <a [href]="hostedVideo.link" target="_blank">{{hostedVideo.link}}</a>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+        <div class="col-sm-10">
+          <app-video-preview [video]="f.video.value"></app-video-preview>
+        </div>
+      </div>
+
       <div class="modal-footer justify-content-end">
-        <button (click)="remove(); modal.close('Deleted')" [disabled]="loading" class="btn btn-warning" i18n
+        <button (click)="remove(); closeModal(modal)" [disabled]="loading" class="btn btn-warning" i18n
                 type="submit">
           Usuń
         </button>
@@ -114,7 +143,7 @@
             Ładowanie..
           </div>
         </button>
-        <button (click)="modal.close('Close click')" [disabled]="loading" class="btn btn-danger" i18n type="button">
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
           Zamknij
         </button>
       </div>

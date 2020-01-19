@@ -26,6 +26,10 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
   }
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.languages = this.languageService.getAllLanguages();
     this.dataDto = new TagDto();
 
@@ -74,7 +78,7 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
         });
   }
 
-  changeColor($event: ColorEvent) {
+  changeBackgroundColor($event: ColorEvent) {
     this.dataDto.color = $event.color.hex;
     this.exampleTag.color = this.dataDto.color;
   }

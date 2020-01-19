@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,26 +25,30 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task CreateAsync([FromBody]TagResource tag)
             => await _tagService.CreateAsync(tag);
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IEnumerable<TagDto>> GetAllAsync()
             => await _tagService.GetAllAsync();
 
-        [HttpGet("{name}")]
+        [HttpGet]
         public async Task<TagDto> GetAsync(string name)
             => await _tagService.GetAsync(name);
+
+        [HttpGet("{id}")]
+        public async Task<TagDto> GetAsync(Guid id)
+            => await _tagService.GetAsync(id);
 
         [HttpGet("browse")]
         public async Task<IEnumerable<TagDto>> BrowseAsync(string name)
             => await _tagService.BrowseAsync(name);
 
         [Authorize(Roles = "Administrator")]
-        [HttpPut("{name}")]
-        public async Task UpdateAsync(string name, [FromBody]TagResource tag)
-            => await _tagService.UpdateAsync(name, tag);
+        [HttpPut("{id}")]
+        public async Task UpdateAsync(Guid id, [FromBody]TagResource tag)
+            => await _tagService.UpdateAsync(id, tag);
 
         [Authorize(Roles = "Administrator")]
-        [HttpDelete("{name}")]
-        public async Task RemoveAsync(string name)
-            => await _tagService.RemoveAsync(name);
+        [HttpDelete("{id}")]
+        public async Task RemoveAsync(Guid id)
+            => await _tagService.RemoveAsync(id);
     }
 }

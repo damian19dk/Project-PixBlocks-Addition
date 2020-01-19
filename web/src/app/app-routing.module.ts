@@ -1,3 +1,4 @@
+import {VideoQuizComponent} from './video/video-quiz/video-quiz.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './user/login/login.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
     data: {animation: 'courses/:id/videos/:mediaId'}
     // canActivate: [AuthGuard]
   },
+  {path: 'quizes', component: VideoQuizComponent},
   {
     path: 'settings',
     component: SettingsComponent,
