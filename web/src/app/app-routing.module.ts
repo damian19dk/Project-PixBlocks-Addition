@@ -11,6 +11,7 @@ import {PageNotFoundComponent} from './error-pages/page-not-found/page-not-found
 import {HomeForLoggedComponent} from './home-for-logged/home-for-logged.component';
 import {VideoManagerComponent} from './video/video-manager/video-manager.component';
 import {SettingsComponent} from './settings/settings.component';
+import { CoursesViewListUserComponent } from './courses/courses-view-list-user/courses-view-list-user.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, data: {animation: 'login'}},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent, data: {animation: ''}},
   {path: 'home', component: HomeForLoggedComponent, data: {animation: 'home'}},
   {path: 'unauthorized', component: UnauthorizedComponent, data: {animation: 'unauthorized'}},
+  {path: 'mycourses', component: CoursesViewListUserComponent},
   {
     path: 'courses/:id/videos/:mediaId',
     component: ShowVideoComponent,
