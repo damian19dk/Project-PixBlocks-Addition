@@ -10,18 +10,22 @@
       Quiz dodano pomyślnie
     </div>
 
-    <form (submit)="handleSubmit($event)" [formGroup]="quizForm">
+    <form (submit)="handleSubmit($event)" [formGroup]="form">
       <div formArrayName="questions">
         <div *ngFor="let question of quizQuestionsControls; let questionIndex = index">
           <app-quiz-question
             (questionDeleted)="onDeleteQuestion($event)"
             [quizQuestionForm]="question"
-            [quizQuestionIndex]="questionIndex"
-          ></app-quiz-question>
+            [quizQuestionIndex]="questionIndex"></app-quiz-question>
           <hr/>
         </div>
       </div>
-      <button (click)="newQuizQuestion()" [class.spinner]="loading" color="primary" mat-raised-button type="button">
+      <button (click)="newQuizQuestion()"
+              [class.spinner]="loading"
+              color="primary"
+              mat-raised-button
+              i18n
+              type="button">
         Dodaj pytanie
       </button>
       <hr/>
@@ -31,10 +35,11 @@
       </app-video-choose-admin>
       <hr/>
 
-      <button [disabled]="!quizForm.valid"
+      <button [disabled]="!form.valid"
               class="saveVideo"
               color="primary"
               mat-raised-button
+              i18n
               type="submit">Zapisz
       </button>
     </form>

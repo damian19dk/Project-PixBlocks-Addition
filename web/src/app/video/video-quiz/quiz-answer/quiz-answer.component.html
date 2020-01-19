@@ -1,10 +1,16 @@
 <div [formGroup]="quizAnswerForm">
-  <input formControlName="answer" placeholder="Odpowiedz" type="text"/>
-  |
-  <label>
-    Poprawna?
-    <input formControlName="isCorrect" type="checkbox"/>
+  <input formControlName="answer"
+         i18n-placeholder
+         placeholder="Odpowiedz"
+         type="text"/>
+
+  <label class="is-correct">
+    <mat-checkbox color="accent" formControlName="isCorrect" labelPosition="before"> Poprawna?</mat-checkbox>
   </label>
 
-  <button class="deleteButton" mat-raised-button color="dark" (click)="handleRemoveAnswer()">Usuń</button>
+  <button (click)="handleRemoveAnswer()"
+          class="deleteButton"
+          color="warn"
+          mat-raised-button>Usuń
+  </button>
 </div>
