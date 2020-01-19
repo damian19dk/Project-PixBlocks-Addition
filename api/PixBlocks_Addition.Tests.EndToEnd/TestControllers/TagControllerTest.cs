@@ -58,13 +58,16 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
         public async Task change_tag_name_when_it_is_already_taken_should_fail()
         {
             var name = "Taken tag";
+            var existName = "Some name";
             var response = await createTag(name, "Some desc", "red", "pl");
+            var response2 = await createTag(existName, "Some desc", "red", "pl");
+            response2.EnsureSuccessStatusCode();
             response.EnsureSuccessStatusCode();
             httpClient.SetLanguage("pl");
             var tag = await httpClient.GetAsync<TagDto>($"api/tag?name={name}");
             var expectedTag = new TagResource()
             {
-                Name = name,
+                Name = existName,
                 Description = "Description",
                 FontColor = "black",
                 BackgroundColor = "black",
