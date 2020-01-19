@@ -67,12 +67,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
 
-            var tag = await _tagRepository.GetAsync(id, _localizationService.Language);
+            var tag = await _tagRepository.GetAsync(id);
             return _mapper.Map<TagDto>(tag);
         }
 
         public async Task RemoveAsync(Guid id)
         {
+            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             var tag = await _tagRepository.GetAsync(id);
             if (tag == null)
             {
@@ -89,7 +93,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
 
-            var tagEntity = await _tagRepository.GetAsync(id, _localizationService.Language);
+            var tagEntity = await _tagRepository.GetAsync(id);
             
             if(tagEntity == null)
             {
