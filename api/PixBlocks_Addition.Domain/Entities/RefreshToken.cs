@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
@@ -26,11 +27,14 @@ namespace PixBlocks_Addition.Domain.Entities
             Token = token;
         }
 
-        public void Revoke()
-        {
+        public void Revoke(string language)
+        { 
             if (Revoked)
             {
-                throw new MyException(MyCodesNumbers.RefreshTokenAllready, $"Refresh token: '{Id}' był już odwołany w '{RevokedAt}'.");
+                if (language == "en")
+                    throw new MyException(MyCodesNumbers.RefreshTokenAllready, $"Refresh token: '{Id}' was already revoked '{RevokedAt}'.");
+                else
+                    throw new MyException(MyCodesNumbers.RefreshTokenAllready, $"Refresh token: '{Id}' był już odwołany w '{RevokedAt}'.");
             }
             Revoked = true;
             RevokedAt = DateTime.UtcNow;
