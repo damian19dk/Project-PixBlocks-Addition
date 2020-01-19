@@ -1,46 +1,50 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VideoDocument} from '../../models/videoDocument.model';
 import {FormBuilder, Validators} from '@angular/forms';
+import {VideoService} from '../../services/video.service';
 import {LoadingService} from '../../services/loading.service';
 import {TagService} from '../../services/tag.service';
 import {LanguageService} from '../../services/language.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormModal} from '../../models/formModal';
-import {VideoService} from '../../services/video.service';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {VideoDto} from '../../models/videoDto.model';
+import {FormModal} from '../../models/formModal';
+import {CourseService} from '../../services/course.service';
+import {HostedVideoDocument} from '../../models/hostedVideoDocument.model';
 
 @Component({
-  selector: 'app-video-thumbnail',
-  templateUrl: './video-thumbnail.component.html',
-  styleUrls: ['./video-thumbnail.component.css']
+  selector: 'app-video-edit-modal-admin',
+  templateUrl: './video-edit-modal-admin.component.html',
+  styleUrls: ['./video-edit-modal-admin.component.css']
 })
-export class VideoThumbnailComponent extends FormModal implements OnInit {
+export class VideoEditModalAdminComponent extends FormModal implements OnInit {
 
   @Input() video: VideoDocument;
-  @Output() editVideoComponent: EventEmitter<any> = new EventEmitter<any>();
-  image: any;
+  @Output() videoChanged: EventEmitter<any> = new EventEmitter<any>();
+  hostedVideo: HostedVideoDocument;
 
   constructor(private formBuilder: FormBuilder,
               private videoService: VideoService,
+              private courseService: CourseService,
               private loadingService: LoadingService,
               private tagService: TagService,
               private languageService: LanguageService,
-              protected modalService: NgbModal) {
-    super(modalService);
+              protected modalService: NgbModal,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
+    this.getHostedVideo();
     this.getTags(this.tagService);
     this.tagsSettings = this.tagService.getTagSettingsForMultiselect();
     this.languages = this.languageService.getAllLanguages();
 
     this.dataDto = new VideoDto();
-
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       parentId: [this.video.parentId, Validators.required],
@@ -67,9 +71,6 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     this.loading = true;
 
     this.dataDto.from(this.form);
-    this.dataDto.image = this.fileToUpload;
-    const tags = this.form.value.tags;
-    this.dataDto.tags = this.tagService.toTagsString(tags);
     const formData = this.dataDto.toFormData();
 
     this.videoService.update(formData)
@@ -78,7 +79,7 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.emitVideoChangedEvent();
         },
         error => {
           this.sent = true;
@@ -88,9 +89,10 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
   }
 
   remove() {
-    this.videoService.remove(this.video.id).subscribe(
-      () => {
-        this.refreshOtherThumbnails();
+    this.courseService.removeVideo(this.video.parentId, this.video.id).subscribe(
+      data => {
+        this.error = null;
+        this.emitVideoChangedEvent();
       },
       error => {
         this.error = error;
@@ -98,20 +100,35 @@ export class VideoThumbnailComponent extends FormModal implements OnInit {
     );
   }
 
-  refreshOtherThumbnails() {
-    this.editVideoComponent.emit(null);
+  async getHostedVideo() {
+    this.videoService.getHostedVideo(this.video.mediaId).subscribe(
+      (data: HostedVideoDocument) => {
+        this.hostedVideo = data;
+        this.error = null;
+      },
+      error => {
+        this.error = error;
+      }
+    );
+  }
+
+  emitVideoChangedEvent() {
+    this.videoChanged.emit(null);
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    this.fileUploadMessage = this.fileToUpload.size > 0 ? 'Gotowy do wysłania' : 'Wybierz plik';
+    this.form.controls.video.setValue(files.item(0));
+  }
+
+  handleImageInput(files: FileList) {
+    this.form.controls.image.setValue(files.item(0));
   }
 
   imitateFileInput() {
-    document.getElementById('video').click();
+    document.getElementById(this.video.mediaId).click();
   }
 
   imitateImageInput() {
-    document.getElementById('image').click();
+    document.getElementById(this.video.id).click();
   }
 }

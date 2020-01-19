@@ -24,10 +24,10 @@ export class RegistrationComponent implements OnInit {
     this.loading = false;
 
     this.form = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
-      confirmPassword: ['', Validators.required]
+      username: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[^ ]*')]],
+      confirmPassword: [null, Validators.required]
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });

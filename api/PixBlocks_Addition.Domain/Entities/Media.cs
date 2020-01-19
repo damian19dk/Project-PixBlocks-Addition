@@ -1,9 +1,11 @@
 ﻿using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
@@ -30,19 +32,18 @@ namespace PixBlocks_Addition.Domain.Entities
         protected Media() { }
 
         public Media(string mediaId, Guid parentId, bool premium, string title, string description, string picture, long duration,
-            string lang, IEnumerable<string> resources = null, IEnumerable<Tag> tags = null)
+            string lang, string localization, IEnumerable<string> resources = null, IEnumerable<Tag> tags = null)
         {
             Id = Guid.NewGuid();
             Index = 0;
             MediaId = mediaId;
             ParentId = parentId;
             SetPremium(premium);
-            SetTitle(title);
-            SetDescription(description);
-            SetPicture(picture);
-            SetDuration(duration);
-            SetLanguage(lang);
-            
+            SetTitle(title, localization);
+            SetDescription(description, localization);
+            SetPicture(picture, localization);
+            SetDuration(duration, localization);
+            SetLanguage(lang, localization);
 
             if (resources != null)
                 foreach (string resource in resources)
@@ -58,71 +59,91 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public void SetPremium(bool value) => Premium = value;
 
-        public void SetTitle(string title)
+        public void SetTitle(string title, string language)
         {
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             if (string.IsNullOrEmpty(title))
             {
-                throw new MyException(MyCodesNumbers.EmptyTitle, MyCodes.EmptyTitle);
+                throw new MyException(MyCodesNumbers.EmptyTitle, doc.SelectSingleNode($"exceptions/EmptyTitle").InnerText);
             }
             if (title.Length < 3)
             {
-                throw new MyException(MyCodesNumbers.TooShortTitle, MyCodes.TooShortTitle);
+                throw new MyException(MyCodesNumbers.TooShortTitle, doc.SelectSingleNode($"exceptions/TooShortTitle").InnerText);
             }
             if (title.Length > 250)
             {
-                throw new MyException(MyCodesNumbers.TooLongTitle, MyCodes.TooLongTitle);
+                throw new MyException(MyCodesNumbers.TooLongTitle, doc.SelectSingleNode($"exceptions/TooLongTitle").InnerText);
             }
             Title = title;
         }
 
-        public void SetDescription(string description)
+        public void SetDescription(string description, string language)
         {
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             if (description.Length < 3)
             {
-                throw new MyException(MyCodesNumbers.TooShortDescription, MyCodes.TooShortDescription);
+                throw new MyException(MyCodesNumbers.TooShortDescription, doc.SelectSingleNode($"exceptions/TooShortDescription").InnerText);
             }
             if (description.Length > 10000)
             {
-                throw new MyException(MyCodesNumbers.TooLongDescription, MyCodes.TooLongDescription);
+                throw new MyException(MyCodesNumbers.TooLongDescription, doc.SelectSingleNode($"exceptions/TooShortDescription").InnerText);
             }
             Description = description;
         }
 
-        public void SetPicture(string src)
+        public void SetPicture(string src, string language)
         {
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             Guid result;
             if (!string.IsNullOrEmpty(src) && !Guid.TryParse(src, out result))
                 if (!regex_url.IsMatch(src))
-                    throw new MyException(MyCodesNumbers.InvalidPictureSrc, MyCodes.InvalidPicSource);
+                    throw new MyException(MyCodesNumbers.InvalidPictureSrc, doc.SelectSingleNode($"exceptions/InvalidPictureSrc").InnerText);
             Picture = src;
         }
 
-        public void SetDuration(long length)
+        public void SetDuration(long length, string language)
         {
-            if(length<0)
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
+            if (length<0)
             {
-                throw new MyException(MyCodesNumbers.InvalidDuration, MyCodes.InvalidDuration);
+                throw new MyException(MyCodesNumbers.InvalidDuration, doc.SelectSingleNode($"exceptions/InvalidDuration").InnerText);
             }
             Duration = length;
         }
 
-        public void SetLanguage(string lang)
+        public void SetLanguage(string lang, string language)
         {
-            if(string.IsNullOrWhiteSpace(lang))
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
+            if (string.IsNullOrWhiteSpace(lang))
             {
-                throw new MyException(MyCodesNumbers.EmptyLanguage, MyCodes.EmptyLanguageTitle);
+                throw new MyException(MyCodesNumbers.EmptyLanguage, doc.SelectSingleNode($"exceptions/EmptyLanguage").InnerText);
             }
             if(!regex_language.IsMatch(lang))
             {
-                throw new MyException(MyCodesNumbers.InvalidLanguage, MyCodes.WrongCharactersInLanguage);
+                throw new MyException(MyCodesNumbers.InvalidLanguage, doc.SelectSingleNode($"exceptions/InvalidLanguage").InnerText);
             }
             if(lang.Length < 2)
             {
-                throw new MyException(MyCodesNumbers.TooShortLanguage, MyCodes.TooShortLanguage);
+                throw new MyException(MyCodesNumbers.TooShortLanguage, doc.SelectSingleNode($"exceptions/TooShortLanguage").InnerText);
             }
             if (lang.Length > 60)
             {
-                throw new MyException(MyCodesNumbers.TooLongLanguage, MyCodes.TooLongLanguage);
+                throw new MyException(MyCodesNumbers.TooLongLanguage, doc.SelectSingleNode($"exceptions/TooLongLanguage").InnerText);
             }
             Language = lang;
         }
@@ -132,10 +153,14 @@ namespace PixBlocks_Addition.Domain.Entities
             QuizId = id;
         }
 
-        public void SetIndex(int index)
+        public void SetIndex(int index, string language)
         {
+            string file = $"Resources\\MyExceptions.{language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(file);
+
             if (index < 0)
-                throw new MyException(MyCodesNumbers.InvalidIndex, "Index cannot be negative");
+                throw new MyException(MyCodesNumbers.InvalidIndex, doc.SelectSingleNode($"exceptions/InvalidIndex").InnerText);
             Index = index;
         }
     }

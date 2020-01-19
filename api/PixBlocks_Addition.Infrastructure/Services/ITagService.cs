@@ -11,9 +11,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
     {
         Task CreateAsync(TagResource tag);
         Task<TagDto> GetAsync(string name);
+        Task<TagDto> GetAsync(Guid id);
         Task<IEnumerable<TagDto>> GetAllAsync();
         Task<IEnumerable<TagDto>> BrowseAsync(string name);
-        Task UpdateAsync(string name, TagResource tag);
-        Task RemoveAsync(string name);
+        Task UpdateAsync(Guid id, TagResource tag);
+        Task RemoveAsync(Guid id);
     }
 }

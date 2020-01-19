@@ -1,37 +1,33 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder, Validators} from '@angular/forms';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from 'src/app/services/user.service';
 import {AuthService} from 'src/app/services/auth.service';
+import {FormModal} from '../../../models/formModal';
 
 @Component({
   selector: 'app-change-email',
   templateUrl: './change-email.component.html',
   styleUrls: ['./change-email.component.css']
 })
-export class ChangeEmailComponent implements OnInit {
-
-  error: string;
-  loading: boolean;
-  submitted: boolean;
-  sent: boolean;
-
-  form: FormGroup;
-
-  constructor(private modalService: NgbModal,
+export class ChangeEmailComponent extends FormModal implements OnInit {
+  constructor(protected modalService: NgbModal,
               private formBuilder: FormBuilder,
               private userService: UserService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      email: [null]
-    });
+    this.initFormModal();
   }
 
-  get f() { return this.form.controls; }
-
+  initFormModal() {
+    this.form = this.formBuilder.group({
+      email: [null, [Validators.required, Validators.email]]
+    });
+  }
 
   changeEmail() {
     this.submitted = true;
@@ -41,7 +37,6 @@ export class ChangeEmailComponent implements OnInit {
     }
 
     this.loading = true;
-
     const login = this.authService.getLogin();
 
     return this.userService.changeEmail(login, this.form.value.email).subscribe(
@@ -57,9 +52,5 @@ export class ChangeEmailComponent implements OnInit {
         this.loading = false;
       }
     );
-  }
-
-  openModal(content) {
-    this.modalService.open(content, { centered: true });
   }
 }

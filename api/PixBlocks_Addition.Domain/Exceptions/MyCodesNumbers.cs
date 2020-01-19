@@ -83,5 +83,6 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string InvalidIndex => "6006";
         public static string InvalidTagName => "6007";
         public static string InvalidColor => "6008";
+        public static string NullCourse => "6009";
     }
 }

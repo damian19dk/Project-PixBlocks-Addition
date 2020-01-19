@@ -66,13 +66,17 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 Resources = new HashSet<string>(),
                 Tags = CourseDto.Tags
             };
-            var tags = string.Join(',', CourseDto.Tags);
             var parameters = expectedCourse.GetProperties();
 
             await sendMultiPartAsync(address, "PUT", parameters);
             var response = await httpClient.GetAsync($"api/course?id={CourseDto.Id}");
             var responseString = await response.Content.ReadAsStringAsync();
             var course = JsonConvert.DeserializeObject<CourseDto>(responseString);
+
+            foreach(var t in expectedCourse.Tags)
+            {
+                t.Id = course.Tags.Single(x => x.Name == t.Name).Id;
+            }
 
             Assert.IsTrue(JsonConvert.SerializeObject(course) == JsonConvert.SerializeObject(expectedCourse));
         }
@@ -147,7 +151,7 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 {
                     foreach (var tag in course.Tags)
                     {
-                        if (!data["Tags"].Contains(tag))
+                        if (!data["Tags"].Contains(tag.Name))
                             return false;
                     }
                 }

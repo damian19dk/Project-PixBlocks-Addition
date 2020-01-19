@@ -82,7 +82,8 @@ Tag posiada następujące pola:
 - **Id** - Guid, unikalny identyfikator tagu
 - **Name** - string, unikalna nazwa w obrębie danego języka. Nie może być typu `null` i musi zawierać min. 2 znaki oraz nie może zawierać znaków `;` oraz `,`
 - **Description** - string, opis tagu. Nie może być typu `null`
-- **Color** - string, kolor tagu. Nie może być typu `null`
+- **FontColor** - string, kolor czcionki tagu. Nie może być typu `null`
+- **BackgroundColor** - string, kolor tła tagu. Nie może być typu `null`
 - **Language** - string, język tagu(Jeżeli podamy *none* to tag będzie dostępny dla wszystkich języków). Nie może być `null`
 
 Wszystkie media korzystają z wcześniej stworzonych tagów. Jeżeli tworząc, bądź edytując jakieś media okaże się, że pożądany tag nie istnieje, to zostanie zwrócony błąd.
@@ -90,13 +91,14 @@ Wszystkie media korzystają z wcześniej stworzonych tagów. Jeżeli tworząc, b
 ### 6.1 Tworzenie tagu
 Aby stworzyć nowy tag należy posiadać uprawnienia administratora i odpytać endpoint `api/tag/create` metodą POST, podając w ciele żądania obiekt *TagResource*.
 ### 6.2 Pobieranie tagów
-Aby pobrać pojedynczy tag należy odpytać metodą GET endpoint `api/tag/{nazwa}`, gdzie *nazwa* to nazwa tagu.<br>
+Aby pobrać pojedynczy tag należy odpytać metodą GET endpoint `api/tag/{id}`, gdzie *id* to id tagu.<br>
+Można również wyszukiwać po nazwie. Należy skorzystać z metody GET endpointa `api/tag` podając jako parametr *name* nazwę tagu. Przykład: `api/tag?name=nazwa`.
 Należy pamiętać, że wszystkie zapytania są filtrowane pod względem języka.<br>
-Aby pobrać wszystkie tagi należy odpytać endpoint `api/tag` metodą GET. <br>
+Aby pobrać wszystkie tagi należy odpytać endpoint `api/tag/all` metodą GET. <br>
 ### 6.3 Wyszukiwanie tagów
 Aby wyszukać tagi po nazwie należy odpytać endpoint `api/tag/browse` metodą GET, podając jako parametr szukaną frazę. Przykład: `api/tag/browse?name=pyt`. <br>
-Szukanie odbywa się na zasadzie sprawdzania, czy nazwa tagu zawiera podaną w parametrze nazwę.
+Szukanie odbywa się na zasadzie sprawdzania, czy nazwa tagu zawiera podaną w parametrze nazwę. Szukane są tylko tagi dla języka pobranego z żądania.
 ### 6.4 Usuwanie tagów
-Aby usunąć tag należy posiadać uprawnienia administratora i odpytać metodą DELETE endpoint `api/tag/{name}`. Usuwane są również wszystkie wystąpienia danego tagu w mediach.
+Aby usunąć tag należy posiadać uprawnienia administratora i odpytać metodą DELETE endpoint `api/tag/{id}`. Usuwane są również wszystkie wystąpienia danego tagu w mediach.
 ### 6.5 Aktualizacja tagów
-Aby zaktualizować jakiś tag należy posiadać uprawnienia administratora i odpytać metodą PUT endpoint `api/tag/{name}`, podając w ciele żądania obiekt *TagResource*. Należy pamiętać, aby odpytując endpoint podać odpowiedni język w nagłówku. Przykładowo chcąc zmodyfikować tag z językiem *en*, nie będziemy mogli tego zrobić posiadając w nagłówku język *pl*. 
+Aby zaktualizować jakiś tag należy posiadać uprawnienia administratora i odpytać metodą PUT endpoint `api/tag/{id}`, podając w ciele żądania obiekt *TagResource*.

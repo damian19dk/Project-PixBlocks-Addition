@@ -7,9 +7,11 @@ import {DataService} from './data.service';
 import {retry} from 'rxjs/operators';
 
 class VideosOrder {
+  courseId: string;
   videos: Array<string>;
 
-  constructor(videos: Array<string>) {
+  constructor(courseId: string, videos: Array<string>) {
+    this.courseId = courseId;
     this.videos = videos;
   }
 }
@@ -27,27 +29,39 @@ export class VideoService extends DataService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    return this.http.get<any>(environment.baseUrl + '/api/Video/' + mediaId, {headers});
+    return this.http.get<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/${mediaId}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
   getHostedPlaylist(id: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    return this.http.get<any>(environment.baseUrl + '/api/JWPlayer/playlist?id=' + id, {headers});
+    return this.http.get<any>(`${environment.baseUrl}/api/JWPlayer/playlist?id=${id}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
-  getHostedVideo(id: string): Observable<HostedVideoDocument> {
+  getHostedVideo(mediaId: string): Observable<HostedVideoDocument> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json');
 
-    return this.http.get<HostedVideoDocument>(environment.baseUrl + '/api/JWPlayer/video?id=' + id, {headers});
+    return this.http.get<HostedVideoDocument>(`${environment.baseUrl}/api/JWPlayer/video?id=${mediaId}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
   }
 
-  changeOrder(videosIds: Array<string>): Observable<any> {
+  changeOrder(courseId: string, videosIds: Array<string>): Observable<any> {
     const headers = new HttpHeaders();
-    const videos = new VideosOrder(videosIds);
+    const videos = new VideosOrder(courseId, videosIds);
     return this.http.post<any>(environment.baseUrl + '/api/Order/videos', videos, {headers}).pipe(
+      retry(environment.maxRetryValue));
+  }
+
+  setVideoHistory(videoId: string, time: number): Observable<any> {
+    const headers = new HttpHeaders();
+    return this.http.post<any>(`${environment.baseUrl}/api/VideoHistory/set`, {}, {headers}).pipe(
       retry(environment.maxRetryValue));
   }
 }

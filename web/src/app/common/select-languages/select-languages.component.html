@@ -4,7 +4,8 @@
   <div ngbDropdownMenu>
     <div *ngFor="let language of languages" class="d-flex justify-content-center align-self-center languages">
       <a (click)="selectLanguage(language.code)">
-        <button class="btn btn-outline-primary" NgbDropdownItem>{{language.label}}</button>
+        <button NgbDropdownItem [ngClass]="selectedLanguage === language.code ? 'selected-language' : null"
+                class="btn btn-outline-primary">{{language.label}}</button>
       </a>
     </div>
   </div>

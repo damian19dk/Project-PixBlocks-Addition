@@ -43,10 +43,18 @@ namespace PixBlocks_Addition.Tests.EndToEnd.TestControllers
                 Premium = false,
                 Description = "Something like this"
             };
+            var course4 = new MediaResource()
+            {
+                Title = "Test course 4",
+                Language = "pl",
+                Premium = false,
+                Description = "Something like this"
+            };
 
             await sendMultiPartAsync(createCourseEndpoint, "POST", course1.GetProperties(x => new { x.Title, x.Language, x.Premium, x.Description }));
             await sendMultiPartAsync(createCourseEndpoint, "POST", course2.GetProperties(x => new { x.Title, x.Language, x.Premium, x.Description }));
             await sendMultiPartAsync(createCourseEndpoint, "POST", course3.GetProperties(x => new { x.Title, x.Language, x.Premium, x.Description }));
+            await sendMultiPartAsync(createCourseEndpoint, "POST", course4.GetProperties(x => new { x.Title, x.Language, x.Premium, x.Description }));
 
             var courses = await httpClient.GetAsync<IEnumerable<CourseDto>>($"api/course/all");
 

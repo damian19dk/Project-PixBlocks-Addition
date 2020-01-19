@@ -1,4 +1,4 @@
- * {
+* {
   font-family: 'Poppins', sans-serif;
 }
 
@@ -43,19 +43,19 @@
   overflow-x: auto;
 }
 
- .card2::-webkit-scrollbar {
-   display: none;
- }
+.card2::-webkit-scrollbar {
+  display: none;
+}
 
- .card-content {
-   min-width: 200px;
-   margin: 5px;
- }
+.card-content {
+  min-width: 200px;
+  margin: 5px;
+}
 
- .video-description {
-   margin-top: 20px;
-   margin-bottom: 50px;
- }
+.video-description {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
 
  .bg-video {
    background: rgba(13, 144, 252, 0.5);

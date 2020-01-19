@@ -1,0 +1,140 @@
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" i18n>Nowy film</h4>
+    <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body input-group container">
+
+    <div *ngIf="error" class="alert alert-danger col-12">
+      {{error}}
+    </div>
+
+    <div *ngIf="sent && !error" class="alert alert-success col-12" i18n>
+      Film dodano pomyślnie
+    </div>
+
+    <form (ngSubmit)="create()" [formGroup]="form" class="col-12">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Tytuł</label>
+        <div class="col-sm-10 input-group">
+          <input [ngClass]="{'is-invalid' : submitted && f.title.errors}" class="form-control" formControlName="title"
+                 i18n-placeholder placeholder="Wpisz tytuł" type="text">
+
+          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required" i18n>Pole jest puste</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Opis</label>
+        <div class="col-sm-10 input-group">
+                    <textarea [ngClass]="{'is-invalid' : submitted && f.description.errors}" class="form-control"
+                              formControlName="description" i18n-placeholder placeholder="Wpisz opis"></textarea>
+
+          <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required" i18n>Pole jest puste</div>
+            <div *ngIf="f.description.errors.minlength" i18n>Opis musi mieć minimum 3 znaki</div>
+            <div *ngIf="f.description.errors.maxlength" i18n>Opis może mieć maksymalnie 10000 znaków</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Język</label>
+        <div class="col-sm-8 input-group">
+          <mat-radio-group class="languages" color="primary" formControlName="language">
+            <mat-radio-button *ngFor="let language of languages" class="languagesButton" value="{{language.code}}">
+              {{language.label}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2" i18n>Premium</label>
+        <div class="col-sm-8 justify-content-start mx-1">
+          <mat-checkbox color="primary" formControlName="premium"></mat-checkbox>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Tagi</label>
+        <div class="col-sm-10">
+          <ng-multiselect-dropdown [data]="tagsList" [placeholder]="'Wybierz tagi'"
+                                   [settings]="tagsSettings" formControlName="tags">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Obrazek</label>
+        <div class="col-sm-10">
+          <input class="form-control" formControlName="pictureUrl" i18n-placeholder placeholder="Podaj adres obrazka"
+                 type="text">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="newVideoImage" i18n>Zdjęcie</label>
+        <div class="col-sm-10">
+          <button (click)="imitateImageInput()"
+                  [color]="f.image.value ? 'accent' : 'primary'"
+                  mat-raised-button
+                  type="button"
+          >{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</button>
+          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
+                 class="form-control"
+                 accept="image/*"
+                 hidden id="newVideoImage" type="file">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="newVideo" i18n>Film</label>
+        <div class="col-sm-10">
+          <button (click)="imitateFileInput()"
+                  [color]="f.video.value ? 'accent' : 'primary'"
+                  mat-raised-button
+                  type="button">{{f.video.value ? 'Gotowy do wysłania' : 'Wybierz film'}}</button>
+          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : f.video.value}"
+                 class="form-control"
+                 accept="video/*" hidden
+                 id="newVideo"
+                 type="file">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
+        <div class="col-sm-10">
+          <app-video-preview [video]="f.video.value"></app-video-preview>
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-end">
+        <button (click)="create()" [disabled]="loading" class="btn btn-success" type="submit">
+          <div *ngIf="!loading" i18n>Zapisz</div>
+          <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm align-self-center" i18n></span>
+            Ładowanie..
+          </div>
+        </button>
+        <button (click)="closeModal(modal)" [disabled]="loading" class="btn btn-danger" i18n type="button">
+          Zamknij
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<button (click)="openModal(modal)"
+        color="primary"
+        i18n
+        mat-stroked-button
+        type="button">
+  <i class="fas fa-edit"></i>Dodaj
+</button>

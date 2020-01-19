@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Language, LanguageService} from '../../services/language.service';
 import {FormModal} from '../../models/formModal';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators} from '@angular/forms';
 import {TagDto} from '../../models/tagDto.model';
 import {TagService} from '../../services/tag.service';
@@ -19,28 +19,31 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
 
   constructor(private languageService: LanguageService,
               private formBuilder: FormBuilder,
+              private tagService: TagService,
               protected modalService: NgbModal,
-              private tagService: TagService) {
-    super(modalService);
+              protected modalConfig: NgbModalConfig) {
+    super(modalService, modalConfig);
   }
 
   ngOnInit() {
+    this.initFormModal();
+  }
+
+  initFormModal() {
     this.languages = this.languageService.getAllLanguages();
     this.dataDto = new TagDto();
 
     this.exampleTag.name = 'Tag';
     this.exampleTag.description = 'Lorem ipsum...';
-    this.exampleTag.color = '#fff';
+    this.exampleTag.backgroundColor = '#fff';
+    this.exampleTag.fontColor = '#fff';
 
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
-      color: ['#fff'],
+      backgroundColor: ['#fff'],
+      fontColor: ['#000'],
       language: ['pl']
     });
   }
@@ -53,18 +56,16 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
     }
 
     this.loading = true;
-    this.dataDto.name = this.form.value.name;
-    this.dataDto.description = this.form.value.description;
-    this.dataDto.language = this.form.value.language;
+    this.dataDto.from(this.form);
 
     this.tagService.add(this.dataDto)
       .subscribe(
         data => {
-          this.tagService.addTagDto(this.dataDto.name);
+          this.tagService.addTagDto(this.dataDto.id);
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.emitTagChangedEvent();
         },
         error => {
           this.sent = true;
@@ -73,12 +74,17 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
         });
   }
 
-  changeColor($event: ColorEvent) {
-    this.dataDto.color = $event.color.hex;
-    this.exampleTag.color = this.dataDto.color;
+  changeBgColor($event: ColorEvent) {
+    this.form.controls.backgroundColor.setValue($event.color.hex);
+    this.exampleTag.backgroundColor = $event.color.hex;
   }
 
-  refreshOtherThumbnails() {
+  changeFgColor($event: ColorEvent) {
+    this.form.controls.fontColor.setValue($event.color.hex);
+    this.exampleTag.fontColor = $event.color.hex;
+  }
+
+  emitTagChangedEvent() {
     this.tagChanged.emit(null);
   }
 }

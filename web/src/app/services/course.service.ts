@@ -24,14 +24,26 @@ export class CourseService extends DataService {
 
   getCourse(mediaId: string) {
     const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.get<any>(environment.baseUrl + '/api/Course/' + mediaId, {headers});
+    return this.http.get<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/${mediaId}`, {headers});
+  }
+
+  removeVideo(courseId: string, videoId: string) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+
+    return this.http.delete<any>(`${environment.baseUrl}/api/${this.BASE_PATH}/video?courseId=${courseId}&videoId=${videoId}`, {headers})
+      .pipe(retry(environment.maxRetryValue));
   }
 
   changeOrder(coursesIds: Array<string>): Observable<any> {
     const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+
     const courses = new CoursesOrder(coursesIds);
     return this.http.post<any>(environment.baseUrl + '/api/Order/courses', courses, {headers}).pipe(
       retry(environment.maxRetryValue));
@@ -51,6 +63,15 @@ export class CourseService extends DataService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
     return this.http.get<any>(environment.baseUrl + '/api/History/getUserHistory', {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
+  }
+
+  getProgress(courseId: string) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.get<any>(`${environment.baseUrl}/api/VideoHistory/progress/${courseId}`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }

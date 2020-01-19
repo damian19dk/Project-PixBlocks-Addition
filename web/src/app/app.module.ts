@@ -1,3 +1,4 @@
+import {QuizService} from './services/quiz.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +17,7 @@ import {AuthService} from './services/auth.service';
 import {UnauthorizedComponent} from './error-pages/unauthorized/unauthorized.component';
 import {NewVideoComponent} from './video/new-video/new-video.component';
 import {ShowVideoComponent} from './video/show-video/show-video.component';
-import {VideoThumbnailComponent} from './video/video-thumbnail/video-thumbnail.component';
+import {VideoThumbnailAdminComponent} from './video/video-thumbnail-admin/video-thumbnail-admin.component';
 import {VideoService} from './services/video.service';
 import {CourseManagerAdminComponent} from './courses/course-manager-admin/course-manager-admin.component';
 import {CourseNewAdminComponent} from './courses/course-new-admin/course-new-admin.component';
@@ -53,6 +54,11 @@ import {CoursesViewListUserComponent} from './courses/courses-view-list-user/cou
 import {CourseListElementUserComponent} from './courses/course-list-element-user/course-list-element-user.component';
 import {CourseListElementAdminComponent} from './courses/course-list-element-admin/course-list-element-admin.component';
 import {CoursesHistoryForUserComponent} from './courses/courses-history-for-user/courses-history-for-user.component';
+import {VideoQuizComponent} from './video/video-quiz/video-quiz.component';
+import {QuizQuestionComponent} from './video/video-quiz/quiz-question/quiz-question.component';
+import {QuizAnswerComponent} from './video/video-quiz/quiz-answer/quiz-answer.component';
+import {QuizFormComponent} from './video/video-quiz/quiz-form/quiz-form.component';
+import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-quiz-user.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SettingsComponent} from './settings/settings.component';
 import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
@@ -60,6 +66,14 @@ import {TagThumbnailComponent} from './tags/tag/tag-thumbnail.component';
 import {ColorSketchModule} from 'ngx-color/sketch';
 import {TagsViewAdminComponent} from './tags/tags-view-admin/tags-view-admin.component';
 import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/tag-thumbnail-edit-admin.component';
+import {VideoEditModalAdminComponent} from './video/video-edit-modal-admin/video-edit-modal-admin.component';
+import {VideoAddModalAdminComponent} from './video/video-add-modal-admin/video-add-modal-admin.component';
+import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose-admin.component';
+import {CourseChooseAdminComponent} from './courses/course-choose-admin/course-choose-admin.component';
+import {JWPlayerComponent} from './JWPlayer/jwplayer/jwplayer.component';
+import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.component';
+import {SelectPictureComponent} from './common/select-picture/select-picture.component';
+import {SelectVideoComponent} from './common/select-video/select-video.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +87,7 @@ import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/ta
     UnauthorizedComponent,
     NewVideoComponent,
     ShowVideoComponent,
-    VideoThumbnailComponent,
+    VideoThumbnailAdminComponent,
     ShortTextPipe,
     SafePipe,
     CourseManagerAdminComponent,
@@ -100,7 +114,21 @@ import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/ta
     NewTagAdminComponent,
     TagThumbnailComponent,
     TagsViewAdminComponent,
-    TagThumbnailEditAdminComponent
+    TagThumbnailEditAdminComponent,
+    VideoEditModalAdminComponent,
+    VideoAddModalAdminComponent,
+    VideoChooseAdminComponent,
+    CourseChooseAdminComponent,
+    JWPlayerComponent,
+    VideoPreviewComponent,
+    TagThumbnailEditAdminComponent,
+    VideoQuizComponent,
+    QuizQuestionComponent,
+    QuizAnswerComponent,
+    QuizFormComponent,
+    VideoQuizUserComponent,
+    SelectPictureComponent,
+    SelectVideoComponent
   ],
   imports: [
     BrowserModule,
@@ -128,15 +156,14 @@ import {TagThumbnailEditAdminComponent} from './tags/tag-thumbnail-edit-admin/ta
     MatProgressBarModule,
     ColorSketchModule
   ],
-  exports: [
-    HasRoleDirective
-  ],
+  exports: [HasRoleDirective],
   providers: [
     AuthGuardService,
     AuthService,
     VideoService,
     CourseService,
     LoadingService,
+    QuizService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

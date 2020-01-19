@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PixBlocks_Addition.Domain.Exceptions;
+using PixBlocks_Addition.Domain.Repositories;
 using PixBlocks_Addition.Infrastructure.Models.JWPlayer;
 using PixBlocks_Addition.Infrastructure.Settings;
 using System;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
@@ -22,6 +24,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly string hostapi = "http://api.jwplatform.com";
         private readonly IOptions<JWPlayerOptions> _jwPlayerOptions;
         private readonly IJwtPlayerHandler _jwtPlayerHandler;
+        private readonly ILocalizationService _localization;
 
         public JWPlayerService(HttpClient client, IOptions<JWPlayerOptions> jwPlayerOptions,
                 IJwtPlayerHandler jwtPlayerHandler, IJWPlayerAuthHandler auth)
@@ -63,9 +66,13 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<string> UploadVideoAsync(IFormFile formFile)
         {
-            if(formFile == null || string.IsNullOrWhiteSpace(formFile.FileName))
+            string filestring = $"Resources\\MyExceptions.{_localization.Language}.xml";
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filestring);
+
+            if (formFile == null || string.IsNullOrWhiteSpace(formFile.FileName))
             {
-                throw new MyException(MyCodesNumbers.MissingFile, "Video file is missing.");
+                throw new MyException(MyCodesNumbers.MissingFile, doc.SelectSingleNode($"exceptions/MissingFile").InnerText);
             }
             byte[] file;
             string filename = formFile.FileName;
@@ -142,7 +149,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             catch (Exception)
             {
-                throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
+                if (_localization.Language == "en")
+                    throw new MyException(MyCodesNumbers.CouldntLoad, "Cannot load content " + url);
+                else
+                    throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
             }
         }
         private async Task<HttpContent> postAsync(string url, HttpContent content)
@@ -157,7 +167,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             catch (Exception)
             {
-                throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
+                if (_localization.Language == "en")
+                    throw new MyException(MyCodesNumbers.CouldntLoad, "Cannot load content " + url);
+                else
+                    throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
             }
         }
     }

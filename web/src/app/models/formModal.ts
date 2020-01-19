@@ -1,12 +1,23 @@
 import {Form} from './form';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 
-export class FormModal extends Form {
-  constructor(protected modalService: NgbModal) {
+export abstract class FormModal extends Form {
+  protected constructor(protected modalService: NgbModal,
+                        protected modalConfig: NgbModalConfig) {
     super();
+    modalConfig.backdrop = 'static';
+    modalConfig.keyboard = false;
   }
 
   openModal(content) {
-    this.modalService.open(content, {centered: true});
+    this.resetFlags();
+    this.initFormModal();
+    this.modalService.open(content, {centered: true, size: 'lg'});
   }
+
+  closeModal(modal) {
+    modal.close('Close click');
+  }
+
+  abstract initFormModal();
 }

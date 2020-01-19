@@ -13,7 +13,14 @@
 }
 
 .languages a {
+  background-color: #fff;
   width: 100%;
+  transition: 0.3s;
+}
+
+.languages a:hover {
+  background-color: #0d90fc;
+  color: white;
 }
 */
 .btn-outline-primary {
@@ -26,7 +33,7 @@
   
 }
 
-.btn-outline-primary:hover {
+.selected-language {
   background-color: #0d90fc;
   
 }

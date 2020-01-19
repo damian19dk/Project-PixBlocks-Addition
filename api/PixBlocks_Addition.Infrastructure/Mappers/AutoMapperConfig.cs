@@ -25,7 +25,7 @@ namespace PixBlocks_Addition.Infrastructure.Mappers
                 cfg.CreateMap<QuizAnswer, QuizAnswerDto>();
                 cfg.CreateMap<QuizQuestion, QuizQuestionDto>();
                 cfg.CreateMap<Quiz, QuizDto>();
-                cfg.CreateMap<Tag, string>().ConvertUsing(x => x.Name);
+                cfg.CreateMap<Tag, TagDto>();
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Video, VideoDto>()
                     .ForMember(x => x.Picture, opt => opt.ConvertUsing(new PictureUrlConverter(_settings)))

@@ -1,0 +1,54 @@
+<exceptions>
+  <WrongFormatOfMail>Zły format adresu e-mail!</WrongFormatOfMail>
+  <TooLongLogin>Nazwa użytkownika jest za długa! (max 20 znaków)</TooLongLogin>
+  <TooShortLogin>Nazwa użytkonika jest za krótka! (min 4 znaki)</TooShortLogin>
+  <TooLongPassword>Hasło jest za długie! (max 20 znaków)</TooLongPassword>
+  <TooShortPassword>Hasło jest za krótkie! (min 6 znaków)</TooShortPassword>
+  <WrongRoleId>Niewłaściwe Id roli!</WrongRoleId>
+  <WrongUserStatus>Niewłasciwy status użytkownika!</WrongUserStatus>
+  <WrongCharactersInPassword>Niedozwolone znaki w haśle!</WrongCharactersInPassword>
+  <WrongCharactersInLogin>Niedozwolone znaki w loginie!</WrongCharactersInLogin>
+  <ImageNotFound>Nie znaleziono zdjęcia!</ImageNotFound>
+  <TooLongDescription>Opis nie może mieć wiecej niż 10000 znaków!</TooLongDescription>
+  <TooShortDescription>Opis nie może mieć mniej niż 3 znaki!</TooShortDescription>
+  <SamePassword>Nowe hasło musi być różne od starego!</SamePassword>
+  <SameEmail>Nowy e-mail musi być różny od starego!</SameEmail>
+  <UniqueEmail>Taki e-mail istnije już w bazie!</UniqueEmail>
+  <UniqueLogin>Konto o takim loginie istnieje już w bazie!</UniqueLogin>
+  <UniqueLogin>Niepoprawne dane logowania!</UniqueLogin>
+  <TokenNotFound>Nie znaleziono refresh token!</TokenNotFound>
+  <UserNotFoundJWT>Nie znaleziono użytkownika!</UserNotFoundJWT>
+  <RefreshAToken>Refresh token był już aktywowany!</RefreshAToken>
+  <VideoNotFound>Nie znaleziono wideo!</VideoNotFound>
+  <CourseNotFound>Nie znaleziono kursu!</CourseNotFound>
+  <SameVideoInCourse>Kurs posiada już takie wideo!</SameVideoInCourse>
+  <EmptyLanguageTitle>Język nie może być pusty!</EmptyLanguageTitle>
+  <WrongCharactersInLanguage>Język zawiera niepoprawne znaki!</WrongCharactersInLanguage>
+  <TooShortLanguage>Język musi mieć co najmniej 2 znaki!</TooShortLanguage>
+  <TooLongLanguage>Język nie może mieć więcej niż 60 znaków!</TooLongLanguage>
+  <InvalidDuration>Czas trwania nie może być ujemny!</InvalidDuration>
+  <InvalidPicSource>Źródło zdjęcia musi być URL lub id!</InvalidPicSource>
+  <EmptyTitle>Tytuł nie może być pusty!</EmptyTitle>
+  <TooShortTitle>Tytuł musi zawierać co najmniej 3 znaki!</TooShortTitle>
+  <TooLongTitle>Tytuł nie może zawierać więcej niż 250 znaków!</TooLongTitle>
+  <UserNotFound>Nie ma takiego użytkownika!</UserNotFound>
+  <VideoHistoryNotFound>Nie znaleziono histori wideo użytkonika!</VideoHistoryNotFound>
+  <VideoInHistory>To wideo jest już w historii użytkonika!</VideoInHistory>
+  <NegativeTime>Czas nie może być ujemny!</NegativeTime>
+  <MissingVideos>Brak wideo w kursie!</MissingVideos>
+  <WrongUserId>Nie ma użytkownika o takim Id!</WrongUserId>
+  <MissingUser>Nie ma takiego użytkownika!</MissingUser>
+  <MissingHistory>Brak historii użytkownika!</MissingHistory>
+  <SameCourseInUserHistory>Kurs już znajduje się w histori użytkownika!</SameCourseInUserHistory>
+  <TagNotFound>Ten tag nie istnieje!</TagNotFound>
+  <QuizExists>Podane media ma już quiz! Usuń quiz lub wybierz inne media!</QuizExists>
+  <InvalidOrderData>Rozmiar kolekcji jest niepoprawny!</InvalidOrderData>
+  <MissingFile>Brak pliku!</MissingFile>
+  <InvalidVideoParentId>Należy podać poprawne Id kursu!</InvalidVideoParentId>
+  <InvalidLanguage>Zły język!</InvalidLanguage>
+  <InvalidIndex>Indeks nie może być ujemny!</InvalidIndex>
+  <InvalidColor>Kolor nie może być pusty!</InvalidColor>
+  <InvalidDescription>Opis nie może być pusty!</InvalidDescription>
+  <LanguageTooShortTooLong>Język nie może być krótszy niż 2 znaki i dłuższy niż 60 znaków!</LanguageTooShortTooLong>
+  <InvalidCredentials>Niepoprawne dane logowania!</InvalidCredentials>
+</exceptions>

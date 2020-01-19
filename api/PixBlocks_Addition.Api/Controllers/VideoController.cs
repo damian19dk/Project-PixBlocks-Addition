@@ -33,6 +33,11 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task Put([FromForm]ChangeMediaResource resource)
             => await _videoService.UpdateAsync(resource);
 
+        [Authorize(Roles = "Administrator")]
+        [HttpPut("change-course")]
+        public async Task ChangeCourse([FromBody]ChangeAttachedCourseResource changeAttachedCourse)
+            => await _videoService.ChangeCourse(changeAttachedCourse);
+
         [HttpGet("{mediaId}")]
         public async Task<IEnumerable<VideoDto>> GetVideo(string mediaId)
         {
@@ -59,13 +64,6 @@ namespace PixBlocks_Addition.Api.Controllers
         public async Task<IEnumerable<VideoDto>> GetAll(int page, int count = 10)
         {
             return await _videoService.GetAllAsync(page, count);
-        }
-
-        [Authorize(Roles = "Administrator")]
-        [HttpDelete]
-        public async Task Remove(Guid id)
-        {
-            await _videoService.RemoveAsync(id);
         }
 
         [HttpGet("count")]
