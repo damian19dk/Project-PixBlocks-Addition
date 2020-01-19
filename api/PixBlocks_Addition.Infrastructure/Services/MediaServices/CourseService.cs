@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
@@ -46,10 +45,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task CreateAsync(MediaResource resource)
         {
-            string filestring = $"Resources\\MyExceptions.{_localizer.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filestring);
-
             if (resource.Title == null)
             {
                 throw new MyException(MyCodesNumbers.InvalidTitle, MyCodes.EmptyTitle);
@@ -58,13 +53,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             foreach (var c in courses)
             {
                 if (c.Title == resource.Title)
-                {
-                    if (_localizer.Language == "en")
-                        throw new MyException(MyCodesNumbers.SameTitleCourse, $"Course with title: {resource.Title} already exists!");
-                    else
-                        throw new MyException(MyCodesNumbers.SameTitleCourse, $"Kurs o tytule: {resource.Title} już istnieje.");
-                }
-                    
+                    throw new MyException(MyCodesNumbers.SameTitleCourse, $"Kurs o tytule: {resource.Title} już istnieje.");
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -76,10 +65,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     var tagEntity = await _tagRepository.GetAsync(tag, resource.Language);
                     if(tagEntity == null)
                     {
-                        if (_localizer.Language == "en")
-                            throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found!");
-                        else
-                            throw new MyException(MyCodesNumbers.TagNotFound, $"Nie znaleziono tagu: {tag}!");
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
                     }
                     tags.Add(tagEntity);
                 }
@@ -104,7 +90,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
 
             var course = new Course(resource.Premium, Guid.Empty, resource.Title, resource.Description,
-                                    resource.PictureUrl, _localizer.Language, resource.Language, 0, resources, tags);
+                                    resource.PictureUrl, resource.Language, 0, resources, tags);
             await _courseRepository.AddAsync(course);
         }
 
@@ -136,15 +122,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId)
         {
-            string filestring = $"Resources\\MyExceptions.{_localizer.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filestring);
-
             var course = await tryGetCourseAsync(courseId);
             var courseVideo = course.CourseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (courseVideo == null)
             {
-                throw new MyException(MyCodesNumbers.VideoNotFound, doc.SelectSingleNode($"exceptions/VideoNotFound").InnerText);
+                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
             }
             course.CourseVideos.Remove(courseVideo);
 
@@ -185,17 +167,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var courses = await _courseRepository.GetAsync(title);
             if(courses.Count() > 1)
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Cannot remove course {title}! Ambiguous title!");
-                else
-                    throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Nie można usunąć {title}! Dwuznaczny tytuł!");
+                throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Cannot remove course {title}. Ambiguous title.");
             }
             if(courses.Count() < 0 )
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with title {title} not found!");
-                else
-                    throw new MyException(MyCodesNumbers.CourseNotFound, $"Nie znaleziono kursu o tytule {title}!");
+                throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with title {title} not found.");
             }
 
             var course = courses.First();
@@ -216,10 +192,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var course = await _courseRepository.GetAsync(id);
             if (course == null)
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with id: {id} not found! Create a course first!");
-                else
-                    throw new MyException(MyCodesNumbers.CourseNotFound, $"Nie znaleziono kursu o id: {id}. Wpierw stwórz kurs!");
+                throw new MyException(MyCodesNumbers.CourseNotFound, $"Nie znaleziono kursu o id: {id}. Wpierw stwórz kurs!");
             }
             return course;
         }

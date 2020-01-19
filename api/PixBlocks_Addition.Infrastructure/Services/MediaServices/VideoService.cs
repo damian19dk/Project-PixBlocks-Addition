@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
@@ -48,18 +47,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
         public async Task CreateAsync(CreateVideoResource video)
         {
-            string filestring = $"Resources\\MyExceptions.{_localizer.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filestring);
-
-            if (video.ParentId == null)
+            if(video.ParentId == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidVideoParentId, doc.SelectSingleNode($"exceptions/InvalidVideoParentId").InnerText);
+                throw new MyException(MyCodesNumbers.InvalidVideoParentId, "You have to provide valid course id");
             }
             var course = await _courseRepository.GetAsync(video.ParentId);
             if(course == null)
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, doc.SelectSingleNode($"exceptions/CourseNotFound").InnerText);
+                throw new MyException(MyCodesNumbers.CourseNotFound, "The given course id does not exist");
             }
 
             if (!string.IsNullOrEmpty(video.MediaId))
@@ -67,23 +62,20 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == video.MediaId);
                 if (sameVideo != null)
                 {
-                    throw new MyException(MyCodesNumbers.SameVideoInCourse, doc.SelectSingleNode($"exceptions/SameVideoInCourse").InnerText);
+                    throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
                 }
 
                 var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
                 if(response == null)
                 {
-                    if (_localizer.Language == "en")
-                        throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id:{video.MediaId} not found!");
-                    else
-                        throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o id:{video.MediaId}!");
+                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o id:{video.MediaId}!");
                 }
             }
             else
             {
                 if(video.Video == null)
                 {
-                    throw new MyException(MyCodesNumbers.MissingFile, doc.SelectSingleNode($"exceptions/MissingFile").InnerText);
+                    throw new MyException(MyCodesNumbers.MissingFile, "Nie znaleziono wideo!");
                 }
 
                 video.MediaId = await _jwPlayerService.UploadVideoAsync(video.Video);
@@ -118,10 +110,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     var entityTag = await _tagRepository.GetAsync(tag, video.Language);
                     if(entityTag == null)
                     {
-                        if (_localizer.Language == "en")
-                            throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found!");
-                        else
-                            throw new MyException(MyCodesNumbers.TagNotFound, $"Nie znaleziono Tagu {tag}!");
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
                     }
                     tags.Add(entityTag);
                 }
@@ -129,7 +118,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             
 
                 var vid = new Video(video.MediaId, video.ParentId, video.Premium, video.Title, video.Description, picture,
-                                    0, video.Language, _localizer.Language, resources, tags);
+                                    0, video.Language, resources, tags);
 
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
@@ -158,7 +147,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 }
             }
             video.SetStatus(response.Status);
-            video.SetDuration((long)response.Duration, _localizer.Language);
+            video.SetDuration((long)response.Duration);
             await videoRepository.UpdateAsync(video);
         }
 
@@ -197,10 +186,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var video = await _videoRepository.GetAsync(id);
             if (video == null)
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found!");
-                else
-                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo z id {id}!");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
             }
          
             if (video.QuizId != null)
@@ -216,17 +202,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var videos = await _videoRepository.GetAsync(title);
             if(videos.Count() > 1)
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Video with title {title} is ambiguous!");
-                else
-                    throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Wideo z tytułem {title} jest dwuznaczny!");
+                throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Video with title {title} is ambiguous.");
             }
             if(videos.Count() == 0)
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with title {title} not found!");
-                else
-                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo z tytułem {title}!");
+                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with title {title} not found");
             }
 
             var video = videos.First();

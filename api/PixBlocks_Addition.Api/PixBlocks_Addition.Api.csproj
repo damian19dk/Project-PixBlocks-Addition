@@ -2,12 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <UserSecretsId>116951a0-cd81-4e2e-946a-3a4ad364cc99</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="wwwroot\MyExceptions.en.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />

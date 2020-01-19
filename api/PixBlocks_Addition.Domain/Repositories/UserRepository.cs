@@ -64,7 +64,7 @@ namespace PixBlocks_Addition.Domain.Repositories
         public async Task UpdateStatusAsync(Guid id, int status)
         {
             var user = await GetAsync(id);
-            user.SetStatus(status, "pl");
+            user.SetStatus(status);
             await _entities.SaveChangesAsync();
         }
     }

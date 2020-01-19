@@ -16,15 +16,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
         private readonly ITagRepository _tagRepository;
-        private readonly ILocalizationService _localizer;
 
-        public ChangeMediaHandler(IResourceHandler resourceHandler, IResourceRepository resourceRepository, ITagRepository tagRepository,
-            ILocalizationService localization)
+        public ChangeMediaHandler(IResourceHandler resourceHandler, IResourceRepository resourceRepository, ITagRepository tagRepository)
         {
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
             _tagRepository = tagRepository;
-            _localizer = localization;
         }
 
         public async Task ChangeAsync(ChangeMediaResource resource, IMediaRepository<TEntity> mediaRepository, IMediaRepository<TParent> parentRepository = null)
@@ -32,10 +29,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var entity = await mediaRepository.GetAsync(resource.Id);
             if (entity == null)
             {
-                if (_localizer.Language == "en")
-                    throw new MyException(MyCodesNumbers.MediaNotFound, $"Media with id: {resource.Id}not found! Create a media first!");
-                else
-                    throw new MyException(MyCodesNumbers.MediaNotFound, $"Nie znaleziono media o id: {resource.Id}. Wpierw stwórz media");
+                throw new MyException(MyCodesNumbers.MediaNotFound, $"Nie znaleziono media o id: {resource.Id}. Wpierw stwórz media");
             }
             if (entity.Title != resource.Title)
             {
@@ -47,17 +41,14 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
                 if (sameTitle != null && sameTitle.Count() > 0)
                 {
-                    if (_localizer.Language == "en")
-                        throw new MyException(MyCodesNumbers.SameTitleMedia, $"Media with title: {resource.Title} already exists!");
-                    else
-                        throw new MyException(MyCodesNumbers.SameTitleMedia, $"Istnieje już media o tytule: {resource.Title}.");
+                    throw new MyException(MyCodesNumbers.SameTitleMedia, $"Istnieje już media o tytule: {resource.Title}.");
                 }
-                entity.SetTitle(resource.Title, _localizer.Language);
+                entity.SetTitle(resource.Title);
             }
             if (resource.Description != entity.Description)
-                entity.SetDescription(resource.Description, _localizer.Language);
+                entity.SetDescription(resource.Description);
             if (resource.Language != entity.Language)
-                entity.SetLanguage(resource.Language, _localizer.Language);
+                entity.SetLanguage(resource.Language);
             if (resource.Premium != entity.Premium)
                 entity.SetPremium(resource.Premium);
             
@@ -85,10 +76,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     var tagToAdd = await _tagRepository.GetAsync(tag, resource.Language);
                     if(tagToAdd == null)
                     {
-                        if (_localizer.Language == "en")
-                            throw new MyException(MyCodesNumbers.TagNotFound, $"The desired tag {tag} was not found.");
-                        else
-                            throw new MyException(MyCodesNumbers.TagNotFound, $"Nie znaleziono tagu {tag}!");
+                        throw new MyException(MyCodesNumbers.TagNotFound, $"The desired tag {tag} was not found.");
                     }
                     if(!entity.Tags.Contains(tagToAdd))
                     {
@@ -117,7 +105,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             if (resource.PictureUrl != null)
             {
                 await tryRemoveResourceFromDb(entity.Picture);
-                entity.SetPicture(resource.PictureUrl, _localizer.Language);
+                entity.SetPicture(resource.PictureUrl);
             }
             //Add picture to database
             if (resource.Image != null)
@@ -125,7 +113,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 await tryRemoveResourceFromDb(entity.Picture);
                 var img = await _resourceHandler.CreateAsync(resource.Image);
                 await _resourceRepository.AddAsync(img);
-                entity.SetPicture(img.Id.ToString(), _localizer.Language);
+                entity.SetPicture(img.Id.ToString());
             }
 
             await mediaRepository.UpdateAsync(entity);

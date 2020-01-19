@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using AutoMapper;
 using PixBlocks_Addition.Domain.Entities;
 using PixBlocks_Addition.Domain.Exceptions;
@@ -21,24 +20,18 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly ICourseRepository _courseRepository;
         private readonly IVideoRepository _videoRepository;
         private readonly IMapper _mapper;
-        private readonly ILocalizationService _localization;
 
-        public QuizService(IQuizRepository quizRepository, ICourseRepository courseRepository, IVideoRepository videoRepository,
-                           IAutoMapperConfig mapperConfig, ILocalizationService localization)
+        public QuizService(IQuizRepository quizRepository, ICourseRepository courseRepository, IVideoRepository videoRepository, 
+                           IAutoMapperConfig mapperConfig)
         {
             _quizRepository = quizRepository;
             _courseRepository = courseRepository;
             _videoRepository = videoRepository;
             _mapper = mapperConfig.Mapper;
-            _localization = localization;
         }
 
         public async Task CreateQuizAsync(CreateQuizResource quiz)
         {
-            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
             Media media = await _courseRepository.GetAsync(quiz.MediaId);
             if(media == null)
             {
@@ -46,14 +39,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             if(media == null)
             {
-                if (_localization.Language == "en")
-                    throw new MyException(MyCodesNumbers.MediaNotFound, $"Media with id {quiz.MediaId} not found!");
-                else
-                    throw new MyException(MyCodesNumbers.MediaNotFound, $"Nie znaleziono Media o id {quiz.MediaId}!");
+                throw new MyException(MyCodesNumbers.MediaNotFound, $"Media with id {quiz.MediaId} not found.");
             }
             if(media.QuizId != null)
             {
-                throw new MyException(MyCodesNumbers.QuizExists, doc.SelectSingleNode($"exceptions/QuizExists").InnerText);
+                throw new MyException(MyCodesNumbers.QuizExists, $"The given media already has a quiz. Remove the quiz or choose another media.");
             }
 
             var newQuiz = new Quiz(media.Id);
@@ -87,10 +77,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var quiz = await _quizRepository.GetAsync(id);
             if(quiz == null)
             {
-                if (_localization.Language == "en")
-                    throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {id} not found.");
-                else
-                    throw new MyException(MyCodesNumbers.QuizNotFound, $"Nie znaleziono Quizu o id {id}!");
+                throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {id} not found.");
             }
             await _quizRepository.RemoveAsync(quiz);
 
@@ -114,10 +101,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var currentQuiz = await _quizRepository.GetAsync(quiz.QuizId);
             if(currentQuiz == null)
             {
-                if (_localization.Language == "en")
-                    throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {quiz.QuizId} not found.");
-                else
-                    throw new MyException(MyCodesNumbers.QuizNotFound, $"Nie znaleziono Quizu o id {quiz.QuizId}!");
+                throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {quiz.QuizId} not found.");
             }
 
             currentQuiz.Questions.Clear();

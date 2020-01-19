@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace PixBlocks_Addition.Infrastructure.Services
 {
@@ -22,11 +21,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IResourceHandler _resourceHandler;
         private readonly IResourceRepository _resourceRepository;
-        private readonly ILocalizationService _localization;
+
 
         public UserCourseHistoryService(IUserCourseHistoryRepository userCourseHistoryRepository, IAutoMapperConfig config, 
-            IUserRepository userRepository, ICourseRepository courseRepository, IResourceHandler resourceHandler, IResourceRepository resourceRepository,
-            ILocalizationService localization)
+            IUserRepository userRepository, ICourseRepository courseRepository, IResourceHandler resourceHandler, IResourceRepository resourceRepository)
         {
             _userCourseHistoryRepository = userCourseHistoryRepository;
             _courseRepository = courseRepository;
@@ -34,28 +32,23 @@ namespace PixBlocks_Addition.Infrastructure.Services
             _mapper = config.Mapper;
             _resourceHandler = resourceHandler;
             _resourceRepository = resourceRepository;
-            _localization = localization;
         }
 
         public async Task AddHistoryAsync(Guid userId, Guid courseId)
         {
-            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
             var user = await _userRepository.GetAsync(userId);
             var course = await _courseRepository.GetAsync(courseId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, doc.SelectSingleNode($"exceptions/WrongUserId").InnerText);
-            if (course == null) throw new MyException(MyCodesNumbers.CourseNotFound, doc.SelectSingleNode($"exceptions/CourseNotFound").InnerText);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
+            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
 
 
 
             var history = await _userCourseHistoryRepository.GetAllAsync(user);
-            if (history == null) throw new MyException(MyCodesNumbers.MissingHistory, doc.SelectSingleNode($"exceptions/MissingHistory").InnerText);
+            if (history == null) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
 
             foreach (Course check in history.Courses)
             {
-                if (check.Id == courseId) throw new MyException(MyCodesNumbers.SameCourseInUserHistory, doc.SelectSingleNode($"exceptions/SameCourseInUserHistory").InnerText);
+                if (check.Id == courseId) throw new MyException(MyCodesNumbers.SameCourseInUserHistory, MyCodes.SameCourseInUserHistory);
             }
             history.Courses.Add(course);
             await _userCourseHistoryRepository.UpdateAsync(history);
@@ -63,15 +56,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task<IEnumerable<CourseDto>> GetAllAsync(Guid userId)
         {
-            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, doc.SelectSingleNode($"exceptions/WrongUserId").InnerText);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
 
             var Ids = await _userCourseHistoryRepository.GetAllAsync(user);
-            if (Ids == null) throw new MyException(MyCodesNumbers.MissingHistory, doc.SelectSingleNode($"exceptions/MissingHistory").InnerText);
+            if (Ids == null) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
 
             List<Course> result = new List<Course>();
             foreach (Course Id in Ids.Courses)
@@ -84,24 +73,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
 
         public async Task RemoveAsync(Guid userId)
         {
-            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, doc.SelectSingleNode($"exceptions/WrongUserId").InnerText);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
             var result = await _userCourseHistoryRepository.GetAllAsync(user);
             await _userCourseHistoryRepository.RemoveAsync(user);
         }
 
         public async Task CleanUserHistory(Guid userId)
         {
-            string file = $"Resources\\MyExceptions.{_localization.Language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, doc.SelectSingleNode($"exceptions/WrongUserId").InnerText);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
             var progres = await _userCourseHistoryRepository.GetAllAsync(user);
 
             progres.Courses.Clear();

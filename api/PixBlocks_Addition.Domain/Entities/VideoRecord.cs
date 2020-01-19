@@ -1,9 +1,7 @@
 ﻿using PixBlocks_Addition.Domain.Exceptions;
-using PixBlocks_Addition.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml;
 
 namespace PixBlocks_Addition.Domain.Entities
 {
@@ -15,11 +13,11 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public VideoHistory VideoHistory { get; protected set; }
 
-        public VideoRecord(Video video, long time, string localization)
+        public VideoRecord(Video video, long time)
         {
             Id = Guid.NewGuid();
             Video = video;
-            SetTime(time, localization);
+            SetTime(time);
         }
 
         protected VideoRecord()
@@ -27,15 +25,11 @@ namespace PixBlocks_Addition.Domain.Entities
 
         }
 
-        public void SetTime(long time, string language)
+        public void SetTime(long time)
         {
-            string file = $"Resources\\MyExceptions.{language}.xml";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(file);
-
             if (time < 0)
             {
-                throw new MyException(MyCodesNumbers.NegativeTime, doc.SelectSingleNode($"exceptions/NegativeTime").InnerText);
+                throw new MyException("time cannot be less than 0.");
             }
             Time = time;
         }
