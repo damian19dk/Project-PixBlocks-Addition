@@ -103,7 +103,8 @@ export class TagService {
     if (tags === undefined || tags === null || tags.length === 0) {
       return null;
     }
-    return tags.join().split(',');
+    // return tags.join().split(',');
+    return tags.map(tag => tag.name);
   }
 
   toTagsString(tags: Array<string>) {
