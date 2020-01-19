@@ -35,17 +35,15 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
 
     this.exampleTag.name = 'Tag';
     this.exampleTag.description = 'Lorem ipsum...';
-    this.exampleTag.color = '#fff';
+    this.exampleTag.backgroundColor = '#fff';
+    this.exampleTag.fontColor = '#fff';
 
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
-      color: ['#fff'],
+      backgroundColor: ['#fff'],
+      fontColor: ['#000'],
       language: ['pl']
     });
   }
@@ -58,18 +56,16 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
     }
 
     this.loading = true;
-    this.dataDto.name = this.form.value.name;
-    this.dataDto.description = this.form.value.description;
-    this.dataDto.language = this.form.value.language;
+    this.dataDto.from(this.form);
 
     this.tagService.add(this.dataDto)
       .subscribe(
         data => {
-          this.tagService.addTagDto(this.dataDto.name);
+          this.tagService.addTagDto(this.dataDto.id);
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.emitTagChangedEvent();
         },
         error => {
           this.sent = true;
@@ -78,12 +74,17 @@ export class NewTagAdminComponent extends FormModal implements OnInit {
         });
   }
 
-  changeBackgroundColor($event: ColorEvent) {
-    this.dataDto.color = $event.color.hex;
-    this.exampleTag.color = this.dataDto.color;
+  changeBgColor($event: ColorEvent) {
+    this.form.controls.backgroundColor.setValue($event.color.hex);
+    this.exampleTag.backgroundColor = $event.color.hex;
   }
 
-  refreshOtherThumbnails() {
+  changeFgColor($event: ColorEvent) {
+    this.form.controls.fontColor.setValue($event.color.hex);
+    this.exampleTag.fontColor = $event.color.hex;
+  }
+
+  emitTagChangedEvent() {
     this.tagChanged.emit(null);
   }
 }

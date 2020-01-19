@@ -64,7 +64,8 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" i18n>Tagi</label>
         <div class="col-sm-10">
-          <ng-multiselect-dropdown [data]="tagsList" [placeholder]="'Wybierz tagi'"
+          <ng-multiselect-dropdown [data]="tagsList"
+                                   [placeholder]="'Wybierz tagi'"
                                    [settings]="tagsSettings" formControlName="tags">
           </ng-multiselect-dropdown>
         </div>
@@ -81,9 +82,11 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
         <div class="col-sm-10">
-          <label (click)="imitateImageInput()"
-                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
+          <button (click)="imitateImageInput()"
+                  [color]="f.image.value ? 'accent' : 'primary'"
+                  mat-raised-button
+                  type="button">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</button>
+          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
                  class="form-control"
                  accept="image/*" hidden
                  id="image"
@@ -93,7 +96,7 @@
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" i18n>Filmy</label>
-        <div class="col-sm-10">
+        <div class="col-sm-10 add-video">
           <app-video-add-modal-admin (videoChanged)="getCourse()" [course]="course"></app-video-add-modal-admin>
         </div>
         <div (cdkDropListDropped)="drop($event)" cdkDropList class="drop-list">

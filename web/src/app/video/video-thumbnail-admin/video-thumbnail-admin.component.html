@@ -1,6 +1,6 @@
 <ng-template #modal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" i18n>Edytuj kurs</h4>
+    <h4 class="modal-title" i18n>Edytuj film</h4>
     <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -95,8 +95,10 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
         <div class="col-sm-10">
-          <label (click)="imitateImageInput()"
-                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
+          <button (click)="imitateImageInput()"
+                  [color]="f.image.value ? 'accent' : 'primary'"
+                  mat-raised-button
+                  type="button">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</button>
           <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
                  class="form-control"
                  accept="image/*"
@@ -108,8 +110,10 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="video" i18n>Film</label>
         <div class="col-sm-10">
-          <label (click)="imitateVideoInput()"
-                 class="file-label">{{f.video.value ? 'Gotowe do wysłania' : 'Wybierz film'}}</label>
+          <button (click)="imitateVideoInput()"
+                  [color]="f.video.value ? 'accent' : 'primary'"
+                  mat-raised-button
+                  type="button">{{f.video.value ? 'Gotowe do wysłania' : 'Wybierz film'}}</button>
           <input (change)="handleVideoInput($event.target.files)" [ngClass]="{'is-valid' : f.video.value}"
                  class="form-control"
                  accept="video/*"

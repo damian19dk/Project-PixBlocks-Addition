@@ -86,6 +86,10 @@ button {
   cursor: pointer;
 }
 
+.add-video {
+  margin-bottom: 10px;
+}
+
 .drop-list {
   width: 100%;
   max-width: 100%;

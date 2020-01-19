@@ -72,6 +72,8 @@ import {VideoChooseAdminComponent} from './video/video-choose-admin/video-choose
 import {CourseChooseAdminComponent} from './courses/course-choose-admin/course-choose-admin.component';
 import {JWPlayerComponent} from './JWPlayer/jwplayer/jwplayer.component';
 import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.component';
+import {SelectPictureComponent} from './common/select-picture/select-picture.component';
+import {SelectVideoComponent} from './common/select-video/select-video.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +126,9 @@ import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.comp
     QuizQuestionComponent,
     QuizAnswerComponent,
     QuizFormComponent,
-    VideoQuizUserComponent
+    VideoQuizUserComponent,
+    SelectPictureComponent,
+    SelectVideoComponent
   ],
   imports: [
     BrowserModule,

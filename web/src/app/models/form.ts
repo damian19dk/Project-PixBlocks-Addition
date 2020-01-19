@@ -23,7 +23,7 @@ export class Form {
   getTags(tagService: TagService) {
     tagService.getAll().subscribe(
       data => {
-        this.tagsList = data.map(tag => tag.name);
+        this.tagsList = data === null ? null : data.map(tag => tag.name);
       }
     );
   }

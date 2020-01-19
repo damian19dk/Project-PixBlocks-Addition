@@ -116,7 +116,7 @@ export class CourseListElementAdminComponent extends FormModal implements OnInit
     document.getElementById('image').click();
   }
 
-  handleFileInput(files: FileList) {
+  handleImageInput(files: FileList) {
     this.form.controls.image.setValue(files.item(0));
   }
 

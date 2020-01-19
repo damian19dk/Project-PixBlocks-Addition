@@ -16,7 +16,9 @@ export class TagService {
 
     this.getAll().subscribe(
       data => {
-        data.forEach(tag => this.allTags.set(tag.name, tag));
+        if (data !== null) {
+          data.forEach(tag => this.allTags.set(tag.name, tag));
+        }
       }
     );
 
@@ -35,17 +37,17 @@ export class TagService {
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}`, {headers}).pipe(
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/all`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
 
-  getOne(name: string) {
+  getOne(id: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${name}`, {headers}).pipe(
+    return this.http.get<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${id}`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
@@ -60,22 +62,22 @@ export class TagService {
     );
   }
 
-  update(name: string, tagDto: TagDto) {
+  update(id: string, tagDto: TagDto) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.put<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${name}`, tagDto, {headers}).pipe(
+    return this.http.put<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${id}`, tagDto, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
 
-  remove(name: string) {
+  remove(id: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
 
-    return this.http.delete<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${name}`, {headers}).pipe(
+    return this.http.delete<any>(environment.baseUrl + `/api/${this.BASE_PATH}/${id}`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }
@@ -84,11 +86,11 @@ export class TagService {
     return this.allTags.get(name);
   }
 
-  addTagDto(name: string) {
-    this.getOne(name)
+  addTagDto(id: string) {
+    this.getOne(id)
       .subscribe(
         data => {
-          this.allTags.set(name, data);
+          this.allTags.set(data.name, data);
         }
       );
   }
@@ -101,7 +103,8 @@ export class TagService {
     if (tags === undefined || tags === null || tags.length === 0) {
       return null;
     }
-    return tags.join().split(',');
+    // return tags.join().split(',');
+    return tags.map(tag => tag.name);
   }
 
   toTagsString(tags: Array<string>) {

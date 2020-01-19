@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Quiz} from '../../../models/quiz.model';
 
 @Component({
@@ -6,7 +6,7 @@ import {Quiz} from '../../../models/quiz.model';
   templateUrl: './video-quiz-user.component.html',
   styleUrls: ['./video-quiz-user.component.css']
 })
-export class VideoQuizUserComponent implements OnInit {
+export class VideoQuizUserComponent implements OnInit, OnChanges {
   @Input() quiz: Quiz;
   correctAnswers = 0;
   loading = false;
@@ -16,6 +16,12 @@ export class VideoQuizUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.quiz !== undefined && this.quiz !== null) {
+      this.prepareQuiz();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.quiz !== undefined && this.quiz !== null) {
       this.prepareQuiz();
     }

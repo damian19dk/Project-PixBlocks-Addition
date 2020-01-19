@@ -1,0 +1,9 @@
+<button (click)="imitateImageInput()"
+        class="file-label"
+        mat-raised-button>{{form.controls.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</button>
+<input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : form.controls.image.value}"
+       accept="image/*"
+       class="form-control"
+       hidden
+       id="image"
+       type="file">

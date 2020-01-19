@@ -35,17 +35,16 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
 
     this.exampleTag.name = 'Tag';
     this.exampleTag.description = 'Lorem ipsum...';
-    this.exampleTag.color = '#fff';
+    this.exampleTag.backgroundColor = '#fff';
+    this.exampleTag.fontColor = '#000';
 
-    this.sent = false;
-    this.submitted = false;
-    this.loading = false;
-    this.error = null;
 
     this.form = this.formBuilder.group({
+      id: [this.tagDto.id],
       name: [this.tagDto.name, Validators.required],
       description: [this.tagDto.description, [Validators.required, Validators.minLength(3), Validators.maxLength(10000)]],
-      color: [this.tagDto.color],
+      backgroundColor: [this.tagDto.backgroundColor],
+      fontColor: [this.tagDto.fontColor],
       language: ['pl']
     });
   }
@@ -58,15 +57,15 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
     }
 
     this.loading = true;
-    this.applyDataDto();
+    this.dataDto.from(this.form);
 
-    this.tagService.update(this.dataDto.name, this.dataDto)
+    this.tagService.update(this.form.controls.id.value, this.dataDto)
       .subscribe(
         data => {
           this.sent = true;
           this.error = null;
           this.loading = false;
-          this.refreshOtherThumbnails();
+          this.emitTagChangedEvent();
         },
         error => {
           this.sent = true;
@@ -76,10 +75,9 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
   }
 
   remove() {
-    this.applyDataDto();
-    this.tagService.remove(this.dataDto.name).subscribe(
+    this.tagService.remove(this.form.controls.id.value).subscribe(
       data => {
-        this.refreshOtherThumbnails();
+        this.emitTagChangedEvent();
       },
       error => {
         this.error = error;
@@ -87,18 +85,17 @@ export class TagThumbnailEditAdminComponent extends FormModal implements OnInit 
     );
   }
 
-  refreshOtherThumbnails() {
+  emitTagChangedEvent() {
     this.tagChanged.emit(null);
   }
 
-  changeBackgroundColor($event: ColorEvent) {
-    this.dataDto.color = $event.color.hex;
-    this.exampleTag.color = this.dataDto.color;
+  changeBgColor($event: ColorEvent) {
+    this.form.controls.backgroundColor.setValue($event.color.hex);
+    this.exampleTag.backgroundColor = $event.color.hex;
   }
 
-  applyDataDto() {
-    this.dataDto.name = this.form.value.name;
-    this.dataDto.description = this.form.value.description;
-    this.dataDto.language = this.form.value.language;
+  changeFgColor($event: ColorEvent) {
+    this.form.controls.fontColor.setValue($event.color.hex);
+    this.exampleTag.fontColor = $event.color.hex;
   }
 }

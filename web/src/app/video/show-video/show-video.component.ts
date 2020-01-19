@@ -77,6 +77,10 @@ export class ShowVideoComponent implements OnInit {
           });
         }, 50);
 
+        jwplayer().on('pause', (e) => {
+          console.log(e);
+        });
+
         this.loadingService.unload();
       },
       error => {
@@ -165,6 +169,18 @@ export class ShowVideoComponent implements OnInit {
       error => {
         this.progress = 0;
         this.loadingService.unload();
+      }
+    );
+  }
+
+  async setVideoHistory() {
+    const currentPosition = jwplayer('video-field').getPosition();
+    this.videoService.setVideoHistory(this.videoDocument.id, currentPosition).subscribe(
+      data => {
+
+      },
+      error => {
+
       }
     );
   }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TagDto} from '../../models/tagDto.model';
 import {TagService} from '../../services/tag.service';
-import {LoadingService} from "../../services/loading.service";
+import {LoadingService} from '../../services/loading.service';
 
 @Component({
   selector: 'app-tags-view-admin',
