@@ -1,6 +1,6 @@
 #title span {
   font-size: 68px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -2.3px;
   color: #0d90fc;
   margin-top: 10px;
@@ -17,4 +17,21 @@
 
 .font-weight-bold {
   font-size: 20px;
+}
+.loggedIn {
+  background-image: url('./../../assets/svg/undraw_researching_22gp.svg');  
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+@media screen and (min-width: 1900px) {
+.loggedIn {
+  margin-right: 38%;
+}
+
+}
+.userLoggedIn
+{
+  background-image: url('./../../assets/svg/undraw_Choose_bwbs.svg'), url('./../../assets/svg/undraw_Business_analytics_64el.svg');  
+  background-repeat: no-repeat;
+  background-position: top right, bottom right;
 }

@@ -57,6 +57,9 @@
   margin-bottom: 50px;
 }
 
-.bg-video {
-  background: rgba(13, 144, 252, 0.5);
-}
+ .bg-video {
+   background: rgba(13, 144, 252, 0.5);
+ }
+ .courseTitle {
+ padding-left: 10%;
+ }

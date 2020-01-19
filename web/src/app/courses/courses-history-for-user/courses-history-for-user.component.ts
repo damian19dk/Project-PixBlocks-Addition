@@ -30,7 +30,7 @@ export class CoursesHistoryForUserComponent implements OnInit {
 
     this.courseService.getUserHistory().subscribe(
       (data: Array<CourseDocument>) => {
-        this.courses = data.slice(0, 2);
+        this.courses = data.slice(0, 1);
         this.loadingService.unload();
       },
       error => {

@@ -1,5 +1,5 @@
 <div class="container">
-  <div i18n id="title">
+  <div *appHasRole="['anonymous']" i18n id="title">
     <span style="color:#0d90fc">Programowanie</span> <br>
     <span style="color:#000000">dla każdego!</span>
   </div>
@@ -54,9 +54,14 @@
     </div>
 
   </div>
+</div>
 
-  <div *appHasRole="['Użytkownik']" class="container-fluid">
-    <div class="row alert alert-info justify-content-center">
+  <div *appHasRole="['Użytkownik']" class="container loggedIn">
+    <div i18n id="title">
+      <span style="color:#0d90fc">Programowanie</span> <br>
+      <span style="color:#000000">dla każdego!</span>
+    </div>
+    <div class="row  alert alert-info justify-content-left" style="margin-left: 1%; width: 28%;">
       <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
     </div>
 
@@ -64,19 +69,15 @@
   </div>
 
 
-  <div *appHasRole="['Użytkownik']" class="container-fluid">
-    <div class="row alert alert-info justify-content-center">
-      <strong>{{getLogin()}}</strong>, zobacz, co nowego ostatnio dodaliśmy:
+  <div *appHasRole="['Użytkownik']" class="container-fluid userLoggedIn">
+    <div style="margin-left: 8%; margin-right: 30%" class="row alert alert-info justify-content-center">
+      <strong>{{getLogin()}}</strong>, zobacz swoje kursy:
     </div>
-
+    <div style="margin-left: 8%;">
     <app-courses-view-list-user></app-courses-view-list-user>
   </div>
-
-  <div *appHasRole="['Administrator']" class="container-fluid">
-    <app-select-picture></app-select-picture>
-
   </div>
-</div>
+
 
 
 
