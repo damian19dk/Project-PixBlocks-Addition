@@ -75,11 +75,11 @@ export class ShowVideoComponent implements OnInit {
             aspectratio: '16:9',
             primary: 'html5'
           });
-        }, 50);
+          jwplayer('video-field').on('pause', (e) => {
 
-        jwplayer().on('pause', (e) => {
-          console.log(e);
-        });
+            this.setVideoHistory();
+          });
+        }, 50);
 
         this.loadingService.unload();
       },
@@ -177,7 +177,7 @@ export class ShowVideoComponent implements OnInit {
     const currentPosition = jwplayer('video-field').getPosition();
     this.videoService.setVideoHistory(this.videoDocument.id, currentPosition).subscribe(
       data => {
-
+        this.getProgress();
       },
       error => {
 
