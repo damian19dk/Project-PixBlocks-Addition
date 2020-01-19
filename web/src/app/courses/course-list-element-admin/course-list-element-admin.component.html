@@ -82,9 +82,11 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="image" i18n>Zdjęcie</label>
         <div class="col-sm-10">
-          <label (click)="imitateImageInput()"
-                 class="file-label">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</label>
-          <input (change)="handleFileInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
+          <button (click)="imitateImageInput()"
+                  [color]="f.image.value ? 'accent' : 'primary'"
+                  mat-raised-button
+                  type="button">{{f.image.value ? 'Gotowe do wysłania' : 'Wybierz zdjęcie'}}</button>
+          <input (change)="handleImageInput($event.target.files)" [ngClass]="{'is-valid' : f.image.value}"
                  class="form-control"
                  accept="image/*" hidden
                  id="image"

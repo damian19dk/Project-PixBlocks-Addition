@@ -71,6 +71,11 @@
 
     <app-courses-view-list-user></app-courses-view-list-user>
   </div>
+
+  <div *appHasRole="['Administrator']" class="container-fluid">
+    <app-select-picture></app-select-picture>
+
+  </div>
 </div>
 
 
