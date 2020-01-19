@@ -96,7 +96,7 @@
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label" i18n>Filmy</label>
-        <div class="col-sm-10">
+        <div class="col-sm-10 add-video">
           <app-video-add-modal-admin (videoChanged)="getCourse()" [course]="course"></app-video-add-modal-admin>
         </div>
         <div (cdkDropListDropped)="drop($event)" cdkDropList class="drop-list">

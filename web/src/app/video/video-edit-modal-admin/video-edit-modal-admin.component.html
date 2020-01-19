@@ -145,7 +145,11 @@
   </div>
 </ng-template>
 
-<button (click)="openModal(modal)" [disabled]="video.status !== 'ready'" class="btn btn-sm btn-outline-primary" i18n
+<button (click)="openModal(modal)"
+        [disabled]="video.status !== 'ready'"
+        color="primary"
+        i18n
+        mat-button
         type="button">
   <i class="fas fa-edit"></i>Edytuj
 </button>
