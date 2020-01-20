@@ -76,5 +76,10 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _courseService.CountAsync();
         }
 
+        [HttpGet("length")]
+        public async Task<long> GetCourseLengthAsync(Guid courseId)
+        {
+            return await _courseService.GetCourseLengthAsync(courseId);
+        }
     }
 }
