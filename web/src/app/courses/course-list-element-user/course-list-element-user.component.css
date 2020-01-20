@@ -1,15 +1,15 @@
 .card {
   width: 100%;
-  height: 25vh;
+  /*height: 25vh;*/
   max-height: 350px;
   transition: 0.3s;
   border-radius: 20px;
 
 
-  padding: 20px 10px;
-  border-bottom: solid 1px #ccc;
+  /*padding: 20px 10px;*/
+  /*border-bottom: solid 1px #ccc;*/
   color: rgba(0, 0, 0, 0.87);
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   background: white;
   font-size: 14px;
 }
@@ -34,10 +34,7 @@
 .card-img-top {
   width: 100%;
   height: 100%;
-  max-width: 20vh;
-  max-height: 20vh;
   border-radius: 20px;
-  margin: 5px;
   display: block;
   transition: transform .4s, opacity .4s;
   opacity: 1.0;
