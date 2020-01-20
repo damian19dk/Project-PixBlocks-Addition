@@ -103,13 +103,14 @@
     <div *ngIf="quiz" class="container-fluid">
       <div class="row">
         <div class="col-1"></div>
-        <div class="col-6" style="padding-left: 10%; height: 25rem;">
+        <div class="col-5 quiz">
           <app-video-quiz-user [quiz]="quiz"></app-video-quiz-user>
         </div>
 
         <div class="col-5 quizImage" style="height: 25rem;">
           <img class="img-max" src="assets/svg/undraw_quiz_nlyh.svg">
         </div>
+        <div class="col-1"></div>
       </div>
     </div>
   </div>
