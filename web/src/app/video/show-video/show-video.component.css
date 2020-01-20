@@ -6,7 +6,7 @@
   font-family: 'Oswald', sans-serif;
 }
 
-.col-7 {
+.embVideo {
   margin-left: 10%;
 }
 
@@ -70,3 +70,18 @@
   padding-left: 10%;
   height: 25rem;
 }
+.spinnerSvg {
+  
+  background-image: url('./../../../assets/svg/iconmonstr-trophy-6.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mb-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

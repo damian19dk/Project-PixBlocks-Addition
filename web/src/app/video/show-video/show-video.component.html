@@ -3,9 +3,20 @@
     {{error}}
   </div>
   <div class="container-fluid">
-    <div class="courseTitle">
+    <div class="row">
+      <div class="courseTitle col-8">
       <div class="title">
         <h2 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h2>
+        
+      </div>
+      
+      </div>
+      <div class="col-2 spinnerSvg" style="margin-bottom: 10px;">
+        <mat-progress-spinner [value]="progress"
+        class="mb-1"
+        mode="determinate"
+        ngbTooltip="Aktualny postęp: {{progress}}%"
+        placement="top"></mat-progress-spinner>
       </div>
     </div>
   </div>
@@ -13,7 +24,7 @@
    <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5> -->
 
   <div class="row">
-    <div *ngIf="videoDocument" class="col-7">
+    <div *ngIf="videoDocument" class="embVideo col-7">
       <div class="row">
         <div class="col-12 bg-light" style=" border-radius: 25px; padding-top: 40px;">
           <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
@@ -23,11 +34,7 @@
 
           <button (click)="addCourseToUserHistory()" class="btn">Start</button>
         </div>
-        <mat-progress-bar [value]="progress"
-                          class="mb-1"
-                          mode="determinate"
-                          ngbTooltip="Aktualny postęp: {{progress}}/100"
-                          placement="top"></mat-progress-bar>
+        
       </div>
 
       <div class="row justify-content-between" style="padding-top: 9px;">
@@ -127,5 +134,3 @@
 <section class="card2">
   <app-courses-view></app-courses-view>
 </section>
-
-
