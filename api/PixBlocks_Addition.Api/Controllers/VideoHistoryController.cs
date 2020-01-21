@@ -50,7 +50,7 @@ namespace PixBlocks_Addition.Api.Controllers
             return await _videoHistoryService.GetHistoryAsync(userId);
         }
 
-        [HttpGet("progress/{videoId}")]
+        [HttpGet("progressVideo/{videoId}")]
         public async Task<VideoRecordDto> GetVideoProgress(Guid videoId)
         {
             Guid userId = Guid.Empty;

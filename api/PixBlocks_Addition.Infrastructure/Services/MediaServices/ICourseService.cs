@@ -10,5 +10,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
     public interface ICourseService: IMediaService<CourseDto, MediaResource>
     {
         Task RemoveVideoFromCourseAsync(Guid courseId, Guid videoId);
+        Task<long> GetCourseLengthAsync(Guid courseId);
     }
 }
