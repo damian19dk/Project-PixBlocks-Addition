@@ -83,7 +83,7 @@
               style="margin-right: 3px; border: none; height: 73px;">
         Zarejestruj
       </button>
-      <button (click)="afterClick('login')" *appHasRole="['anonymous']"
+      <button (click)="afterClick('login')" *appHasRole="['anonymous']" class="btn"
               [ngClass]="selectedComponent === 'login' ? 'btn-primary' : 'btn-light'"
               i18n
               routerLink="/login"
