@@ -9,7 +9,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class QuizAnswerComponent implements OnInit {
   @Input() quizAnswerIndex: number;
   @Input() quizAnswerForm: FormGroup;
-  @Output() onRemoveAnswer = new EventEmitter<number>();
+  @Output() answerRemoved = new EventEmitter<number>();
 
   constructor() {
   }
@@ -18,6 +18,6 @@ export class QuizAnswerComponent implements OnInit {
   }
 
   handleRemoveAnswer() {
-    this.onRemoveAnswer.emit(this.quizAnswerIndex);
+    this.answerRemoved.emit(this.quizAnswerIndex);
   }
 }

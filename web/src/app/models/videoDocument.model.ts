@@ -4,4 +4,5 @@ export class VideoDocument extends DataDocument {
   parentId: string;
   status: string;
   quizId: string;
+  progress?: number;
 }
