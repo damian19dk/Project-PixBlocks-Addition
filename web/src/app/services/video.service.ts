@@ -64,4 +64,13 @@ export class VideoService extends DataService {
     return this.http.post<any>(`${environment.baseUrl}/api/VideoHistory/set?videoId=${videoId}&time=${time}`, {}, {headers}).pipe(
       retry(environment.maxRetryValue));
   }
+
+  getProgress(id: string) {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept-Language', localStorage.getItem('Accept-Language'));
+    return this.http.get<any>(`${environment.baseUrl}/api/VideoHistory/progressVideo/${id}`, {headers}).pipe(
+      retry(environment.maxRetryValue)
+    );
+  }
 }
