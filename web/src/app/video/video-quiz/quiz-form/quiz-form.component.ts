@@ -159,6 +159,6 @@ export class QuizFormComponent implements OnInit {
 
   selectVideo($event: any) {
     this.video = $event;
-    console.log(this.form.errors);
+    this.form.controls.mediaId.setValue(this.video.id);
   }
 }
