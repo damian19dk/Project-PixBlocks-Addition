@@ -28,7 +28,7 @@ export class ShowVideoComponent implements OnInit {
   courses: Array<CourseDocument>;
   quiz: Quiz = null;
   player: any;
-  courseProgress: number;
+  courseProgress = 0;
 
   isCourseAddedToHistory = false;
 
@@ -222,7 +222,6 @@ export class ShowVideoComponent implements OnInit {
         error => {
         });
       this.isCourseAddedToHistory = true;
-
     }
   }
 }

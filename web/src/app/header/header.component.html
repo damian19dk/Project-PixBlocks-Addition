@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
   <div class="d-flex flex-grow-1">
     <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
     <a class="navbar-brand d-none d-lg-inline-block" href="#">
@@ -15,60 +15,78 @@
   <div [ngbCollapse]="isNavCollapsed" class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar"
        style="padding-right: 10%">
     <ul *appHasRole="['Użytkownik']" class="navbar-nav ml-auto">
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('mycourses')"
+              [ngClass]="selectedComponent === 'mycourses' ? 'btn-primary' : 'btn-light'" class="btn"
+              i18n
               routerLink="/mycourses"
               style="margin-right: 3px; border: none; height: 73px;">Moje kursy
       </button>
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('profile')" [ngClass]="selectedComponent === 'profile' ? 'btn-primary' : 'btn-light'"
+              class="btn"
+              i18n
               routerLink="/profile"
               style="margin-right: 3px; border: none; height: 73px;">Mój profil
       </button>
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('settings')"
+              [ngClass]="selectedComponent === 'settings' ? 'btn-primary' : 'btn-light'" class="btn"
+              i18n
               routerLink="/settings"
               style="margin-right: 3px; border: none; height: 73px;">Ustawienia
       </button>
-      <button (click)="afterClick(); logout()" color="primary" i18n
-              mat-stroked-button
+      <button (click)="afterClick('logout'); logout()" class="btn btn-light" i18n
               style="margin-right: 3px; border: none; height: 73px;">Wyloguj
       </button>
       <app-select-languages [languages]="languages"></app-select-languages>
     </ul>
 
     <ul *appHasRole="['Administrator']" class="navbar-nav ml-auto">
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('courses')" [ngClass]="selectedComponent === 'courses' ? 'btn-primary' : 'btn-light'"
+              class="btn"
+              i18n
               routerLink="/courses"
               style="margin-right: 3px; border: none; height: 73px;">Kursy
       </button>
-      <button (click)="afterClick()" class="" color="primary" i18n
-              mat-stroked-button routerLink="/videos"
+      <button (click)="afterClick('videos')" [ngClass]="selectedComponent === 'videos' ? 'btn-primary' : 'btn-light'"
+              class="btn"
+              i18n
+              routerLink="/videos"
               style="margin-right: 3px; border: none; height: 73px;">Filmy
       </button>
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('quizes')" [ngClass]="selectedComponent === 'quizes' ? 'btn-primary' : 'btn-light'"
+              class="btn"
+              i18n
               routerLink="/quizes"
               style="margin-right: 3px; border: none; height: 73px;">Quizy
       </button>
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('profile')" [ngClass]="selectedComponent === 'profile' ? 'btn-primary' : 'btn-light'"
+              class="btn"
+              i18n
               routerLink="/profile"
               style="margin-right: 3px; border: none; height: 73px;">Mój profil
       </button>
-      <button (click)="afterClick()" color="primary" i18n mat-stroked-button
+      <button (click)="afterClick('settings')"
+              [ngClass]="selectedComponent === 'settings' ? 'btn-primary' : 'btn-light'" class="btn"
+              i18n
               routerLink="/settings"
               style="margin-right: 3px; border: none; height: 73px;">Ustawienia
       </button>
-      <button (click)="afterClick(); logout()" color="primary" i18n
-              mat-stroked-button
+      <button (click)="afterClick('logout'); logout()" class="btn btn-light" i18n
               style="margin-right: 3px; border: none; height: 73px;">Wyloguj
       </button>
       <app-select-languages [languages]="languages"></app-select-languages>
     </ul>
     <ul *appHasRole="['anonymous']" class="navbar-nav ml-auto">
-      <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary"
-              i18n mat-stroked-button routerLink="/register"
+      <button (click)="afterClick('register')" *appHasRole="['anonymous']"
+              [ngClass]="selectedComponent === 'register' ? 'btn-primary' : 'btn-light'" class="btn"
+              i18n
+              routerLink="/register"
               style="margin-right: 3px; border: none; height: 73px;">
         Zarejestruj
       </button>
-      <button (click)="afterClick()" *appHasRole="['anonymous']" color="primary"
-              i18n mat-stroked-button routerLink="/login"
+      <button (click)="afterClick('login')" *appHasRole="['anonymous']"
+              [ngClass]="selectedComponent === 'login' ? 'btn-primary' : 'btn-light'"
+              i18n
+              routerLink="/login"
               style="margin-right: 3px; border: none; height: 73px;">
         Zaloguj
       </button>
