@@ -24,20 +24,18 @@
 }
 */
 .btn-outline-primary {
- 
   margin-right: 2px;
   margin-bottom: 0;
   border: 0;
   text-align: center;
   transition: 0.3s;
-  
 }
 
 .selected-language {
   background-color: #0d90fc;
-  
 }
-.language{
+
+.language {
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
@@ -45,11 +43,12 @@
   border-style: solid;
   border-color: grey;
 }
-.justify-content-left 
-{
+
+.justify-content-left {
   width: 20px;
 }
+
 .languageButton {
-  background: rgb(246,246,246);
-  background: linear-gradient(0deg, rgba(246,246,246,1) 0%, rgba(240,245,245,1) 100%);
+  background: rgb(246, 246, 246);
+  background: linear-gradient(0deg, rgba(246, 246, 246, 1) 0%, rgba(240, 245, 245, 1) 100%);
 }

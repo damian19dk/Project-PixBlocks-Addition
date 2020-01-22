@@ -133,7 +133,7 @@ import {SelectVideoComponent} from './common/select-video/select-video.component
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

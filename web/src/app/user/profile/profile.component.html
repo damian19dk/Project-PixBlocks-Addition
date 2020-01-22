@@ -19,7 +19,7 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <app-change-email></app-change-email>
+        <app-change-email (profileChanged)="getUser()"></app-change-email>
         <app-change-password></app-change-password>
       </div>
     </div>

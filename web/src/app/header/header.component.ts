@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   isNavCollapsed = true;
+  selectedComponent: string;
   @Input() languages;
   private returnUrl: string;
 
@@ -20,10 +21,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.selectedComponent = window.location.pathname.split('/').pop();
   }
 
-  afterClick(): void {
+  afterClick(selected: string): void {
     this.isNavCollapsed = true;
+    this.selectedComponent = selected;
   }
 
   logout() {

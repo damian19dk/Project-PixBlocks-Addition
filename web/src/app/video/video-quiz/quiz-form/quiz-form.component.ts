@@ -12,13 +12,13 @@ import {VideoDocument} from '../../../models/videoDocument.model';
   styleUrls: ['./quiz-form.component.css']
 })
 export class QuizFormComponent implements OnInit {
-  quizForm: FormGroup;
+  form: FormGroup;
   @Input() quiz?: Quiz;
   sent: boolean;
   error: string;
   loading = false;
 
-  typeaheadVideo: VideoDocument = new VideoDocument();
+  video: VideoDocument = new VideoDocument();
 
   constructor(
     private videoService: VideoService,
@@ -26,7 +26,7 @@ export class QuizFormComponent implements OnInit {
   }
 
   get quizQuestions() {
-    return this.quizForm.get('questions') as FormArray;
+    return this.form.get('questions') as FormArray;
   }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class QuizFormComponent implements OnInit {
         mediaId: new FormControl('', [Validators.required])
       };
 
-    this.quizForm = new FormGroup(
+    this.form = new FormGroup(
       {
         questions: new FormArray(initialQuestions),
         ...mediaField
@@ -116,8 +116,8 @@ export class QuizFormComponent implements OnInit {
 
     const shouldUpdateQuiz = this.shouldUpdateQuizOnSubmit();
     const payload = shouldUpdateQuiz
-      ? {...this.quizForm.value, quizId: this.quiz.id}
-      : {...this.quizForm.value, mediaId: this.typeaheadVideo.id};
+      ? {...this.form.value, quizId: this.quiz.id}
+      : {...this.form.value, mediaId: this.video.id};
 
     if (shouldUpdateQuiz) {
       this.quizService.update(payload as UpdateQuizPayload).subscribe(
@@ -158,6 +158,7 @@ export class QuizFormComponent implements OnInit {
   }
 
   selectVideo($event: any) {
-    this.typeaheadVideo = $event;
+    this.video = $event;
+    this.form.controls.mediaId.setValue(this.video.id);
   }
 }

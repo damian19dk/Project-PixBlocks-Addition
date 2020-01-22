@@ -28,7 +28,9 @@ export class ShowVideoComponent implements OnInit {
   courses: Array<CourseDocument>;
   quiz: Quiz = null;
   player: any;
-  progress: number;
+  courseProgress = 0;
+
+  isCourseAddedToHistory = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +48,7 @@ export class ShowVideoComponent implements OnInit {
     this.route.params.subscribe(
       () => {
         this.quiz = null;
-        this.progress = 0;
+        this.courseProgress = 0;
 
         this.getCourse();
         this.getVideo();
@@ -75,11 +77,16 @@ export class ShowVideoComponent implements OnInit {
             aspectratio: '16:9',
             primary: 'html5'
           });
+          jwplayer('video-field').on('play', () => {
+            this.addCourseToUserHistory();
+          });
+          jwplayer('video-field').on('pause', () => {
+            this.setVideoHistory();
+          });
+          jwplayer('video-field').on('complete', () => {
+            this.setVideoHistory();
+          });
         }, 50);
-
-        jwplayer().on('pause', (e) => {
-          console.log(e);
-        });
 
         this.loadingService.unload();
       },
@@ -134,6 +141,7 @@ export class ShowVideoComponent implements OnInit {
         this.courseDocument = data;
         this.error = null;
         this.getProgress();
+        this.getVideosProgresses();
         this.loadingService.unload();
       },
       error => {
@@ -159,28 +167,37 @@ export class ShowVideoComponent implements OnInit {
   }
 
   async getProgress() {
-    this.loadingService.load();
-
     this.courseService.getProgress(this.courseDocument.id).subscribe(
       (data: number) => {
-        this.progress = data;
-        this.loadingService.unload();
+        this.courseProgress = data;
       },
       error => {
-        this.progress = 0;
-        this.loadingService.unload();
+        this.courseProgress = 0;
       }
     );
   }
 
+  async getVideosProgresses() {
+    this.courseDocument.courseVideos.forEach(video =>
+      this.videoService.getProgress(video.id).subscribe(
+        data => {
+          video.progress = (data.time / video.duration) * 100;
+        },
+        error => {
+        }
+      ));
+  }
+
   async setVideoHistory() {
-    const currentPosition = jwplayer('video-field').getPosition();
+    // tslint:disable-next-line:radix
+    const currentPosition = parseInt(jwplayer('video-field').getPosition());
     this.videoService.setVideoHistory(this.videoDocument.id, currentPosition).subscribe(
       data => {
-
+        this.getProgress();
+        this.error = null;
       },
       error => {
-
+        this.error = error;
       }
     );
   }
@@ -198,13 +215,13 @@ export class ShowVideoComponent implements OnInit {
   }
 
   addCourseToUserHistory() {
-    this.courseService.addToUserHistory(this.courseDocument.id).subscribe(
-      data => {
-
-      },
-      error => {
-
-      }
-    );
+    if (!this.isCourseAddedToHistory) {
+      this.courseService.addToUserHistory(this.courseDocument.id).subscribe(
+        data => {
+        },
+        error => {
+        });
+      this.isCourseAddedToHistory = true;
+    }
   }
 }

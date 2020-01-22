@@ -67,11 +67,11 @@ export class CourseService extends DataService {
     );
   }
 
-  getProgress(courseId: string) {
+  getProgress(id: string) {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept-Language', localStorage.getItem('Accept-Language'));
-    return this.http.get<any>(`${environment.baseUrl}/api/VideoHistory/progress/${courseId}`, {headers}).pipe(
+    return this.http.get<any>(`${environment.baseUrl}/api/VideoHistory/progress/${id}`, {headers}).pipe(
       retry(environment.maxRetryValue)
     );
   }

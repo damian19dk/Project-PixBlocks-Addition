@@ -216,5 +216,17 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             return await _courseRepository.CountAsync(_localizer.Language);
         }
+
+        public async Task<long> GetCourseLengthAsync(Guid courseId)
+        {
+            long length = 0;
+            var course = await _courseRepository.GetAsync(courseId);
+            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
+            foreach (var video in course.CourseVideos)
+            {
+                length += video.Video.Duration;
+            }
+            return length;
+        }
     }
 }

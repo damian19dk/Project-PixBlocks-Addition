@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // baseUrl: 'http://localhost:5000',
   baseUrl: 'https://pixblocksaddition.azurewebsites.net',
-  maxRetryValue: 5
+  maxRetryValue: 2
 };
 
 /*
