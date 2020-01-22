@@ -29,7 +29,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (time < 0)
             {
-                throw new MyException("time cannot be less than 0.");
+                throw new MyException(MyCodesNumbers.InvalidTime, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTime);
             }
             Time = time;
         }

@@ -23,7 +23,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(status))
             {
-                throw new MyException(MyCodesNumbers.WrongUserStatus, $"Niepoprawna nazwa status: {status}.");
+                throw new MyException(MyCodesNumbers.WrongUserStatus, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidVideoStatus);
             }
             Status = status;
         }
@@ -32,7 +32,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if(course == null)
             {
-                throw new MyException(MyCodesNumbers.NullCourse, "Course cannot be null.");
+                throw new MyException(MyCodesNumbers.NullCourse, Exceptions.ExceptionMessages.DomainExceptionMessages.CourseNotFound);
             }
             ParentId = course.Id;
         }

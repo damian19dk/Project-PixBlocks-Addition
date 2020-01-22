@@ -22,25 +22,33 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         }
 
         public async Task<Course> GetAsync(Guid id)
-            => await _courses.SingleOrDefaultAsync(x => x.Id == id);
+        {
+            var course = await _courses.SingleOrDefaultAsync(x => x.Id == id);
+            course.CourseVideos.Sort(p => p.Video.Index);
+            return course;
+        }
 
         public async Task<IEnumerable<Course>> GetAsync(string name, string language = "")
         {
             if(String.IsNullOrEmpty(language))
-                return await _courses.Where(c => c.Title.Contains(name)).ToListAsync();
+                return (await _courses.Where(c => c.Title.Contains(name)).ToListAsync())
+                       .Select(x => { x.CourseVideos.Sort(p => p.Video.Index); return x; });
             else
-                return await _courses.Where(c => c.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase)
-                                                 && c.Title.Contains(name)).ToListAsync();
+                return (await _courses.Where(c => c.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase)
+                                                 && c.Title.Contains(name)).ToListAsync())
+                       .Select(x => { x.CourseVideos.Sort(p => p.Video.Index); return x; });
         }
             
         public async Task<IEnumerable<Course>> GetAllByTagsAsync(IEnumerable<string> tags, string language = "")
         {
             if(String.IsNullOrEmpty(language))
-                return await _courses.Where(c => c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync();
+                return (await _courses.Where(c => c.Tags.Any(t => tags.Contains(t.Name))).ToListAsync())
+                        .Select(x => { x.CourseVideos.Sort(p => p.Video.Index); return x; });
             else
-                return await _courses.Where(c => c.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase)
+                return (await _courses.Where(c => c.Language.Equals(language, StringComparison.InvariantCultureIgnoreCase)
                                                  && c.Tags.Any(t => tags.Contains(t.Name) && t.CheckLanguage(language)))
-                                                 .ToListAsync();
+                                                 .ToListAsync())
+                       .Select(x => { x.CourseVideos.Sort(p => p.Video.Index); return x; });
         }
 
         public async Task<IEnumerable<Course>> GetAllAsync(int page, int count = 10, string language = "")

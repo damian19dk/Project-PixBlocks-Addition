@@ -35,7 +35,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var tagExists = await _tagRepository.GetAsync(tag.Name, tag.Language);
             if (tagExists != null)
             {
-                throw new MyException(MyCodesNumbers.TagExists, $"The tag {tag.Name} already exists.");
+                throw new MyException(MyCodesNumbers.TagExists, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagExists);
             }
 
             await _tagRepository.AddAsync(new Tag(tag.Name, tag.Description, tag.FontColor, tag.BackgroundColor, tag.Language));
@@ -64,7 +64,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var tag = await _tagRepository.GetAsync(id);
             if (tag == null)
             {
-                throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
+                throw new MyException(MyCodesNumbers.TagNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagNotFound);
             }
 
             await _tagRepository.RemoveAsync(tag);
@@ -75,14 +75,14 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var tagEntity = await _tagRepository.GetAsync(id);
             if(tagEntity == null)
             {
-                throw new MyException(MyCodesNumbers.TagNotFound, "The tag does not exist.");
+                throw new MyException(MyCodesNumbers.TagNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagNotFound);
             }
             if (tag.Name != tagEntity.Name)
             {
                 var tagExists = await _tagRepository.GetAsync(tag.Name, tag.Language);
                 if (tagExists != null)
                 {
-                    throw new MyException(MyCodesNumbers.TagExists, $"The tag with name {tag.Name} already exists.");
+                    throw new MyException(MyCodesNumbers.TagExists, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagExists);
                 }
             }
             tagEntity.SetName(tag.Name);

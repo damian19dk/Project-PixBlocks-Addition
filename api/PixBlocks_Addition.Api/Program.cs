@@ -22,6 +22,8 @@ namespace PixBlocks_Addition.Api
                 .ConfigureAppConfiguration((hostingContext, config) => 
                 {
                     config.AddJsonFile("languages.json", optional: false, reloadOnChange: true);
+                    config.AddJsonFile("ExceptionMessages/errors.en.json", optional: false, reloadOnChange: true);
+                    config.AddJsonFile("ExceptionMessages/errors.pl.json", optional: false, reloadOnChange: true);
                 })
                 .UseStartup<Startup>();
     }

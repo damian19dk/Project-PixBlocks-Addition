@@ -55,7 +55,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var resource = await _resourceRepository.GetAsync(id);
             if (resource == null)
             {
-                throw new MyException(MyCodesNumbers.ImageNotFound, $"Nie znaleziono zasobu z id: {id}.");
+                throw new MyException(MyCodesNumbers.ImageNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.ResourceNotFound);
             }
             return resource;
         }

@@ -29,7 +29,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var entity = await mediaRepository.GetAsync(resource.Id);
             if (entity == null)
             {
-                throw new MyException(MyCodesNumbers.MediaNotFound, $"Nie znaleziono media o id: {resource.Id}. Wpierw stwórz media");
+                if (parentRepository == null)
+                    throw new MyException(MyCodesNumbers.MediaNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
+                else
+                    throw new MyException(MyCodesNumbers.MediaNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
             if (entity.Title != resource.Title)
             {
@@ -41,7 +44,10 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
 
                 if (sameTitle != null && sameTitle.Count() > 0)
                 {
-                    throw new MyException(MyCodesNumbers.SameTitleMedia, $"Istnieje już media o tytule: {resource.Title}.");
+                    if (parentRepository == null)
+                        throw new MyException(MyCodesNumbers.SameTitleCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseTitleTaken);
+                    else
+                        throw new MyException(MyCodesNumbers.SameVideo, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoTitleTaken);
                 }
                 entity.SetTitle(resource.Title);
             }
@@ -76,7 +82,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     var tagToAdd = await _tagRepository.GetAsync(tag, resource.Language);
                     if(tagToAdd == null)
                     {
-                        throw new MyException(MyCodesNumbers.TagNotFound, $"The desired tag {tag} was not found.");
+                        throw new MyException(MyCodesNumbers.TagNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagNotFound);
                     }
                     if(!entity.Tags.Contains(tagToAdd))
                     {

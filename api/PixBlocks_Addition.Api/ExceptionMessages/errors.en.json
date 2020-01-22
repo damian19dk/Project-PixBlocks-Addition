@@ -1,0 +1,52 @@
+﻿{
+  "ExceptionMessages": {
+    "en": {
+      //Domain
+      "InvalidCourseTitle": "The course title must be between 3 and 250 characters.",
+      "InvalidMediaPicture": "The picture source must be a Guid or url.",
+      "UserNotFound": "User was not found.",
+      "InvalidTime": "The time cannot be negative.",
+      "InvalidDescription": "Description must be between 3 and 10000 characters.",
+      "InvalidIndex": "Index cannot be negative.",
+      "InvalidQuestion": "The question must contain at least 3 characters.",
+      "InvalidTagName": "The tag name must be between 2 and 60 characters and cannot contain semicolon or comma",
+      "InvalidColor": "The color is not a valid color.",
+      "InvalidTagDescription": "The tag description cannot be null.",
+      "InvalidDuration": "Duration cannot negative.",
+      "InvalidLanguage": "Language must be between 2 and 60 characters. Supported languages are: pl, en, none",
+      "IllegalLanguageCharacters": "Language contains illegal characters.",
+      "UnSupportedImageType": "Unsupported image type. Supported types are: image/jpg, image/jpeg, image/png, image/bmp",
+      "InvalidUserLoginLength": "Login must be between 3 and 20 characters.",
+      "IllegalUserLoginCharacters": "Login contains illegal characters.",
+      "InvalidUserPasswordLength": "Password must to be between 6 and 20 characters.",
+      "SameUserPassword": "The new password must be different from the old one.",
+      "WrongFormatOfEmail": "It is not a valid e-mail.",
+      "SameEmail": "The new email must be different from the old one.",
+      "InvalidUserStatus": "The user status must be 0 or 1.",
+      "InvalidRole": "The given role is incorrect.",
+      "InvalidVideoStatus": "Status name cannot be empty.",
+      //Services
+      "VideoNotFound": "Video not found.",
+      "CourseNotFound": "Course not found.",
+      "VideoTitleTaken": "Video with given title already exists.",
+      "CourseTitleTaken": "Course with given title already exists.",
+      "VideoAlreadyExists": "Video already exists.",
+      "JWPlayerVideoNotFound": "JWPlayer video was not found.",
+      "MissingVideoFile": "The video file is missing.",
+      "EmailTaken": "The email is taken.",
+      "LoginTaken": "The login is taken.",
+      "InvalidCredentials": "The login or password is incorrect.",
+      "ImageNotFound": "Image was not found.",
+      "TagNotFound": "Tag was not found.",
+      "CannotLoadUrl": "Cannot load url content.",
+      "QuizMediaNotFound": "The media was not found.",
+      "QuizMediaTaken": "The given media already has a quiz. Remove the quiz or choose another media.",
+      "QuizNotFound": "Quiz was not found.",
+      "ResourceNotFound": "The resource was not found.",
+      "TagExists": "The tag already exists.",
+      "HistoryNotFound": "History was not found.",
+      "SameCourseInUserHistory": "The course already exists in this history.",
+      "MissingCourseVideos": "Course contains no videos."
+    }
+  }
+}

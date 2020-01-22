@@ -58,7 +58,7 @@ namespace PixBlocks_Addition.Api.Controllers
             var resource = Request.Form.Files.FirstOrDefault();
             if (resource == null)
             {
-                throw new MyException(MyCodesNumbers.ImageNotFound, MyCodes.ImageNotFound);
+                throw new MyException(MyCodesNumbers.ImageNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.ImageNotFound);
             }
             return resource;
         }
