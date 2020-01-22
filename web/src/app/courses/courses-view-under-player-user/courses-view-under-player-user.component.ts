@@ -10,9 +10,6 @@ import {LoadingService} from '../../services/loading.service';
 })
 export class CoursesViewUnderPlayerUserComponent implements OnInit {
 
-  page = 1;
-  count: number;
-
   courses: Array<CourseDocument>;
   error: string;
 
@@ -23,13 +20,12 @@ export class CoursesViewUnderPlayerUserComponent implements OnInit {
 
   ngOnInit() {
     this.getCourses();
-    this.getCount();
   }
 
   getCourses() {
     this.loadingService.load();
 
-    this.courseService.getAll(this.page).subscribe(
+    this.courseService.getAll(1).subscribe(
       (data: Array<CourseDocument>) => {
         this.courses = data;
         this.loadingService.unload();
@@ -37,15 +33,6 @@ export class CoursesViewUnderPlayerUserComponent implements OnInit {
       error => {
         this.error = error;
         this.loadingService.unload();
-      }
-    );
-  }
-
-  getCount() {
-    return this.courseService.count().subscribe(
-      data => {
-        // tslint:disable-next-line:radix
-        this.count = parseInt(data);
       }
     );
   }
