@@ -13,7 +13,8 @@
     "target": "es5",
     "resolveJsonModule": true,
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "@types/jquery"
     ],
     "lib": [
       "es2018",
