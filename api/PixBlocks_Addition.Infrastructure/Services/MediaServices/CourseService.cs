@@ -221,7 +221,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             long length = 0;
             var course = await _courseRepository.GetAsync(courseId);
-            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
+            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.MissingCourseVideos);
             foreach (var video in course.CourseVideos)
             {
                 length += video.Video.Duration;
