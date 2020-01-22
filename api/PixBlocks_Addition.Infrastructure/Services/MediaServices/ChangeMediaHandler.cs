@@ -110,8 +110,11 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             //Add picture from url
             if (resource.PictureUrl != null)
             {
-                await tryRemoveResourceFromDb(entity.Picture);
-                entity.SetPicture(resource.PictureUrl);
+                if (string.IsNullOrWhiteSpace(entity.Picture) || !resource.PictureUrl.Contains(entity.Picture))
+                {
+                    await tryRemoveResourceFromDb(entity.Picture);
+                    entity.SetPicture(resource.PictureUrl);
+                }
             }
             //Add picture to database
             if (resource.Image != null)
