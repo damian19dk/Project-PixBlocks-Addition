@@ -10,6 +10,8 @@ import {CourseService} from 'src/app/services/course.service';
 import {AuthService} from '../../services/auth.service';
 import {QuizService} from '../../services/quiz.service';
 import {Quiz} from '../../models/quiz.model';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import * as $ from 'jquery';
 declare  var jQuery: any;
 
 declare var jwplayer: any;
@@ -25,7 +27,7 @@ export class ShowVideoComponent implements OnInit {
   video: HostedVideoDocument = null;
   videoDocument: VideoDocument = null;
   error: string;
-  videos: Array<VideoDocument>;z
+  videos: Array<VideoDocument>;
   courses: Array<CourseDocument>;
   quiz: Quiz = null;
   player: any;
@@ -42,6 +44,25 @@ export class ShowVideoComponent implements OnInit {
   }
 
   ngOnInit() {
+    // $('.multi-item-carousel').carousel({
+    //   interval: false
+    // });
+
+    // // for every slide in carousel, copy the next slide's item in the slide.
+    // // Do the same for the next, next item.
+    // $('.multi-item-carousel .item').each(function(){
+    //   let next = $(this).next();
+    //   if (!next.length) {
+    //     next = $(this).siblings(':first');
+    //   }
+    //   next.children(':first-child').clone().appendTo($(this));
+
+    //   if (next.next().length > 0) {
+    //     next.next().children(':first-child').clone().appendTo($(this));
+    //   } else {
+    //     $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+    //   }
+    // });
     this.getCourses();
 
     this.route.params.subscribe(

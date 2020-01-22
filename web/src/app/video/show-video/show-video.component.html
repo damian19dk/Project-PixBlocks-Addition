@@ -141,7 +141,8 @@
   <app-courses-view></app-courses-view>
 </section>
 
-<!-- Top content -->
+<!-- Top content VERSION ONE -->
+
 <!-- <div class="top-content">
   <div class="container-fluid">
       <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -181,49 +182,49 @@
           </a>
       </div>
   </div>
-</div> -->
+</div> 
 
-  <ngb-carousel
-  #mycarousel
-  (slide)="onSlide($event)"
-  [showNavigationArrows]="true" 
-[showNavigationIndicators]="true"
-interval="10000"
-[keyboard]="true"
-[pauseOnHover]="true"
-[wrap]="true"
-[activeId]="'slideTwo'"
->
-    <ng-template ngbSlide id="slideOne">
-        <div class="picsum-img-wrapper">
-            <img src="./image1.jpg" alt="Random first slide">
+
+
+VERSION TWO 
+
+
+
+
+  <h1>Use Bootstrap 3's carousel to show multiple items per slide.</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="carousel slide multi-item-carousel" id="theCarousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?fremantle,australia" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?west-australia" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?quokka,perth" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?margaretriver,australia" class="img-responsive"></a></div>
+          </div>
+          add  more items here -->
+          <!-- Example item start:  
+          
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
+          </div> -->
+          
+          <!--  Example item end
         </div>
-        <div class="carousel-caption">
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </div>
-    </ng-template>
-    <ng-template ngbSlide id="slideTwo">
-      <div class="picsum-img-wrapper">
-        <img [src]="images[1]" alt="Random second slide">
+        <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+      </div>
     </div>
-    <div class="carousel-caption">
-        <h3>Second slide label</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-    </ng-template>
-    <ng-template ngbSlide id="slideThree">
-      <div class="picsum-img-wrapper">
-        <img [src]="images[2]" alt="Random third slide">
-    </div>
-    <div class="carousel-caption">
-        <h3>Third slide label</h3>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </div>
-    </ng-template>
-</ngb-carousel>
-<button (click)="goToSlide('slideThree')">Pause</button>
-<button (click)="pauseCarousel()">Play</button>
-<button (click)="moveNext()">Next</button>
-<button (click)="getPrev()">Prev</button>
-<button (click)="goToSlide('slideThree')">Move to Slide Three</button>
+  </div>  -->
