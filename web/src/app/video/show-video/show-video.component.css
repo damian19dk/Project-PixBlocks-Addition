@@ -78,13 +78,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 25px;
+  background-color: rgb(246,246,246);
+  /* background: linear-gradient(0deg, rgba(246,246,246,1) 0%, rgba(240,245,245,1) 100%); */
 }
-.mb-1 {
+.spinnerProgress {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.courseThumbnailTitle {
+  color: #212121;
+}
+
+.yourProgress
+{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
 /*
     code by Iatek LLC 2018 - CC 2.0 License - Attribution required
     code customized by Azmind.com

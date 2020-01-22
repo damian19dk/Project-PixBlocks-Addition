@@ -23,7 +23,7 @@
   background-repeat: no-repeat;
   background-position: top right;
 }
-@media screen and (min-width: 1900px) {
+@media screen and (min-width: 1800px) {
 .loggedIn {
   margin-right: 38%;
 }

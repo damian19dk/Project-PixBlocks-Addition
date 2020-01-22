@@ -25,7 +25,7 @@ export class ShowVideoComponent implements OnInit {
   video: HostedVideoDocument = null;
   videoDocument: VideoDocument = null;
   error: string;
-  videos: Array<VideoDocument>;
+  videos: Array<VideoDocument>;z
   courses: Array<CourseDocument>;
   quiz: Quiz = null;
   player: any;
@@ -42,26 +42,6 @@ export class ShowVideoComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('#carousel-example').on('slide.bs.carousel', function (e) {
-
-      let $e = $(e.relatedTarget);
-      let idx = $e.index();
-      let itemsPerSlide = 5;
-      let totalItems = $('.carousel-item').length;
-
-      if (idx >= totalItems - (itemsPerSlide - 1)) {
-          let it = itemsPerSlide - (totalItems - idx);
-          for (let i = 0; i < it; i++) {
-              // append slides to end
-              if (e.direction=="left") {
-                  $('.carousel-item').eq(i).appendTo('.carousel-inner');
-              }
-              else {
-                  $('.carousel-item').eq(0).appendTo('.carousel-inner');
-              }
-          }
-      }
-  });
     this.getCourses();
 
     this.route.params.subscribe(

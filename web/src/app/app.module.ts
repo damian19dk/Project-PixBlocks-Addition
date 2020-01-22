@@ -75,6 +75,7 @@ import {JWPlayerComponent} from './JWPlayer/jwplayer/jwplayer.component';
 import {VideoPreviewComponent} from './JWPlayer/video-preview/video-preview.component';
 import {SelectPictureComponent} from './common/select-picture/select-picture.component';
 import {SelectVideoComponent} from './common/select-video/select-video.component';
+import { NgbSlideEvent, NgbSlideEventSource, NgbCarousel  } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -129,12 +130,13 @@ import {SelectVideoComponent} from './common/select-video/select-video.component
     QuizFormComponent,
     VideoQuizUserComponent,
     SelectPictureComponent,
-    SelectVideoComponent
+    SelectVideoComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgbModule.forRoot(),
+    // NgbModule.forRoot(),
+    NgbModule,
     NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
