@@ -106,18 +106,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 throw new MyException(MyCodesNumbers.MissingVideos, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.MissingCourseVideos);
 
             long time = 0;
-            long length = 0;
-            foreach(var record in videoHistory.Videos)
+            long length = course.Duration;
+            foreach (var record in videoHistory.Videos)
             {
-               if (record.Video.ParentId == courseId)
+                if (record.Video.ParentId == courseId)
                     time += record.Time;
             }
-
-            foreach(var vid in videos)
-            {
-                length += vid.Duration;
-            }
-
             double temp = (double)time / (double)length;
             return (int)(temp * 100);
         }
