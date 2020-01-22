@@ -21,7 +21,7 @@ export class VideoPreviewComponent implements OnChanges {
 
       const i = setInterval(() => {
         if (videoNode.readyState > 0) {
-          this.emitVideoLoadedEvent(videoNode.duration);
+          this.emitVideoLoadedEvent(Math.round(videoNode.duration));
           clearInterval(i);
         }
       }, 100);

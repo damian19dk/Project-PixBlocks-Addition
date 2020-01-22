@@ -196,10 +196,8 @@ export class ShowVideoComponent implements OnInit {
     this.videoService.setVideoHistory(this.videoDocument.id, currentPosition).subscribe(
       data => {
         this.getProgress();
-        this.error = null;
       },
       error => {
-        this.error = error;
       }
     );
   }
