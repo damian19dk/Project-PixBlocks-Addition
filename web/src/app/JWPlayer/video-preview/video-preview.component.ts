@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-video-preview',
@@ -8,6 +8,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 export class VideoPreviewComponent implements OnChanges {
 
   @Input() video: File;
+  @Output() videoLoaded: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {
   }
@@ -15,7 +16,19 @@ export class VideoPreviewComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.video !== null) {
       const URL = window.URL;
-      document.querySelector('video').src = URL.createObjectURL(this.video);
+      const videoNode = document.querySelector('video');
+      videoNode.src = URL.createObjectURL(this.video);
+
+      const i = setInterval(() => {
+        if (videoNode.readyState > 0) {
+          this.emitVideoLoadedEvent(videoNode.duration);
+          clearInterval(i);
+        }
+      }, 100);
     }
+  }
+
+  emitVideoLoadedEvent(videoDuration: number) {
+    this.videoLoaded.emit(videoDuration);
   }
 }
