@@ -24,7 +24,10 @@ namespace PixBlocks_Addition.Domain.Repositories.MediaRepo
         public async Task<Course> GetAsync(Guid id)
         {
             var course = await _courses.SingleOrDefaultAsync(x => x.Id == id);
-            course.CourseVideos.Sort(p => p.Video.Index);
+            if (course != null)
+            {
+                course.CourseVideos.Sort(p => p.Video.Index);
+            }
             return course;
         }
 
