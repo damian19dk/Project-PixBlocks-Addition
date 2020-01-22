@@ -112,8 +112,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 if (record.Video.ParentId == courseId)
                     time += record.Time;
             }
-            double temp = (double)time / (double)length;
-            return (int)(temp * 100);
+            if (length != 0)
+            {
+                double temp = (double)time / (double)length;
+                return (int)(temp * 100);
+            }
+            else return 0;
         }
     }
 }
