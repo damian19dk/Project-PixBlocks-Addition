@@ -123,6 +123,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
 
+            course.AddTimeToDuration(video.Duration);
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
             await _courseRepository.UpdateAsync(course);
 
@@ -184,11 +185,19 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveAsync(Guid id)
         {
             var video = await _videoRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(video.ParentId);
             if (video == null)
             {
                 throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
-         
+            if (course == null)
+            {
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
+            }
+
+            course.TakeTimeFromDuration(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             if (video.QuizId != null)
             {
                 var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
@@ -200,7 +209,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveAsync(string title)
         {
             var videos = await _videoRepository.GetAsync(title);
-            if(videos.Count() > 1)
+            if (videos.Count() > 1)
             {
                 throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Video with title {title} is ambiguous.");
             }
@@ -208,8 +217,17 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
-
+        
             var video = videos.First();
+            var course = await _courseRepository.GetAsync(video.ParentId);
+            if (course == null)
+            {
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
+            }
+
+            course.TakeTimeFromDuration(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             if (video.QuizId != null)
             {
                 var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
