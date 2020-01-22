@@ -36,7 +36,8 @@ export class NewVideoComponent extends Form implements OnInit {
       language: ['pl'],
       pictureUrl: [null],
       image: [null],
-      video: [null, Validators.required]
+      video: [null, Validators.required],
+      duration: [0, Validators.required]
     });
   }
 
@@ -84,5 +85,9 @@ export class NewVideoComponent extends Form implements OnInit {
 
   selectCourse($event: any) {
     this.form.controls.parentId.setValue($event.id);
+  }
+
+  getDuration($event: any) {
+    this.form.controls.duration.setValue($event);
   }
 }
