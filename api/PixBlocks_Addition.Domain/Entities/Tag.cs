@@ -27,13 +27,13 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public void SetName(string name)
         {
-            if(String.IsNullOrWhiteSpace(name) || name.Length < 2)
+            if(String.IsNullOrWhiteSpace(name) || name.Length < 2 || name.Length > 60)
             {
-                throw new MyException(MyCodesNumbers.InvalidTagName, "Tag name must have at least 2 characters.");
+                throw new MyException(MyCodesNumbers.InvalidTagName, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTagName);
             }
             if(name.Contains(',') || name.Contains(';'))
             {
-                throw new MyException(MyCodesNumbers.InvalidTagName, "Tag name cannot contain , or ;");
+                throw new MyException(MyCodesNumbers.InvalidTagName, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTagName);
             }
             Name = name;
         }
@@ -42,7 +42,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (fontColor == null || backgroundColor == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidColor, "Color cannot be null.");
+                throw new MyException(MyCodesNumbers.InvalidColor, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidColor);
             }
             FontColor = fontColor;
             BackgroundColor = backgroundColor;
@@ -52,7 +52,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if(description == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidDescription, "Description cannot be null.");
+                throw new MyException(MyCodesNumbers.InvalidTagDescription, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTagDescription);
             }
             Description = description;
         }
@@ -61,7 +61,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if(!Languages.IsValidLanguage(language))
             {
-                throw new MyException(MyCodesNumbers.InvalidLanguage, "Language has to contain from 2 to 60 letters.");
+                throw new MyException(MyCodesNumbers.InvalidLanguage, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidLanguage);
             }
             Language = language;
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PixBlocks_Addition.Domain.Exceptions
 {
-    public class MyCodes
+    /*public class MyCodes
     {
         public static string WrongFormatOfMail => "Zły format adresu e-mail!"; //1001
         public static string TooLongLogin => "Login jest za długi! (max 20 znaków)"; //1002
@@ -54,5 +54,5 @@ namespace PixBlocks_Addition.Domain.Exceptions
         public static string MissingCourse => "Nie ma takiego kursu!";//2025
         public static string MissingHistory => "Brak historii użytkownika!";//1016
         public static string SameCourseInUserHistory => "Kurs już znajduje się w histori użytkownika!";//1017
-    }
+    }*/
 }

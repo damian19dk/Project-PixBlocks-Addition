@@ -13,6 +13,7 @@ namespace PixBlocks_Addition.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;

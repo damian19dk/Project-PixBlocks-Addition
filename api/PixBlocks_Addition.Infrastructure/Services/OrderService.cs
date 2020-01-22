@@ -37,7 +37,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
                 var course = await _courseRepository.GetAsync(id);
                 if(course == null || !string.Equals(course.Language, _localizationService.Language, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with id {id} does not exist");
+                    throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
                 }
                 course.SetIndex(index);
                 validCourses.Add(course);
@@ -52,7 +52,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var course = await _courseRepository.GetAsync(courseId);
             if (course == null || !string.Equals(course.Language, _localizationService.Language, StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with id {courseId} does not exist.");
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
             }
 
             var count = course.CourseVideos.Count;
