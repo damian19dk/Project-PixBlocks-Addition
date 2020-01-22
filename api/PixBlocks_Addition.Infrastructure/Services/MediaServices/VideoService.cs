@@ -190,10 +190,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             {
                 throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
-            if (course == null)
-            {
-                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
-            }
 
             course.TakeTimeFromDuration(video.Duration);
             await _courseRepository.UpdateAsync(course);
@@ -220,10 +216,6 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         
             var video = videos.First();
             var course = await _courseRepository.GetAsync(video.ParentId);
-            if (course == null)
-            {
-                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
-            }
 
             course.TakeTimeFromDuration(video.Duration);
             await _courseRepository.UpdateAsync(course);

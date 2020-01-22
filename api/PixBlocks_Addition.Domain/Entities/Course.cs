@@ -19,12 +19,12 @@ namespace PixBlocks_Addition.Domain.Entities
         }
         public void AddTimeToDuration(long time)
         {
-            if (time < 0) throw new MyException();
+            if (time < 0) throw new MyException(MyCodesNumbers.NegativeTime, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.InvalidTime);
             Duration += time;
         }
         public void TakeTimeFromDuration(long time)
         {
-            if (time < 0) throw new MyException();
+            if (time < 0) throw new MyException(MyCodesNumbers.NegativeTime, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.InvalidTime);
             Duration -= time;
         }
     }
