@@ -56,27 +56,29 @@
   </div>
 </div>
 
-  <div *appHasRole="['Użytkownik']" class="container loggedIn">
-    <div i18n id="title">
-      <span style="color:#0d90fc">Programowanie</span> <br>
-      <span style="color:#000000">dla każdego!</span>
-    </div>
-    <div class="row  alert alert-info justify-content-center" style="margin-left: 1%; width: 28%;">
-      <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
-    </div>
-
-    <app-courses-history-for-user></app-courses-history-for-user>
+<div *appHasRole="['Użytkownik']" class="container loggedIn">
+  <div i18n id="title">
+    <span style="color:#0d90fc">Programowanie</span> <br>
+    <span style="color:#000000">dla każdego!</span>
+  </div>
+  <div class="row  alert alert-info justify-content-center" style="margin-left: 1%; width: 28%;">
+    <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
   </div>
 
+  <app-courses-history-for-user></app-courses-history-for-user>
+</div>
 
-  <div *appHasRole="['Użytkownik']" class="container-fluid userLoggedIn">
-    <div style="margin-left: 8%; margin-right: 30%" class="row alert alert-info justify-content-center">
-      <strong>{{getLogin()}}</strong>, zobacz swoje kursy:
-    </div>
-    <div style="margin-left: 8%;">
+
+<div *appHasRole="['Użytkownik']" class="container-fluid userLoggedIn">
+  <div class="row alert alert-info justify-content-center" style="margin-left: 8%; margin-right: 30%">
+    <strong>{{getLogin()}}</strong>, zobacz swoje kursy:
+  </div>
+  <div style="margin-left: 8%;">
     <app-courses-view-list-user></app-courses-view-list-user>
   </div>
-  </div>
+</div>
+
+<app-home-for-logged *appHasRole="['Administrator']"></app-home-for-logged>
 
 
 

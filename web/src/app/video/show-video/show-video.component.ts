@@ -181,7 +181,9 @@ export class ShowVideoComponent implements OnInit {
     this.courseDocument.courseVideos.forEach(video =>
       this.videoService.getProgress(video.id).subscribe(
         data => {
-          video.progress = (data.time / video.duration) * 100;
+          video.progress = (data === null)
+            ? 0
+            : (data.time / video.duration) * 100;
         },
         error => {
         }
