@@ -9,7 +9,7 @@ import {CourseDocument} from '../../models/courseDocument.model';
 })
 export class CourseChooseAdminComponent implements OnInit {
 
-  @Input() buttonName: string;
+  @Input() buttonName = localStorage.getItem('Accept-Language') === 'pl' ? 'Wybierz kurs' : 'Choose course';
   @Input() course: CourseDocument = null;
   @Output() courseSelected: EventEmitter<any> = new EventEmitter<any>();
   courses: Array<CourseDocument>;

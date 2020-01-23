@@ -119,8 +119,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" i18n>Kurs</label>
           <div class="col-sm-10">
-            <app-course-choose-admin (courseSelected)="selectCourse($event)"
-                                     [buttonName]="'Wybierz kurs'">
+            <app-course-choose-admin (courseSelected)="selectCourse($event)">
             </app-course-choose-admin>
 
             <div *ngIf="submitted && f.parentId.errors" class="invalid-feedback">

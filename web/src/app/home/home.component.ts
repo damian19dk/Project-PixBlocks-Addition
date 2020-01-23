@@ -10,6 +10,7 @@ import {LoadingService} from '../services/loading.service';
 export class HomeComponent implements OnInit {
 
   error: string;
+  historyCoursesNumber = 0;
 
   constructor(
     private loadingService: LoadingService,
@@ -25,5 +26,9 @@ export class HomeComponent implements OnInit {
 
   getLogin() {
     return this.authService.getLogin();
+  }
+
+  getHistoryCoursesNumber($event) {
+    this.historyCoursesNumber = $event;
   }
 }

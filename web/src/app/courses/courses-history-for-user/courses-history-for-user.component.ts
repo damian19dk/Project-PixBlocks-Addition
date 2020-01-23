@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CourseDocument} from '../../models/courseDocument.model';
 import {CourseService} from '../../services/course.service';
 import {LoadingService} from '../../services/loading.service';
@@ -10,11 +10,9 @@ import {LoadingService} from '../../services/loading.service';
 })
 export class CoursesHistoryForUserComponent implements OnInit {
 
-  page = 1;
-  count: number;
-
   courses: Array<CourseDocument>;
   error: string;
+  @Output() coursesLoaded: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private courseService: CourseService,
@@ -30,6 +28,7 @@ export class CoursesHistoryForUserComponent implements OnInit {
 
     this.courseService.getUserHistory().subscribe(
       (data: Array<CourseDocument>) => {
+        this.emitCoursesLoadedEvent();
         this.courses = data.slice(0, 1);
         this.loadingService.unload();
       },
@@ -38,5 +37,9 @@ export class CoursesHistoryForUserComponent implements OnInit {
         this.loadingService.unload();
       }
     );
+  }
+
+  emitCoursesLoadedEvent() {
+    this.coursesLoaded.emit(this.courses.length);
   }
 }

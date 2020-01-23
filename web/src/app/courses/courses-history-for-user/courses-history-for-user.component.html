@@ -1,6 +1,8 @@
 <section>
   <div class="container d-inline-block justify-content-center ">
-    <app-course-thumbnail-user *ngFor="let course of courses" [course]=course
-                               class="p-2 card-content"></app-course-thumbnail-user>
+    <app-course-thumbnail-user *ngFor="let course of courses"
+                               [course]=course
+                               class="p-2 card-content"
+                               routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}"></app-course-thumbnail-user>
   </div>
 </section>
