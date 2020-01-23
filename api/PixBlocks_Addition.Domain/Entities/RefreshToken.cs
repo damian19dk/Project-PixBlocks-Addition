@@ -30,7 +30,7 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (Revoked)
             {
-                throw new MyException(MyCodesNumbers.RefreshTokenAllready, $"Refresh token: '{Id}' był już odwołany w '{RevokedAt}'.");
+                throw new MyException(MyCodesNumbers.RefreshTokenAllready, $"Refresh token: '{Id}' was revoked at '{RevokedAt}'.");
             }
             Revoked = true;
             RevokedAt = DateTime.UtcNow;

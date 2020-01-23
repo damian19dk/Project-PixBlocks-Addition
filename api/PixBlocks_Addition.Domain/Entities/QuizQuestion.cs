@@ -25,12 +25,11 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (String.IsNullOrWhiteSpace(question))
             {
-                throw new MyException("Incorrect question.");
+                throw new MyException(MyCodesNumbers.InvalidQuestion, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidQuestion);
             }
-
-            if (question.Length < 4)
+            if (question.Length < 3)
             {
-                throw new MyException("Length must be more than 3");
+                throw new MyException(MyCodesNumbers.InvalidQuestion, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidQuestion);
             }
 
             Question = question;

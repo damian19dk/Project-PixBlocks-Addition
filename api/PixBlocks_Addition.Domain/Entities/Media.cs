@@ -42,7 +42,7 @@ namespace PixBlocks_Addition.Domain.Entities
             SetPicture(picture);
             SetDuration(duration);
             SetLanguage(lang);
-            
+
 
             if (resources != null)
                 foreach (string resource in resources)
@@ -62,15 +62,15 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (string.IsNullOrEmpty(title))
             {
-                throw new MyException(MyCodesNumbers.EmptyTitle, MyCodes.EmptyTitle);
+                throw new MyException(MyCodesNumbers.EmptyTitle, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTitle);
             }
             if (title.Length < 3)
             {
-                throw new MyException(MyCodesNumbers.TooShortTitle, MyCodes.TooShortTitle);
+                throw new MyException(MyCodesNumbers.TooShortTitle, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTitle);
             }
             if (title.Length > 250)
             {
-                throw new MyException(MyCodesNumbers.TooLongTitle, MyCodes.TooLongTitle);
+                throw new MyException(MyCodesNumbers.TooLongTitle, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidTitle);
             }
             Title = title;
         }
@@ -79,11 +79,11 @@ namespace PixBlocks_Addition.Domain.Entities
         {
             if (description.Length < 3)
             {
-                throw new MyException(MyCodesNumbers.TooShortDescription, MyCodes.TooShortDescription);
+                throw new MyException(MyCodesNumbers.TooShortDescription, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidDescription);
             }
             if (description.Length > 10000)
             {
-                throw new MyException(MyCodesNumbers.TooLongDescription, MyCodes.TooLongDescription);
+                throw new MyException(MyCodesNumbers.TooLongDescription, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidDescription);
             }
             Description = description;
         }
@@ -93,36 +93,32 @@ namespace PixBlocks_Addition.Domain.Entities
             Guid result;
             if (!string.IsNullOrEmpty(src) && !Guid.TryParse(src, out result))
                 if (!regex_url.IsMatch(src))
-                    throw new MyException(MyCodesNumbers.InvalidPictureSrc, MyCodes.InvalidPicSource);
+                    throw new MyException(MyCodesNumbers.InvalidPictureSrc, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidMediaPicture);
             Picture = src;
         }
 
         public void SetDuration(long length)
         {
-            if(length<0)
+            if (length < 0)
             {
-                throw new MyException(MyCodesNumbers.InvalidDuration, MyCodes.InvalidDuration);
+                throw new MyException(MyCodesNumbers.InvalidDuration, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidDuration);
             }
             Duration = length;
         }
 
         public void SetLanguage(string lang)
         {
-            if(string.IsNullOrWhiteSpace(lang))
+            if (string.IsNullOrWhiteSpace(lang))
             {
-                throw new MyException(MyCodesNumbers.EmptyLanguage, MyCodes.EmptyLanguageTitle);
+                throw new MyException(MyCodesNumbers.EmptyLanguage, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidLanguage);
             }
-            if(!regex_language.IsMatch(lang))
+            if (!regex_language.IsMatch(lang))
             {
-                throw new MyException(MyCodesNumbers.InvalidLanguage, MyCodes.WrongCharactersInLanguage);
+                throw new MyException(MyCodesNumbers.InvalidLanguage, Exceptions.ExceptionMessages.DomainExceptionMessages.IllegalLanguageCharacters);
             }
-            if(lang.Length < 2)
+            if (lang.Length < 2 || lang.Length > 60)
             {
-                throw new MyException(MyCodesNumbers.TooShortLanguage, MyCodes.TooShortLanguage);
-            }
-            if (lang.Length > 60)
-            {
-                throw new MyException(MyCodesNumbers.TooLongLanguage, MyCodes.TooLongLanguage);
+                throw new MyException(MyCodesNumbers.TooShortLanguage, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidLanguage);
             }
             Language = lang;
         }
@@ -135,7 +131,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public void SetIndex(int index)
         {
             if (index < 0)
-                throw new MyException(MyCodesNumbers.InvalidIndex, "Index cannot be negative");
+                throw new MyException(MyCodesNumbers.InvalidIndex, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidIndex);
             Index = index;
         }
     }

@@ -65,7 +65,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             if(formFile == null || string.IsNullOrWhiteSpace(formFile.FileName))
             {
-                throw new MyException(MyCodesNumbers.MissingFile, "Video file is missing.");
+                throw new MyException(MyCodesNumbers.MissingFile, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.MissingVideoFile);
             }
             byte[] file;
             string filename = formFile.FileName;
@@ -142,7 +142,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             catch (Exception)
             {
-                throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
+                throw new MyException(MyCodesNumbers.CouldntLoad, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CannotLoadUrl);
             }
         }
         private async Task<HttpContent> postAsync(string url, HttpContent content)
@@ -157,7 +157,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             catch (Exception)
             {
-                throw new MyException(MyCodesNumbers.CouldntLoad, "Nie można załadować treści " + url);
+                throw new MyException(MyCodesNumbers.CouldntLoad, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CannotLoadUrl);
             }
         }
     }

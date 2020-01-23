@@ -23,6 +23,7 @@ using PixBlocks_Addition.Infrastructure.Mappers;
 using System.Collections.Generic;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection.Metadata;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace PixBlocks_Addition.Api
 {
@@ -151,7 +152,7 @@ namespace PixBlocks_Addition.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache)
         {
             if (env.IsDevelopment())
             {
@@ -167,10 +168,10 @@ namespace PixBlocks_Addition.Api
             {
                 app.UseHsts();
             }
-           
+
+            ExceptionMessages.ExceptionMessages.LoadMessagesToCache(cache, Configuration);
+
             app.UseSwagger();
-
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "PixBlocks Addition V1");

@@ -45,7 +45,7 @@ Kurs posiada następujące pola:
 - **Description** – opis kursu, zawiera od 3 do 10000 znaków
 - **Picture** – adres url obrazka kursu. Do bazy danych zapisywane są tylko id zdjęć
 - **Resources** – kolekcja adresów url do plików pdf lub zdjęć. Do bazy zapisywane są tylko id
-- **Duration** – nie jest wykorzystywane
+- **Duration** – zawiera informację o długości kursu w sekundach (suma długości filmów w kursie).
 - **PublishDate** – data opublikowania kursu
 - **Language** – język kursu
 - **QuizId** - id do quizu, w przypadku braku przypisanego quizu ma wartość null
@@ -102,3 +102,18 @@ Szukanie odbywa się na zasadzie sprawdzania, czy nazwa tagu zawiera podaną w p
 Aby usunąć tag należy posiadać uprawnienia administratora i odpytać metodą DELETE endpoint `api/tag/{id}`. Usuwane są również wszystkie wystąpienia danego tagu w mediach.
 ### 6.5 Aktualizacja tagów
 Aby zaktualizować jakiś tag należy posiadać uprawnienia administratora i odpytać metodą PUT endpoint `api/tag/{id}`, podając w ciele żądania obiekt *TagResource*.
+
+## 7. Historia Kursów
+Historia kursów zawiera następujące pola:
+- **Id** - Guid, unikalny identyfikator historii kursów danego urzytkownika
+- **User** - Użytkownik do którego należy ta historia
+- **Courses** - Kolekcja zawierająca kursy znajdujące się w histori użytkownika. Kursy nie mogą się powtarzać.
+Historia kursów użytkownika jest tworzona automatycznie przy rejestracji.
+### 7.1 Usuwanie histori kursów użytkownika
+Aby usunąć historie kursów użytkownika należy odpytać metodą DELETE endpoint `api/HistoryController/RemoveUserHistory`.
+### 7.2 Dodawanie kursu do historii
+Aby dodać kurs do histori należy odpytać odpytać metodą POST endpoint `api/HistoryController/AddCourseToHistory`, podając Id kursu.
+### 7.3 Pobieranie histori kursów
+Aby pobrać wszystkie kursy znajdujące się w histori kursów danego użytkownika należy odpytać metodą GET endpoint `api/HistoryController/GetUserHistory`.
+### 7.4 Czyszczenie histori kursów
+Aby wyczyścić historię kursów bez usuwania jej należy odpytać metodą PUT endpoint `api/HistoryController/ClearUserHistory`.

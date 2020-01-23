@@ -1,0 +1,52 @@
+﻿{
+  "ExceptionMessages": {
+    "pl": {
+      //Domain
+      "InvalidCourseTitle": "Tytuł kursu musi zawierać od 3 do 250 znaków.",
+      "InvalidMediaPicture": "Źródło zdjęcia musi być typu Guid albo url.",
+      "UserNotFound": "Nie znaleziono użytkownika.",
+      "InvalidTime": "Czas nie może być ujemny.",
+      "InvalidDescription": "Opis musi zawierać od 3 do 10000 znaków.",
+      "InvalidIndex": "Indeks nie może być ujemny.",
+      "InvalidQuestion": "Pytanie musi zawierać przynajmniej 3 znaki.",
+      "InvalidTagName": "Nazwa tagu musi zawierać od 2 do 60 znaków i nie może zawierać średników i przecinków.",
+      "InvalidColor": "Podany kolor nie jest prawidłowy.",
+      "InvalidTagDescription": "Opis tagu nie może być typu null.",
+      "InvalidDuration": "Długość nie może być ujemna.",
+      "InvalidLanguage": "Język musi zawierać od 2 do 60 znaków.",
+      "IllegalLanguageCharacters": "Język zawiera niedozwolone znaki.",
+      "UnSupportedImageType": "Niewspierany typ zdjęcia. Wspierane typy to: image/jpg, image/jpeg, image/png, image/bmp",
+      "InvalidUserLoginLength": "Login musi zawierać od 3 do 20 znaków.",
+      "IllegalUserLoginCharacters": "Login zawiera niedozwolone znaki.",
+      "InvalidUserPasswordLength": "Hasło musi zawierać od 6 do 20 znaków.",
+      "SameUserPassword": "Nowe hasło musi różnić się od starego.",
+      "WrongFormatOfEmail": "To nie jest poprawny adres e-mail.",
+      "SameEmail": "Nowy e-mail musi być różny od starego.",
+      "InvalidUserStatus": "Status użytkownika musi być 0 albo 1",
+      "InvalidRole": "Podana rola jest nieprawidłowa.",
+      "InvalidVideoStatus": "Nazwa statusu nie może być pusta.",
+      //Services
+      "VideoNotFound": "Nie znaleziono wideo.",
+      "CourseNotFound": "Nie znaleziono kursu.",
+      "VideoTitleTaken": "Wideo o podanym tytule już istnieje.",
+      "CourseTitleTaken": "Kurs o podanym tytule już istnieje.",
+      "VideoAlreadyExists": "Takie wideo już istnieje.",
+      "JWPlayerVideoNotFound": "Wideo JWPlayer nie zostało znalezione.",
+      "MissingVideoFile": "Nie znaleziono pliku wideo.",
+      "EmailTaken": "Email jest zajęty.",
+      "LoginTaken": "Login jest zajęty.",
+      "InvalidCredentials": "Login lub hasło są nieprawidłowe.",
+      "ImageNotFound": "Zdjęcie nie zostało znalezione.",
+      "TagNotFound": "Tag nie został znaleziony.",
+      "CannotLoadUrl": "Nie można załadować adresu url.",
+      "QuizMediaNotFound": "Media nie zostały znalezione.",
+      "QuizMediaTaken": "Podane media już ma przypisany quiz. Usuń quiz lub wybierz inne media.",
+      "QuizNotFound": "Nie znaleziono quizu.",
+      "ResourceNotFound": "Zasób nie został znaleziony.",
+      "TagExists": "Tag już istnieje.",
+      "HistoryNotFound": "Historia nie została znaleziona.",
+      "SameCourseInUserHistory": "Ten kurs już istnieje.",
+      "MissingCourseVideos": "Kurs nie zawiera żadnych wideo."
+    }
+  }
+}

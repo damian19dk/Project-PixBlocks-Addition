@@ -23,8 +23,8 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             var unemail = await _userRepository.IsEmailUnique(email);
 
-            if (user.Email == email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
-            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
+            if (user.Email == email) throw new MyException(MyCodesNumbers.SameEmail, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.SameEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.EmailTaken);
 
             user.SetEmail(email);
 
@@ -34,7 +34,6 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task ChangePassword(string login, string newPassword, string oldPassword)
         {
             var user = await _userRepository.GetAsync(login);
-            if (newPassword == oldPassword) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
 
             user.SetPassword(newPassword, _encrypter);
 

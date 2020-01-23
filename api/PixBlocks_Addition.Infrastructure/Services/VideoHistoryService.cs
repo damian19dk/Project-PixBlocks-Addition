@@ -35,19 +35,19 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task SetProgressAsync(Guid userId, Guid videoId, long time = 0)
         {
             if (time < 0)
-                throw new MyException(MyCodesNumbers.NegativeTime, MyCodes.NegativeTime);
+                throw new MyException(MyCodesNumbers.NegativeTime, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.InvalidTime);
 
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
-                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+                throw new MyException(MyCodesNumbers.UserNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
 
             var video = await _videoRepository.GetAsync(videoId);
             if (video == null)
-                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
 
             var videoHistory = await _videoHistoryRepository.GetAsync(user);
             if (videoHistory == null)
-                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, MyCodes.VideoHistoryNotFound);
+                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.HistoryNotFound);
 
             VideoRecord videoRecord = videoHistory.Videos.SingleOrDefault(v => v.Video.Id == videoId);
             if(videoRecord == null)
@@ -66,7 +66,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task<VideoHistoryDto> GetHistoryAsync(Guid userId)
         {
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+            if (user == null) throw new MyException(MyCodesNumbers.UserNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
 
             var result = await _videoHistoryRepository.GetAsync(user);
 
@@ -77,11 +77,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
-                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+                throw new MyException(MyCodesNumbers.UserNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
 
             var video = await _videoRepository.GetAsync(videoId);
             if (video == null)
-                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
 
             var videoRecord = await _videoHistoryRepository.GetAsync(user, videoId);
             return _mapper.Map<VideoRecordDto>(videoRecord);
@@ -91,35 +91,33 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var user = await _userRepository.GetAsync(userId);
             if (user == null)
-                throw new MyException(MyCodesNumbers.UserNotFound, MyCodes.UserNotFound);
+                throw new MyException(MyCodesNumbers.UserNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
 
             var course = await _courseRepository.GetAsync(courseId);
             if (course == null)
-                throw new MyException(MyCodesNumbers.CourseNotFound, MyCodes.CourseNotFound);
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
 
             var videoHistory = await _videoHistoryRepository.GetAsync(user);
             if (videoHistory == null)
-                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, MyCodes.VideoHistoryNotFound);
+                throw new MyException(MyCodesNumbers.VideoHistoryNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.HistoryNotFound);
 
             var videos = await _videoRepository.GetVideosFromCourse(course);
             if (videos == null)
-                throw new MyException(MyCodesNumbers.MissingVideos, MyCodes.MissingVideos);
+                throw new MyException(MyCodesNumbers.MissingVideos, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.MissingCourseVideos);
 
             long time = 0;
-            long length = 0;
-            foreach(var record in videoHistory.Videos)
+            long length = course.Duration;
+            foreach (var record in videoHistory.Videos)
             {
-               if (record.Video.ParentId == courseId)
+                if (record.Video.ParentId == courseId)
                     time += record.Time;
             }
-
-            foreach(var vid in videos)
+            if (length != 0)
             {
-                length += vid.Duration;
+                double temp = (double)time / (double)length;
+                return (int)(temp * 100);
             }
-
-            double temp = (double)time / (double)length;
-            return (int)(temp * 100);
+            else return 0;
         }
     }
 }

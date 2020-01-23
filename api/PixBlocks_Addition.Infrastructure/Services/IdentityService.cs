@@ -36,9 +36,9 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var unemail = await _userRepository.IsEmailUnique(email);
             var unelogin = await _userRepository.IsLoginUnique(username);
-            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, MyCodes.UniqueEmail);
+            if (!unemail) throw new MyException(MyCodesNumbers.UniqueEmail, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.EmailTaken);
 
-            if (!unelogin) throw new MyException(MyCodesNumbers.UniqueLogin, MyCodes.UniqueLogin);
+            if (!unelogin) throw new MyException(MyCodesNumbers.UniqueLogin, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.LoginTaken);
 
             var salt = _encrypter.GetSalt(password);
             var hash = _encrypter.GetHash(password, salt);
@@ -58,12 +58,12 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             if (user == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
+                throw new MyException(MyCodesNumbers.InvalidCredentials, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.InvalidCredentials);
             }
             var hash = _encrypter.GetHash(password, user.Salt);
             if (user.Password != hash)
             {
-                throw new MyException(MyCodesNumbers.InvalidCredentials, MyCodes.InvalidCredentials);
+                throw new MyException(MyCodesNumbers.InvalidCredentials, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.InvalidCredentials);
             }
             var jwt = _jwtHandler.Create(user.Id, login, user.Role.Name, true);
             var refreshToken = await _refreshTokens.GetByUserIdAsync(user.Id);
@@ -88,16 +88,16 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
+                throw new MyException(MyCodesNumbers.TokenNotFound, "Token was not found.");
             }
             if (token.Revoked)
             {
-                throw new MyException(MyCodesNumbers.RefreshToken, MyCodes.RefreshToken);
+                throw new MyException(MyCodesNumbers.RefreshToken, "Token was revoked.");
             }
             var user = await _userRepository.GetAsync(token.UserId);
             if (user == null)
             {
-                throw new MyException(MyCodesNumbers.UserNotFoundJWT, MyCodes.UserNotFoundJWT);
+                throw new MyException(MyCodesNumbers.UserNotFoundJWT, "User was not found.");
             }
             var jwt = _jwtHandler.Create(user.Id, user.Login, user.Role.Name, user.IsPremium);
             var jwtDto = new JwtDto() { AccessToken = jwt.AccessToken, Expires = jwt.Expires, RefreshToken = token.Token };
@@ -110,11 +110,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var token = await _refreshTokens.GetAsync(refreshToken);
             if (token == null)
             {
-                throw new MyException(MyCodesNumbers.TokenNotFound, MyCodes.TokenNotFound);
+                throw new MyException(MyCodesNumbers.TokenNotFound, "Token not found.");
             }
             if (token.Revoked)
             {
-                throw new MyException(MyCodesNumbers.RefreshAToken, MyCodes.RefreshAToken);
+                throw new MyException(MyCodesNumbers.RefreshAToken, "Token was already revoked.");
             }
             token.Revoke();
             await _refreshTokens.UpdateAsync();

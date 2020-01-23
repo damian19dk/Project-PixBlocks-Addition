@@ -38,17 +38,17 @@ namespace PixBlocks_Addition.Infrastructure.Services
         {
             var user = await _userRepository.GetAsync(userId);
             var course = await _courseRepository.GetAsync(courseId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
-            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
+            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
 
 
 
             var history = await _userCourseHistoryRepository.GetAllAsync(user);
-            if (history == null) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
+            if (history == null) throw new MyException(MyCodesNumbers.MissingHistory, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.HistoryNotFound);
 
             foreach (Course check in history.Courses)
             {
-                if (check.Id == courseId) throw new MyException(MyCodesNumbers.SameCourseInUserHistory, MyCodes.SameCourseInUserHistory);
+                if (check.Id == courseId) throw new MyException(MyCodesNumbers.SameCourseInUserHistory, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.SameCourseInUserHistory);
             }
             history.Courses.Add(course);
             await _userCourseHistoryRepository.UpdateAsync(history);
@@ -57,10 +57,10 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task<IEnumerable<CourseDto>> GetAllAsync(Guid userId)
         {
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
 
             var Ids = await _userCourseHistoryRepository.GetAllAsync(user);
-            if (Ids == null) throw new MyException(MyCodesNumbers.MissingHistory, MyCodes.MissingHistory);
+            if (Ids == null) throw new MyException(MyCodesNumbers.MissingHistory, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.HistoryNotFound);
 
             List<Course> result = new List<Course>();
             foreach (Course Id in Ids.Courses)
@@ -74,7 +74,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task RemoveAsync(Guid userId)
         {
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
             var result = await _userCourseHistoryRepository.GetAllAsync(user);
             await _userCourseHistoryRepository.RemoveAsync(user);
         }
@@ -82,7 +82,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
         public async Task CleanUserHistory(Guid userId)
         {
             var user = await _userRepository.GetAsync(userId);
-            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, MyCodes.WrongUserId);
+            if (user == null) throw new MyException(MyCodesNumbers.WrongUserId, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.UserNotFound);
             var progres = await _userCourseHistoryRepository.GetAllAsync(user);
 
             progres.Courses.Clear();

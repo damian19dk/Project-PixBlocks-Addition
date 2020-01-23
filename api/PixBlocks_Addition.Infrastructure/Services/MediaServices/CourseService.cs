@@ -47,13 +47,13 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             if (resource.Title == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidTitle, MyCodes.EmptyTitle);
+                throw new MyException(MyCodesNumbers.InvalidTitle, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.InvalidCourseTitle);
             }
             var courses = await _courseRepository.GetAsync(resource.Title, resource.Language);
             foreach (var c in courses)
             {
                 if (c.Title == resource.Title)
-                    throw new MyException(MyCodesNumbers.SameTitleCourse, $"Kurs o tytule: {resource.Title} już istnieje.");
+                    throw new MyException(MyCodesNumbers.SameTitleCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseTitleTaken);
             }
 
             HashSet<Tag> tags = new HashSet<Tag>();
@@ -65,7 +65,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     var tagEntity = await _tagRepository.GetAsync(tag, resource.Language);
                     if(tagEntity == null)
                     {
-                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
+                        throw new MyException(MyCodesNumbers.TagNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagNotFound);
                     }
                     tags.Add(tagEntity);
                 }
@@ -126,7 +126,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var courseVideo = course.CourseVideos.SingleOrDefault(x => x.Video.Id == videoId);
             if (courseVideo == null)
             {
-                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
             course.CourseVideos.Remove(courseVideo);
 
@@ -171,7 +171,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             }
             if(courses.Count() < 0 )
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, $"Course with title {title} not found.");
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
             }
 
             var course = courses.First();
@@ -192,7 +192,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var course = await _courseRepository.GetAsync(id);
             if (course == null)
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, $"Nie znaleziono kursu o id: {id}. Wpierw stwórz kurs!");
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
             }
             return course;
         }
@@ -221,7 +221,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             long length = 0;
             var course = await _courseRepository.GetAsync(courseId);
-            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, MyCodes.MissingCourse);
+            if (course == null) throw new MyException(MyCodesNumbers.MissingCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.MissingCourseVideos);
             foreach (var video in course.CourseVideos)
             {
                 length += video.Video.Duration;

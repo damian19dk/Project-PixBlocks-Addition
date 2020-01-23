@@ -18,8 +18,9 @@
 .font-weight-bold {
   font-size: 20px;
 }
+
 .loggedIn {
-  background-image: url('./../../assets/svg/undraw_researching_22gp.svg');  
+  background-image: url('./../../assets/svg/undraw_researching_22gp.svg');
   background-repeat: no-repeat;
   background-position: top right;
 }
@@ -27,11 +28,9 @@
 .loggedIn {
   margin-right: 38%;
 }
-
 }
-.userLoggedIn
-{
-  background-image: url('./../../assets/svg/undraw_Choose_bwbs.svg'), url('./../../assets/svg/undraw_Business_analytics_64el.svg');  
+.userLoggedIn {
+  background-image: url('./../../assets/svg/undraw_Choose_bwbs.svg'), url('./../../assets/svg/undraw_Business_analytics_64el.svg');
   background-repeat: no-repeat;
   background-position: top right, bottom right;
 }

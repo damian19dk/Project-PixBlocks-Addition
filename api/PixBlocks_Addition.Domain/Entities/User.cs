@@ -48,19 +48,19 @@ namespace PixBlocks_Addition.Domain.Entities
 
         public void SetLogin(string login)
         {
-            if (login.Length < 3) throw new MyException(MyCodesNumbers.TooShortLogin, MyCodes.TooShortLogin);
-            if (login.Length >= 20) throw new MyException(MyCodesNumbers.TooLongLogin, MyCodes.TooLongLogin);
-            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
-            if (!regex_login.IsMatch(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, MyCodes.WrongCharactersInLogin);
+            if (login.Length < 3) throw new MyException(MyCodesNumbers.TooShortLogin, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserLoginLength);
+            if (login.Length > 20) throw new MyException(MyCodesNumbers.TooLongLogin, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserLoginLength);
+            if (String.IsNullOrEmpty(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserLoginLength);
+            if (!regex_login.IsMatch(login)) throw new MyException(MyCodesNumbers.WrongCharactersInLogin, Exceptions.ExceptionMessages.DomainExceptionMessages.IllegalUserLoginCharacters);
             Login = login;
         }
 
         public void SetPassword(string password, IEncrypter encrypter)
         {
-            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodesNumbers.WrongCharactersInPassword, MyCodes.WrongCharactersInPassword);
-            if (password.Length < 6) throw new MyException(MyCodesNumbers.TooShortPassword, MyCodes.TooShortPassword);
-            if (password.Length >= 20) throw new MyException(MyCodesNumbers.TooLongPassword, MyCodes.TooLongPassword);
-            if (password == Password) throw new MyException(MyCodesNumbers.SamePassword, MyCodes.SamePassword);
+            if (string.IsNullOrWhiteSpace(password)) throw new MyException(MyCodesNumbers.WrongCharactersInPassword, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserPasswordLength);
+            if (password.Length < 6) throw new MyException(MyCodesNumbers.TooShortPassword, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserPasswordLength);
+            if (password.Length >= 20) throw new MyException(MyCodesNumbers.TooLongPassword, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserPasswordLength);
+            if (password == Password) throw new MyException(MyCodesNumbers.SamePassword, Exceptions.ExceptionMessages.DomainExceptionMessages.SameUserPassword);
 
             string salt = encrypter.GetSalt(password);
             string hash = encrypter.GetHash(password, salt);
@@ -82,19 +82,19 @@ namespace PixBlocks_Addition.Domain.Entities
         }
         public void SetEmail(string mail)
         {
-            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodesNumbers.WrongFormatOfMail, MyCodes.WrongFormatOfMail);
-            if (mail == Email) throw new MyException(MyCodesNumbers.SameEmail, MyCodes.SameEmail);
+            if (!regex_mail.IsMatch(mail)) throw new MyException(MyCodesNumbers.WrongFormatOfMail, Exceptions.ExceptionMessages.DomainExceptionMessages.WrongFormatOfEmail);
+            if (mail == Email) throw new MyException(MyCodesNumbers.SameEmail, Exceptions.ExceptionMessages.DomainExceptionMessages.SameEmail);
             Email = mail;
         }
         public void SetStatus(int status)
         {
             if (status == 1 || status == 0) Status = status;
-            else throw new MyException(MyCodesNumbers.WrongUserStatus, MyCodes.WrongUserStatus);
+            else throw new MyException(MyCodesNumbers.WrongUserStatus, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidUserStatus);
         }
         public void IsRoleCorrectSet(int roleid)
         {
             if (roleid == 3 || roleid == 2 || roleid == 1) RoleId = roleid;
-            else throw new MyException(MyCodesNumbers.WrongRoleId, MyCodes.WrongRoleId);
+            else throw new MyException(MyCodesNumbers.WrongRoleId, Exceptions.ExceptionMessages.DomainExceptionMessages.InvalidRole);
         }
         public string GetRoleName(int roleId)
         {

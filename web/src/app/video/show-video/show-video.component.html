@@ -87,7 +87,6 @@
       </div>
     </div>
 
-
     <div *ngIf="courseDocument" class="col">
       <h4 class="title">Treść kursu:</h4>
 
@@ -102,12 +101,18 @@
           </div>
           <p class="mb-1">{{courseVideo.description | shortText}}</p>
           <div class=" d-flex justify-content-between">
-            <small container="body" ngbTooltip="Czas trwania"
+            <small container="body"
+                   ngbTooltip="Czas trwania"
                    placement="bottom">{{courseVideo.duration * 1000 | date:'HH:mm:ss':'UTC'}}</small>
-            <small><i *ngIf="courseVideo.premium" class="far fa-star align-self-center" container="body"
+            <small><i *ngIf="courseVideo.premium"
+                      class="far fa-star align-self-center"
+                      container="body"
                       ngbTooltip="Premium"
                       placement="bottom"></i></small>
           </div>
+          <mat-progress-bar [value]="courseVideo.progress"
+                            class="mb-1"
+                            mode="determinate"></mat-progress-bar>
         </a>
 
       </div>

@@ -49,12 +49,12 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         {
             if(video.ParentId == null)
             {
-                throw new MyException(MyCodesNumbers.InvalidVideoParentId, "You have to provide valid course id");
+                throw new MyException(MyCodesNumbers.InvalidVideoParentId, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
             }
             var course = await _courseRepository.GetAsync(video.ParentId);
             if(course == null)
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, "The given course id does not exist");
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
             }
 
             if (!string.IsNullOrEmpty(video.MediaId))
@@ -62,20 +62,20 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                 var sameVideo = course.CourseVideos.FirstOrDefault(c => c.Video.MediaId == video.MediaId);
                 if (sameVideo != null)
                 {
-                    throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
+                    throw new MyException(MyCodesNumbers.SameVideoInCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoAlreadyExists);
                 }
 
                 var response = await _jwPlayerService.GetVideoAsync(video.MediaId);
                 if(response == null)
                 {
-                    throw new MyException(MyCodesNumbers.VideoNotFound, $"Nie znaleziono wideo o id:{video.MediaId}!");
+                    throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
                 }
             }
             else
             {
                 if(video.Video == null)
                 {
-                    throw new MyException(MyCodesNumbers.MissingFile, "Nie znaleziono wideo!");
+                    throw new MyException(MyCodesNumbers.MissingFile, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.MissingVideoFile);
                 }
 
                 video.MediaId = await _jwPlayerService.UploadVideoAsync(video.Video);
@@ -110,7 +110,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
                     var entityTag = await _tagRepository.GetAsync(tag, video.Language);
                     if(entityTag == null)
                     {
-                        throw new MyException(MyCodesNumbers.TagNotFound, $"The tag {tag} was not found.");
+                        throw new MyException(MyCodesNumbers.TagNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.TagNotFound);
                     }
                     tags.Add(entityTag);
                 }
@@ -123,6 +123,7 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             vid.SetStatus("processing");
             await _videoRepository.AddAsync(vid);
 
+            course.AddTimeToDuration(video.Duration);
             course.CourseVideos.Add(new CourseVideo(video.ParentId, vid));
             await _courseRepository.UpdateAsync(course);
 
@@ -184,11 +185,15 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveAsync(Guid id)
         {
             var video = await _videoRepository.GetAsync(id);
+            var course = await _courseRepository.GetAsync(video.ParentId);
             if (video == null)
             {
-                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with id {id} not found.");
+                throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
-         
+
+            course.TakeTimeFromDuration(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             if (video.QuizId != null)
             {
                 var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
@@ -200,16 +205,21 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
         public async Task RemoveAsync(string title)
         {
             var videos = await _videoRepository.GetAsync(title);
-            if(videos.Count() > 1)
+            if (videos.Count() > 1)
             {
                 throw new MyException(MyCodesNumbers.AmbiguousTitle, $"Video with title {title} is ambiguous.");
             }
             if(videos.Count() == 0)
             {
-                throw new MyException(MyCodesNumbers.VideoNotFound, $"Video with title {title} not found");
+                throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
-
+        
             var video = videos.First();
+            var course = await _courseRepository.GetAsync(video.ParentId);
+
+            course.TakeTimeFromDuration(video.Duration);
+            await _courseRepository.UpdateAsync(course);
+
             if (video.QuizId != null)
             {
                 var quiz = await _quizRepository.GetAsync((Guid)video.QuizId);
@@ -239,17 +249,17 @@ namespace PixBlocks_Addition.Infrastructure.Services.MediaServices
             var newCourse = await _courseRepository.GetAsync(attachCourse.CourseId);
             if(newCourse == null)
             {
-                throw new MyException(MyCodesNumbers.CourseNotFound, MyCodes.CourseNotFound);
+                throw new MyException(MyCodesNumbers.CourseNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.CourseNotFound);
             }
             var video = await _videoRepository.GetAsync(attachCourse.VideoId);
             if(video == null)
             {
-                throw new MyException(MyCodesNumbers.VideoNotFound, MyCodes.VideoNotFound);
+                throw new MyException(MyCodesNumbers.VideoNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoNotFound);
             }
             var sameName = newCourse.CourseVideos.Any(x => x.Video.Title == video.Title);
             if(sameName)
             {
-                throw new MyException(MyCodesNumbers.SameVideoInCourse, MyCodes.SameVideoInCourse);
+                throw new MyException(MyCodesNumbers.SameVideoInCourse, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.VideoTitleTaken);
             }
 
             var currentCourse = await _courseRepository.GetAsync(video.ParentId);

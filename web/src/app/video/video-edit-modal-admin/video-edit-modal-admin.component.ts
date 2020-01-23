@@ -57,7 +57,8 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
       language: [this.video.language],
       pictureUrl: [this.video.picture],
       image: [null],
-      video: [null]
+      video: [null],
+      duration: [null]
     });
   }
 
@@ -130,5 +131,9 @@ export class VideoEditModalAdminComponent extends FormModal implements OnInit {
 
   imitateImageInput() {
     document.getElementById(this.video.id).click();
+  }
+
+  getDuration($event: any) {
+    this.form.controls.duration.setValue($event);
   }
 }

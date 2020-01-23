@@ -9,9 +9,6 @@ import {LoadingService} from '../services/loading.service';
 })
 export class HomeComponent implements OnInit {
 
-  count: number;
-  page = 1;
-
   error: string;
 
   constructor(

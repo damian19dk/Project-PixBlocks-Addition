@@ -39,11 +39,11 @@ namespace PixBlocks_Addition.Infrastructure.Services
             }
             if(media == null)
             {
-                throw new MyException(MyCodesNumbers.MediaNotFound, $"Media with id {quiz.MediaId} not found.");
+                throw new MyException(MyCodesNumbers.MediaNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.QuizMediaNotFound);
             }
             if(media.QuizId != null)
             {
-                throw new MyException(MyCodesNumbers.QuizExists, $"The given media already has a quiz. Remove the quiz or choose another media.");
+                throw new MyException(MyCodesNumbers.QuizExists, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.QuizMediaTaken);
             }
 
             var newQuiz = new Quiz(media.Id);
@@ -77,7 +77,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var quiz = await _quizRepository.GetAsync(id);
             if(quiz == null)
             {
-                throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {id} not found.");
+                throw new MyException(MyCodesNumbers.QuizNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.QuizNotFound);
             }
             await _quizRepository.RemoveAsync(quiz);
 
@@ -101,7 +101,7 @@ namespace PixBlocks_Addition.Infrastructure.Services
             var currentQuiz = await _quizRepository.GetAsync(quiz.QuizId);
             if(currentQuiz == null)
             {
-                throw new MyException(MyCodesNumbers.QuizNotFound, $"Quiz with id {quiz.QuizId} not found.");
+                throw new MyException(MyCodesNumbers.QuizNotFound, Domain.Exceptions.ExceptionMessages.ServicesExceptionMessages.QuizNotFound);
             }
 
             currentQuiz.Questions.Clear();

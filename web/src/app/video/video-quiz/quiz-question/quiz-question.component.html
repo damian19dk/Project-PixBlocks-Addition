@@ -8,7 +8,7 @@
       <app-quiz-answer
         [quizAnswerIndex]="index"
         [quizAnswerForm]="answer"
-        (onRemoveAnswer)="removeAnswer($event)"></app-quiz-answer>
+        (answerRemoved)="removeAnswer($event)"></app-quiz-answer>
     </ng-container>
     <div *ngIf="answers.errors">
       <div *ngIf="answers.errors.minLength && answers.dirty" i18n>
@@ -25,8 +25,11 @@
           type="button">
     Dodaj odpowiedź
   </button>
-  <button (click)="handleDeleteQuestion()" [class.spinner]="loading" color="warn" mat-raised-button>
+  <button (click)="handleDeleteQuestion()"
+          [class.spinner]="loading"
+          color="warn"
+          mat-raised-button
+          type="button">
     Usuń pytanie
   </button>
-
 </div>

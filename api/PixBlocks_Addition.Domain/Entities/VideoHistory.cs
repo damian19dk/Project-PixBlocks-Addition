@@ -14,7 +14,7 @@ namespace PixBlocks_Addition.Domain.Entities
         public VideoHistory(User user)
         {
             Id = Guid.NewGuid();
-            User = user ?? throw new MyException("user cannot be null");
+            User = user ?? throw new MyException(MyCodesNumbers.UserNotFound, Exceptions.ExceptionMessages.DomainExceptionMessages.UserNotFound);
         }
 
         protected VideoHistory()

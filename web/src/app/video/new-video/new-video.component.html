@@ -112,7 +112,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" i18n>Podgląd</label>
           <div class="col-sm-10">
-            <app-video-preview [video]="f.video.value"></app-video-preview>
+            <app-video-preview (videoLoaded)="getDuration($event)" [video]="f.video.value"></app-video-preview>
           </div>
         </div>
 
