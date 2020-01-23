@@ -1,36 +1,49 @@
+<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
 <div *ngIf="video" class="container-fluid">
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
   <div class="container-fluid">
-    <div class="courseTitle">
-      <div class="title">
-        <h2 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h2>
+    <div class="row">
+      <div class="courseTitle col-8">
+        <div class="title">
+          <h3 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h3>
+
+        </div>
+
       </div>
+      <div class="yourProgress col-2 justify-content-right">
+        <h3>Twój postęp:</h3>
+      </div>
+      <div class="col-2 spinnerSvg" style="margin-bottom: 10px; max-width: 217px;">
+        <mat-progress-spinner [value]="courseProgress"
+                              class="mb-1 spinnerProgress"
+                              mode="determinate"
+                              ngbTooltip="Aktualny postęp: {{courseProgress}}%"
+                              placement="top"
+        ></mat-progress-spinner>
+      </div>
+
     </div>
   </div>
   <!-- <h1 *ngIf="courseDocument" class="header padded-left" i18n>{{courseDocument.title}}</h1>
    <h5 *ngIf="videoDocument" class="header padded-left">{{videoDocument.title}}</h5> -->
 
   <div class="row">
-    <div *ngIf="videoDocument" class="col-7">
+    <div *ngIf="videoDocument" class="embVideo col-7">
       <div class="row">
         <div class="col-12 bg-light" style=" border-radius: 25px; padding-top: 40px;">
           <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
+               style="margin-bottom: 20px;"
                msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                webkitallowfullscreen="webkitallowfullscreen">Loading...
           </div>
-
-          <button (click)="addCourseToUserHistory()" class="btn">Start</button>
         </div>
-        <mat-progress-bar [value]="courseProgress"
-                          class="mb-1"
-                          mode="determinate"
-                          ngbTooltip="Aktualny postęp: {{courseProgress}}/100"
-                          placement="top"></mat-progress-bar>
+
       </div>
 
-      <div class="row justify-content-between" style="padding-top: 9px;">
+      <div class="row justify-content-between" style="margin-top: 15px; padding-top: 9px;">
         <div class="col-4 justify-content-center">
           <div class="col-12 text-center">
             <span ngbTooltip="Tagi" placement="left"><i class="fas fa-tags fa-2x"></i></span>
@@ -76,15 +89,16 @@
     </div>
 
     <div *ngIf="courseDocument" class="col">
-      <h4 class="header">Filmy:</h4>
+      <h4 class="title">Treść kursu:</h4>
 
-      <div class="scroll list-group" style="max-height: 41rem">
+      <div class="scroll list-group" style="max-height: 41rem;">
         <a *ngFor="let courseVideo of courseDocument.courseVideos"
            [ngClass]="courseVideo.mediaId === videoDocument.mediaId ? 'bg-video' : null"
-           class="list-group-item list-group-item-action flex-column align-items-start"
-           routerLink="/courses/{{courseDocument.id}}/videos/{{courseVideo.mediaId}}">
+           class="show list-group-item list-group-item-action flex-column align-items-start"
+           routerLink="/courses/{{courseDocument.id}}/videos/{{courseVideo.mediaId}}"
+           style="border-style: solid; border-color: black; border-left-width: 0.25px; ">
           <div class="d-flex w-100 justify-content-start">
-            <h5 class="mb-1">{{courseVideo.title}}</h5>
+            <h5 class="mb-1 courseThumbnailTitle">{{courseVideo.title}}</h5>
           </div>
           <p class="mb-1">{{courseVideo.description | shortText}}</p>
           <div class=" d-flex justify-content-between">
@@ -133,4 +147,90 @@
   <app-courses-view></app-courses-view>
 </section>
 
+<!-- Top content VERSION ONE -->
 
+<!-- <div class="top-content">
+  <div class="container-fluid">
+      <div id="carousel-example" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner row w-100 mx-auto" role="listbox">
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                  <img src="assets/img/backgrounds/1.jpg" class="img-fluid mx-auto d-block" alt="img1">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/2.jpg" class="img-fluid mx-auto d-block" alt="img2">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/3.jpg" class="img-fluid mx-auto d-block" alt="img3">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/4.jpg" class="img-fluid mx-auto d-block" alt="img4">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/5.jpg" class="img-fluid mx-auto d-block" alt="img5">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/6.jpg" class="img-fluid mx-auto d-block" alt="img6">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/7.jpg" class="img-fluid mx-auto d-block" alt="img7">
+              </div>
+              <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
+                  <img src="assets/img/backgrounds/8.jpg" class="img-fluid mx-auto d-block" alt="img8">
+              </div>
+          </div>
+          <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+
+VERSION TWO
+
+
+
+
+  <h1>Use Bootstrap 3's carousel to show multiple items per slide.</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="carousel slide multi-item-carousel" id="theCarousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?fremantle,australia" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?west-australia" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?quokka,perth" class="img-responsive"></a></div>
+          </div>
+          <div class="item">
+            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?margaretriver,australia" class="img-responsive"></a></div>
+          </div>
+          add  more items here -->
+<!-- Example item start:
+
+<div class="item">
+  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
+</div> -->
+
+<!--  Example item end
+</div>
+<a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+<a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+</div>
+</div>
+</div>  -->

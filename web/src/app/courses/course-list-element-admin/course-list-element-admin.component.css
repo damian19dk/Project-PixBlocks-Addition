@@ -1,14 +1,17 @@
 .card {
-  width: 100%;
-  height: auto;
+  width: 80%;
+  height: 120px;
 }
 
 .card-box {
   display: inline-block;
   overflow: hidden;
-  width: 200px;
-  height: 200px;
+  width: 100px;
   margin: 20px 20px 20px 20px;
+}
+
+.card-header {
+  height: 35px;
 }
 
 .box-shadow {
@@ -53,9 +56,8 @@
 }
 
 .card-text {
-  padding: 2% 3%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   text-align: justify;
 }
 
@@ -67,7 +69,6 @@ button {
   margin-left: 5px;
   margin-right: 5px;
 }
-
 
 .languages {
   display: flex;

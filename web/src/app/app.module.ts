@@ -60,6 +60,7 @@ import {QuizAnswerComponent} from './video/video-quiz/quiz-answer/quiz-answer.co
 import {QuizFormComponent} from './video/video-quiz/quiz-form/quiz-form.component';
 import {VideoQuizUserComponent} from './video/video-quiz/video-quiz-user/video-quiz-user.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {SettingsComponent} from './settings/settings.component';
 import {NewTagAdminComponent} from './tags/new-tag-admin/new-tag-admin.component';
 import {TagThumbnailComponent} from './tags/tag/tag-thumbnail.component';
@@ -128,7 +129,7 @@ import {SelectVideoComponent} from './common/select-video/select-video.component
     QuizFormComponent,
     VideoQuizUserComponent,
     SelectPictureComponent,
-    SelectVideoComponent
+    SelectVideoComponent,
   ],
   imports: [
     BrowserModule,
@@ -154,6 +155,7 @@ import {SelectVideoComponent} from './common/select-video/select-video.component
     MatSelectModule,
     DragDropModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     ColorSketchModule
   ],
   exports: [HasRoleDirective],

@@ -17,7 +17,8 @@
   <div *ngIf="submitted" i18n>
     Liczba poprawnych odpowiedzi: {{correctAnswers}}
   </div>
-  <button (click)="checkAnswers()" [class.spinner]="loading"
+  <button (click)="checkAnswers()"
+          [class.spinner]="loading"
           [disabled]="loading || submitted"
           color="primary"
           i18n

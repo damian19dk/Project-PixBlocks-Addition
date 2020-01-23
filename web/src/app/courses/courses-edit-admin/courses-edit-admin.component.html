@@ -1,9 +1,9 @@
 <section>
   <div (cdkDropListDropped)="drop($event)" cdkDropList cdkDropListOrientation="vertical"
-       class="example-list container justify-content-center">
+       class="container justify-content-center">
     <app-course-list-element-admin (courseChanged)="getCourses()" *ngFor="let course of courses" [course]=course
                                    cdkDrag
-                                   class=" p-2 card-content example-box">
+                                   class="drop-list-element">
     </app-course-list-element-admin>
   </div>
 </section>

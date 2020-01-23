@@ -1,13 +1,17 @@
 .card {
-  height: 90%;
+  width: 750px;
+  height: 250px;
 }
 
 .card-box {
   display: inline-block;
   overflow: hidden;
-  height: 100%;
-  width: 100%;
-  position: relative;
+  width: 100px;
+  margin: 20px 20px 20px 20px;
+}
+
+.card-header {
+  height: 35px;
 }
 
 .box-shadow {
@@ -22,7 +26,6 @@
 .card-img-top {
   width: 100%;
   height: 100%;
-  max-height: 300px;
   display: block;
   transition: transform .4s, opacity .4s;
   opacity: 1.0;
@@ -35,7 +38,7 @@
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
 .card:hover .card-img-top {
@@ -52,19 +55,19 @@
   cursor: pointer;
 }
 
-.card-not-allowed {
-  cursor: not-allowed;
-}
-
 .card-text {
-  padding: 2% 3%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   text-align: justify;
 }
 
 .d-flex, .text-muted {
   padding-bottom: 0;
+}
+
+button {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .languages {
@@ -82,4 +85,8 @@
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+}
+
+.add-video {
+  margin-bottom: 10px;
 }
