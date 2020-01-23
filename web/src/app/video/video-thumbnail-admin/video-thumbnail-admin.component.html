@@ -157,7 +157,7 @@
 
 
 <div *ngIf="video">
-  <div [ngClass]="video.status === 'processing' ? 'bg-warning' : 'bg-white'" class="card mb-4 box-shadow">
+  <div [ngClass]="video.status === 'processing' ? 'bg-warning' : 'bg-white'" class="card mb-1 box-shadow">
 
     <div class="card-header text-center">
       {{video.title}}
@@ -165,7 +165,7 @@
 
     <div *ngIf="video.status === 'ready'" class="card-box card-link"
          routerLink="/courses/{{video.parentId}}/videos/{{video.mediaId}}">
-      <i class="fas fa-play fa-7x card-img-icon align-self-center "></i>
+      <i class="card-img-icon align-self-center "></i>
       <img *ngIf="video.picture" alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block"
            src={{video.picture}}/>
       <img *ngIf="!video.picture" alt="{{video.title}}" class="card-img-top align-middle mx-auto d-block"
@@ -192,3 +192,46 @@
 
   </div>
 </div>
+
+<!-- <div *ngIf="course" class="card mb-4 bg-white box-shadow ">
+
+  <div class="card-header text-center">
+    {{course.title}}
+  </div> -->
+<!-- 
+  <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
+       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
+    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
+         src={{course.picture}}/>
+    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+         src='assets/img/movie.jpg'/>
+  </div>
+
+  <div *ngIf="course.courseVideos.length === 0" class="card-box">
+    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
+         src={{course.picture}}/>
+    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+         src='assets/img/movie.jpg'/>
+  </div> -->
+
+  <!-- <div class="card-body" *ngIf="course.courseVideos.length > 0">
+    <p class="card-text">{{course.description | shortText}}</p>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <small container="body" ngbTooltip="Czas trwania"
+             placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
+
+      <div>
+         <button class="btn btn-sm btn-outline-info" routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}" i18n type="button">
+          <i class="fas fa-arrow-alt-circle-right"></i>Przejdź do kursu
+        </button> 
+        <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
+          <i class="fas fa-edit"></i>Edytuj
+        </button>
+        
+        <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
+               container="body" placement="bottom">{{course.courseVideos.length}}</small>
+      </div>
+    </div>
+  </div>
+</div> -->
