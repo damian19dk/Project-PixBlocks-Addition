@@ -21,7 +21,6 @@
         <label class="col-sm-2 col-form-label" i18n>Kurs</label>
         <div class="col-sm-10">
           <app-course-choose-admin (courseSelected)="selectCourse($event)"
-                                   [buttonName]="'Wybierz kurs'"
                                    [course]="course">
           </app-course-choose-admin>
 
@@ -198,7 +197,7 @@
   <div class="card-header text-center">
     {{course.title}}
   </div> -->
-<!-- 
+<!--
   <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
        routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
     <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
@@ -224,11 +223,11 @@
       <div>
          <button class="btn btn-sm btn-outline-info" routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}" i18n type="button">
           <i class="fas fa-arrow-alt-circle-right"></i>Przejdź do kursu
-        </button> 
+        </button>
         <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
           <i class="fas fa-edit"></i>Edytuj
         </button>
-        
+
         <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
                container="body" placement="bottom">{{course.courseVideos.length}}</small>
       </div>

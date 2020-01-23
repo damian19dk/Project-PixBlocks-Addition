@@ -56,16 +56,18 @@
   </div>
 </div>
 
-<div *appHasRole="['Użytkownik']" class="container loggedIn">
+<div *appHasRole="['Użytkownik']" [ngClass]="historyCoursesNumber > 0 ? 'loggedIn' : null" class="container">
   <div i18n id="title">
     <span style="color:#0d90fc">Programowanie</span> <br>
     <span style="color:#000000">dla każdego!</span>
   </div>
-  <div class="row  alert alert-info justify-content-center" style="margin-left: 1%; width: 28%;">
-    <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
-  </div>
+  <ng-template *ngIf="historyCoursesNumber > 0">
+    <div class="row  alert alert-info justify-content-center" style="margin-left: 1%; width: 28%;">
+      <strong>{{getLogin()}}</strong>, ostatnio oglądałeś:
+    </div>
 
-  <app-courses-history-for-user></app-courses-history-for-user>
+    <app-courses-history-for-user (coursesLoaded)="getHistoryCoursesNumber($event)"></app-courses-history-for-user>
+  </ng-template>
 </div>
 
 
@@ -78,11 +80,4 @@
   </div>
 </div>
 
-<app-home-for-logged *appHasRole="['Administrator']"></app-home-for-logged>
-
-
-
-
-
-
-
+<app-courses-edit-admin *appHasRole="['Administrator']"></app-courses-edit-admin>
