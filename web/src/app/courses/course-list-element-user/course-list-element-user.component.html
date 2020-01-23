@@ -37,6 +37,7 @@
   </ng-template>
 </div>
 
+
 <div *ngIf="course && course.premium && !isPremiumUser()">
   <div class="card-not-premium bg-white mb-3 bg-white box-shadow" style="max-width: 80%;">
     <div class="row no-gutters">
@@ -55,6 +56,9 @@
         <div class="card-body">
           <h5 class="card-title">{{course.title}}</h5>
           <p class="card-text">{{course.description | shortText}}</p>
+          <div>
+            <app-tag-thumbnail *ngFor="let tag of course.tags" [tagDto]="getTag(tag)"></app-tag-thumbnail>
+          </div>
           <p class="card-text"><small class="text-muted">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
             <small class="badge badge-pill badge-primary" container="body" ngbTooltip="Liczba filmów"
                    placement="bottom" style="margin-left: 80%;">{{course.courseVideos.length}}</small>

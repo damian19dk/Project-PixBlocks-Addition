@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseDocument} from '../../models/courseDocument.model';
 import {AuthService} from '../../services/auth.service';
+import {TagService} from '../../services/tag.service';
 
 @Component({
   selector: 'app-course-list-element-user',
@@ -11,10 +12,15 @@ export class CourseListElementUserComponent implements OnInit {
 
   @Input() course: CourseDocument;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private tagService: TagService) {
   }
 
   ngOnInit() {
+  }
+
+  getTag(name: string) {
+    return this.tagService.getTagDto(name);
   }
 
   isPremiumUser(): boolean {
