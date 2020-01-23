@@ -132,23 +132,23 @@
   <div class="card-header text-center">
     {{course.title}}
   </div>
-<!-- 
-  <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
-       routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div>
+  <!--
+    <div *ngIf="course.courseVideos.length > 0" class="card-box card-link"
+         routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}">
+      <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
+           src={{course.picture}}/>
+      <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+           src='assets/img/movie.jpg'/>
+    </div>
 
-  <div *ngIf="course.courseVideos.length === 0" class="card-box">
-    <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
-         src={{course.picture}}/>
-    <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
-         src='assets/img/movie.jpg'/>
-  </div> -->
+    <div *ngIf="course.courseVideos.length === 0" class="card-box">
+      <img *ngIf="course.picture" alt="{{course.title}}" class="card-img-top"
+           src={{course.picture}}/>
+      <img *ngIf="!course.picture" alt="{{course.title}}" class="card-img-top"
+           src='assets/img/movie.jpg'/>
+    </div> -->
 
-  <div class="card-body" *ngIf="course.courseVideos.length > 0">
+  <div class="card-body">
     <p class="card-text">{{course.description | shortText}}</p>
 
     <div class="d-flex justify-content-between align-items-center">
@@ -156,16 +156,21 @@
              placement="bottom">{{course.duration * 1000 | date:'H:mm:ss':'UTC'}}</small>
 
       <div>
-         <button class="btn btn-sm btn-outline-info" routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}" i18n type="button">
+        <button *ngIf="course.courseVideos.length > 0"
+                class="btn btn-sm btn-outline-info"
+                i18n
+                routerLink="/courses/{{course.id}}/videos/{{course.courseVideos[0].mediaId}}"
+                type="button">
           <i class="fas fa-arrow-alt-circle-right"></i>Przejdź do kursu
-        </button> 
+        </button>
         <button (click)="openModal(modal)" class="btn btn-sm btn-outline-primary" i18n type="button">
           <i class="fas fa-edit"></i>Edytuj
         </button>
-        
+
         <small class="badge badge-pill badge-primary" ngbTooltip="Liczba filmów"
                container="body" placement="bottom">{{course.courseVideos.length}}</small>
       </div>
     </div>
   </div>
+
 </div>

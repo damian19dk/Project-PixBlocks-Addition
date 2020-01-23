@@ -1,3 +1,5 @@
+<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
 <div *ngIf="video" class="container-fluid">
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
@@ -5,24 +7,24 @@
   <div class="container-fluid">
     <div class="row">
       <div class="courseTitle col-8">
-      <div class="title">
-        <h3 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h3>
-        
+        <div class="title">
+          <h3 *ngIf="courseDocument" class="display-4" i18n>{{courseDocument.title}}</h3>
+
+        </div>
+
       </div>
-      
-      </div>
-      <div  class="yourProgress col-2 justify-content-right">
+      <div class="yourProgress col-2 justify-content-right">
         <h3>Twój postęp:</h3>
       </div>
       <div class="col-2 spinnerSvg" style="margin-bottom: 10px; max-width: 217px;">
-        <mat-progress-spinner [value]="progress"
-        class="mb-1 spinnerProgress"
-        mode="determinate"
-        ngbTooltip="Aktualny postęp: {{progress}}%"
-        placement="top"
+        <mat-progress-spinner [value]="courseProgress"
+                              class="mb-1 spinnerProgress"
+                              mode="determinate"
+                              ngbTooltip="Aktualny postęp: {{courseProgress}}%"
+                              placement="top"
         ></mat-progress-spinner>
       </div>
-      
+
     </div>
   </div>
   <!-- <h1 *ngIf="courseDocument" class="header padded-left" i18n>{{courseDocument.title}}</h1>
@@ -32,14 +34,15 @@
     <div *ngIf="videoDocument" class="embVideo col-7">
       <div class="row">
         <div class="col-12 bg-light" style=" border-radius: 25px; padding-top: 40px;">
-          <div style="margin-bottom: 20px;" class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
+          <div class="embed-responsive embed-responsive-16by9" id="video-field" mozallowfullscreen="mozallowfullscreen"
+               style="margin-bottom: 20px;"
                msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen"
                webkitallowfullscreen="webkitallowfullscreen">Loading...
           </div>
 
           <!-- <button (click)="addCourseToUserHistory()" class="btn">Start</button> -->
         </div>
-        
+
       </div>
 
       <div class="row justify-content-between" style="padding-top: 9px;">
@@ -97,7 +100,7 @@
            routerLink="/courses/{{courseDocument.id}}/videos/{{courseVideo.mediaId}}"
            style="border-style: solid; border-color: black; border-left-width: 0.25px; ">
           <div class="d-flex w-100 justify-content-start">
-            <h5 class="mb-1 courseThumbnailTitle" >{{courseVideo.title}}</h5>
+            <h5 class="mb-1 courseThumbnailTitle">{{courseVideo.title}}</h5>
           </div>
           <p class="mb-1">{{courseVideo.description | shortText}}</p>
           <div class=" d-flex justify-content-between">
@@ -187,11 +190,11 @@
           </a>
       </div>
   </div>
-</div> 
+</div>
 
 
 
-VERSION TWO 
+VERSION TWO
 
 
 
@@ -220,16 +223,16 @@ VERSION TWO
             <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?margaretriver,australia" class="img-responsive"></a></div>
           </div>
           add  more items here -->
-          <!-- Example item start:  
-          
-          <div class="item">
-            <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
-          </div> -->
-          
-          <!--  Example item end
-        </div>
-        <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-      </div>
-    </div>
-  </div>  -->
+<!-- Example item start:
+
+<div class="item">
+  <div class="col-xs-4"><a href="#1"><img src="https://source.unsplash.com/300x300/?perth,australia&r=7" class="img-responsive"></a></div>
+</div> -->
+
+<!--  Example item end
+</div>
+<a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+<a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+</div>
+</div>
+</div>  -->

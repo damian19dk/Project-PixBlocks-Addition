@@ -1,19 +1,19 @@
 .card {
   width: 80%;
   height: 120px;
-  /* height: auto; */
 }
 
 .card-box {
   display: inline-block;
   overflow: hidden;
   width: 100px;
-  /* height: 50px; */
   margin: 20px 20px 20px 20px;
 }
+
 .card-header {
   height: 35px;
 }
+
 .box-shadow {
   border-style: solid;
   transition: 0.3s;
@@ -56,7 +56,6 @@
 }
 
 .card-text {
-  /* padding: 2% 3%; */
   margin-top: 1px;
   margin-bottom: 1px;
   text-align: justify;
@@ -70,7 +69,6 @@ button {
   margin-left: 5px;
   margin-right: 5px;
 }
-
 
 .languages {
   display: flex;
@@ -94,7 +92,7 @@ button {
 }
 
 .drop-list {
-  width: 100%;
+  width: 80%;
   max-width: 100%;
   border: solid 1px #ccc;
   min-height: 60px;
